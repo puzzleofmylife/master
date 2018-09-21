@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-//import { AlertService } from '../../services/alert.service';
-//import { PsychoService } from '../../services/psycho.service';
+import { AlertService } from '../../services/alert.service';
+// import { PsychoService } from '../../services/psycho.service';
 
 @Component({
   templateUrl: 'psyregister.component.html',
@@ -16,9 +16,9 @@ export class PsyregisterComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router
-    //private psychoService: PsychoService,
-    // private alertService: AlertService
+    private router: Router,
+    // private psychoService: PsychoService,
+    private alertService: AlertService
     ) {}
 
     ngOnInit() {

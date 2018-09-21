@@ -22,9 +22,9 @@
 
     <div class="form-group">
         <label for="contactNum">Contact Number</label>
-        <input type="number" formControlName="contactNo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.contactNo.errors }" />
-        <div *ngIf="submitted && f.contactNo.errors" class="invalid-feedback">
-            <div *ngIf="f.contactNo.errors.required">Contact Number is required</div>
+        <input type="number" formControlName="contactNum" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.contactNum.errors }" />
+        <div *ngIf="submitted && f.contactNum.errors" class="invalid-feedback">
+            <div *ngIf="f.contactNum.errors.required">Contact Number is required</div>
         </div>
     </div>
 
@@ -64,10 +64,10 @@
     </div>
 
     <div class="form-group">
-        <label for="accountNo">Account Number</label>
-        <input type="number" formControlName="accountNo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.accountNo.errors }" />
-        <div *ngIf="submitted && f.accountNo.errors" class="invalid-feedback">
-            <div *ngIf="f.accountNo.errors.required">Bank Name is required</div>
+        <label for="accountNum">Account Number</label>
+        <input type="number" formControlName="accountNum" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.accountNum.errors }" />
+        <div *ngIf="submitted && f.accountNum.errors" class="invalid-feedback">
+            <div *ngIf="f.accountNum.errors.required">Account Number is required</div>
         </div>
     </div>
 
@@ -118,49 +118,37 @@
     <div class="form-group">
         <label for="photo">Attach a Photo</label>
         <br />
-        <input type="file" accept="image/*" [ngClass]="{ 'is-invalid': submitted && f.photo.errors }" />
-        <div *ngIf="submitted && f.photo.errors" class="invalid-feedback">
-        </div>
+        <input type="file" accept="image/*" />
     </div>
 
     <div class="form-group">
         <label for="id">Identification</label>
         <br />
-        <input type="file" accept="doc/*" [ngClass]="{ 'is-invalid': submitted && f.id.errors }" />
-        <div *ngIf="submitted && f.id.errors" class="invalid-feedback">
-        </div>
+        <input type="file" accept="doc/*"  />
     </div>
 
     <div class="form-group">
         <label for="id">Identification</label>
         <br />
-        <input type="file" accept="doc/*" [ngClass]="{ 'is-invalid': submitted && f.id.errors }" />
-        <div *ngIf="submitted && f.id.errors" class="invalid-feedback">
-        </div>
+        <input type="file" accept="doc/*" />
     </div>
 
     <div class="form-group">
         <label for="cv">Curriculum Vitae</label>
         <br />
-        <input type="file" accept="doc/*" [ngClass]="{ 'is-invalid': submitted && f.cv.errors }" />
-        <div *ngIf="submitted && f.cv.errors" class="invalid-feedback">
-        </div>
+        <input type="file" accept="doc/*"  />
     </div>
 
     <div class="form-group">
         <label for="certificates">Certificates</label>
         <br />
-        <input type="file" accept="doc/*" [ngClass]="{ 'is-invalid': submitted && f.certificates.errors }" />
-        <div *ngIf="submitted && f.certificates.errors" class="invalid-feedback">
-        </div>
+        <input type="file" accept="doc/*" />
     </div>
 
     <div class="form-group">
         <label for="licenses">Licenses</label>
         <br />
-        <input type="file" accept="doc/*" [ngClass]="{ 'is-invalid': submitted && f.licenses.errors }" />
-        <div *ngIf="submitted && f.licenses.errors" class="invalid-feedback">
-        </div>
+        <input type="file" accept="doc/*" />
     </div>
 
 

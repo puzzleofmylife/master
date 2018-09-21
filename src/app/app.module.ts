@@ -9,13 +9,16 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { PsyregisterComponent } from './components/psyregister/psyregister.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AlertService } from './services/alert.service';
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NavbarComponent,
-    PsyregisterComponent
+    PsyregisterComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AlertService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

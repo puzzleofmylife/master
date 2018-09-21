@@ -1,5 +1,12 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <app-navbar></app-navbar>
-<div class="container">
-    <router-outlet></router-outlet>
+<div class="jumbotron" style="background-color: #fff">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3">
+                    <app-alert></app-alert> 
+                <router-outlet></router-outlet>
+            </div>
+        </div>
     </div>
+</div>
