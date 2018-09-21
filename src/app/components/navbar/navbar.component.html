@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand navbar-dark bg-primary mb-4">
+  <div class="container">
+    <a routerLink="/" class="navbar-brand">Puzzle of My Life</a>
+    <div>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+            <div class="mat-app-background registerBtn">
+            <button mat-button [matMenuTriggerFor]="menu">Register</button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item routerLink="/psyregister" routerLinkActive="router-link-active">Psychologist</button>
+                <button mat-menu-item>User</button>
+              </mat-menu>
+            </div>
+          <!-- <a routerLink="/" class="nav-link">Register</a> -->
+        </li>
+      </ul>
+  </div>
+  </div>
+</nav>
