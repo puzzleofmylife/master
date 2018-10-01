@@ -1,24 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Psycho } from '../models/Pyscho';
+import { RegisterPsycho } from '../models/RegisterPsycho';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PsychoService {
 
+  baseAPIURL: String = "https://localhost:5001";
+
   constructor(private http: HttpClient) { }
 
   getAll() {
-    return this.http.get<Psycho[]>(`/psychos`);
+    //return this.http.get<Psycho[]>(`/psychos`);
   }
 
   getById(id: number) {
     return this.http.get(`/psychos` + id);
   }
 
-  register(user: Psycho) {
-    return this.http.post(`/psycho/register`, Psycho);
+  register(psycho: RegisterPsycho) {
+    return this.http.post(this.baseAPIURL + '/api/User/psychologist', psycho);
   }
 }

@@ -11,6 +11,9 @@ import { PsyregisterComponent } from './components/psyregister/psyregister.compo
 import { ReactiveFormsModule } from '@angular/forms';
 import { AlertService } from './services/alert.service';
 import { AlertComponent } from './components/alert/alert.component';
+import { PsychoService } from './services/psycho.service';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -26,9 +29,10 @@ import { AlertComponent } from './components/alert/alert.component';
     BrowserAnimationsModule,
     MatMenuModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [AlertService],
+  providers: [AlertService, PsychoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

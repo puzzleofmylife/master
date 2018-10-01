@@ -1,17 +1,18 @@
-import { EmailValidator } from "@angular/forms";
-
-export class Psycho {
-    firstName: string;
-    surname: string;
-    contactNum: number;
-    email: EmailValidator;
+export default class Psycho {
+    email: string;
     password: string;
-    accountName: string;
-    bankName: string;
-    accountNum: number;
-    branch: string;
-    branchCode: number;
-    qualification: string;
-    yearsOfExperience: number;
-    licenseNum: number;
+    firstName: string;
+    lastName: string;
+    psychoIDNumber: number;
+    psychoAge: number;
+    psychoUniversity: string;
+    psychoExperienceYears: number;
+    psychoLicenseNumber: string;
+    psychoQualifications: string[];
+    psychoBankAccAccountNumber: number;
+    psychoBankAccBankName: string;
+    psychoBankAccBranchCode: number;
+    psychoBankAccAccountType: string;
+    phoneNumber: number;
+    attachments: any[];
 }
