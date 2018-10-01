@@ -7,61 +7,93 @@
                 <div class="slds-text-heading_large"><b>Step 1 of 4</b></div>
                 <div class="slds-text-heading_large">Personal details</div>
                 <br />
-                <div class="form-group">
-                    <label class="slds-form-element__label" for="firstName">First Name</label>
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="firstName">First name*</label>
                     <div class="slds-form-element__control">
-                        <input type="text" formControlName="firstName" class="form-control slds-input" [ngClass]="{ 'is-invalid': submitted && p.firstName.errors }" />
-                        <div *ngIf="submitted && p.firstName.errors" class="invalid-feedback">
+                        <input type="text" formControlName="firstName" class="form-control slds-input" />
+                        <div *ngIf="submitted && p.firstName.errors" class="slds-text-color_error">
                             <div *ngIf="p.firstName.errors.required">First Name is required</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="slds-form-element__label" for="surname">Surname</label>
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="surname">Surname*</label>
                     <div class="slds-form-element__control">
-                        <input type="text" formControlName="surname" class="form-control slds-input" [ngClass]="{ 'is-invalid': submitted && p.surname.errors }" />
-                        <div *ngIf="submitted && p.surname.errors" class="invalid-feedback">
+                        <input type="text" formControlName="surname" class="form-control slds-input" />
+                        <div *ngIf="submitted && p.surname.errors" class="slds-text-color_error">
                             <div *ngIf="p.surname.errors.required">Surname is required</div>
                         </div>
                     </div>
                 </div>
 
-
-                <div class="form-group">
-                    <label class="slds-form-element__label" for="contactNum">Contact Number</label>
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="idNumber">ID number*</label>
                     <div class="slds-form-element__control">
-                        <input type="number" formControlName="contactNum" class="form-control slds-input" [ngClass]="{ 'is-invalid': submitted && p.contactNum.errors }" />
-                        <div *ngIf="submitted && p.contactNum.errors" class="invalid-feedback">
-                            <div *ngIf="p.contactNum.errors.required">Contact Number is required</div>
+                        <input type="number" formControlName="idNumber" class="form-control slds-input" />
+                        <div *ngIf="submitted && p.idNumber.errors" class="slds-text-color_error">
+                            <div *ngIf="p.idNumber.errors.required">ID number is required</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="slds-form-element__label" for="email">Email</label>
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="age">Age*</label>
                     <div class="slds-form-element__control">
-                        <input type="email" formControlName="email" class="form-control slds-input" [ngClass]="{ 'is-invalid': submitted && p.email.errors }" />
-                        <div *ngIf="submitted && p.email.errors" class="invalid-feedback">
+                        <input type="number" formControlName="age" class="form-control slds-input" />
+                        <div *ngIf="submitted && p.age.errors" class="slds-text-color_error">
+                            <div *ngIf="p.age.errors.required">Age is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="contactNum">Contact number*</label>
+                    <div class="slds-form-element__control">
+                        <input type="number" formControlName="contactNum" class="form-control slds-input" />
+                        <div *ngIf="submitted && p.contactNum.errors" class="slds-text-color_error">
+                            <div *ngIf="p.contactNum.errors.required">Contact number is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="email">Email address*</label>
+                    <div class="slds-form-element__control">
+                        <input type="email" formControlName="email" email class="form-control slds-input" />
+                        <div *ngIf="submitted && p.email.errors" class="slds-text-color_error">
                             <div *ngIf="p.email.errors.required">Email address is required</div>
-                            <div *ngIf="p.email.errors.email">Invalid Email Address</div>
+                            <div *ngIf="p.email.errors.email">Invalid email address</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="slds-form-element__label" for="password">Password</label>
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="password">Choose your password*</label>
                     <div class="slds-form-element__control">
-                        <input type="password" formControlName="password" class="form-control slds-input" [ngClass]="{ 'is-invalid': submitted && p.password.errors }" />
-                        <div *ngIf="submitted && p.password.errors" class="invalid-feedback">
+                        <input type="password" minlength="8" formControlName="password" class="form-control slds-input" />
+                        <div *ngIf="submitted && p.password.errors" class="slds-text-color_error">
                             <div *ngIf="p.password.errors.required">Password is required</div>
+                            <div *ngIf="p.password.errors.minlength">Password must be at least 8 characters</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group slds-m-top_medium">
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="confirmPassword">Confirm your password*</label>
+                    <div class="slds-form-element__control">
+                        <input type="password" formControlName="confirmPassword" class="form-control slds-input" />
+                        <div *ngIf="submitted && p.confirmPassword.errors" class="slds-text-color_error">
+                            <div *ngIf="p.confirmPassword.errors?.dontMatch">Confirmed password does not match</div>
+                            <div *ngIf="p.confirmPassword.errors.required">Confirmed password is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_medium">
                     <a [routerLink]="['/']" class="slds-button">Cancel</a>
-                    <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right" routerLinkActive="router-link-active">Next</button>
+                    <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
+                        routerLinkActive="router-link-active">Next</button>
                 </div>
             </div>
         </form>
@@ -70,212 +102,168 @@
             <div *ngIf="id == 2">
                 <div class="slds-text-heading_large"><b>Step 2 of 4</b></div>
                 <div class="slds-text-heading_large">Banking details</div>
-            
-                <div class="form-group">
-                    <label class="slds-form-element__label" for="accountName">Account Name</label>
-                    <div class="slds-form-element__control">
-                        <input type="text" formControlName="accountName" class="form-control slds-input" [ngClass]="{ 'is-invalid': submitted && b.accountName.errors }" />
-                        <div *ngIf="submitted && b.accountName.errors" class="invalid-feedback">
-                            <div *ngIf="b.accountName.errors.required">Account Name is required</div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="slds-form-element__label" for="bankName">Bank Name</label>
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="bankName">Bank name*</label>
                     <div class="slds-form-element__control">
-                        <input type="text" formControlName="bankName" class="form-control slds-input" [ngClass]="{ 'is-invalid': submitted && b.bankName.errors }" />
-                        <div *ngIf="submitted && b.bankName.errors" class="invalid-feedback">
+                        <input type="text" formControlName="bankName" class="form-control slds-input" />
+                        <div *ngIf="submitted && b.bankName.errors" class="slds-text-color_error">
                             <div *ngIf="b.bankName.errors.required">Bank Name is required</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="slds-form-element__label" for="accountNum">Account Number</label>
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="accountType">Account type*</label>
                     <div class="slds-form-element__control">
-                        <input type="number" formControlName="accountNum" class="form-control slds-input" [ngClass]="{ 'is-invalid': submitted && b.accountNum.errors }" />
-                        <div *ngIf="submitted && b.accountNum.errors" class="invalid-feedback">
-                            <div *ngIf="b.accountNum.errors.required">Account Number is required</div>
+                        <input type="text" formControlName="accountType" class="form-control slds-input" />
+                        <div *ngIf="submitted && b.accountType.errors" class="slds-text-color_error">
+                            <div *ngIf="b.accountType.errors.required">Account type is required</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="slds-form-element__label" for="branch">Branch</label>
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="accountNum">Account number*</label>
                     <div class="slds-form-element__control">
-                        <input type="text" formControlName="branch" class="form-control slds-input" [ngClass]="{ 'is-invalid': submitted && b.branch.errors }" />
-                        <div *ngIf="submitted && b.branch.errors" class="invalid-feedback">
-                            <div *ngIf="b.branch.errors.required">Bank Name is required</div>
+                        <input type="number" formControlName="accountNum" class="form-control slds-input" />
+                        <div *ngIf="submitted && b.accountNum.errors" class="slds-text-color_error">
+                            <div *ngIf="b.accountNum.errors.required">Account number is required</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="slds-form-element__label" for="branchCode">Branch Code</label>
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="branchCode">Branch code*</label>
                     <div class="slds-form-element__control">
-                        <input type="number" formControlName="branchCode" class="form-control slds-input" [ngClass]="{ 'is-invalid': submitted && b.branchCode.errors }" />
-                        <div *ngIf="submitted && b.branchCode.errors" class="invalid-feedback">
-                            <div *ngIf="b.branchCode.errors.required">Bank Code is required</div>
+                        <input type="number" formControlName="branchCode" class="form-control slds-input" />
+                        <div *ngIf="submitted && b.branchCode.errors" class="slds-text-color_error">
+                            <div *ngIf="b.branchCode.errors.required">Branch code is required</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group slds-m-top_medium">
+                <div class="slds-m-top_medium">
                     <button type="button" class="slds-button" [routerLink]="['/psyregister']" [queryParams]="{page:1}"
                         routerLinkActive="router-link-active">Back</button>
-                    <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right" routerLinkActive="router-link-active">Next</button>
+                    <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
+                        routerLinkActive="router-link-active">Next</button>
                 </div>
             </div>
         </form>
 
-        <form [formGroup]="professionalForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="professionalForm" (ngSubmit)="onProfessionalSubmit()">
             <div *ngIf="id == 3">
                 <div class="slds-text-heading_large"><b>Step 3 of 4</b></div>
                 <div class="slds-text-heading_large">Professional information</div>
-                <div class="form-group">
-                    <label class="slds-form-element__label" for="qualification">Highest Qualification</label>
+
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="qualification">Highest qualification*</label>
                     <div class="slds-form-element__control">
-                        <input type="text" formControlName="qualification" class="form-control slds-input" [ngClass]="{ 'is-invalid': submitted && pf.qualification.errors }" />
-                        <div *ngIf="submitted && pf.qualification.errors" class="invalid-feedback">
-                            <div *ngIf="pf.qualification.errors.required">Highest Qualification is required</div>
+                        <input type="text" formControlName="qualification" class="form-control slds-input" />
+                        <div *ngIf="submitted && pf.qualification.errors" class="slds-text-color_error">
+                            <div *ngIf="pf.qualification.errors.required">Highest qualification is required</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="slds-form-element__label" for="yearsOfExperience">Years of Experience</label>
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="university">University of highest qualification*</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" formControlName="university" class="form-control slds-input" />
+                        <div *ngIf="submitted && pf.university.errors" class="slds-text-color_error">
+                            <div *ngIf="pf.university.errors.required">University of highest hualification is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="yearsOfExperience">Number of years experience*</label>
                     <div class="slds-form-element__control">
                         <input type="number" formControlName="yearsOfExperience" class="form-control slds-input"
                             [ngClass]="{ 'is-invalid': submitted && pf.yearsOfExperience.errors }" />
-                        <div *ngIf="submitted && pf.yearsOfExperience.errors" class="invalid-feedback">
-                            <div *ngIf="pf.yearsOfExperience.errors.required">Bank Code is required</div>
+                        <div *ngIf="submitted && pf.yearsOfExperience.errors" class="slds-text-color_error">
+                            <div *ngIf="pf.yearsOfExperience.errors.required">Years of experience is required</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="slds-form-element__label" for="licenseNum">License Number</label>
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="licenseNum">License number*</label>
                     <div class="slds-form-element__control">
-                        <input type="number" formControlName="licenseNum" class="form-control slds-input" [ngClass]="{ 'is-invalid': submitted && pf.licenseNum.errors }" />
-                        <div *ngIf="submitted && pf.licenseNum.errors" class="invalid-feedback">
-                            <div *ngIf="pf.licenseNum.errors.required">License Number is required</div>
+                        <input type="text" formControlName="licenseNum" class="form-control slds-input" />
+                        <div *ngIf="submitted && pf.licenseNum.errors" class="slds-text-color_error">
+                            <div *ngIf="pf.licenseNum.errors.required">License number is required</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group slds-m-top_medium">
+                <div class="slds-m-top_medium">
                     <button type="button" class="slds-button" [routerLink]="['/psyregister']" [queryParams]="{page:2}"
                         routerLinkActive="router-link-active">Back</button>
-                    <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right" routerLinkActive="router-link-active">Next</button>
-                        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                    <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
+                        routerLinkActive="router-link-active">Next</button>
                 </div>
 
             </div>
+        </form>
 
+        <form [formGroup]="attachmentForm" (ngSubmit)="onAttachmentsSubmit()">
             <div *ngIf="id == 4">
                 <div class="slds-text-heading_large"><b>Step 4 of 4</b></div>
                 <div class="slds-text-heading_large">Attachments</div>
                 <br />
-                <div class="form-group">
-                    <div class="slds-form-element">
-                        <span class="slds-form-element__label" id="file-selector-primary-label">Attach a Photo</span>
-                        <div class="slds-form-element__control">
-                            <div class="slds-file-selector slds-file-selector_files">
-                                <input class="slds-file-selector__input slds-assistive-text" accept="image/png" type="file"
-                                    id="file-upload-input-01" aria-labelledby="file-selector-primary-label file-selector-secondary-label" />
-                                <label class="slds-file-selector__body" for="file-upload-input-01" id="file-selector-secondary-label">
-                                    <span class="slds-file-selector__button slds-button slds-button_neutral">
-                                        <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
-                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#upload" />
-                                        </svg>Upload File</span>
-                                </label>
-                            </div>
+
+                <div class="slds-m-top_small">
+                    <label class="slds-text-heading_medium" for="photoFile">Photo of yourself (headshot)*</label>
+                    <div class="slds-form-element__control slds-m-top_x-small">
+                        <input required #photoFile formControlName="photoFile" accept="image/png, .pdf" type="file" (change)="onPhotoFileChange($event)" />
+                        <div *ngIf="attachForm.photoFile.errors" class="slds-text-color_error">
+                            <div *ngIf="submitted && attachForm.photoFile.errors.required">Photo of yourself is required</div>
+                            <div *ngIf="attachForm.photoFile.errors?.tooLarge">File too large, max file size is {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group slds-m-top_small">
-                    <div class="slds-form-element">
-                        <span class="slds-form-element__label" id="id_primary">Identification</span>
-                        <div class="slds-form-element__control">
-                            <div class="slds-file-selector slds-file-selector_files">
-                                <input class="slds-file-selector__input slds-assistive-text" accept=".pdf, .doc, .jpeg, .png, .bmp, .xls, .xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
-                                    type="file" id="file-upload-input-02" aria-labelledby="id_primary id_secondary" />
-                                <label class="slds-file-selector__body" for="file-upload-input-02" id="id_secondary">
-                                    <span class="slds-file-selector__button slds-button slds-button_neutral">
-                                        <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
-                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#upload" />
-                                        </svg>Upload File</span>
-                                </label>
-                            </div>
+                <div class="slds-m-top_medium">
+                    <label class="slds-text-heading_medium" for="idDocFile">ID document*</label>
+                    <div class="slds-form-element__control slds-m-top_x-small">
+                        <input #idDocFile required formControlName="idDocFile" accept="image/png, .pdf" type="file" (change)="onIdDocFileChange($event)"/>
+                        <div *ngIf="attachForm.idDocFile.errors" class="slds-text-color_error">
+                            <div *ngIf="submitted && attachForm.idDocFile.errors.required">ID document is required</div>
+                            <div *ngIf="attachForm.idDocFile.errors?.tooLarge">File too large, max file size is {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group slds-m-top_small">
-                    <div class="slds-form-element">
-                        <span class="slds-form-element__label" id="cv_primary">Curriculum Vitae</span>
-                        <div class="slds-form-element__control">
-                            <div class="slds-file-selector slds-file-selector_files">
-                                <input class="slds-file-selector__input slds-assistive-text" accept=".pdf, .doc, .jpeg, .png, .bmp, .xls, .xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
-                                    type="file" id="file-upload-input-03" aria-labelledby="cv_primary cv_secondary" />
-                                <label class="slds-file-selector__body" for="file-upload-input-03" id="cv_secondary">
-                                    <span class="slds-file-selector__button slds-button slds-button_neutral">
-                                        <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
-                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#upload" />
-                                        </svg>Upload File</span>
-                                </label>
-                            </div>
+                <div class="slds-m-top_medium">
+                    <label class="slds-text-heading_medium" for="cvFile">Curriculum Vitae*</label>
+                    <div class="slds-form-element__control slds-m-top_x-small">
+                        <input #cvFile required formControlName="cvFile" accept="image/png, .pdf, .doc, .docx, .txt" type="file" (change)="onCVFileChange($event)" />
+                        <div *ngIf="attachForm.cvFile.errors" class="slds-text-color_error">
+                            <div *ngIf="submitted && attachForm.cvFile.errors.required">CV is required</div>
+                            <div *ngIf="attachForm.cvFile.errors?.tooLarge">File too large, max file size is {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group slds-m-top_small">
-                    <div class="slds-form-element">
-                        <span class="slds-form-element__label" id="certs_primary">Certificates</span>
-                        <div class="slds-form-element__control">
-                            <div class="slds-file-selector slds-file-selector_files">
-                                <input class="slds-file-selector__input slds-assistive-text" accept=".pdf, .doc, .jpeg, .png, bmp, .xls, .xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
-                                    type="file" id="file-upload-input-04" aria-labelledby="certs_primary certs_secondary" />
-                                <label class="slds-file-selector__body" for="file-upload-input-04" id="certs_secondary">
-                                    <span class="slds-file-selector__button slds-button slds-button_neutral">
-                                        <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
-                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#upload" />
-                                        </svg>Upload File</span>
-                                </label>
-                            </div>
+                <div class="slds-m-top_medium">
+                    <label class="slds-text-heading_medium" for="licenseFile">License*</label>
+                    <div class="slds-form-element__control slds-m-top_x-small">
+                        <input #licenseFile required formControlName="licenseFile" accept="image/png, .pdf, .doc, .docx, .txt" type="file" (change)="onLicenseFileChange($event)" />
+                        <div *ngIf="attachForm.licenseFile.errors" class="slds-text-color_error">
+                            <div *ngIf="submitted && attachForm.licenseFile.errors.required">License is required</div>
+                            <div *ngIf="attachForm.licenseFile.errors?.tooLarge">File too large, max file size is {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group slds-m-top_small">
-                    <div class="slds-form-element">
-                        <span class="slds-form-element__label" id="license_primary">Licenses</span>
-                        <div class="slds-form-element__control">
-                            <div class="slds-file-selector slds-file-selector_files">
-                                <input class="slds-file-selector__input slds-assistive-text" accept=".pdf, .doc, .jpeg, .png, bmp, .xls, .xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
-                                    type="file" id="file-upload-input-05" aria-labelledby="license_primary license_secondary" />
-                                <label class="slds-file-selector__body" for="file-upload-input-05" id="license_secondary">
-                                    <span class="slds-file-selector__button slds-button slds-button_neutral">
-                                        <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
-                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#upload" />
-                                        </svg>Upload File</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
+                <div class="slds-m-top_medium">
+                    <button type="button" class="slds-button" [routerLink]="['/psyregister']" [queryParams]="{page:3}"
+                        routerLinkActive="router-link-active">Back</button>
+                    <button [disabled]="loading" class="slds-button slds-button_brand btn-right" routerLinkActive="router-link-active">Register</button>
                 </div>
 
-                <div class="form-group slds-m-top_small">
-                    <div class="form-group slds-m-top_medium">
-                        <button type="button" class="slds-button" [routerLink]="['/psyregister']" [queryParams]="{page:3}"
-                            routerLinkActive="router-link-active">Back</button>
-                        <button type="button" [disabled]="loading" class="slds-button slds-button_brand btn-right" routerLinkActive="router-link-active">Register</button>
-                    </div>
-                    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-
-                </div>
             </div>
         </form>
     </div>
