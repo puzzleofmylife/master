@@ -1,8 +1,11 @@
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@media only screen and (max-width: 576px) {
+  .jumbotron {
+    padding: 0rem, 0rem !important;
+  }
+}
 
-body { 
-  font-family: Roboto, Arial, sans-serif;
-  margin: 0;
+html { 
+  background-color: #fff !important; 
 }
 
 .basic-container {
@@ -14,9 +17,6 @@ body {
   float: right;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: 'Roboto', sans-serif; }
-
 .registerBtn {
   background-color: Transparent !important;
   color: #fff !important;
@@ -25,4 +25,11 @@ body { margin: 0; font-family: 'Roboto', sans-serif; }
   cursor:pointer;
   overflow: hidden;
   outline:none;
+}
+
+.btn-right {
+  float: right !important;
+}
+.btn-left {
+  float: left !important;
 }

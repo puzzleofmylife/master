@@ -1,7 +1,6 @@
 import { EmailValidator } from "@angular/forms";
 
 export class Psycho {
-    id: number;
     firstName: string;
     surname: string;
     contactNum: number;
