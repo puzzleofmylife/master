@@ -271,9 +271,17 @@
                     <button type="button" class="slds-button" [routerLink]="['/psyregister']" [queryParams]="{page:3}"
                         routerLinkActive="router-link-active">Back</button>
                     <button [disabled]="loading" class="slds-button slds-button_brand btn-right" routerLinkActive="router-link-active">Register</button>
+                    
+                    <div [hidden]="!loading" class="slds-spinner_container">
+                        <div role="status" class="slds-spinner slds-spinner_medium">
+                          <span class="slds-assistive-text">Loading</span>
+                          <div class="slds-spinner__dot-a"></div>
+                          <div class="slds-spinner__dot-b"></div>
+                        </div>
+                      </div>
                 </div>
 
-                <div [ngClass]="{'slds-hide': !sumbitError}" class="slds-m-top_medium slds-text-color_error">
+                <div [ngClass]="{'slds-hide': !finalSumbitError}" class="slds-m-top_medium slds-text-color_error">
                     An unexpected error occurred.
                 </div>
 

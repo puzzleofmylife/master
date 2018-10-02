@@ -23,7 +23,7 @@ export class PsyregisterComponent implements OnInit {
   submitted = false;
   id: Page;
   maxFileSizeBytes: number = 5242880;
-  sumbitError: boolean = false;
+  finalSumbitError: boolean = false;
   duplicateUsername: boolean;
 
   @ViewChild("photoFile") photoFile;
@@ -115,6 +115,9 @@ export class PsyregisterComponent implements OnInit {
     if (this.professionalForm.valid) {
       //console.log("Form Submitted!");
       this.submitted = false;
+      //Clear any final submit errors that could have occured on a previously final submit
+      this.finalSumbitError = false;
+      this.duplicateUsername = false;
       this.router.navigate(['/psyregister'], { queryParams: { page: '4' } });
     }
   }
@@ -152,12 +155,15 @@ export class PsyregisterComponent implements OnInit {
     var attachments = await this.generateAttachments();
     registerPsycho.psychologistUser.attachments = attachments;
 
+    this.loading = true;
     this.psychoService.register(registerPsycho).subscribe(result => {
       //Success
-      var foo = result;
+      this.loading = false;
     },
+      //Error
       error => {
-        this.sumbitError = true;
+        this.loading = false;
+        this.finalSumbitError = true;
 
         //Check for duplictate username error
         if(error.error.Error){
@@ -165,7 +171,7 @@ export class PsyregisterComponent implements OnInit {
             if(element.indexOf('DuplicateUserName') >= 0)
               this.duplicateUsername = true;
               //Dont show generic error msg
-              this.sumbitError = false;
+              this.finalSumbitError = false;
           });
         }
         console.log(JSON.stringify(error.error));
