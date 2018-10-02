@@ -84,7 +84,8 @@
                     <div class="slds-form-element__control">
                         <input type="password" formControlName="confirmPassword" class="form-control slds-input" />
                         <div *ngIf="submitted && _personalForm.confirmPassword.errors" class="slds-text-color_error">
-                            <div *ngIf="_personalForm.confirmPassword.errors?.dontMatch">Confirmed password does not match</div>
+                            <div *ngIf="_personalForm.confirmPassword.errors?.dontMatch">Confirmed password does not
+                                match</div>
                             <div *ngIf="_personalForm.confirmPassword.errors.required">Confirmed password is required</div>
                         </div>
                     </div>
@@ -162,7 +163,8 @@
                     <div class="slds-form-element__control">
                         <input type="text" formControlName="qualification" class="form-control slds-input" />
                         <div *ngIf="submitted && _professionalForm.qualification.errors" class="slds-text-color_error">
-                            <div *ngIf="_professionalForm.qualification.errors.required">Highest qualification is required</div>
+                            <div *ngIf="_professionalForm.qualification.errors.required">Highest qualification is
+                                required</div>
                         </div>
                     </div>
                 </div>
@@ -172,7 +174,8 @@
                     <div class="slds-form-element__control">
                         <input type="text" formControlName="university" class="form-control slds-input" />
                         <div *ngIf="submitted && _professionalForm.university.errors" class="slds-text-color_error">
-                            <div *ngIf="_professionalForm.university.errors.required">University of highest hualification is required</div>
+                            <div *ngIf="_professionalForm.university.errors.required">University of highest
+                                hualification is required</div>
                         </div>
                     </div>
                 </div>
@@ -183,7 +186,8 @@
                         <input type="number" formControlName="yearsOfExperience" class="form-control slds-input"
                             [ngClass]="{ 'is-invalid': submitted && _professionalForm.yearsOfExperience.errors }" />
                         <div *ngIf="submitted && _professionalForm.yearsOfExperience.errors" class="slds-text-color_error">
-                            <div *ngIf="_professionalForm.yearsOfExperience.errors.required">Years of experience is required</div>
+                            <div *ngIf="_professionalForm.yearsOfExperience.errors.required">Years of experience is
+                                required</div>
                         </div>
                     </div>
                 </div>
@@ -271,14 +275,14 @@
                     <button type="button" class="slds-button" [routerLink]="['/psyregister']" [queryParams]="{page:3}"
                         routerLinkActive="router-link-active">Back</button>
                     <button [disabled]="loading" class="slds-button slds-button_brand btn-right" routerLinkActive="router-link-active">Register</button>
-                    
+
                     <div [hidden]="!loading" class="slds-spinner_container">
                         <div role="status" class="slds-spinner slds-spinner_medium">
-                          <span class="slds-assistive-text">Loading</span>
-                          <div class="slds-spinner__dot-a"></div>
-                          <div class="slds-spinner__dot-b"></div>
+                            <span class="slds-assistive-text">Loading</span>
+                            <div class="slds-spinner__dot-a"></div>
+                            <div class="slds-spinner__dot-b"></div>
                         </div>
-                      </div>
+                    </div>
                 </div>
 
                 <div [ngClass]="{'slds-hide': !finalSumbitError}" class="slds-m-top_medium slds-text-color_error">
@@ -286,11 +290,41 @@
                 </div>
 
                 <div [ngClass]="{'slds-hide': !duplicateUsername}" class="slds-m-top_medium slds-text-color_error">
-                    Email <b>{{ _personalForm.email.value }}</b> already exists in our system. Please login with that email address, or go back and select a different email address.
+                    Email <b>{{ _personalForm.email.value }}</b> already exists in our system. Please login with that
+                    email address, or go back and select a different email address.
                 </div>
 
             </div>
         </form>
+
+        <div [hidden]="id != 5">
+            <div class="slds-text-heading_large slds-align_absolute-center">
+                Thank you
+            </div>
+
+            <div class="slds-align_absolute-center slds-m-top_medium">
+                <span class="slds-icon_container" title="Success">
+                    <svg class="slds-icon_large slds-icon-text-success" aria-hidden="true">
+                        <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#success"></use>
+                    </svg>
+                    <span class="slds-assistive-text">Success</span>
+                </span>
+            </div>
+
+            <div class="slds-text-heading_medium slds-align_absolute-center slds-m-top_medium">
+                We have sent an email address verification link to
+            </div>
+
+            <div class="slds-text-heading_medium slds-align_absolute-center slds-m-top_medium">
+                <b>{{ successEmailAddress }}</b>
+            </div>
+
+            <div class="slds-text-heading_medium slds-align_absolute-center slds-m-top_medium">
+                Please follow that link to complete the sign up process.
+            </div>
+
+        </div>
+
     </div>
     <div class="slds-col slds-size_1-of-12 slds-medium-size_2-of-12 slds-large-size_4-of-12"></div>
 </div>

@@ -21,6 +21,7 @@ export class PsyregisterComponent implements OnInit {
   maxFileSizeBytes: number = 5242880;
   finalSumbitError: boolean = false;
   duplicateUsername: boolean;
+  successEmailAddress: string;
 
   @ViewChild("photoFile") photoFile;
   @ViewChild("idDocFile") idDocFile;
@@ -154,8 +155,22 @@ export class PsyregisterComponent implements OnInit {
 
     this.loading = true;
     this.psychoService.register(registerPsycho).subscribe(result => {
-      //Success
+      //Success....
+
+      //Hide loading spinner
       this.loading = false;
+
+      //Set email address for use on final success page
+      this.successEmailAddress = this._personalForm.email.value;
+
+      //Reset sign up forms
+      this.personalForm.reset();
+      this.professionalForm.reset();
+      this.bankingForm.reset();
+      this.attachmentForm.reset();
+
+      //Nav to success
+      this.router.navigate(['/psyregister'], { queryParams: { page: '5' } });
     },
       //Error
       error => {
