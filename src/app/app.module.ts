@@ -13,6 +13,7 @@ import { AlertService } from './services/alert.service';
 import { AlertComponent } from './components/alert/alert.component';
 import { PsychoService } from './services/psycho.service';
 import { HttpClientModule } from '@angular/common/http';
+import { VerifyComponent } from './components/verify/verify.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     NavbarComponent,
     PsyregisterComponent,
-    AlertComponent
+    AlertComponent,
+    VerifyComponent
   ],
   imports: [
     BrowserModule,
