@@ -11,8 +11,8 @@
                     <label class="slds-form-element__label" for="firstName">First name*</label>
                     <div class="slds-form-element__control">
                         <input type="text" formControlName="firstName" class="form-control slds-input" />
-                        <div *ngIf="submitted && p.firstName.errors" class="slds-text-color_error">
-                            <div *ngIf="p.firstName.errors.required">First Name is required</div>
+                        <div *ngIf="submitted && _personalForm.firstName.errors" class="slds-text-color_error">
+                            <div *ngIf="_personalForm.firstName.errors.required">First Name is required</div>
                         </div>
                     </div>
                 </div>
@@ -21,8 +21,8 @@
                     <label class="slds-form-element__label" for="surname">Surname*</label>
                     <div class="slds-form-element__control">
                         <input type="text" formControlName="surname" class="form-control slds-input" />
-                        <div *ngIf="submitted && p.surname.errors" class="slds-text-color_error">
-                            <div *ngIf="p.surname.errors.required">Surname is required</div>
+                        <div *ngIf="submitted && _personalForm.surname.errors" class="slds-text-color_error">
+                            <div *ngIf="_personalForm.surname.errors.required">Surname is required</div>
                         </div>
                     </div>
                 </div>
@@ -31,8 +31,8 @@
                     <label class="slds-form-element__label" for="idNumber">ID number*</label>
                     <div class="slds-form-element__control">
                         <input type="number" formControlName="idNumber" class="form-control slds-input" />
-                        <div *ngIf="submitted && p.idNumber.errors" class="slds-text-color_error">
-                            <div *ngIf="p.idNumber.errors.required">ID number is required</div>
+                        <div *ngIf="submitted && _personalForm.idNumber.errors" class="slds-text-color_error">
+                            <div *ngIf="_personalForm.idNumber.errors.required">ID number is required</div>
                         </div>
                     </div>
                 </div>
@@ -41,8 +41,8 @@
                     <label class="slds-form-element__label" for="age">Age*</label>
                     <div class="slds-form-element__control">
                         <input type="number" formControlName="age" class="form-control slds-input" />
-                        <div *ngIf="submitted && p.age.errors" class="slds-text-color_error">
-                            <div *ngIf="p.age.errors.required">Age is required</div>
+                        <div *ngIf="submitted && _personalForm.age.errors" class="slds-text-color_error">
+                            <div *ngIf="_personalForm.age.errors.required">Age is required</div>
                         </div>
                     </div>
                 </div>
@@ -51,8 +51,8 @@
                     <label class="slds-form-element__label" for="contactNum">Contact number*</label>
                     <div class="slds-form-element__control">
                         <input type="number" formControlName="contactNum" class="form-control slds-input" />
-                        <div *ngIf="submitted && p.contactNum.errors" class="slds-text-color_error">
-                            <div *ngIf="p.contactNum.errors.required">Contact number is required</div>
+                        <div *ngIf="submitted && _personalForm.contactNum.errors" class="slds-text-color_error">
+                            <div *ngIf="_personalForm.contactNum.errors.required">Contact number is required</div>
                         </div>
                     </div>
                 </div>
@@ -61,9 +61,9 @@
                     <label class="slds-form-element__label" for="email">Email address*</label>
                     <div class="slds-form-element__control">
                         <input type="email" formControlName="email" email class="form-control slds-input" />
-                        <div *ngIf="submitted && p.email.errors" class="slds-text-color_error">
-                            <div *ngIf="p.email.errors.required">Email address is required</div>
-                            <div *ngIf="p.email.errors.email">Invalid email address</div>
+                        <div *ngIf="submitted && _personalForm.email.errors" class="slds-text-color_error">
+                            <div *ngIf="_personalForm.email.errors.required">Email address is required</div>
+                            <div *ngIf="_personalForm.email.errors.email">Invalid email address</div>
                         </div>
                     </div>
                 </div>
@@ -72,9 +72,9 @@
                     <label class="slds-form-element__label" for="password">Choose your password*</label>
                     <div class="slds-form-element__control">
                         <input type="password" minlength="8" formControlName="password" class="form-control slds-input" />
-                        <div *ngIf="submitted && p.password.errors" class="slds-text-color_error">
-                            <div *ngIf="p.password.errors.required">Password is required</div>
-                            <div *ngIf="p.password.errors.minlength">Password must be at least 8 characters</div>
+                        <div *ngIf="submitted && _personalForm.password.errors" class="slds-text-color_error">
+                            <div *ngIf="_personalForm.password.errors.required">Password is required</div>
+                            <div *ngIf="_personalForm.password.errors.minlength">Password must be at least 8 characters</div>
                         </div>
                     </div>
                 </div>
@@ -83,9 +83,9 @@
                     <label class="slds-form-element__label" for="confirmPassword">Confirm your password*</label>
                     <div class="slds-form-element__control">
                         <input type="password" formControlName="confirmPassword" class="form-control slds-input" />
-                        <div *ngIf="submitted && p.confirmPassword.errors" class="slds-text-color_error">
-                            <div *ngIf="p.confirmPassword.errors?.dontMatch">Confirmed password does not match</div>
-                            <div *ngIf="p.confirmPassword.errors.required">Confirmed password is required</div>
+                        <div *ngIf="submitted && _personalForm.confirmPassword.errors" class="slds-text-color_error">
+                            <div *ngIf="_personalForm.confirmPassword.errors?.dontMatch">Confirmed password does not match</div>
+                            <div *ngIf="_personalForm.confirmPassword.errors.required">Confirmed password is required</div>
                         </div>
                     </div>
                 </div>
@@ -107,8 +107,8 @@
                     <label class="slds-form-element__label" for="bankName">Bank name*</label>
                     <div class="slds-form-element__control">
                         <input type="text" formControlName="bankName" class="form-control slds-input" />
-                        <div *ngIf="submitted && b.bankName.errors" class="slds-text-color_error">
-                            <div *ngIf="b.bankName.errors.required">Bank Name is required</div>
+                        <div *ngIf="submitted && _bankingForm.bankName.errors" class="slds-text-color_error">
+                            <div *ngIf="_bankingForm.bankName.errors.required">Bank Name is required</div>
                         </div>
                     </div>
                 </div>
@@ -117,8 +117,8 @@
                     <label class="slds-form-element__label" for="accountType">Account type*</label>
                     <div class="slds-form-element__control">
                         <input type="text" formControlName="accountType" class="form-control slds-input" />
-                        <div *ngIf="submitted && b.accountType.errors" class="slds-text-color_error">
-                            <div *ngIf="b.accountType.errors.required">Account type is required</div>
+                        <div *ngIf="submitted && _bankingForm.accountType.errors" class="slds-text-color_error">
+                            <div *ngIf="_bankingForm.accountType.errors.required">Account type is required</div>
                         </div>
                     </div>
                 </div>
@@ -127,8 +127,8 @@
                     <label class="slds-form-element__label" for="accountNum">Account number*</label>
                     <div class="slds-form-element__control">
                         <input type="number" formControlName="accountNum" class="form-control slds-input" />
-                        <div *ngIf="submitted && b.accountNum.errors" class="slds-text-color_error">
-                            <div *ngIf="b.accountNum.errors.required">Account number is required</div>
+                        <div *ngIf="submitted && _bankingForm.accountNum.errors" class="slds-text-color_error">
+                            <div *ngIf="_bankingForm.accountNum.errors.required">Account number is required</div>
                         </div>
                     </div>
                 </div>
@@ -137,8 +137,8 @@
                     <label class="slds-form-element__label" for="branchCode">Branch code*</label>
                     <div class="slds-form-element__control">
                         <input type="number" formControlName="branchCode" class="form-control slds-input" />
-                        <div *ngIf="submitted && b.branchCode.errors" class="slds-text-color_error">
-                            <div *ngIf="b.branchCode.errors.required">Branch code is required</div>
+                        <div *ngIf="submitted && _bankingForm.branchCode.errors" class="slds-text-color_error">
+                            <div *ngIf="_bankingForm.branchCode.errors.required">Branch code is required</div>
                         </div>
                     </div>
                 </div>
@@ -161,8 +161,8 @@
                     <label class="slds-form-element__label" for="qualification">Highest qualification*</label>
                     <div class="slds-form-element__control">
                         <input type="text" formControlName="qualification" class="form-control slds-input" />
-                        <div *ngIf="submitted && pf.qualification.errors" class="slds-text-color_error">
-                            <div *ngIf="pf.qualification.errors.required">Highest qualification is required</div>
+                        <div *ngIf="submitted && _professionalForm.qualification.errors" class="slds-text-color_error">
+                            <div *ngIf="_professionalForm.qualification.errors.required">Highest qualification is required</div>
                         </div>
                     </div>
                 </div>
@@ -171,8 +171,8 @@
                     <label class="slds-form-element__label" for="university">University of highest qualification*</label>
                     <div class="slds-form-element__control">
                         <input type="text" formControlName="university" class="form-control slds-input" />
-                        <div *ngIf="submitted && pf.university.errors" class="slds-text-color_error">
-                            <div *ngIf="pf.university.errors.required">University of highest hualification is required</div>
+                        <div *ngIf="submitted && _professionalForm.university.errors" class="slds-text-color_error">
+                            <div *ngIf="_professionalForm.university.errors.required">University of highest hualification is required</div>
                         </div>
                     </div>
                 </div>
@@ -181,9 +181,9 @@
                     <label class="slds-form-element__label" for="yearsOfExperience">Number of years experience*</label>
                     <div class="slds-form-element__control">
                         <input type="number" formControlName="yearsOfExperience" class="form-control slds-input"
-                            [ngClass]="{ 'is-invalid': submitted && pf.yearsOfExperience.errors }" />
-                        <div *ngIf="submitted && pf.yearsOfExperience.errors" class="slds-text-color_error">
-                            <div *ngIf="pf.yearsOfExperience.errors.required">Years of experience is required</div>
+                            [ngClass]="{ 'is-invalid': submitted && _professionalForm.yearsOfExperience.errors }" />
+                        <div *ngIf="submitted && _professionalForm.yearsOfExperience.errors" class="slds-text-color_error">
+                            <div *ngIf="_professionalForm.yearsOfExperience.errors.required">Years of experience is required</div>
                         </div>
                     </div>
                 </div>
@@ -192,8 +192,8 @@
                     <label class="slds-form-element__label" for="licenseNum">License number*</label>
                     <div class="slds-form-element__control">
                         <input type="text" formControlName="licenseNum" class="form-control slds-input" />
-                        <div *ngIf="submitted && pf.licenseNum.errors" class="slds-text-color_error">
-                            <div *ngIf="pf.licenseNum.errors.required">License number is required</div>
+                        <div *ngIf="submitted && _professionalForm.licenseNum.errors" class="slds-text-color_error">
+                            <div *ngIf="_professionalForm.licenseNum.errors.required">License number is required</div>
                         </div>
                     </div>
                 </div>
@@ -219,10 +219,10 @@
                     <div class="slds-form-element__control slds-m-top_x-small">
                         <input required #photoFile formControlName="photoFile" accept="image/png, .pdf" type="file"
                             (change)="onPhotoFileChange($event)" />
-                        <div *ngIf="attachForm.photoFile.errors" class="slds-text-color_error">
-                            <div *ngIf="submitted && attachForm.photoFile.errors.required">Photo of yourself is
+                        <div *ngIf="_attachmentForm.photoFile.errors" class="slds-text-color_error">
+                            <div *ngIf="submitted && _attachmentForm.photoFile.errors.required">Photo of yourself is
                                 required</div>
-                            <div *ngIf="attachForm.photoFile.errors?.tooLarge">File too large, max file size is
+                            <div *ngIf="_attachmentForm.photoFile.errors?.tooLarge">File too large, max file size is
                                 {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
                         </div>
                     </div>
@@ -233,9 +233,9 @@
                     <div class="slds-form-element__control slds-m-top_x-small">
                         <input #idDocFile required formControlName="idDocFile" accept="image/png, .pdf" type="file"
                             (change)="onIdDocFileChange($event)" />
-                        <div *ngIf="attachForm.idDocFile.errors" class="slds-text-color_error">
-                            <div *ngIf="submitted && attachForm.idDocFile.errors.required">ID document is required</div>
-                            <div *ngIf="attachForm.idDocFile.errors?.tooLarge">File too large, max file size is
+                        <div *ngIf="_attachmentForm.idDocFile.errors" class="slds-text-color_error">
+                            <div *ngIf="submitted && _attachmentForm.idDocFile.errors.required">ID document is required</div>
+                            <div *ngIf="_attachmentForm.idDocFile.errors?.tooLarge">File too large, max file size is
                                 {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
                         </div>
                     </div>
@@ -246,9 +246,9 @@
                     <div class="slds-form-element__control slds-m-top_x-small">
                         <input #cvFile required formControlName="cvFile" accept="image/png, .pdf, .doc, .docx, .txt"
                             type="file" (change)="onCVFileChange($event)" />
-                        <div *ngIf="attachForm.cvFile.errors" class="slds-text-color_error">
-                            <div *ngIf="submitted && attachForm.cvFile.errors.required">CV is required</div>
-                            <div *ngIf="attachForm.cvFile.errors?.tooLarge">File too large, max file size is
+                        <div *ngIf="_attachmentForm.cvFile.errors" class="slds-text-color_error">
+                            <div *ngIf="submitted && _attachmentForm.cvFile.errors.required">CV is required</div>
+                            <div *ngIf="_attachmentForm.cvFile.errors?.tooLarge">File too large, max file size is
                                 {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
                         </div>
                     </div>
@@ -259,9 +259,9 @@
                     <div class="slds-form-element__control slds-m-top_x-small">
                         <input #licenseFile required formControlName="licenseFile" accept="image/png, .pdf, .doc, .docx, .txt"
                             type="file" (change)="onLicenseFileChange($event)" />
-                        <div *ngIf="attachForm.licenseFile.errors" class="slds-text-color_error">
-                            <div *ngIf="submitted && attachForm.licenseFile.errors.required">License is required</div>
-                            <div *ngIf="attachForm.licenseFile.errors?.tooLarge">File too large, max file size is
+                        <div *ngIf="_attachmentForm.licenseFile.errors" class="slds-text-color_error">
+                            <div *ngIf="submitted && _attachmentForm.licenseFile.errors.required">License is required</div>
+                            <div *ngIf="_attachmentForm.licenseFile.errors?.tooLarge">File too large, max file size is
                                 {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
                         </div>
                     </div>
@@ -286,7 +286,7 @@
                 </div>
 
                 <div [ngClass]="{'slds-hide': !duplicateUsername}" class="slds-m-top_medium slds-text-color_error">
-                    Email <b>{{ p.email.value }}</b> already exists in our system. Please login with that email address, or go back and select a different email address.
+                    Email <b>{{ _personalForm.email.value }}</b> already exists in our system. Please login with that email address, or go back and select a different email address.
                 </div>
 
             </div>

@@ -1,14 +1,11 @@
 import { Component, OnInit, Output, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
-import { AlertService } from '../../services/alert.service';
 import { PsychoService } from '../../services/psycho.service';
 import { Page } from '../../models/Page';
 import { RegisterPsycho } from '../../models/RegisterPsycho';
-import Psycho from '../../models/Pyscho';
 
 @Component({
   templateUrl: 'psyregister.component.html',
@@ -17,7 +14,6 @@ export class PsyregisterComponent implements OnInit {
   personalForm: FormGroup;
   bankingForm: FormGroup;
   professionalForm: FormGroup;
-  registerForm: FormGroup;
   attachmentForm: FormGroup;
   loading = false;
   submitted = false;
@@ -36,7 +32,6 @@ export class PsyregisterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private psychoService: PsychoService,
-    //private alertService: AlertService
   ) { }
 
   ngOnInit() {
@@ -81,13 +76,17 @@ export class PsyregisterComponent implements OnInit {
     this.checkValidation();
   }
 
-  // convenience getter for easy access to form fields
-  get pf() { return this.professionalForm.controls; }
-  get p() { return this.personalForm.controls; }
-  get b() { return this.bankingForm.controls; }
-  get f() { return this.registerForm.controls; }
-  get attachForm() { return this.attachmentForm.controls; }
+  /* convenience getter for easy access to form fields */
+  /* --------------------------------------------------------------------- */
+  get _professionalForm() { return this.professionalForm.controls; }
+  get _personalForm() { return this.personalForm.controls; }
+  get _bankingForm() { return this.bankingForm.controls; }
+  get _attachmentForm() { return this.attachmentForm.controls; }
+  /* --------------------------------------------------------------------- */
 
+
+  /* Form submit functions */
+  /* --------------------------------------------------------------------- */
   onPersonalSubmit() {
     this.submitted = true;
 
@@ -134,21 +133,21 @@ export class PsyregisterComponent implements OnInit {
 
   async finalSubmit() {
     var registerPsycho = new RegisterPsycho();
-    registerPsycho.psychologistUser.email = this.p.email.value;
-    registerPsycho.psychologistUser.password = this.p.password.value;
-    registerPsycho.psychologistUser.firstName = this.p.firstName.value;
-    registerPsycho.psychologistUser.lastName = this.p.surname.value;
-    registerPsycho.psychologistUser.phoneNumber = this.p.contactNum.value;
-    registerPsycho.psychologistUser.psychoIDNumber = this.p.idNumber.value;
-    registerPsycho.psychologistUser.psychoAge = this.p.age.value;
-    registerPsycho.psychologistUser.psychoUniversity = this.pf.university.value;
-    registerPsycho.psychologistUser.psychoExperienceYears = this.pf.yearsOfExperience.value;
-    registerPsycho.psychologistUser.psychoLicenseNumber = this.pf.licenseNum.value;
-    registerPsycho.psychologistUser.psychoQualifications.push(this.pf.qualification.value);
-    registerPsycho.psychologistUser.psychoBankAccAccountNumber = this.b.accountNum.value;
-    registerPsycho.psychologistUser.psychoBankAccBankName = this.b.bankName.value;
-    registerPsycho.psychologistUser.psychoBankAccBranchCode = this.b.branchCode.value;
-    registerPsycho.psychologistUser.psychoBankAccAccountType = this.b.accountType.value;
+    registerPsycho.psychologistUser.email = this._personalForm.email.value;
+    registerPsycho.psychologistUser.password = this._personalForm.password.value;
+    registerPsycho.psychologistUser.firstName = this._personalForm.firstName.value;
+    registerPsycho.psychologistUser.lastName = this._personalForm.surname.value;
+    registerPsycho.psychologistUser.phoneNumber = this._personalForm.contactNum.value;
+    registerPsycho.psychologistUser.psychoIDNumber = this._personalForm.idNumber.value;
+    registerPsycho.psychologistUser.psychoAge = this._personalForm.age.value;
+    registerPsycho.psychologistUser.psychoUniversity = this._professionalForm.university.value;
+    registerPsycho.psychologistUser.psychoExperienceYears = this._professionalForm.yearsOfExperience.value;
+    registerPsycho.psychologistUser.psychoLicenseNumber = this._professionalForm.licenseNum.value;
+    registerPsycho.psychologistUser.psychoQualifications.push(this._professionalForm.qualification.value);
+    registerPsycho.psychologistUser.psychoBankAccAccountNumber = this._bankingForm.accountNum.value;
+    registerPsycho.psychologistUser.psychoBankAccBankName = this._bankingForm.bankName.value;
+    registerPsycho.psychologistUser.psychoBankAccBranchCode = this._bankingForm.branchCode.value;
+    registerPsycho.psychologistUser.psychoBankAccAccountType = this._bankingForm.accountType.value;
 
     var attachments = await this.generateAttachments();
     registerPsycho.psychologistUser.attachments = attachments;
@@ -175,7 +174,84 @@ export class PsyregisterComponent implements OnInit {
         console.log(JSON.stringify(error.error));
       });
   }
+  /* --------------------------------------------------------------------- */
 
+
+  /* Make sure all forms are valid, and navigate to them if not */
+  /* --------------------------------------------------------------------- */
+  checkValidation() {
+    if (!this.personalForm.valid) {
+      //console.log("Personal Form Submitted!");
+      this.router.navigate(['/psyregister'], { queryParams: { page: '1' } });
+    } else if (!this.bankingForm.valid) {
+      //console.log("Banking Form Submitted!");
+      this.router.navigate(['/psyregister'], { queryParams: { page: '2' } });
+    } else if (this.professionalForm.valid) {
+      //console.log("Form Submitted!");
+      this.router.navigate(['/psyregister'], { queryParams: { page: '3' } });
+    } else {
+      //console.log("all forms are valid");
+    }
+  }
+  /* --------------------------------------------------------------------- */
+
+
+  /* Password validation */
+  /* --------------------------------------------------------------------- */
+  validatePassword(group: FormGroup) {
+    let pass = group.controls.password.value;
+    let confirmPass = group.controls.confirmPassword.value;
+
+    if (pass === confirmPass)
+      return null;
+    else
+      group.controls.confirmPassword.setErrors({ dontMatch: true });
+  }
+  /* --------------------------------------------------------------------- */
+
+
+  /* File size attachment validation */
+  /* --------------------------------------------------------------------- */
+  onCVFileChange(event) {
+    if (event.target.files && event.target.files[0]) {
+      if (event.target.files[0].size > this.maxFileSizeBytes)
+        this._attachmentForm.cvFile.setErrors({ tooLarge: true });
+      else
+        this._attachmentForm.cvFile.setErrors(null);
+    }
+  }
+
+  onIdDocFileChange(event) {
+    if (event.target.files && event.target.files[0]) {
+      if (event.target.files[0].size > this.maxFileSizeBytes)
+        this._attachmentForm.idDocFile.setErrors({ tooLarge: true });
+      else
+        this._attachmentForm.idDocFile.setErrors(null);
+    }
+  }
+
+  onPhotoFileChange(event) {
+    if (event.target.files && event.target.files[0]) {
+      if (event.target.files[0].size > this.maxFileSizeBytes)
+        this._attachmentForm.photoFile.setErrors({ tooLarge: true });
+      else
+        this._attachmentForm.photoFile.setErrors(null);
+    }
+  }
+
+  onLicenseFileChange(event) {
+    if (event.target.files && event.target.files[0]) {
+      if (event.target.files[0].size > this.maxFileSizeBytes)
+        this._attachmentForm.licenseFile.setErrors({ tooLarge: true });
+      else
+        this._attachmentForm.licenseFile.setErrors(null);
+    }
+  }
+  /* --------------------------------------------------------------------- */
+
+
+  /* Helpers */
+  /* --------------------------------------------------------------------- */
   private async generateAttachments() {
     /* 
     '1','CV'
@@ -226,68 +302,7 @@ export class PsyregisterComponent implements OnInit {
       fr.readAsDataURL(file);
     });
   }
-
-  checkValidation() {
-    /* if (!this.personalForm.valid) {
-      //console.log("Personal Form Submitted!");
-      this.router.navigate(['/psyregister'], { queryParams: { page: '1' } });
-    } else if (!this.bankingForm.valid) {
-      //console.log("Banking Form Submitted!");
-      this.router.navigate(['/psyregister'], { queryParams: { page: '2' } });
-    } else if (this.professionalForm.valid) {
-      //console.log("Form Submitted!");
-      this.router.navigate(['/psyregister'], { queryParams: { page: '3' } });
-    } else {
-      //console.log("all forms are valid");
-    } */
-  }
-
-  /* Password validation */
-  validatePassword(group: FormGroup) {
-    let pass = group.controls.password.value;
-    let confirmPass = group.controls.confirmPassword.value;
-
-    if (pass === confirmPass)
-      return null;
-    else
-      group.controls.confirmPassword.setErrors({ dontMatch: true });
-  }
-
-  /* File size attachment validation */
-  onCVFileChange(event) {
-    if (event.target.files && event.target.files[0]) {
-      if (event.target.files[0].size > this.maxFileSizeBytes)
-        this.attachForm.cvFile.setErrors({ tooLarge: true });
-      else
-        this.attachForm.cvFile.setErrors(null);
-    }
-  }
-
-  onIdDocFileChange(event) {
-    if (event.target.files && event.target.files[0]) {
-      if (event.target.files[0].size > this.maxFileSizeBytes)
-        this.attachForm.idDocFile.setErrors({ tooLarge: true });
-      else
-        this.attachForm.idDocFile.setErrors(null);
-    }
-  }
-
-  onPhotoFileChange(event) {
-    if (event.target.files && event.target.files[0]) {
-      if (event.target.files[0].size > this.maxFileSizeBytes)
-        this.attachForm.photoFile.setErrors({ tooLarge: true });
-      else
-        this.attachForm.photoFile.setErrors(null);
-    }
-  }
-
-  onLicenseFileChange(event) {
-    if (event.target.files && event.target.files[0]) {
-      if (event.target.files[0].size > this.maxFileSizeBytes)
-        this.attachForm.licenseFile.setErrors({ tooLarge: true });
-      else
-        this.attachForm.licenseFile.setErrors(null);
-    }
-  }
+  /* --------------------------------------------------------------------- */
 }
+
 
