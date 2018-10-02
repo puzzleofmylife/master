@@ -23,6 +23,8 @@ export class PsyregisterComponent implements OnInit {
   submitted = false;
   id: Page;
   maxFileSizeBytes: number = 5242880;
+  sumbitError: boolean = false;
+  duplicateUsername: boolean;
 
   @ViewChild("photoFile") photoFile;
   @ViewChild("idDocFile") idDocFile;
@@ -155,7 +157,18 @@ export class PsyregisterComponent implements OnInit {
       var foo = result;
     },
       error => {
-        var foo = error;
+        this.sumbitError = true;
+
+        //Check for duplictate username error
+        if(error.error.Error){
+          error.error.Error.forEach(element => {
+            if(element.indexOf('DuplicateUserName') >= 0)
+              this.duplicateUsername = true;
+              //Dont show generic error msg
+              this.sumbitError = false;
+          });
+        }
+        console.log(JSON.stringify(error.error));
       });
   }
 
@@ -251,7 +264,7 @@ export class PsyregisterComponent implements OnInit {
       if (event.target.files[0].size > this.maxFileSizeBytes)
         this.attachForm.idDocFile.setErrors({ tooLarge: true });
       else
-        this.attachForm.cvFile.setErrors(null);
+        this.attachForm.idDocFile.setErrors(null);
     }
   }
 
@@ -260,7 +273,7 @@ export class PsyregisterComponent implements OnInit {
       if (event.target.files[0].size > this.maxFileSizeBytes)
         this.attachForm.photoFile.setErrors({ tooLarge: true });
       else
-        this.attachForm.cvFile.setErrors(null);
+        this.attachForm.photoFile.setErrors(null);
     }
   }
 
@@ -269,7 +282,7 @@ export class PsyregisterComponent implements OnInit {
       if (event.target.files[0].size > this.maxFileSizeBytes)
         this.attachForm.licenseFile.setErrors({ tooLarge: true });
       else
-        this.attachForm.cvFile.setErrors(null);
+        this.attachForm.licenseFile.setErrors(null);
     }
   }
 }

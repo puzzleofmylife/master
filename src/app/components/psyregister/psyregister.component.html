@@ -3,7 +3,7 @@
 
     <div class="slds-col slds-size_10-of-12 slds-medium-size_8-of-12 slds-large-size_4-of-12">
         <form [formGroup]="personalForm" (ngSubmit)="onPersonalSubmit()">
-            <div *ngIf="id == 1">
+            <div [hidden]="id != 1">
                 <div class="slds-text-heading_large"><b>Step 1 of 4</b></div>
                 <div class="slds-text-heading_large">Personal details</div>
                 <br />
@@ -99,7 +99,7 @@
         </form>
 
         <form [formGroup]="bankingForm" (ngSubmit)="onBankingSubmit()">
-            <div *ngIf="id == 2">
+            <div [hidden]="id != 2">
                 <div class="slds-text-heading_large"><b>Step 2 of 4</b></div>
                 <div class="slds-text-heading_large">Banking details</div>
 
@@ -153,7 +153,7 @@
         </form>
 
         <form [formGroup]="professionalForm" (ngSubmit)="onProfessionalSubmit()">
-            <div *ngIf="id == 3">
+            <div [hidden]="id != 3">
                 <div class="slds-text-heading_large"><b>Step 3 of 4</b></div>
                 <div class="slds-text-heading_large">Professional information</div>
 
@@ -209,7 +209,7 @@
         </form>
 
         <form [formGroup]="attachmentForm" (ngSubmit)="onAttachmentsSubmit()">
-            <div *ngIf="id == 4">
+            <div [hidden]="id != 4">
                 <div class="slds-text-heading_large"><b>Step 4 of 4</b></div>
                 <div class="slds-text-heading_large">Attachments</div>
                 <br />
@@ -217,10 +217,13 @@
                 <div class="slds-m-top_small">
                     <label class="slds-text-heading_medium" for="photoFile">Photo of yourself (headshot)*</label>
                     <div class="slds-form-element__control slds-m-top_x-small">
-                        <input required #photoFile formControlName="photoFile" accept="image/png, .pdf" type="file" (change)="onPhotoFileChange($event)" />
+                        <input required #photoFile formControlName="photoFile" accept="image/png, .pdf" type="file"
+                            (change)="onPhotoFileChange($event)" />
                         <div *ngIf="attachForm.photoFile.errors" class="slds-text-color_error">
-                            <div *ngIf="submitted && attachForm.photoFile.errors.required">Photo of yourself is required</div>
-                            <div *ngIf="attachForm.photoFile.errors?.tooLarge">File too large, max file size is {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
+                            <div *ngIf="submitted && attachForm.photoFile.errors.required">Photo of yourself is
+                                required</div>
+                            <div *ngIf="attachForm.photoFile.errors?.tooLarge">File too large, max file size is
+                                {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
                         </div>
                     </div>
                 </div>
@@ -228,10 +231,12 @@
                 <div class="slds-m-top_medium">
                     <label class="slds-text-heading_medium" for="idDocFile">ID document*</label>
                     <div class="slds-form-element__control slds-m-top_x-small">
-                        <input #idDocFile required formControlName="idDocFile" accept="image/png, .pdf" type="file" (change)="onIdDocFileChange($event)"/>
+                        <input #idDocFile required formControlName="idDocFile" accept="image/png, .pdf" type="file"
+                            (change)="onIdDocFileChange($event)" />
                         <div *ngIf="attachForm.idDocFile.errors" class="slds-text-color_error">
                             <div *ngIf="submitted && attachForm.idDocFile.errors.required">ID document is required</div>
-                            <div *ngIf="attachForm.idDocFile.errors?.tooLarge">File too large, max file size is {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
+                            <div *ngIf="attachForm.idDocFile.errors?.tooLarge">File too large, max file size is
+                                {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
                         </div>
                     </div>
                 </div>
@@ -239,10 +244,12 @@
                 <div class="slds-m-top_medium">
                     <label class="slds-text-heading_medium" for="cvFile">Curriculum Vitae*</label>
                     <div class="slds-form-element__control slds-m-top_x-small">
-                        <input #cvFile required formControlName="cvFile" accept="image/png, .pdf, .doc, .docx, .txt" type="file" (change)="onCVFileChange($event)" />
+                        <input #cvFile required formControlName="cvFile" accept="image/png, .pdf, .doc, .docx, .txt"
+                            type="file" (change)="onCVFileChange($event)" />
                         <div *ngIf="attachForm.cvFile.errors" class="slds-text-color_error">
                             <div *ngIf="submitted && attachForm.cvFile.errors.required">CV is required</div>
-                            <div *ngIf="attachForm.cvFile.errors?.tooLarge">File too large, max file size is {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
+                            <div *ngIf="attachForm.cvFile.errors?.tooLarge">File too large, max file size is
+                                {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
                         </div>
                     </div>
                 </div>
@@ -250,10 +257,12 @@
                 <div class="slds-m-top_medium">
                     <label class="slds-text-heading_medium" for="licenseFile">License*</label>
                     <div class="slds-form-element__control slds-m-top_x-small">
-                        <input #licenseFile required formControlName="licenseFile" accept="image/png, .pdf, .doc, .docx, .txt" type="file" (change)="onLicenseFileChange($event)" />
+                        <input #licenseFile required formControlName="licenseFile" accept="image/png, .pdf, .doc, .docx, .txt"
+                            type="file" (change)="onLicenseFileChange($event)" />
                         <div *ngIf="attachForm.licenseFile.errors" class="slds-text-color_error">
                             <div *ngIf="submitted && attachForm.licenseFile.errors.required">License is required</div>
-                            <div *ngIf="attachForm.licenseFile.errors?.tooLarge">File too large, max file size is {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
+                            <div *ngIf="attachForm.licenseFile.errors?.tooLarge">File too large, max file size is
+                                {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
                         </div>
                     </div>
                 </div>
@@ -262,6 +271,14 @@
                     <button type="button" class="slds-button" [routerLink]="['/psyregister']" [queryParams]="{page:3}"
                         routerLinkActive="router-link-active">Back</button>
                     <button [disabled]="loading" class="slds-button slds-button_brand btn-right" routerLinkActive="router-link-active">Register</button>
+                </div>
+
+                <div [ngClass]="{'slds-hide': !sumbitError}" class="slds-m-top_medium slds-text-color_error">
+                    An unexpected error occurred.
+                </div>
+
+                <div [ngClass]="{'slds-hide': !duplicateUsername}" class="slds-m-top_medium slds-text-color_error">
+                    Email <b>{{ p.email.value }}</b> already exists in our system. Please login with that email address, or go back and select a different email address.
                 </div>
 
             </div>
