@@ -134,7 +134,6 @@ export class PsyregisterComponent implements OnInit {
 
   async finalSubmit() {
     var registerPsycho = new RegisterPsycho();
-    registerPsycho.psychologistUser = new Psycho();
     registerPsycho.psychologistUser.email = this.p.email.value;
     registerPsycho.psychologistUser.password = this.p.password.value;
     registerPsycho.psychologistUser.firstName = this.p.firstName.value;
@@ -145,7 +144,6 @@ export class PsyregisterComponent implements OnInit {
     registerPsycho.psychologistUser.psychoUniversity = this.pf.university.value;
     registerPsycho.psychologistUser.psychoExperienceYears = this.pf.yearsOfExperience.value;
     registerPsycho.psychologistUser.psychoLicenseNumber = this.pf.licenseNum.value;
-    registerPsycho.psychologistUser.psychoQualifications = [];
     registerPsycho.psychologistUser.psychoQualifications.push(this.pf.qualification.value);
     registerPsycho.psychologistUser.psychoBankAccAccountNumber = this.b.accountNum.value;
     registerPsycho.psychologistUser.psychoBankAccBankName = this.b.bankName.value;
