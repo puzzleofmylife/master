@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../environments/environment';
 import { RegisterPsycho } from '../models/RegisterPsycho';
 
 @Injectable({
@@ -21,6 +21,6 @@ export class PsychoService {
   }
 
   register(psycho: RegisterPsycho) {
-    return this.http.post(this.baseAPIURL + '/api/User/psychologist', psycho);
+    return this.http.post(environment.baseAPIURL + '/api/User/psychologist', psycho);
   }
 }
