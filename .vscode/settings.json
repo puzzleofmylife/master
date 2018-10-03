@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/e84d9aa3-f168-4936-88a1-e912e6017729/resourceGroups/puzzleofmylifeapp/providers/Microsoft.Web/sites/puzzleofmylifeapp",
+    "appService.deploySubpath": "dist/puzzleofmylifeapp"
+}
