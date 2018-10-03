@@ -17,7 +17,7 @@ export class PsyregisterComponent implements OnInit {
   attachmentForm: FormGroup;
   loading = false;
   submitted = false;
-  id: Page;
+  page: number;
   maxFileSizeBytes: number = 5242880;
   finalSumbitError: boolean = false;
   duplicateUsername: boolean;
@@ -70,8 +70,8 @@ export class PsyregisterComponent implements OnInit {
     });
 
     this.route.queryParams.subscribe(params => {
-      console.log(params);
-      this.id = params['page'];
+      //console.log(params);
+      this.page = params['page'];
     });
 
     this.checkValidation();
@@ -178,13 +178,10 @@ export class PsyregisterComponent implements OnInit {
         this.finalSumbitError = true;
 
         //Check for duplictate username error
-        if(error.error.Error){
-          error.error.Error.forEach(element => {
-            if(element.indexOf('DuplicateUserName') >= 0)
-              this.duplicateUsername = true;
-              //Dont show generic error msg
-              this.finalSumbitError = false;
-          });
+        if (error.error.DuplicateUserName) {
+          this.duplicateUsername = true;
+          //Dont show generic error msg
+          this.finalSumbitError = false;
         }
         console.log(JSON.stringify(error.error));
       });

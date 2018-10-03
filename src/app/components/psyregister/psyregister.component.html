@@ -3,7 +3,7 @@
 
     <div class="slds-col slds-size_10-of-12 slds-medium-size_8-of-12 slds-large-size_4-of-12">
         <form [formGroup]="personalForm" (ngSubmit)="onPersonalSubmit()">
-            <div [hidden]="id != 1">
+            <div [hidden]="page != 1">
                 <div class="slds-text-heading_large"><b>Step 1 of 4</b></div>
                 <div class="slds-text-heading_large">Personal details</div>
                 <br />
@@ -100,7 +100,7 @@
         </form>
 
         <form [formGroup]="bankingForm" (ngSubmit)="onBankingSubmit()">
-            <div [hidden]="id != 2">
+            <div [hidden]="page != 2">
                 <div class="slds-text-heading_large"><b>Step 2 of 4</b></div>
                 <div class="slds-text-heading_large">Banking details</div>
 
@@ -154,7 +154,7 @@
         </form>
 
         <form [formGroup]="professionalForm" (ngSubmit)="onProfessionalSubmit()">
-            <div [hidden]="id != 3">
+            <div [hidden]="page != 3">
                 <div class="slds-text-heading_large"><b>Step 3 of 4</b></div>
                 <div class="slds-text-heading_large">Professional information</div>
 
@@ -213,7 +213,7 @@
         </form>
 
         <form [formGroup]="attachmentForm" (ngSubmit)="onAttachmentsSubmit()">
-            <div [hidden]="id != 4">
+            <div [hidden]="page != 4">
                 <div class="slds-text-heading_large"><b>Step 4 of 4</b></div>
                 <div class="slds-text-heading_large">Attachments</div>
                 <br />
@@ -297,7 +297,7 @@
             </div>
         </form>
 
-        <div [hidden]="id != 5">
+        <div [hidden]="page != 5">
             <div class="slds-text-heading_large slds-align_absolute-center">
                 Thank you
             </div>
