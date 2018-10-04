@@ -17,6 +17,7 @@ import { VerifyComponent } from './components/verify/verify.component';
 import { NglModule } from 'ng-lightning/ng-lightning';
 import { MobileMenuComponent } from './components/mobile-menu/mobile-menu.component';
 import { SignupMenuComponent } from './components/signup-menu/signup-menu.component';
+import { PsychtermsComponent } from './components/psychterms/psychterms.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { SignupMenuComponent } from './components/signup-menu/signup-menu.compon
     AlertComponent,
     VerifyComponent,
     MobileMenuComponent,
-    SignupMenuComponent
+    SignupMenuComponent,
+    PsychtermsComponent
   ],
   imports: [
     BrowserModule,

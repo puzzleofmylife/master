@@ -192,7 +192,7 @@ export class PsyregisterComponent implements OnInit {
   /* Make sure all forms are valid, and navigate to them if not */
   /* --------------------------------------------------------------------- */
   checkValidation() {
-    if (!this.personalForm.valid) {
+    /* if (!this.personalForm.valid) {
       //console.log("Personal Form Submitted!");
       this.router.navigate(['/psyregister'], { queryParams: { page: '1' } });
     } else if (!this.bankingForm.valid) {
@@ -203,7 +203,7 @@ export class PsyregisterComponent implements OnInit {
       this.router.navigate(['/psyregister'], { queryParams: { page: '3' } });
     } else {
       //console.log("all forms are valid");
-    }
+    } */
   }
   /* --------------------------------------------------------------------- */
 

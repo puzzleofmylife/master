@@ -5,11 +5,14 @@ import { PsyregisterComponent } from './components/psyregister/psyregister.compo
 import { PsychoService } from './services/psycho.service';
 import { AppComponent } from './app.component';
 import { VerifyComponent } from './components/verify/verify.component';
+import { PsychtermsComponent } from './components/psychterms/psychterms.component';
+
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'psyregister', component: PsyregisterComponent },
-  {path: 'verify', component: VerifyComponent }
+  {path: 'verify', component: VerifyComponent },
+  {path: 'psychterms', component: PsychtermsComponent }
 ];
 
 @NgModule({
