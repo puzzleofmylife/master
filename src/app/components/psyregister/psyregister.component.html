@@ -221,7 +221,7 @@
                 <div class="slds-m-top_small">
                     <label class="slds-text-heading_medium" for="photoFile">Photo of yourself (headshot)*</label>
                     <div class="slds-form-element__control slds-m-top_x-small">
-                        <input required #photoFile formControlName="photoFile" accept="image/png, .pdf" type="file"
+                        <input required #photoFile formControlName="photoFile" accept=".png, .jpeg, .jpg, .pdf" type="file"
                             (change)="onPhotoFileChange($event)" />
                         <div *ngIf="_attachmentForm.photoFile.errors" class="slds-text-color_error">
                             <div *ngIf="submitted && _attachmentForm.photoFile.errors.required">Photo of yourself is
@@ -235,7 +235,7 @@
                 <div class="slds-m-top_medium">
                     <label class="slds-text-heading_medium" for="idDocFile">ID document*</label>
                     <div class="slds-form-element__control slds-m-top_x-small">
-                        <input #idDocFile required formControlName="idDocFile" accept="image/png, .pdf" type="file"
+                        <input #idDocFile required formControlName="idDocFile" accept=".png, .jpeg, .jpg, .pdf" type="file"
                             (change)="onIdDocFileChange($event)" />
                         <div *ngIf="_attachmentForm.idDocFile.errors" class="slds-text-color_error">
                             <div *ngIf="submitted && _attachmentForm.idDocFile.errors.required">ID document is required</div>
@@ -248,7 +248,7 @@
                 <div class="slds-m-top_medium">
                     <label class="slds-text-heading_medium" for="cvFile">Curriculum Vitae*</label>
                     <div class="slds-form-element__control slds-m-top_x-small">
-                        <input #cvFile required formControlName="cvFile" accept="image/png, .pdf, .doc, .docx, .txt"
+                        <input #cvFile required formControlName="cvFile" accept=".png, .jpeg, .jpg, .pdf, .doc, .docx, .txt, .odt, .ppt"
                             type="file" (change)="onCVFileChange($event)" />
                         <div *ngIf="_attachmentForm.cvFile.errors" class="slds-text-color_error">
                             <div *ngIf="submitted && _attachmentForm.cvFile.errors.required">CV is required</div>
@@ -261,7 +261,7 @@
                 <div class="slds-m-top_medium">
                     <label class="slds-text-heading_medium" for="licenseFile">License*</label>
                     <div class="slds-form-element__control slds-m-top_x-small">
-                        <input #licenseFile required formControlName="licenseFile" accept="image/png, .pdf, .doc, .docx, .txt"
+                        <input #licenseFile required formControlName="licenseFile" accept=".png, .jpeg, .jpg, .pdf, .doc, .docx, .txt, .odt, .ppt"
                             type="file" (change)="onLicenseFileChange($event)" />
                         <div *ngIf="_attachmentForm.licenseFile.errors" class="slds-text-color_error">
                             <div *ngIf="submitted && _attachmentForm.licenseFile.errors.required">License is required</div>
