@@ -1,0 +1,17 @@
+<div nglDropdown [(open)]="open">
+  <div nglDropdownTrigger class="slds-text-title--caps pointer">Sign Up</div>
+  <div class="slds-dropdown slds-dropdown_left slds-m-top_x-small">
+    <ul class="dropdown__list" role="menu">
+      <li class="slds-dropdown__item">
+        <a role="menuitem" nglDropdownItem (click)="open = false;">
+          <span class="slds-truncate">As user</span>
+        </a>
+      </li>
+      <li class="slds-dropdown__item">
+        <a [routerLink]="['/psyregister']" [queryParams]="{page:1}" role="menuitem" nglDropdownItem (click)="open = false;">
+          <span class="slds-truncate">As psychologist</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

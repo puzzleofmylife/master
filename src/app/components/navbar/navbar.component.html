@@ -1,103 +1,53 @@
 <header class="slds-global-header_container slds-p-horizontal_small">
-    <div class="slds-global-header slds-grid slds-grid_align-spread">
-      <!-- MOBILE NAV - shown when screen size is not "large"-->
-      <div class="slds-global-header__item slds-hide_large">
-        <div class="slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open">
-          <button class="slds-button slds-button_icon slds-button_icon slds-button_icon-container slds-button_icon-small slds-global-actions__notifications slds-global-actions__item-action">
-            <svg class="slds-button__icon slds-global-header__icon">
-              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#rows"></use>
-            </svg>
-          </button>
-          <div class="slds-dropdown slds-dropdown_left slds-m-top_x-small">
-            <ul class="slds-dropdown__list" role="menu">
-              <li class="slds-dropdown__item slds-has-submenu" role="presentation">
-                <a role="menuitem" href="javascript:void(0);"  aria-haspopup="true" aria-expanded="true" tabindex="-1">
-                  <span class="slds-truncate">Sign up</span>
-                  <svg class="slds-icon slds-icon_x-small slds-icon-text-default slds-m-left_small slds-shrink-none">
-                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#right"></use>
-                  </svg>
-                </a>
-                <div class="slds-dropdown slds-dropdown_submenu slds-dropdown_submenu-right slds-is-open">
-                  <ul class="slds-dropdown__list" role="menu">
-                    <li class="slds-dropdown__item" role="presentation">
-                      <a href="javascript:void(0);" role="menuitem" tabindex="0">
-                        <span class="slds-truncate">As a user</span>
-                      </a>
-                    </li>
-                    <li class="slds-dropdown__item" role="presentation">
-                      <a [routerLink]="['/psyregister']" [queryParams]="{page:1}" routerLinkActive="router-link-active" role="menuitem" tabindex="1">
-                        <span class="slds-truncate">As a psychologist</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="slds-has-divider_top-space" role="separator"></li>
-              <li class="slds-dropdown__item" role="presentation">
-                  <a href="javascript:void(0);" role="menuitem" tabindex="1">
-                    <span class="slds-truncate">Login</span>
-                  </a>
-                </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="slds-global-header__item slds-hide_large">
+  <div class="slds-global-header slds-grid slds-grid_align-spread">
+    <!-- MOBILE NAV - shown when screen size is not "large"-->
+    <div class="slds-global-header__item slds-hide_large">
+      <app-mobile-menu></app-mobile-menu>
+    </div>
+    <div class="slds-global-header__item slds-hide_large">
+        <a [routerLink]="['/']">
           <img src="../../../assets/cropped-PuzzleofmyLifeLogo2-192x192.png" style="height:59px; margin-top: 5px;">
-      </div>
-      <!-- DESKTOP NAV - shown when screen size is "large"-->
-      <div class="slds-global-header__item slds-show_large">
-        <div class="slds-grid slds-gutters slds-grid_vertical-align-center">
-          <div class="slds-col">
-              <img src="../../../assets/cropped-PuzzleofmyLifeLogo2-192x192.png" style="height:59px; margin-top: 5px;">
-          </div>
-          <div class="slds-col">
-            <div class="slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open">
-              <div class="slds-text-title--caps">Sign Up</div>
-              <div class="slds-dropdown slds-dropdown_left slds-m-top_x-small">
-                <ul class="slds-dropdown__list" role="menu">
-                  <li class="slds-dropdown__item" role="presentation">
-                    <a href="javascript:void(0);" role="menuitem" tabindex="0">
-                      <span class="slds-truncate">As a user</span>
-                    </a>
-                  </li>
-                  <li class="slds-dropdown__item" role="presentation">
-                      <a [routerLink]="['/psyregister']" [queryParams]="{page:1}" routerLinkActive="router-link-active" role="menuitem" tabindex="1">
-                        <span class="slds-truncate">As a psychologist</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="slds-col">
-              <div class="slds-text-title--caps">Login</div>
-          </div>
+        </a>
+    </div>
+    <!-- DESKTOP NAV - shown when screen size is "large"-->
+    <div class="slds-global-header__item slds-show_large">
+      <div class="slds-grid slds-gutters slds-grid_vertical-align-center">
+        <div class="slds-col">
+          <a [routerLink]="['/']">
+            <img src="../../../assets/cropped-PuzzleofmyLifeLogo2-192x192.png" style="height:59px; margin-top: 5px;">
+          </a>
         </div>
-      </div>
-      <!-- Right hand side items (notifications, profile, etc)-->
-      <div class="slds-global-header__item">
-        <ul class="slds-global-actions">
-          <li class="slds-global-actions__item">
-            <div class="slds-dropdown-trigger slds-dropdown-trigger_click">
-              <button class="slds-button slds-button_icon slds-button_icon slds-button_icon-container slds-button_icon-small slds-global-actions__notifications slds-global-actions__item-action slds-incoming-notification">
-                <svg class="slds-button__icon slds-global-header__icon">
-                  <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#notification"></use>
-                </svg>
-              </button>
-              <span class="slds-notification-badge slds-show-notification">5</span>
-            </div>
-          </li>
-          <li class="slds-global-actions__item">
-            <div class="slds-dropdown-trigger slds-dropdown-trigger_click">
-              <button class="slds-button slds-global-actions__avatar slds-global-actions__item-action">
-                <span class="slds-avatar slds-avatar_circle slds-avatar_medium">
-                  <img alt="Profile" src="/assets/images/avatar2.jpg" title="User avatar" />
-                </span>
-              </button>
-            </div>
-          </li>
-        </ul>
+        <div class="slds-col">
+          <app-signup-menu></app-signup-menu>
+        </div>
+        <div class="slds-col">
+          <div class="slds-text-title--caps">Login</div>
+        </div>
       </div>
     </div>
-  </header>
+    <!-- Right hand side items (notifications, profile, etc)-->
+    <div class="slds-global-header__item">
+      <ul class="slds-global-actions">
+        <li class="slds-global-actions__item">
+          <div class="slds-dropdown-trigger slds-dropdown-trigger_click">
+            <button class="slds-button slds-button_icon slds-button_icon slds-button_icon-container slds-button_icon-small slds-global-actions__notifications slds-global-actions__item-action slds-incoming-notification">
+              <svg class="slds-button__icon slds-global-header__icon">
+                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#notification"></use>
+              </svg>
+            </button>
+            <span class="slds-notification-badge slds-show-notification">5</span>
+          </div>
+        </li>
+        <li class="slds-global-actions__item">
+          <div class="slds-dropdown-trigger slds-dropdown-trigger_click">
+            <button class="slds-button slds-global-actions__avatar slds-global-actions__item-action">
+              <span class="slds-avatar slds-avatar_circle slds-avatar_medium">
+                <img alt="Profile" src="/assets/images/avatar2.jpg" title="User avatar" />
+              </span>
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>

@@ -14,6 +14,9 @@ import { AlertComponent } from './components/alert/alert.component';
 import { PsychoService } from './services/psycho.service';
 import { HttpClientModule } from '@angular/common/http';
 import { VerifyComponent } from './components/verify/verify.component';
+import { NglModule } from 'ng-lightning/ng-lightning';
+import { MobileMenuComponent } from './components/mobile-menu/mobile-menu.component';
+import { SignupMenuComponent } from './components/signup-menu/signup-menu.component';
 
 
 @NgModule({
@@ -23,7 +26,9 @@ import { VerifyComponent } from './components/verify/verify.component';
     NavbarComponent,
     PsyregisterComponent,
     AlertComponent,
-    VerifyComponent
+    VerifyComponent,
+    MobileMenuComponent,
+    SignupMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +37,8 @@ import { VerifyComponent } from './components/verify/verify.component';
     MatMenuModule,
     MatButtonModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NglModule.forRoot()
   ],
   providers: [AlertService, PsychoService],
   bootstrap: [AppComponent]
