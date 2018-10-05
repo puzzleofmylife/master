@@ -14,10 +14,10 @@ import { AlertComponent } from './components/alert/alert.component';
 import { PsychoService } from './services/psycho.service';
 import { HttpClientModule } from '@angular/common/http';
 import { VerifyComponent } from './components/verify/verify.component';
-import { NglModule } from 'ng-lightning/ng-lightning';
-import { MobileMenuComponent } from './components/mobile-menu/mobile-menu.component';
-import { SignupMenuComponent } from './components/signup-menu/signup-menu.component';
 import { PsychtermsComponent } from './components/psychterms/psychterms.component';
+import { ActionMenuOriginDirective } from './directives/action-menu-origin.directive';
+import { ActionMenuDropdownDirective } from './directives/action-menu-dropdown.directive';
+import { ActionMenuComponent } from './components/action-menu/action-menu.component';
 
 
 @NgModule({
@@ -28,9 +28,10 @@ import { PsychtermsComponent } from './components/psychterms/psychterms.componen
     PsyregisterComponent,
     AlertComponent,
     VerifyComponent,
-    MobileMenuComponent,
-    SignupMenuComponent,
-    PsychtermsComponent
+    PsychtermsComponent,
+    ActionMenuOriginDirective,
+    ActionMenuDropdownDirective,
+    ActionMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -39,8 +40,7 @@ import { PsychtermsComponent } from './components/psychterms/psychterms.componen
     MatMenuModule,
     MatButtonModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    NglModule.forRoot()
+    HttpClientModule
   ],
   providers: [AlertService, PsychoService],
   bootstrap: [AppComponent]
