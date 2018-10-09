@@ -1,11 +1,11 @@
-import Psycho from './Pyscho';
+import Psychologist from './Psychologist';
 
 export class RegisterPsycho {
-    psychologistUser: Psycho;
+    psychologistUser: Psychologist;
 
     constructor(){
-        this.psychologistUser = new Psycho();
-        this.psychologistUser.psychoQualifications = [];
+        this.psychologistUser = new Psychologist();
+        this.psychologistUser.psychologistQualifications = [];
         this.psychologistUser.attachments = [];
     }
 }

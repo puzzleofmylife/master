@@ -139,22 +139,22 @@ export class PsyregisterComponent implements OnInit {
     registerPsycho.psychologistUser.firstName = this._personalForm.firstName.value;
     registerPsycho.psychologistUser.lastName = this._personalForm.surname.value;
     registerPsycho.psychologistUser.phoneNumber = this._personalForm.contactNum.value;
-    registerPsycho.psychologistUser.psychoIDNumber = this._personalForm.idNumber.value;
-    registerPsycho.psychologistUser.psychoAge = this._personalForm.age.value;
-    registerPsycho.psychologistUser.psychoUniversity = this._professionalForm.university.value;
-    registerPsycho.psychologistUser.psychoExperienceYears = this._professionalForm.yearsOfExperience.value;
-    registerPsycho.psychologistUser.psychoLicenseNumber = this._professionalForm.licenseNum.value;
-    registerPsycho.psychologistUser.psychoQualifications.push(this._professionalForm.qualification.value);
-    registerPsycho.psychologistUser.psychoBankAccAccountNumber = this._bankingForm.accountNum.value;
-    registerPsycho.psychologistUser.psychoBankAccBankName = this._bankingForm.bankName.value;
-    registerPsycho.psychologistUser.psychoBankAccBranchCode = this._bankingForm.branchCode.value;
-    registerPsycho.psychologistUser.psychoBankAccAccountType = this._bankingForm.accountType.value;
+    registerPsycho.psychologistUser.psychologistIDNumber = this._personalForm.idNumber.value;
+    registerPsycho.psychologistUser.psychologistAge = this._personalForm.age.value;
+    registerPsycho.psychologistUser.psychologistUniversity = this._professionalForm.university.value;
+    registerPsycho.psychologistUser.psychologistExperienceYears = this._professionalForm.yearsOfExperience.value;
+    registerPsycho.psychologistUser.psychologistLicenseNumber = this._professionalForm.licenseNum.value;
+    registerPsycho.psychologistUser.psychologistQualifications.push(this._professionalForm.qualification.value);
+    registerPsycho.psychologistUser.psychologistBankAccountAccountNumber = this._bankingForm.accountNum.value;
+    registerPsycho.psychologistUser.psychologistBankAccountBankName = this._bankingForm.bankName.value;
+    registerPsycho.psychologistUser.psychologistBankAccountBranchCode = this._bankingForm.branchCode.value;
+    registerPsycho.psychologistUser.psychologistBankAccountAccountType = this._bankingForm.accountType.value;
 
     var attachments = await this.generateAttachments();
     registerPsycho.psychologistUser.attachments = attachments;
 
     this.loading = true;
-    this.psychoService.register(registerPsycho).subscribe(result => {
+    this.psychoService.register(registerPsycho.psychologistUser).subscribe(result => {
       //Success....
 
       //Hide loading spinner
