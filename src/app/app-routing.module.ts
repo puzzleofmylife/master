@@ -1,3 +1,4 @@
+import { UserRegisterComponent } from './components/useregister/useregister.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
@@ -12,7 +13,8 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'psyregister', component: PsyregisterComponent },
   {path: 'verify', component: VerifyComponent },
-  {path: 'psychterms', component: PsychtermsComponent }
+  {path: 'psychterms', component: PsychtermsComponent },
+  {path: 'useregister', component: UserRegisterComponent}
 ];
 
 @NgModule({

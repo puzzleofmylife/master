@@ -221,13 +221,14 @@
                 <div class="slds-m-top_small">
                     <label class="slds-text-heading_medium" for="photoFile">Photo of yourself (headshot)*</label>
                     <div class="slds-form-element__control slds-m-top_x-small">
-                        <input required #photoFile formControlName="photoFile" accept=".png, .jpeg, .jpg, .pdf" type="file"
+                        <input required #photoFile formControlName="photoFile" accept=".png, .jpeg, .jpg" type="file"
                             (change)="onPhotoFileChange($event)" />
                         <div *ngIf="_attachmentForm.photoFile.errors" class="slds-text-color_error">
                             <div *ngIf="submitted && _attachmentForm.photoFile.errors.required">Photo of yourself is
                                 required</div>
                             <div *ngIf="_attachmentForm.photoFile.errors?.tooLarge">File too large, max file size is
                                 {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
+                            <div *ngIf="_attachmentForm.photoFile.errors?.isPDF">Please submit a .png or .jpeg</div>
                         </div>
                     </div>
                 </div>

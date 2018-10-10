@@ -243,11 +243,17 @@ export class PsyregisterComponent implements OnInit {
   }
 
   onPhotoFileChange(event) {
+    this._attachmentForm.photoFile.setErrors(null);
     if (event.target.files && event.target.files[0]) {
       if (event.target.files[0].size > this.maxFileSizeBytes)
         this._attachmentForm.photoFile.setErrors({ tooLarge: true });
       else
         this._attachmentForm.photoFile.setErrors(null);
+
+      if (event.target.files[0].type == "image/jpeg" || event.target.files[0].type == "image/jpg" || event.target.files[0].type == "image/png")
+        this._attachmentForm.photoFile.setErrors(null);
+      else
+        this._attachmentForm.photoFile.setErrors({ isPDF: true });
     }
   }
 

@@ -1,5 +1,9 @@
 export class User {
     id: number;
-    firstName: string;
-    lastName: string;
+    alias: string;
+    email: string;
+    password: string;
+    package: string;
+    history: boolean [];
+    active: boolean;
 }

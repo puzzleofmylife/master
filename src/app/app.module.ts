@@ -18,6 +18,7 @@ import { PsychtermsComponent } from './components/psychterms/psychterms.componen
 import { ActionMenuOriginDirective } from './directives/action-menu-origin.directive';
 import { ActionMenuDropdownDirective } from './directives/action-menu-dropdown.directive';
 import { ActionMenuComponent } from './components/action-menu/action-menu.component';
+import { UserRegisterComponent } from './components/useregister/useregister.component';
 
 
 @NgModule({
@@ -31,7 +32,9 @@ import { ActionMenuComponent } from './components/action-menu/action-menu.compon
     PsychtermsComponent,
     ActionMenuOriginDirective,
     ActionMenuDropdownDirective,
-    ActionMenuComponent
+    ActionMenuComponent,
+    UserRegisterComponent
+    
   ],
   imports: [
     BrowserModule,
