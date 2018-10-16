@@ -226,6 +226,7 @@ export class PsyregisterComponent implements OnInit {
   /* --------------------------------------------------------------------- */
   onCVFileChange(event) {
     if (event.target.files && event.target.files[0]) {
+      let accepted : any = [""]
       if (event.target.files[0].size > this.maxFileSizeBytes)
         this._attachmentForm.cvFile.setErrors({ tooLarge: true });
       else
@@ -235,6 +236,7 @@ export class PsyregisterComponent implements OnInit {
 
   onIdDocFileChange(event) {
     if (event.target.files && event.target.files[0]) {
+
       if (event.target.files[0].size > this.maxFileSizeBytes)
         this._attachmentForm.idDocFile.setErrors({ tooLarge: true });
       else

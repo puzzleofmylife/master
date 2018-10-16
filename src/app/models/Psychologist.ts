@@ -1,4 +1,5 @@
 export default class Psychologist {
+    id: number;
     email: string;
     password: string;
     firstName: string;

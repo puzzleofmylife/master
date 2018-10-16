@@ -2,7 +2,7 @@
     <div class="slds-col slds-size_1-of-12 slds-medium-size_2-of-12  slds-large-size_4-of-12"></div>
 
     <div class="slds-col slds-size_10-of-12 slds-medium-size_8-of-12 slds-large-size_4-of-12">
-        <form [formGroup]="userPersonalForm" (ngSubmit)="onPersonalSubmit()">
+        <form [formGroup]="userPersonalForm" (ngSubmit)="onUserPersonalSubmit()">
 
             <div [hidden]="page != 1">
                 <div class="slds-text-heading_large"><b>User Registration. Step 1</b></div>
@@ -13,8 +13,8 @@
                     <label class="slds-form-element__label" for="userAlias">Alias*</label>
                     <div class="slds-form-element__control">
                         <input type="text" formControlName="userAlias" class="form-control slds-input" />
-                        <div *ngIf="submitted && _personalForm.firstName.errors" class="slds-text-color_error">
-                            <div *ngIf="_personalForm.firstName.errors.required">Alias is required</div>
+                        <div *ngIf="submitted && _userPersonalForm.userAlias.errors" class="slds-text-color_error">
+                            <div *ngIf="_userPersonalForm.userAlias.errors.required">Alias is required</div>
                         </div>
                     </div>
                 </div>
@@ -23,8 +23,8 @@
                     <label class="slds-form-element__label" for="userEmail">E-Mail*</label>
                     <div class="slds-form-element__control">
                         <input type="text" formControlName="userEmail" class="form-control slds-input" />
-                        <div *ngIf="submitted && _personalForm.firstName.errors" class="slds-text-color_error">
-                            <div *ngIf="_personalForm.firstName.errors.required">E-Mail is required</div>
+                        <div *ngIf="submitted && _userPersonalForm.userEmail.errors" class="slds-text-color_error">
+                            <div *ngIf="_userPersonalForm.userEmail.errors.required">E-Mail is required</div>
                         </div>
                     </div>
                 </div>
@@ -33,9 +33,9 @@
                     <label class="slds-form-element__label" for="userPassword">Choose your password*</label>
                     <div class="slds-form-element__control">
                         <input type="password" minlength="8" formControlName="userPassword" class="form-control slds-input" />
-                        <div *ngIf="submitted && _personalForm.password.errors" class="slds-text-color_error">
-                            <div *ngIf="_personalForm.userPassword.errors.required">Password is required</div>
-                            <div *ngIf="_personalForm.userPassword.errors.minlength">Password must be at least 8 characters</div>
+                        <div *ngIf="submitted && _userPersonalForm.userPassword.errors" class="slds-text-color_error">
+                            <div *ngIf="_userPersonalForm.userPassword.errors.required">Password is required</div>
+                            <div *ngIf="_userPersonalForm.userPassword.errors.minlength">Password must be at least 8 characters</div>
                         </div>
                     </div>
                 </div>
@@ -44,10 +44,10 @@
                     <label class="slds-form-element__label" for="userConfirmPassword">Confirm your password*</label>
                     <div class="slds-form-element__control">
                         <input type="password" formControlName="userConfirmPassword" class="form-control slds-input" />
-                        <div *ngIf="submitted && _personalForm.confirmPassword.errors" class="slds-text-color_error">
-                            <div *ngIf="_personalForm.userConfirmPassword.errors?.dontMatch">Confirmed password does not
+                        <div *ngIf="submitted && _userPersonalForm.userConfirmPassword.errors" class="slds-text-color_error">
+                            <div *ngIf="_userPersonalForm.userConfirmPassword.errors?.dontMatch">Confirmed password does not
                                 match</div>
-                            <div *ngIf="_personalForm.userConfirmPassword.errors.required">Confirmed password is required</div>
+                            <div *ngIf="_userPersonalForm.userConfirmPassword.errors.required">Confirmed password is required</div>
                         </div>
                     </div>
                 </div>
@@ -57,13 +57,261 @@
                     <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
                         routerLinkActive="router-link-active">Next</button>
                 </div>
+            </div>
+        </form>
+        
+        
+
+        <form [formGroup]="userHistoryForm" (ngSubmit)="onUserHistorySubmit()">
+            <div [hidden]="page != 2">
+                <div class="slds-text-heading_large"><b>User Registration. Step 2</b></div>
+                <div class="slds-text-heading_large">Background Questions</div>
+                <br/>
+
+                <div class="slds-grid slds-wrap slds-grid_vertical-align-center" >
+                    <div class="slds-col slds-size_12-of-12 slds-p-bottom_xx-small">
+                        Have you consulted a psychologist before?
+                    </div>
+                    <div class="slds-col slds-size_12-of-12 slds-grid slds-grid_align-left slds-p-bottom_medium">
+                        <fieldset class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <div class="slds-radio_button-group">
+                                    <span class="slds-button slds-radio_button">
+                                        <input type="radio" formControlName="Question1" id="formAnswer11" value="Yes" [(ngModel)]='Question1' />
+                                        <label class="slds-radio_button__label" for="formAnswer11">
+                                        <span class="slds-radio_faux">Yes</span>
+                                        </label>
+                                    </span>
+                                    <span class="slds-button slds-radio_button">
+                                        <input type="radio" formControlName="Question1" id="formAnswer12" value="No" [(ngModel)]='Question1'/>
+                                        <label class="slds-radio_button__label" for="formAnswer12">
+                                        <span class="slds-radio_faux">No</span>
+                                        </label>
+                                    </span>    
+                                </div>
+                            </div>
+                            <div *ngIf=" submitted && _userHistoryForm.Question1.errors" class="slds-text-color_error">
+                                <div *ngIf="_userHistoryForm.Question1.errors.required">Answer is required</div>
+                            </div>
+                        </fieldset>
+                    </div>
+                
+
+                    <div class="slds-col slds-size_12-of-12 slds-p-bottom_xx-small">
+                        <span>What is your main concern for visiting Puzzle Of My Life?</span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12 slds-p-bottom_xxx-small">
+                        <span>
+                            <div class="slds-checkbox_add-button">
+                                <input type="checkbox" class="slds-assistive-text" id="formAnswer21" formControlName="Question2A1" value="Relationships" [(ngModel)]='Question2A1' />
+                                <label for="formAnswer21" class="slds-checkbox_faux">
+                                        <span class="slds-assistive-text">Relationships</span>
+                                </label>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_11-of-12 slds-grid slds-grid_align-center grid_vertical-align-start slds-p-bottom_xxx-small">
+                            <span class ="slds-col_bump-right">Relationships</span>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-12 slds-p-bottom_xxx-small">
+                        <span>
+                            <div class="slds-checkbox_add-button">
+                                <input type="checkbox" class="slds-assistive-text" id="formAnswer22" formControlName="Question2A2" value="Work" [(ngModel)]='Question2A2' />
+                                <label for="formAnswer22" class="slds-checkbox_faux">
+                                        <span class="slds-assistive-text">Work</span>
+                                </label>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_11-of-12 slds-grid slds-grid_align-center grid_vertical-align-start slds-p-bottom_xxx-small">
+                            <span class ="slds-col_bump-right">Work</span>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-12 slds-p-bottom_xxx-small">
+                        <span>
+                            <div class="slds-checkbox_add-button">
+                                <input type="checkbox" class="slds-assistive-text" id="formAnswer23" formControlName="Question2A3" value="Abuse" [(ngModel)]='Question2A3' />
+                                <label for="formAnswer23" class="slds-checkbox_faux">
+                                        <span class="slds-assistive-text">Abuse</span>
+                                </label>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_11-of-12 slds-grid slds-grid_align-center grid_vertical-align-start slds-p-bottom_xxx-small">
+                            <span class ="slds-col_bump-right">Abuse</span>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-12 slds-p-bottom_xxx-small">
+                        <span>
+                            <div class="slds-checkbox_add-button">
+                                <input type="checkbox" class="slds-assistive-text" id="formAnswer24" formControlName="Question2A4" value="Financial" [(ngModel)]='Question2A4' />
+                                <label for="formAnswer24" class="slds-checkbox_faux">
+                                        <span class="slds-assistive-text">Financial</span>
+                                </label>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_11-of-12 slds-grid slds-grid_align-center grid_vertical-align-start slds-p-bottom_xxx-small">
+                            <span class ="slds-col_bump-right">Financial</span>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-12 slds-p-bottom_xxx-small">
+                        <span>
+                            <div class="slds-checkbox_add-button">
+                                <input type="checkbox" class="slds-assistive-text" id="formAnswer25" formControlName="Question2A5" value="Depression" [(ngModel)]='Question2A5' />
+                                <label for="formAnswer25" class="slds-checkbox_faux">
+                                        <span class="slds-assistive-text">Depression</span>
+                                </label>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_11-of-12 slds-grid slds-grid_align-center grid_vertical-align-start slds-p-bottom_xxx-small">
+                            <span class ="slds-col_bump-right">Depression</span>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-12 slds-p-bottom_medium">
+                        <span>
+                            <div class="slds-checkbox_add-button">
+                                <input type="checkbox" class="slds-assistive-text" id="formAnswer26" formControlName="Question2A6" value="Other" [(ngModel)]='Question2A6' />
+                                <label for="formAnswer26" class="slds-checkbox_faux">
+                                        <span class="slds-assistive-text">Other</span>
+                                </label>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_11-of-12 slds-grid slds-grid_align-center grid_vertical-align-start slds-p-bottom_xxx-small">
+                            <span class ="slds-col_bump-right">Other</span>
+                    </div>
+
+                    
+                    <div class="slds-col slds-size_12-of-12 slds-p-bottom_xx-small">
+                            Are you sleeping and eating well?
+                    </div>
+                    <div class="slds-col slds-size_12-of-12 slds-grid slds-grid_align-left slds-p-bottom_medium">
+                        <fieldset class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <div class="slds-radio_button-group">
+                                    <span class="slds-button slds-radio_button">
+                                        <input type="radio" formControlName="Question3" id="formAnswer31" value="Yes" [(ngModel)]='Question3' />
+                                        <label class="slds-radio_button__label" for="formAnswer31">
+                                        <span class="slds-radio_faux">Yes</span>
+                                        </label>
+                                    </span>
+                                    <span class="slds-button slds-radio_button">
+                                        <input type="radio" formControlName="Question1" id="formAnswer32" value="No" [(ngModel)]='Question3'/>
+                                        <label class="slds-radio_button__label" for="formAnswer32">
+                                        <span class="slds-radio_faux">No</span>
+                                        </label>
+                                    </span>    
+                                </div>
+                            </div>
+                            <div *ngIf=" submitted && _userHistoryForm.Question1.errors" class="slds-text-color_error">
+                                <div *ngIf="_userHistoryForm.Question3.errors.required">Answer is required</div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+
+                    <div class="slds-col slds-size_12-of-12 slds-p-bottom_xx-small">
+                            Have you ever had thoughts of wanting to hurt yourself or others?
+                    </div>
+                    <div class="slds-col slds-size_12-of-12 slds-grid slds-grid_align-left slds-p-bottom_medium">
+                        <fieldset class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <div class="slds-radio_button-group">
+                                    <span class="slds-button slds-radio_button">
+                                        <input type="radio" formControlName="Question4" id="formAnswer41" value="Yes" [(ngModel)]='Question4' />
+                                        <label class="slds-radio_button__label" for="formAnswer41">
+                                        <span class="slds-radio_faux">Yes</span>
+                                        </label>
+                                    </span>
+                                    <span class="slds-button slds-radio_button">
+                                        <input type="radio" formControlName="Question1" id="formAnswer42" value="No" [(ngModel)]='Question4'/>
+                                        <label class="slds-radio_button__label" for="formAnswer42">
+                                        <span class="slds-radio_faux">No</span>
+                                        </label>
+                                    </span>    
+                                </div>
+                            </div>
+                            <div *ngIf=" submitted && _userHistoryForm.Question1.errors" class="slds-text-color_error">
+                                <div *ngIf="_userHistoryForm.Question4.errors.required">Answer is required</div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+
+                    <div class="slds-col slds-size_12-of-12 slds-p-bottom_xx-small">
+                        Do you have anyone to talk to when faced with challenges?
+                    </div>
+                    <div class="slds-col slds-size_12-of-12 slds-grid slds-grid_align-left slds-p-bottom_medium">
+                        <fieldset class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <div class="slds-radio_button-group">
+                                    <span class="slds-button slds-radio_button">
+                                        <input type="radio" formControlName="Question5" id="formAnswer51" value="Yes" [(ngModel)]='Question5' />
+                                        <label class="slds-radio_button__label" for="formAnswer41">
+                                        <span class="slds-radio_faux">Yes</span>
+                                        </label>
+                                    </span>
+                                    <span class="slds-button slds-radio_button">
+                                        <input type="radio" formControlName="Question5" id="formAnswer52" value="No" [(ngModel)]='Question5'/>
+                                        <label class="slds-radio_button__label" for="formAnswer52">
+                                        <span class="slds-radio_faux">No</span>
+                                        </label>
+                                    </span>    
+                                </div>
+                            </div>
+                            <div *ngIf=" submitted && _userHistoryForm.Question1.errors" class="slds-text-color_error">
+                                <div *ngIf="_userHistoryForm.Question5.errors.required">Answer is required</div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                </div>
+<!--
+
+                <div class="slds-checkbox_add-button">
+                <input type="checkbox" class="slds-assistive-text" id="add-checkbox-4" value="add-checkbox-4" />
+                <label for="add-checkbox-4" class="slds-checkbox_faux">
+                    <span class="slds-assistive-text">Add product</span>
+                </label>
+                </div>
+
+                <div class="slds-m-top_small">
+                    <div class="slds-form-element__control">
+                        <span class="slds-checkbox">
+                            <input type="checkbox" name="options" id="checkbox-16" value="checkbox-16" />
+                            <label class="slds-checkbox__label" for="checkbox-16">
+                            <span class="slds-checkbox_faux"></span>
+                            <span class="slds-form-element__label">Checkbox Label</span>
+                            </label>
+                        </span>
+                    </div>
+                </div>                
+
+
+                <div ng-app="myApp" ng-controller="myCtrl">
+                        <p ng-bind-html="myText"></p>
+                </div>
+-->
+
+                <div class="slds-m-top_medium">
+                        <a [routerLink]="['/']" class="slds-button">Cancel</a>
+                        <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right" routerLinkActive="router-link-active">Next</button>
+                </div>
 
             </div>
-            
+
         </form>
+
+        
+    <div style="padding: 1rem;">
+        <div class="slds-align_absolute-center" style="text-align: center; width: 8rem; background-color: rgb(255, 255, 255);">
+          <div class="slds-border_bottom"></div>
+        </div>
+    </div>
+
+
     </div>
 </div>
-
-
-
-

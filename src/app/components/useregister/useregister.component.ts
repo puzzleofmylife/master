@@ -1,15 +1,14 @@
-import { Component, OnInit, Output, Input, ViewChild } from '@angular/core';
+import { UserService } from './../../services/user.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 
-import { UserService } from '../../services/user.service';
-import { Page } from '../../models/Page';
 import { User } from '../../models/User';
 
 @Component({
     templateUrl: 'useregister.component.html',
   })
+
 
 
 export class UserRegisterComponent implements OnInit{
@@ -22,42 +21,49 @@ export class UserRegisterComponent implements OnInit{
     finalSubmitError: boolean = false;
     duplicateAlias: boolean;
     successEmailAddress: string;
-
+    //All elements that will be displayed on the form will be prefixed with form*
+    formQuestions :any[];
+    formAnswersO :any [][];
+    formAnswersI :any [][];
+    
     constructor(
-        private route: ActivatedRoute,
         private formBuilder: FormBuilder,
         private router: Router,
-        private userService: UserService,
+        private UserService: UserService
       ) { }    
 
     ngOnInit(){
+
         this.userPersonalForm = this.formBuilder.group({
             userAlias:['',Validators.required],
-            userEmail:['',Validators.required],
+            userEmail:['',[Validators.required, Validators.email]],
             userPassword:['',Validators.required],
             userConfirmPassword:['',Validators.required]
         },
         {validator:this.validatePassword});
-
-        this.userHistoryForm = this.formBuilder.group({
-            userHistory1:[],
-            userHistory2:[],
-            userHistory3:[],
-            userHistory4:[],
-            userHistory5:[],
-            userHistory6:[],
-            userHistory7:[],
-            userHistory8:[],
-            userHistory9:[],
-            userHistory10:[]
+        this.userHistoryForm = this.formBuilder.group({ 
+            Question1:['',Validators.required],
+            Question2A1:[''],
+            Question2A2:[''],
+            Question2A3:[''],
+            Question2A4:[''],
+            Question2A5:[''],
+            Question2A6:[''],
+            Question3:['',Validators.required],
+            Question4:['',Validators.required],
+            Question5:['',Validators.required],
         });
 
-        this.userPaymentForm = this.formBuilder.group({
-            userPackage:['',Validators.required],
-            userPaymentMethod:['',Validators.required]
-        });
+        let q =1
 
-        
+
+        this.checkValidation();
+
+        //Get the questions
+
+        //Construct forms
+
+
     }
 
     /* Submit Forms */
@@ -72,17 +78,9 @@ export class UserRegisterComponent implements OnInit{
 
     onUserHistorySubmit(){
         this.submitted = true;
-        if (this.userHistoryForm .valid){
+        if (this.userHistoryForm.valid){
             this.submitted = false;
             this.page = 3;
-        }
-    }
-
-    onUserPaymentSubmit(){
-        this.submitted = true;
-        if (this.userHistoryForm .valid){
-            this.submitted = false;
-            this.page = 4;
         }
     }
 
@@ -99,7 +97,9 @@ export class UserRegisterComponent implements OnInit{
     get _userHistoryForm() { return this.userHistoryForm.controls; }
     get _userPaymentForm() { return this.userPaymentForm.controls; }
     /* --------------------------------------------------------------------- */
+    /*
 
+    */
 
     /* Password validation */
     /* --------------------------------------------------------------------- */
@@ -109,23 +109,23 @@ export class UserRegisterComponent implements OnInit{
 
         if (pass === confirmPass)
             return null;
-        else
+    else
             group.controls.userConfirmPassword.setErrors({ dontMatch: true });
     }
     /* --------------------------------------------------------------------- */
 
     /* Make sure all forms are valid, and navigate to them if not */
-    /* --------------------------------------------------------------------- 
-        checkValidation() {
+    /* --------------------------------------------------------------------- */
+    checkValidation() {
         if (!this.userPersonalForm.valid) {
             //console.log("Personal Form Submitted!");
-            this.router.navigate(['/psyregister'], { queryParams: { page: '1' } });
+            this.router.navigate(['/useregister'], );
         } else if (!this.userHistoryForm.valid) {
             //console.log("Banking Form Submitted!");
-            this.router.navigate(['/psyregister'], { queryParams: { page: '2' } });
+            this.router.navigate(['/useregister'], );
         } else if (this.userPaymentForm.valid) {
             //console.log("Form Submitted!");
-            this.router.navigate(['/psyregister'], { queryParams: { page: '3' } });
+            this.router.navigate(['/useregister'], );
         } else {
             //console.log("all forms are valid");
         }
