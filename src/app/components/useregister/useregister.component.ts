@@ -54,16 +54,11 @@ export class UserRegisterComponent implements OnInit{
             Question5:['',Validators.required],
         });
 
-        let q =1
-
-
         this.checkValidation();
 
         //Get the questions
 
         //Construct forms
-
-
     }
 
     /* Submit Forms */
