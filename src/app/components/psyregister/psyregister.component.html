@@ -145,8 +145,7 @@
                 </div>
 
                 <div class="slds-m-top_medium">
-                    <button type="button" class="slds-button" [routerLink]="['/psyregister']" [queryParams]="{page:1}"
-                        routerLinkActive="router-link-active">Back</button>
+                    <button (click)="goBack()" type="button" class="slds-button">Back</button>
                     <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
                         routerLinkActive="router-link-active">Next</button>
                 </div>
@@ -192,8 +191,7 @@
                 </div>
 
                 <div class="slds-m-top_medium">
-                    <button type="button" class="slds-button" [routerLink]="['/psyregister']" [queryParams]="{page:2}"
-                        routerLinkActive="router-link-active">Back</button>
+                    <button (click)="goBack()" type="button" class="slds-button">Back</button>
                     <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
                         routerLinkActive="router-link-active">Next</button>
                 </div>
@@ -262,9 +260,9 @@
                 </div>
 
                 <div class="slds-m-top_medium">
-                    <button type="button" class="slds-button" [routerLink]="['/psyregister']" [queryParams]="{page:3}"
-                        routerLinkActive="router-link-active">Back</button>
-                    <button [disabled]="loading" class="slds-button slds-button_brand btn-right" routerLinkActive="router-link-active">Sign up</button>
+                    <button (click)="goBack()" type="button" class="slds-button">Back</button>
+                    <button [disabled]="loading" class="slds-button slds-button_brand btn-right" routerLinkActive="router-link-active">Sign
+                        up</button>
 
                     <div [hidden]="!loading" class="slds-spinner_container">
                         <div role="status" class="slds-spinner slds-spinner_medium">
@@ -275,7 +273,8 @@
                     </div>
                 </div>
 
-                <div class="slds-m-top_medium slds-text-color_weak">By signing up you agree to the <a  target="_blank" routerLink="/psychterms">terms and conditions</a></div>
+                <div class="slds-m-top_medium slds-text-color_weak">By signing up you agree to the <a target="_blank"
+                        routerLink="/psychterms">terms and conditions</a></div>
 
                 <div [ngClass]="{'slds-hide': !finalSumbitError}" class="slds-m-top_medium slds-text-color_error">
                     An unexpected error occurred.

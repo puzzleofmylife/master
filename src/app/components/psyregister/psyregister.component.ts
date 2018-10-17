@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { PsychoService } from '../../services/psycho.service';
-import { Page } from '../../models/Page';
 import { RegisterPsycho } from '../../models/RegisterPsycho';
 
 @Component({
@@ -17,7 +16,7 @@ export class PsyregisterComponent implements OnInit {
   attachmentForm: FormGroup;
   loading = false;
   submitted = false;
-  page: number;
+  page: number = 1;
   maxFileSizeBytes: number = 5242880;
   finalSumbitError: boolean = false;
   duplicateUsername: boolean;
@@ -67,13 +66,6 @@ export class PsyregisterComponent implements OnInit {
       cvFile: ['', Validators.required],
       licenseFile: ['', Validators.required]
     });
-
-    this.route.queryParams.subscribe(params => {
-      //console.log(params);
-      this.page = params['page'];
-    });
-
-    this.checkValidation();
   }
 
   /* convenience getter for easy access to form fields */
@@ -93,7 +85,7 @@ export class PsyregisterComponent implements OnInit {
     if (this.personalForm.valid) {
       //console.log("Personal Form Submitted!");
       this.submitted = false;
-      this.router.navigate(['/psyregister'], { queryParams: { page: '2' } });
+      this.page = 2;
     }
   }
 
@@ -103,7 +95,7 @@ export class PsyregisterComponent implements OnInit {
     if (this.bankingForm.valid) {
       //console.log("Banking Form Submitted!");
       this.submitted = false;
-      this.router.navigate(['/psyregister'], { queryParams: { page: '3' } });
+      this.page = 3;
     }
   }
 
@@ -117,7 +109,7 @@ export class PsyregisterComponent implements OnInit {
       //Clear any final submit errors that could have occured on a previously final submit
       this.finalSumbitError = false;
       this.duplicateUsername = false;
-      this.router.navigate(['/psyregister'], { queryParams: { page: '4' } });
+      this.page = 4;
     }
   }
 
@@ -168,7 +160,7 @@ export class PsyregisterComponent implements OnInit {
       this.attachmentForm.reset();
 
       //Nav to success
-      this.router.navigate(['/psyregister'], { queryParams: { page: '5' } });
+      this.page = 5;
     },
       //Error
       error => {
@@ -183,25 +175,6 @@ export class PsyregisterComponent implements OnInit {
         }
         console.log(JSON.stringify(error.error));
       });
-  }
-  /* --------------------------------------------------------------------- */
-
-
-  /* Make sure all forms are valid, and navigate to them if not */
-  /* --------------------------------------------------------------------- */
-  checkValidation() {
-    if (!this.personalForm.valid) {
-      //console.log("Personal Form Submitted!");
-      this.router.navigate(['/psyregister'], { queryParams: { page: '1' } });
-    } else if (!this.bankingForm.valid) {
-      //console.log("Banking Form Submitted!");
-      this.router.navigate(['/psyregister'], { queryParams: { page: '2' } });
-    } else if (this.professionalForm.valid) {
-      //console.log("Form Submitted!");
-      this.router.navigate(['/psyregister'], { queryParams: { page: '3' } });
-    } else {
-      //console.log("all forms are valid");
-    }
   }
   /* --------------------------------------------------------------------- */
 
@@ -266,6 +239,10 @@ export class PsyregisterComponent implements OnInit {
     }
   }
   /* --------------------------------------------------------------------- */
+
+  goBack() {
+    this.page += -1;
+  }
 
 
   /* Helpers */

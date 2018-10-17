@@ -11,7 +11,7 @@ import { PsychtermsComponent } from './components/psychterms/psychterms.componen
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'psyregister', component: PsyregisterComponent },
+  {path: 'apply/psychologist', component: PsyregisterComponent },
   {path: 'verify', component: VerifyComponent },
   {path: 'psychterms', component: PsychtermsComponent },
   {path: 'useregister', component: UserRegisterComponent}

@@ -2,7 +2,6 @@
   <div class="slds-global-header slds-grid slds-grid_align-spread">
     <!-- MOBILE NAV - shown when screen size is not "large"-->
     <div class="slds-global-header__item slds-hide_large">
-      <!-- <app-mobile-menu></app-mobile-menu> -->
       <action-menu>
 
         <button actionMenuOrigin class="slds-button slds-button_icon slds-button_icon slds-button_icon-container slds-button_icon-small slds-global-actions__notifications slds-global-actions__item-action">
@@ -21,7 +20,7 @@
               </a>
             </li>
             <li class="slds-dropdown__item">
-              <a [routerLink]="['/psyregister']" [queryParams]="{page:1}" role="menuitem">
+              <a [routerLink]="['/apply/psychologist']" role="menuitem">
                 <span class="slds-truncate">As psychologist</span>
               </a>
             </li>
@@ -60,7 +59,7 @@
                   </a>
                 </li>
                 <li class="slds-dropdown__item">
-                  <a [routerLink]="['/psyregister']" [queryParams]="{page:1}" role="menuitem">
+                  <a [routerLink]="['/apply/psychologist']" role="menuitem">
                     <span class="slds-truncate">As psychologist</span>
                   </a>
                 </li>
