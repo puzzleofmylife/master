@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class VerifyComponent implements OnInit {
   success: boolean;
   loaded: boolean = false;
+  isPsych: boolean = false;
 
   constructor(private userService: UserService, private route: ActivatedRoute) { }
 
@@ -17,12 +18,14 @@ export class VerifyComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       let userId = params['i'];
       let confirmToken = params['t'];
+      this.isPsych = params['psych'] == "1" ? true : false;
+      console.log(this.isPsych);
 
       this.userService.confirmEmail(userId, encodeURIComponent(confirmToken)).subscribe(result => {
         this.success = true;
         this.loaded = true;
         var token = result.token;
-        console.log(token);
+        //console.log(token);
       }, error => {
         this.success = false;
         this.loaded = true;
