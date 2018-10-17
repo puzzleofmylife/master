@@ -1,10 +1,10 @@
-<div class="slds-grid slds-wrap">
+<div class="slds-grid slds-wrap slds-p-bottom_medium">
     <div class="slds-col slds-size_1-of-12 slds-medium-size_2-of-12  slds-large-size_4-of-12"></div>
 
     <div class="slds-col slds-size_10-of-12 slds-medium-size_8-of-12 slds-large-size_4-of-12">
         <form [formGroup]="personalForm" (ngSubmit)="onPersonalSubmit()">
             <div [hidden]="page != 1">
-                <div class="slds-text-heading_large"><b>Step 1 of 4</b></div>
+                <div class="slds-text-heading_large"><b>Step {{page}} of 4</b></div>
                 <div class="slds-text-heading_large">Personal details</div>
                 <br />
                 <div class="slds-m-top_small">
@@ -100,8 +100,8 @@
         </form>
 
         <form [formGroup]="bankingForm" (ngSubmit)="onBankingSubmit()">
-            <div [hidden]="page != 2">
-                <div class="slds-text-heading_large"><b>Step 2 of 4</b></div>
+            <div [hidden]="page != 4">
+                <div class="slds-text-heading_large"><b>Step {{page}} of 4</b></div>
                 <div class="slds-text-heading_large">Banking details</div>
 
                 <div class="slds-m-top_small">
@@ -146,15 +146,34 @@
 
                 <div class="slds-m-top_medium">
                     <button (click)="goBack()" type="button" class="slds-button">Back</button>
-                    <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
-                        routerLinkActive="router-link-active">Next</button>
+                    <button [disabled]="loading" class="slds-button slds-button_brand btn-right" routerLinkActive="router-link-active">Apply</button>
+
+                    <div [hidden]="!loading" class="slds-spinner_container">
+                        <div role="status" class="slds-spinner slds-spinner_medium">
+                            <span class="slds-assistive-text">Loading</span>
+                            <div class="slds-spinner__dot-a"></div>
+                            <div class="slds-spinner__dot-b"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_medium slds-text-color_weak">By applying you agree to the <a target="_blank"
+                        routerLink="/psychterms">terms and conditions</a></div>
+
+                <div [ngClass]="{'slds-hide': !finalSumbitError}" class="slds-m-top_medium slds-text-color_error">
+                    An unexpected error occurred.
+                </div>
+
+                <div [ngClass]="{'slds-hide': !duplicateUsername}" class="slds-m-top_medium slds-text-color_error">
+                    Email <b>{{ _personalForm.email.value }}</b> already exists in our system. Please login with that
+                    email address, or go back and select a different email address.
                 </div>
             </div>
         </form>
 
         <form [formGroup]="professionalForm" (ngSubmit)="onProfessionalSubmit()">
-            <div [hidden]="page != 3">
-                <div class="slds-text-heading_large"><b>Step 3 of 4</b></div>
+            <div [hidden]="page != 2">
+                <div class="slds-text-heading_large"><b>Step {{page}} of 4</b></div>
                 <div class="slds-text-heading_large">Professional information</div>
 
                 <div class="slds-m-top_small">
@@ -200,8 +219,8 @@
         </form>
 
         <form [formGroup]="attachmentForm" (ngSubmit)="onAttachmentsSubmit()">
-            <div [hidden]="page != 4">
-                <div class="slds-text-heading_large"><b>Step 4 of 4</b></div>
+            <div [hidden]="page != 3">
+                <div class="slds-text-heading_large"><b>Step {{page}} of 4</b></div>
                 <div class="slds-text-heading_large">Attachments</div>
                 <br />
 
@@ -261,28 +280,8 @@
 
                 <div class="slds-m-top_medium">
                     <button (click)="goBack()" type="button" class="slds-button">Back</button>
-                    <button [disabled]="loading" class="slds-button slds-button_brand btn-right" routerLinkActive="router-link-active">Sign
-                        up</button>
-
-                    <div [hidden]="!loading" class="slds-spinner_container">
-                        <div role="status" class="slds-spinner slds-spinner_medium">
-                            <span class="slds-assistive-text">Loading</span>
-                            <div class="slds-spinner__dot-a"></div>
-                            <div class="slds-spinner__dot-b"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="slds-m-top_medium slds-text-color_weak">By signing up you agree to the <a target="_blank"
-                        routerLink="/psychterms">terms and conditions</a></div>
-
-                <div [ngClass]="{'slds-hide': !finalSumbitError}" class="slds-m-top_medium slds-text-color_error">
-                    An unexpected error occurred.
-                </div>
-
-                <div [ngClass]="{'slds-hide': !duplicateUsername}" class="slds-m-top_medium slds-text-color_error">
-                    Email <b>{{ _personalForm.email.value }}</b> already exists in our system. Please login with that
-                    email address, or go back and select a different email address.
+                    <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
+                        routerLinkActive="router-link-active">Next</button>
                 </div>
 
             </div>

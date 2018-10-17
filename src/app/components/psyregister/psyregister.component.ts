@@ -85,7 +85,7 @@ export class PsyregisterComponent implements OnInit {
     if (this.personalForm.valid) {
       //console.log("Personal Form Submitted!");
       this.submitted = false;
-      this.page = 2;
+      this.nextPage();
     }
   }
 
@@ -95,7 +95,8 @@ export class PsyregisterComponent implements OnInit {
     if (this.bankingForm.valid) {
       //console.log("Banking Form Submitted!");
       this.submitted = false;
-      this.page = 3;
+      //Last step, do final submit
+      this.finalSubmit();
     }
   }
 
@@ -106,10 +107,7 @@ export class PsyregisterComponent implements OnInit {
     if (this.professionalForm.valid) {
       //console.log("Form Submitted!");
       this.submitted = false;
-      //Clear any final submit errors that could have occured on a previously final submit
-      this.finalSumbitError = false;
-      this.duplicateUsername = false;
-      this.page = 4;
+      this.nextPage();
     }
   }
 
@@ -119,7 +117,7 @@ export class PsyregisterComponent implements OnInit {
     if (this.attachmentForm.valid) {
       //console.log("Form Submitted!");
       this.submitted = false;
-      this.finalSubmit();
+      this.nextPage();
     }
   }
 
@@ -242,8 +240,14 @@ export class PsyregisterComponent implements OnInit {
 
   goBack() {
     this.page += -1;
+    //Clear any final submit errors that could have occured on a previous final submit
+    this.finalSumbitError = false;
+    this.duplicateUsername = false;
   }
 
+  nextPage() {
+    this.page += 1;
+  }
 
   /* Helpers */
   /* --------------------------------------------------------------------- */
