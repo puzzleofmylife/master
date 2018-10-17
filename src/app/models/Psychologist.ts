@@ -6,7 +6,6 @@ export default class Psychologist {
     lastName: string;
     psychologistIDNumber: number;
     psychologistAge: number;
-    psychologistUniversity: string;
     psychologistExperienceYears: number;
     psychologistLicenseNumber: string;
     psychologistQualifications: string[];

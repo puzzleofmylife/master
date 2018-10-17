@@ -58,8 +58,7 @@ export class PsyregisterComponent implements OnInit {
     this.professionalForm = this.formBuilder.group({
       qualification: ['', Validators.required],
       yearsOfExperience: ['', Validators.required],
-      licenseNum: ['', Validators.required],
-      university: ['', Validators.required]
+      licenseNum: ['', Validators.required]
     });
 
     this.attachmentForm = this.formBuilder.group({
@@ -141,7 +140,6 @@ export class PsyregisterComponent implements OnInit {
     registerPsycho.psychologistUser.phoneNumber = this._personalForm.contactNum.value;
     registerPsycho.psychologistUser.psychologistIDNumber = this._personalForm.idNumber.value;
     registerPsycho.psychologistUser.psychologistAge = this._personalForm.age.value;
-    registerPsycho.psychologistUser.psychologistUniversity = this._professionalForm.university.value;
     registerPsycho.psychologistUser.psychologistExperienceYears = this._professionalForm.yearsOfExperience.value;
     registerPsycho.psychologistUser.psychologistLicenseNumber = this._professionalForm.licenseNum.value;
     registerPsycho.psychologistUser.psychologistQualifications.push(this._professionalForm.qualification.value);
