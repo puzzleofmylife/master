@@ -32,6 +32,7 @@ export class UserRegisterComponent implements OnInit{
         private UserService: UserService
       ) { }    
 
+      
     ngOnInit(){
 
         this.userPersonalForm = this.formBuilder.group({

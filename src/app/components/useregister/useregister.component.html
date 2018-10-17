@@ -25,6 +25,7 @@
                         <input type="text" formControlName="userEmail" class="form-control slds-input" />
                         <div *ngIf="submitted && _userPersonalForm.userEmail.errors" class="slds-text-color_error">
                             <div *ngIf="_userPersonalForm.userEmail.errors.required">E-Mail is required</div>
+                            <div *ngIf="_userPersonalForm.userEmail.errors.email">Invalid e-mail</div>
                         </div>
                     </div>
                 </div>
@@ -199,14 +200,14 @@
                                         </label>
                                     </span>
                                     <span class="slds-button slds-radio_button">
-                                        <input type="radio" formControlName="Question1" id="formAnswer32" value="No" [(ngModel)]='Question3'/>
+                                        <input type="radio" formControlName="Question3" id="formAnswer32" value="No" [(ngModel)]='Question3'/>
                                         <label class="slds-radio_button__label" for="formAnswer32">
                                         <span class="slds-radio_faux">No</span>
                                         </label>
                                     </span>    
                                 </div>
                             </div>
-                            <div *ngIf=" submitted && _userHistoryForm.Question1.errors" class="slds-text-color_error">
+                            <div *ngIf=" submitted && _userHistoryForm.Question3.errors" class="slds-text-color_error">
                                 <div *ngIf="_userHistoryForm.Question3.errors.required">Answer is required</div>
                             </div>
                         </fieldset>
@@ -227,14 +228,14 @@
                                         </label>
                                     </span>
                                     <span class="slds-button slds-radio_button">
-                                        <input type="radio" formControlName="Question1" id="formAnswer42" value="No" [(ngModel)]='Question4'/>
+                                        <input type="radio" formControlName="Question4" id="formAnswer42" value="No" [(ngModel)]='Question4'/>
                                         <label class="slds-radio_button__label" for="formAnswer42">
                                         <span class="slds-radio_faux">No</span>
                                         </label>
                                     </span>    
                                 </div>
                             </div>
-                            <div *ngIf=" submitted && _userHistoryForm.Question1.errors" class="slds-text-color_error">
+                            <div *ngIf=" submitted && _userHistoryForm.Question4.errors" class="slds-text-color_error">
                                 <div *ngIf="_userHistoryForm.Question4.errors.required">Answer is required</div>
                             </div>
                         </fieldset>
@@ -250,7 +251,7 @@
                                 <div class="slds-radio_button-group">
                                     <span class="slds-button slds-radio_button">
                                         <input type="radio" formControlName="Question5" id="formAnswer51" value="Yes" [(ngModel)]='Question5' />
-                                        <label class="slds-radio_button__label" for="formAnswer41">
+                                        <label class="slds-radio_button__label" for="formAnswer51">
                                         <span class="slds-radio_faux">Yes</span>
                                         </label>
                                     </span>
@@ -262,7 +263,7 @@
                                     </span>    
                                 </div>
                             </div>
-                            <div *ngIf=" submitted && _userHistoryForm.Question1.errors" class="slds-text-color_error">
+                            <div *ngIf=" submitted && _userHistoryForm.Question5.errors" class="slds-text-color_error">
                                 <div *ngIf="_userHistoryForm.Question5.errors.required">Answer is required</div>
                             </div>
                         </fieldset>
