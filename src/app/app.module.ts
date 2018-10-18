@@ -18,7 +18,7 @@ import { PsychtermsComponent } from './components/psychterms/psychterms.componen
 import { ActionMenuOriginDirective } from './directives/action-menu-origin.directive';
 import { ActionMenuDropdownDirective } from './directives/action-menu-dropdown.directive';
 import { ActionMenuComponent } from './components/action-menu/action-menu.component';
-import { UserRegisterComponent } from './components/useregister/useregister.component';
+import { PatientRegisterComponent } from './components/useregister/patientregister.component';
 import { ApplyComponent } from './components/apply/apply.component';
 
 
@@ -34,7 +34,7 @@ import { ApplyComponent } from './components/apply/apply.component';
     ActionMenuOriginDirective,
     ActionMenuDropdownDirective,
     ActionMenuComponent,
-    UserRegisterComponent,
+    PatientRegisterComponent,
     ApplyComponent
     
   ],

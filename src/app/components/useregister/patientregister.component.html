@@ -1,0 +1,140 @@
+<div class="slds-grid slds-wrap">
+    <div class="slds-col slds-size_0-of-12 slds-medium-size_2-of-12  slds-large-size_4-of-12"></div>
+
+    <div class="slds-col slds-size_12-of-12 slds-medium-size_8-of-12 slds-large-size_4-of-12 slds-p-horizontal_medium">
+        <form [formGroup]="patientPersonalForm" (ngSubmit)="onPatientPersonalSubmit()">
+
+            <div [hidden]="page != 1">
+                <div class="slds-text-heading_large"><b>Step {{page}} of 3</b></div>
+                <div class="slds-text-heading_large">Personal details</div>
+                <br />
+
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="patientAlias">Name*</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" formControlName="patientAlias" class="form-control slds-input" />
+                        <div *ngIf="submitted && _patientPersonalForm.patientAlias.errors" class="slds-text-color_error">
+                            <div *ngIf="_patientPersonalForm.patientAlias.errors.required">Alias is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="patientEmail">Email*</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" formControlName="patientEmail" class="form-control slds-input" />
+                        <div *ngIf="submitted && _patientPersonalForm.patientEmail.errors" class="slds-text-color_error">
+                            <div *ngIf="_patientPersonalForm.patientEmail.errors.required">Email is required</div>
+                            <div *ngIf="_patientPersonalForm.patientEmail.errors.email">Invalid email</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="patientPassword">Choose your password*</label>
+                    <div class="slds-form-element__control">
+                        <input type="password" minlength="8" formControlName="patientPassword" class="form-control slds-input" />
+                        <div *ngIf="submitted && _patientPersonalForm.patientPassword.errors" class="slds-text-color_error">
+                            <div *ngIf="_patientPersonalForm.patientPassword.errors.required">Password is required</div>
+                            <div *ngIf="_patientPersonalForm.patientPassword.errors.minlength">Password must be at
+                                least 8 characters</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="patientConfirmPassword">Confirm your password*</label>
+                    <div class="slds-form-element__control">
+                        <input type="password" formControlName="patientConfirmPassword" class="form-control slds-input" />
+                        <div *ngIf="submitted && _patientPersonalForm.patientConfirmPassword.errors" class="slds-text-color_error">
+                            <div *ngIf="_patientPersonalForm.patientConfirmPassword.errors?.dontMatch">Confirmed
+                                password does not
+                                match</div>
+                            <div *ngIf="_patientPersonalForm.patientConfirmPassword.errors.required">Confirmed password
+                                is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_medium">
+                    <a [routerLink]="['/']" class="slds-button">Cancel</a>
+                    <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
+                        routerLinkActive="router-link-active">Next</button>
+                </div>
+            </div>
+        </form>
+
+        <form [formGroup]="patientQuestionForm" (ngSubmit)="onPatientQuestionsSubmit()">
+            <div [hidden]="false">
+                <div class="slds-text-heading_large"><b>Step {{page}} of 3</b></div>
+                <div class="slds-text-heading_large">A few questions</div>
+                <br />
+
+                <div *ngFor="let question of patientQuestions">
+                    <div class="slds-p-bottom_medium" [ngSwitch]="question.type">
+                        <div *ngSwitchCase="0">
+                            <div class="slds-p-bottom_xx-small slds-text-heading_small">
+                                {{question.question}}
+                            </div>
+                            <fieldset class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <div class="slds-radio_button-group">
+                                        <span class="slds-button slds-radio_button">
+                                            <input type="radio" [id]="'question' + question.id + '-yes'"
+                                                [formControlName]="'question' + question.id" [name]="'question' + question.id"
+                                                value="Yes" />
+                                            <label class="slds-radio_button__label" [for]="'question' + question.id + '-yes'">
+                                                <span class="slds-radio_faux">Yes</span>
+                                            </label>
+                                        </span>
+                                        <span class="slds-button slds-radio_button">
+                                            <input type="radio" [id]="'question' + question.id + '-no'"
+                                                [formControlName]="'question' + question.id" [name]="'question' + question.id"
+                                                value="No" />
+                                            <label class="slds-radio_button__label" [for]="'question' + question.id + '-no'">
+                                                <span class="slds-radio_faux">No</span>
+                                            </label>
+                                        </span>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div *ngSwitchCase="1">
+                            <div class="slds-p-bottom_xx-small">
+                                <span class="slds-text-heading_small">{{question.question}}</span>
+                            </div>
+                            <div [formArrayName]="'question' + question.id">
+                                <div class="slds-grid slds-grid_vertical-align-center" *ngFor="let possibleAnswer of patientQuestionForm.get('question' + question.id).controls; let i = index">
+                                    <div class="slds-col_bump-right" [formGroupName]="i">
+                                        <div class="slds-p-bottom_xxx-small">
+                                            <div class="slds-checkbox_add-button">
+                                                <input (click)="possibleAnswer.value = !possibleAnswer.value" type="checkbox"
+                                                    class="slds-assistive-text" [id]="question.id + '-' + i" [value]="possibleAnswer.value" />
+                                                <label [for]="question.id + '-' + i" class="slds-checkbox_faux">
+                                                    <span class="slds-assistive-text">{{question.multipleChoiceOptions.split(';')[i]}}</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-col slds-m-left_small">
+                                        {{question.multipleChoiceOptions.split(';')[i]}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_medium">
+                    <a [routerLink]="['/']" class="slds-button">Cancel</a>
+                    <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
+                        routerLinkActive="router-link-active">Next</button>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+    <div class="slds-col slds-size_0-of-12 slds-medium-size_2-of-12  slds-large-size_4-of-12"></div>
+</div>

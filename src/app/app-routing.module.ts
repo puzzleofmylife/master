@@ -1,4 +1,4 @@
-import { UserRegisterComponent } from './components/useregister/useregister.component';
+import { PatientRegisterComponent } from './components/useregister/patientregister.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: 'apply', component: ApplyComponent },
   {path: 'verify', component: VerifyComponent },
   {path: 'psychologist-terms', component: PsychtermsComponent },
-  {path: 'signup', component: UserRegisterComponent}
+  {path: 'signup', component: PatientRegisterComponent}
 ];
 
 @NgModule({
