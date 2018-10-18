@@ -15,7 +15,7 @@ const routes: Routes = [
   {path: 'apply/psychologist', component: PsyregisterComponent },
   {path: 'apply', component: ApplyComponent },
   {path: 'verify', component: VerifyComponent },
-  {path: 'psychterms', component: PsychtermsComponent },
+  {path: 'psychologist-terms', component: PsychtermsComponent },
   {path: 'signup', component: UserRegisterComponent}
 ];
 
