@@ -7,14 +7,16 @@ import { PsychoService } from './services/psycho.service';
 import { AppComponent } from './app.component';
 import { VerifyComponent } from './components/verify/verify.component';
 import { PsychtermsComponent } from './components/psychterms/psychterms.component';
+import { ApplyComponent } from './components/apply/apply.component';
 
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'apply/psychologist', component: PsyregisterComponent },
+  {path: 'apply', component: ApplyComponent },
   {path: 'verify', component: VerifyComponent },
   {path: 'psychterms', component: PsychtermsComponent },
-  {path: 'useregister', component: UserRegisterComponent}
+  {path: 'signup', component: UserRegisterComponent}
 ];
 
 @NgModule({

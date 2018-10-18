@@ -19,6 +19,7 @@ import { ActionMenuOriginDirective } from './directives/action-menu-origin.direc
 import { ActionMenuDropdownDirective } from './directives/action-menu-dropdown.directive';
 import { ActionMenuComponent } from './components/action-menu/action-menu.component';
 import { UserRegisterComponent } from './components/useregister/useregister.component';
+import { ApplyComponent } from './components/apply/apply.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { UserRegisterComponent } from './components/useregister/useregister.comp
     ActionMenuOriginDirective,
     ActionMenuDropdownDirective,
     ActionMenuComponent,
-    UserRegisterComponent
+    UserRegisterComponent,
+    ApplyComponent
     
   ],
   imports: [

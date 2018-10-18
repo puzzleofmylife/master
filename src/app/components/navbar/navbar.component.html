@@ -12,16 +12,17 @@
         <div actionMenuDropdown class="slds-dropdown slds-dropdown--left slds-m-top_x-small">
           <ul class="dropdown__list" role="menu">
             <li class="slds-dropdown__header slds-truncate" title="Sign Up" role="separator">
-              <span class="slds-text-title_caps">Sign Up</span>
-            </li>
-            <li class="slds-dropdown__item">
-              <a role="menuitem" [routerLink]="['/useregister']" >
-                <span class="slds-truncate">As user</span>
+              <a role="menuitem" [routerLink]="['/signup']">
+                <span class="slds-text-title_caps">Sign Up</span>
               </a>
             </li>
+            <li class="slds-has-divider_top-space" role="separator"></li>
+            <li class="slds-dropdown__header slds-truncate" title="Apply" role="separator">
+              <span class="slds-text-title_caps">Apply</span>
+            </li>
             <li class="slds-dropdown__item">
-              <a [routerLink]="['/apply/psychologist']" role="menuitem">
-                <span class="slds-truncate">As psychologist</span>
+              <a [routerLink]="['/apply']" role="menuitem">
+                <span class="slds-truncate">As a psychologist</span>
               </a>
             </li>
             <li class="slds-has-divider_top-space" role="separator"></li>
@@ -49,18 +50,16 @@
           </a>
         </div>
         <div class="slds-col">
+          <div [routerLink]="['/signup']" class="slds-text-title--caps pointer">Sign up</div>
+        </div>
+        <div class="slds-col">
           <action-menu>
-            <div actionMenuOrigin class="slds-text-title--caps pointer">Sign Up</div>
+            <div actionMenuOrigin class="slds-text-title--caps pointer">Apply</div>
             <div actionMenuDropdown class="slds-dropdown slds-dropdown_left slds-m-top_x-small">
               <ul class="dropdown__list" role="menu">
                 <li class="slds-dropdown__item">
-                  <a role="menuitem" [routerLink]="['/useregister']">
-                    <span class="slds-truncate">As user</span>
-                  </a>
-                </li>
-                <li class="slds-dropdown__item">
-                  <a [routerLink]="['/apply/psychologist']" role="menuitem">
-                    <span class="slds-truncate">As psychologist</span>
+                  <a role="menuitem" [routerLink]="['/apply']">
+                    <span class="slds-truncate">As a psychologist</span>
                   </a>
                 </li>
               </ul>
