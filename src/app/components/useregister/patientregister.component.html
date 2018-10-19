@@ -10,7 +10,10 @@
                 <br />
 
                 <div class="slds-m-top_small">
-                    <label class="slds-form-element__label" for="patientAlias">Name*</label>
+                    <div class="slds-grid">
+                        <label class="slds-form-element__label" for="patientAlias">Name or alias*</label>
+                        <app-tooltip text="You don't need to use your real name" top="-52px" left="15px" width="150px"></app-tooltip>
+                    </div>
                     <div class="slds-form-element__control">
                         <input type="text" formControlName="patientAlias" class="form-control slds-input" />
                         <div *ngIf="submitted && _patientPersonalForm.patientAlias.errors" class="slds-text-color_error">
@@ -65,7 +68,7 @@
         </form>
 
         <form [formGroup]="patientQuestionForm" (ngSubmit)="onPatientQuestionsSubmit()">
-            <div [hidden]="false">
+            <div [hidden]="page != 2">
                 <div class="slds-text-heading_large"><b>Step {{page}} of 3</b></div>
                 <div class="slds-text-heading_large">A few questions</div>
                 <br />
@@ -80,17 +83,15 @@
                                 <div class="slds-form-element__control">
                                     <div class="slds-radio_button-group">
                                         <span class="slds-button slds-radio_button">
-                                            <input type="radio" [id]="question.key + '-yes'"
-                                                [formControlName]="question.key" [name]="question.key"
-                                                value="Yes" />
+                                            <input type="radio" [id]="question.key + '-yes'" [formControlName]="question.key"
+                                                [name]="question.key" value="Yes" />
                                             <label class="slds-radio_button__label" [for]="question.key + '-yes'">
                                                 <span class="slds-radio_faux">Yes</span>
                                             </label>
                                         </span>
                                         <span class="slds-button slds-radio_button">
-                                            <input type="radio" [id]="question.key + '-no'"
-                                                [formControlName]="question.key" [name]="question.key"
-                                                value="No" />
+                                            <input type="radio" [id]="question.key + '-no'" [formControlName]="question.key"
+                                                [name]="question.key" value="No" />
                                             <label class="slds-radio_button__label" [for]="question.key + '-no'">
                                                 <span class="slds-radio_faux">No</span>
                                             </label>
