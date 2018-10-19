@@ -20,6 +20,7 @@ import { ActionMenuDropdownDirective } from './directives/action-menu-dropdown.d
 import { ActionMenuComponent } from './components/action-menu/action-menu.component';
 import { PatientRegisterComponent } from './components/useregister/patientregister.component';
 import { ApplyComponent } from './components/apply/apply.component';
+import { TooltipComponent } from './components/tooltip/tooltip.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { ApplyComponent } from './components/apply/apply.component';
     ActionMenuDropdownDirective,
     ActionMenuComponent,
     PatientRegisterComponent,
-    ApplyComponent
+    ApplyComponent,
+    TooltipComponent
     
   ],
   imports: [
