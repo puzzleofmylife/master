@@ -12,12 +12,12 @@
                 <div class="slds-m-top_small">
                     <div class="slds-grid">
                         <label class="slds-form-element__label" for="patientAlias">Name or alias*</label>
-                        <app-tooltip text="You don't need to use your real name" top="-52px" left="15px" width="150px"></app-tooltip>
+                        <app-tooltip text="You don't need to use your real name" top="-50px" left="0px" width="150px"></app-tooltip>
                     </div>
                     <div class="slds-form-element__control">
                         <input type="text" formControlName="patientAlias" class="form-control slds-input" />
                         <div *ngIf="submitted && _patientPersonalForm.patientAlias.errors" class="slds-text-color_error">
-                            <div *ngIf="_patientPersonalForm.patientAlias.errors.required">Alias is required</div>
+                            <div *ngIf="_patientPersonalForm.patientAlias.errors.required">Name or alias is required</div>
                         </div>
                     </div>
                 </div>
