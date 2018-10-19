@@ -43,17 +43,22 @@ export class PatientRegisterComponent implements OnInit {
     }
 
     initQuestionForm() {
-        this.patientService.getQuestions().subscribe(questions => {
+        this.patientService.getQuestions().subscribe(result => {
+            //We need to specifically instatiate PatientQuestion so its getters work
+            var questions = result.map(x => new PatientQuestion(x));
+            
             let group: any = {};
             questions.forEach(question => {
                 if (question.type == 1) {
-                    const arr = question.multipleChoiceOptions.split(';').map((possibleAnswer, index) => {
+                    var foo = question.multipleChoiceOptionsArr;
+                    var bar = question.key;
+                    const arr = question.multipleChoiceOptionsArr.map(() => {
                         return new FormControl(false);
                     });
-                    group['question' + question.id] = this.formBuilder.array(arr);
+                    group[question.key] = this.formBuilder.array(arr);
                 }
                 else
-                    group['question' + question.id] = new FormControl('');
+                    group[question.key] = new FormControl('');
             });
             this.patientQuestionForm = new FormGroup(group);
             this.patientQuestions = questions;
@@ -61,10 +66,6 @@ export class PatientRegisterComponent implements OnInit {
             error => {
                 console.log('Could not get patient questions: ' + JSON.stringify(error.error));
             });
-    }
-
-    getPatientQuestionFormControl(controlName: string) {
-        return this.patientQuestionForm.controls[controlName];
     }
 
     /* Submit Forms */
@@ -91,12 +92,12 @@ export class PatientRegisterComponent implements OnInit {
     private processPatientQuestionForm() {
         this.patientQuestions.forEach(question => {
             var answer = '';
-            var questionControl = this.patientQuestionForm.controls['question' + question.id];
+            var questionControl = this.patientQuestionForm.controls[question.key];
             if (question.type == 1) {
                 var answerArr = [];
                 (<FormArray>questionControl).controls.forEach((answer, index) => {
                     if (answer.value === true) {
-                        answerArr.push(question.multipleChoiceOptions.split(';')[index]);
+                        answerArr.push(question.multipleChoiceOptionsArr[index]);
                     }
                 });
                 answer = answerArr.join(';');

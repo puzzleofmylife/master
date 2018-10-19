@@ -80,18 +80,18 @@
                                 <div class="slds-form-element__control">
                                     <div class="slds-radio_button-group">
                                         <span class="slds-button slds-radio_button">
-                                            <input type="radio" [id]="'question' + question.id + '-yes'"
-                                                [formControlName]="'question' + question.id" [name]="'question' + question.id"
+                                            <input type="radio" [id]="question.key + '-yes'"
+                                                [formControlName]="question.key" [name]="question.key"
                                                 value="Yes" />
-                                            <label class="slds-radio_button__label" [for]="'question' + question.id + '-yes'">
+                                            <label class="slds-radio_button__label" [for]="question.key + '-yes'">
                                                 <span class="slds-radio_faux">Yes</span>
                                             </label>
                                         </span>
                                         <span class="slds-button slds-radio_button">
-                                            <input type="radio" [id]="'question' + question.id + '-no'"
-                                                [formControlName]="'question' + question.id" [name]="'question' + question.id"
+                                            <input type="radio" [id]="question.key + '-no'"
+                                                [formControlName]="question.key" [name]="question.key"
                                                 value="No" />
-                                            <label class="slds-radio_button__label" [for]="'question' + question.id + '-no'">
+                                            <label class="slds-radio_button__label" [for]="question.key + '-no'">
                                                 <span class="slds-radio_faux">No</span>
                                             </label>
                                         </span>
@@ -103,21 +103,21 @@
                             <div class="slds-p-bottom_xx-small">
                                 <span class="slds-text-heading_small">{{question.question}}</span>
                             </div>
-                            <div [formArrayName]="'question' + question.id">
-                                <div class="slds-grid slds-grid_vertical-align-center" *ngFor="let possibleAnswer of patientQuestionForm.get('question' + question.id).controls; let i = index">
+                            <div [formArrayName]="question.key">
+                                <div class="slds-grid slds-grid_vertical-align-center" *ngFor="let possibleAnswer of patientQuestionForm.get(question.key).controls; let i = index">
                                     <div class="slds-col_bump-right" [formGroupName]="i">
                                         <div class="slds-p-bottom_xxx-small">
                                             <div class="slds-checkbox_add-button">
                                                 <input (click)="possibleAnswer.value = !possibleAnswer.value" type="checkbox"
-                                                    class="slds-assistive-text" [id]="question.id + '-' + i" [value]="possibleAnswer.value" />
-                                                <label [for]="question.id + '-' + i" class="slds-checkbox_faux">
-                                                    <span class="slds-assistive-text">{{question.multipleChoiceOptions.split(';')[i]}}</span>
+                                                    class="slds-assistive-text" [id]="question.key + '-' + i" [value]="possibleAnswer.value" />
+                                                <label [for]="question.key + '-' + i" class="slds-checkbox_faux">
+                                                    <span class="slds-assistive-text">{{question.multipleChoiceOptionsArr[i]}}</span>
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="slds-col slds-m-left_small">
-                                        {{question.multipleChoiceOptions.split(';')[i]}}
+                                        {{question.multipleChoiceOptionsArr[i]}}
                                     </div>
                                 </div>
                             </div>
