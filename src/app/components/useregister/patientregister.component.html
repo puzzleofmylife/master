@@ -188,7 +188,7 @@
             </div>
         </form>
 
-        <form [formGroup]="packagesForm" (ngSubmit)="onAvailablePsychologistsSubmit()">
+        <form [formGroup]="packagesForm" (ngSubmit)="onPackageSubmit()">
             <div [hidden]="page != 1">
                 <div class="slds-text-heading_large"><b>Step {{page}} of 4</b></div>
                 <div class="slds-text-heading_large">Choose your package</div>
