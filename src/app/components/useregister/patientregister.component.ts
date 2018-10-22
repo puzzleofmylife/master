@@ -5,14 +5,18 @@ import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@ang
 import { User } from '../../models/User';
 import { PatientQuestion } from 'src/app/models/PatientQuestion';
 import { PatientService } from 'src/app/services/patient.service';
+import { PsychoService } from 'src/app/services/psycho.service';
+import PsychologistPublic from 'src/app/models/PsychologistPublic';
 
 @Component({
     templateUrl: 'patientregister.component.html',
+    styleUrls: ['patientregister.component.css']
 })
 
 export class PatientRegisterComponent implements OnInit {
     patientQuestionForm: FormGroup = new FormGroup({});
     patientPersonalForm: FormGroup;
+    availablePsychologistsForm: FormGroup;
     loading = false;
     submitted = false;
     page: number = 1;
@@ -21,11 +25,12 @@ export class PatientRegisterComponent implements OnInit {
     successEmailAddress: string;
     patientQuestions: PatientQuestion[];
     patientAnswers: any[] = [];
+    availablePsychologists: PsychologistPublic[];
 
     constructor(
         private formBuilder: FormBuilder,
-        private router: Router,
-        private patientService: PatientService
+        private patientService: PatientService,
+        private psychService: PsychoService,
     ) { }
 
 
@@ -40,13 +45,29 @@ export class PatientRegisterComponent implements OnInit {
             { validator: this.validatePassword });
 
         this.initQuestionForm();
+
+        this.availablePsychologistsForm = this.formBuilder.group({
+            psychologistChoice: ['', Validators.required],
+            psychologistChoice2: ['', Validators.required]
+        });
+
+        this.initChoosePyschForm();
     }
 
-    initQuestionForm() {
+    initChoosePyschForm(): void {
+        this.psychService.getAvailable(4).subscribe(result => {
+            this.availablePsychologists = result;
+        },
+        error => {
+            console.error('Could not get available psychologists: ' + JSON.stringify(error.error));
+        });
+    }
+
+    initQuestionForm(): void {
         this.patientService.getQuestions().subscribe(result => {
             //We need to specifically instatiate PatientQuestion so its getters work
             var questions = result.map(x => new PatientQuestion(x));
-            
+
             let group: any = {};
             questions.forEach(question => {
                 if (question.type == 1) {
@@ -64,7 +85,7 @@ export class PatientRegisterComponent implements OnInit {
             this.patientQuestions = questions;
         },
             error => {
-                console.log('Could not get patient questions: ' + JSON.stringify(error.error));
+                console.error('Could not get patient questions: ' + JSON.stringify(error.error));
             });
     }
 
