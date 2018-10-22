@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from '../../../environments/environment';
+
 
 @Component({
   selector: 'app-verify',
@@ -11,6 +13,7 @@ export class VerifyComponent implements OnInit {
   success: boolean;
   loaded: boolean = false;
   isPsych: boolean = false;
+  environment = environment;
 
   constructor(private userService: UserService, private route: ActivatedRoute) { }
 

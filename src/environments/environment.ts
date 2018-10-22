@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  baseAPIURL: "https://puzzleapi.azurewebsites.net"
+  baseAPIURL: "https://puzzleapi.azurewebsites.net",
+  applicationOutcomeDays: 7,
+  emailAdmin: "admin@puzzleofmylife.co.za"
 };
 
 /*
