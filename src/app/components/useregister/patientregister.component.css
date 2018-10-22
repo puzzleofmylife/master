@@ -1,9 +1,11 @@
 .image-round {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    margin: 20px;
-  
     object-fit: cover;
-    object-position: center right;
+    object-position: center;
+  }
+
+  .background-color-brand-blue {
+    background-color: #00b4c7;
   }

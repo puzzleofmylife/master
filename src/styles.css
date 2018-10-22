@@ -37,3 +37,7 @@ html {
 .pointer {
   cursor: pointer;
 }
+
+.background-color-brand-blue {
+  background-color: #00b4c7;
+}

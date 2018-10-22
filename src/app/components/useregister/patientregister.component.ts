@@ -7,6 +7,8 @@ import { PatientQuestion } from 'src/app/models/PatientQuestion';
 import { PatientService } from 'src/app/services/patient.service';
 import { PsychoService } from 'src/app/services/psycho.service';
 import PsychologistPublic from 'src/app/models/PsychologistPublic';
+import { PackageService } from 'src/app/services/package.service';
+import { Package } from 'src/app/models/Package';
 
 @Component({
     templateUrl: 'patientregister.component.html',
@@ -17,6 +19,7 @@ export class PatientRegisterComponent implements OnInit {
     patientQuestionForm: FormGroup = new FormGroup({});
     patientPersonalForm: FormGroup;
     availablePsychologistsForm: FormGroup;
+    packagesForm: FormGroup;
     loading = false;
     submitted = false;
     page: number = 1;
@@ -26,13 +29,22 @@ export class PatientRegisterComponent implements OnInit {
     patientQuestions: PatientQuestion[];
     patientAnswers: any[] = [];
     availablePsychologists: PsychologistPublic[];
+    activePackages: Package[];
 
     constructor(
         private formBuilder: FormBuilder,
         private patientService: PatientService,
         private psychService: PsychoService,
+        private packageService: PackageService
     ) { }
 
+    /* convenience getter for easy access to form fields */
+    /* --------------------------------------------------------------------- */
+    get _patientPersonalForm() { return this.patientPersonalForm.controls; }
+    get _patientQuestionForm() { return this.patientQuestionForm.controls; }
+    get _availPsychForm() { return this.availablePsychologistsForm.controls; }
+    get _packageForm() { return this.packagesForm.controls; }
+    /* --------------------------------------------------------------------- */
 
     ngOnInit() {
 
@@ -47,14 +59,28 @@ export class PatientRegisterComponent implements OnInit {
         this.initQuestionForm();
 
         this.availablePsychologistsForm = this.formBuilder.group({
-            psychologistChoice: ['', Validators.required],
-            psychologistChoice2: ['', Validators.required]
+            psychologistChoice: ['', Validators.required]
         });
 
-        this.initChoosePyschForm();
+        this.initChoosePsychForm();
+
+        this.packagesForm = this.formBuilder.group({
+            packageChoice: ['', Validators.required]
+        });
+
+        this.initChoosePackageForm();
     }
 
-    initChoosePyschForm(): void {
+    initChoosePackageForm(): void {
+        this.packageService.getActivePackages().subscribe(result => {
+            this.activePackages = result;
+        },
+        error => {
+            console.error('Could not get active packages: ' + JSON.stringify(error.error));
+        });
+    }
+
+    initChoosePsychForm(): void {
         this.psychService.getAvailable(4).subscribe(result => {
             this.availablePsychologists = result;
         },
@@ -110,6 +136,29 @@ export class PatientRegisterComponent implements OnInit {
         }
     }
 
+    onAvailablePsychologistsSubmit() {
+        this.submitted = true;
+        if (this.availablePsychologistsForm.valid) {
+            this.submitted = false;
+            this.page = 4;
+        }
+    }
+
+    onPackageSubmit() {
+        this.submitted = true;
+        if (this.packagesForm.valid) {
+            this.submitted = false;
+            this.page = 4;
+        }
+    }
+
+    async finalSubmit() {
+        var newPatient = new User();
+        newPatient.alias = this._patientPersonalForm.patientAlias.value;
+        newPatient.email = this._patientPersonalForm.patientEmail.value;
+        newPatient.password = this._patientPersonalForm.patientPassword.value
+    }
+
     private processPatientQuestionForm() {
         this.patientQuestions.forEach(question => {
             var answer = '';
@@ -132,20 +181,6 @@ export class PatientRegisterComponent implements OnInit {
         });
     }
 
-    async finalSubmit() {
-        var newPatient = new User();
-        newPatient.alias = this._patientPersonalForm.patientAlias.value;
-        newPatient.email = this._patientPersonalForm.patientEmail.value;
-        newPatient.password = this._patientPersonalForm.patientPassword.value
-    }
-
-    /* convenience getter for easy access to form fields */
-    /* --------------------------------------------------------------------- */
-    get _patientPersonalForm() { return this.patientPersonalForm.controls; }
-    get _patientQuestionForm() { return this.patientQuestionForm.controls; }
-    /* --------------------------------------------------------------------- */
-
-
     /* Password validation */
     /* --------------------------------------------------------------------- */
     validatePassword(group: FormGroup) {
@@ -158,6 +193,4 @@ export class PatientRegisterComponent implements OnInit {
             group.controls.patientConfirmPassword.setErrors({ dontMatch: true });
     }
     /* --------------------------------------------------------------------- */
-
-
 }

@@ -137,13 +137,13 @@
         </form>
 
         <form [formGroup]="availablePsychologistsForm" (ngSubmit)="onAvailablePsychologistsSubmit()">
-            <div [hidden]="page != 1">
+            <div [hidden]="page != 3">
                 <div class="slds-text-heading_large"><b>Step {{page}} of 4</b></div>
                 <div class="slds-text-heading_large">Choose your psychologist</div>
                 <br />
 
                 <div class="slds-grid slds-wrap slds-gutters_x-small slds-grid_pull-padded-x-small">
-                    <div *ngFor="let psychologist of availablePsychologists" class="slds-col slds-size_1-of-2 slds-medium-size_4-of-12 slds-large-size_3-of-12">
+                    <div *ngFor="let psychologist of availablePsychologists" class="slds-col slds-size_1-of-2 slds-p-vertical_x-small">
                         <article class="slds-card">
                             <div class="slds-card__header slds-grid">
                                 <header class="slds-media slds-media_center slds-has-flexi-truncate">
@@ -157,11 +157,13 @@
                                 </header>
                             </div>
                             <div class="slds-card__body slds-card__body_inner" style="text-align:center">
-                                <img [src]="psychologist.photo" class="image-round" />
+                                <div>
+                                    <img [src]="psychologist.photo" class="image-round" />
+                                </div>
                                 <div class="slds-radio_button-group slds-m-top_small">
                                     <span class="slds-button slds-radio_button">
                                         <input type="radio" [id]="psychologist.firstName + psychologist.id"
-                                            formControlName="psychologistChoice" name="psychologistChoice" [value]="psychologist.firstName + psychologist.id" />
+                                            formControlName="psychologistChoice" name="psychologistChoice" [value]="psychologist.id" />
                                         <label class="slds-radio_button__label" [for]="psychologist.firstName + psychologist.id">
                                             <span class="slds-radio_faux">Select</span>
                                         </label>
@@ -171,6 +173,69 @@
 
                         </article>
                     </div>
+                </div>
+
+                <div *ngIf="submitted && _availPsychForm.psychologistChoice.errors" class="slds-text-color_error">
+                    <div *ngIf="_availPsychForm.psychologistChoice.errors.required" style="text-align:center"><b>Please
+                            choose a psychologist</b></div>
+                </div>
+
+                <div class="slds-m-top_medium">
+                    <a (click)="goBack()" class="slds-button">Back</a>
+                    <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
+                        routerLinkActive="router-link-active">Next</button>
+                </div>
+            </div>
+        </form>
+
+        <form [formGroup]="packagesForm" (ngSubmit)="onAvailablePsychologistsSubmit()">
+            <div [hidden]="page != 1">
+                <div class="slds-text-heading_large"><b>Step {{page}} of 4</b></div>
+                <div class="slds-text-heading_large">Choose your package</div>
+                <br />
+
+                <div class="slds-grid slds-wrap slds-gutters_x-small slds-grid_pull-padded-x-small">
+                    <div *ngFor="let package of activePackages" class="slds-col slds-size_1-of-2 slds-p-vertical_x-small">
+                        <article class="background-color-brand-blue slds-card">
+                            <div class="slds-card__header slds-grid">
+                                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                    <div class="slds-media__body">
+                                        <h2 class="slds-card__header-title" style="text-align:center; color:white">
+                                            <span class="slds-card__header-link slds-truncate">
+                                                R{{package.cost}}
+                                            </span>
+                                        </h2>
+                                    </div>
+                                </header>
+                            </div>
+                            <div class="slds-card__body slds-card__body_inner" style="text-align:center; color:white">
+                                <div>
+                                    {{package.durationDays}} Days
+                                </div>
+                                <div class="slds-radio_button-group slds-m-top_small">
+                                    <span class="slds-button slds-radio_button">
+                                        <input type="radio" [id]="'package' + package.id"
+                                            formControlName="packageChoice" name="packageChoice" [value]="package.id" />
+                                        <label class="slds-radio_button__label" [for]="'package' + package.id">
+                                            <span class="slds-radio_faux">Select</span>
+                                        </label>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </article>
+                    </div>
+                </div>
+
+                <div *ngIf="submitted && _packageForm.packageChoice.errors" class="slds-text-color_error">
+                    <div *ngIf="_packageForm.packageChoice.errors.required" style="text-align:center"><b>Please
+                            choose a package</b></div>
+                </div>
+
+                <div class="slds-m-top_medium">
+                    <a (click)="goBack()" class="slds-button">Back</a>
+                    <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
+                        routerLinkActive="router-link-active">Next</button>
                 </div>
             </div>
         </form>
