@@ -11,8 +11,7 @@ import { PsyregisterComponent } from './components/psyregister/psyregister.compo
 import { ReactiveFormsModule } from '@angular/forms';
 import { AlertService } from './services/alert.service';
 import { AlertComponent } from './components/alert/alert.component';
-import { PsychoService } from './services/psycho.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { VerifyComponent } from './components/verify/verify.component';
 import { PsychtermsComponent } from './components/psychterms/psychterms.component';
 import { ActionMenuOriginDirective } from './directives/action-menu-origin.directive';
@@ -21,6 +20,7 @@ import { ActionMenuComponent } from './components/action-menu/action-menu.compon
 import { PatientRegisterComponent } from './components/useregister/patientregister.component';
 import { ApplyComponent } from './components/apply/apply.component';
 import { TooltipComponent } from './components/tooltip/tooltip.component';
+import { CustomHttpInterceptor } from './providers/CustomHttpInterceptor';
 
 
 @NgModule({
@@ -38,7 +38,7 @@ import { TooltipComponent } from './components/tooltip/tooltip.component';
     PatientRegisterComponent,
     ApplyComponent,
     TooltipComponent
-    
+
   ],
   imports: [
     BrowserModule,
@@ -49,7 +49,12 @@ import { TooltipComponent } from './components/tooltip/tooltip.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [AlertService, PsychoService],
+  providers: [AlertService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CustomHttpInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
