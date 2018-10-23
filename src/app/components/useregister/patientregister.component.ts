@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 
-import { User } from '../../models/User';
+import { PatientUser } from '../../models/PatientUser';
 import { PatientQuestion } from 'src/app/models/PatientQuestion';
 import { PatientService } from 'src/app/services/patient.service';
 import { PsychoService } from 'src/app/services/psycho.service';
 import PsychologistPublic from 'src/app/models/PsychologistPublic';
 import { PackageService } from 'src/app/services/package.service';
 import { Package } from 'src/app/models/Package';
+import { DOCUMENT } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
+import PatientQuestionAnswer from 'src/app/models/PatientQuestionAnswer';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     templateUrl: 'patientregister.component.html',
@@ -24,10 +28,10 @@ export class PatientRegisterComponent implements OnInit {
     submitted = false;
     page: number = 1;
     finalSubmitError: boolean = false;
-    duplicateAlias: boolean;
+    duplicateUsername: boolean;
     successEmailAddress: string;
     patientQuestions: PatientQuestion[];
-    patientAnswers: any[] = [];
+    patientAnswers: PatientQuestionAnswer[] = [];
     availablePsychologists: PsychologistPublic[];
     activePackages: Package[];
 
@@ -35,7 +39,10 @@ export class PatientRegisterComponent implements OnInit {
         private formBuilder: FormBuilder,
         private patientService: PatientService,
         private psychService: PsychoService,
-        private packageService: PackageService
+        private packageService: PackageService,
+        private _renderer2: Renderer2,
+        @Inject(DOCUMENT) private _document,
+        private authService: AuthService
     ) { }
 
     /* convenience getter for easy access to form fields */
@@ -69,24 +76,32 @@ export class PatientRegisterComponent implements OnInit {
         });
 
         this.initChoosePackageForm();
+
+        //this.initPaymentForm();
+    }
+
+    initPaymentForm(): void {
+        /* let s = this._renderer2.createElement('script');
+        s.src = environment.checkoutFormSrc + '?checkoutId=' + checkoutId;
+        this._renderer2.appendChild(this._document.body, s); */
     }
 
     initChoosePackageForm(): void {
         this.packageService.getActivePackages().subscribe(result => {
             this.activePackages = result;
         },
-        error => {
-            console.error('Could not get active packages: ' + JSON.stringify(error.error));
-        });
+            error => {
+                console.error('Could not get active packages: ' + JSON.stringify(error.error));
+            });
     }
 
     initChoosePsychForm(): void {
         this.psychService.getAvailable(4).subscribe(result => {
             this.availablePsychologists = result;
         },
-        error => {
-            console.error('Could not get available psychologists: ' + JSON.stringify(error.error));
-        });
+            error => {
+                console.error('Could not get available psychologists: ' + JSON.stringify(error.error));
+            });
     }
 
     initQuestionForm(): void {
@@ -115,13 +130,24 @@ export class PatientRegisterComponent implements OnInit {
             });
     }
 
+    goBack() {
+        this.page += -1;
+        //Clear any final submit errors that could have occured on a previous final submit
+        this.finalSubmitError = false;
+        this.duplicateUsername = false;
+      }
+    
+      nextPage() {
+        this.page += 1;
+      }
+
     /* Submit Forms */
 
     onPatientPersonalSubmit() {
         this.submitted = true;
         if (this.patientPersonalForm.valid) {
             this.submitted = false;
-            this.page = 2;
+            this.nextPage();
         }
     }
 
@@ -132,7 +158,7 @@ export class PatientRegisterComponent implements OnInit {
             this.processPatientQuestionForm();
 
             this.submitted = false;
-            this.page = 3;
+            this.nextPage();
         }
     }
 
@@ -140,7 +166,7 @@ export class PatientRegisterComponent implements OnInit {
         this.submitted = true;
         if (this.availablePsychologistsForm.valid) {
             this.submitted = false;
-            this.page = 4;
+            this.nextPage();
         }
     }
 
@@ -148,15 +174,55 @@ export class PatientRegisterComponent implements OnInit {
         this.submitted = true;
         if (this.packagesForm.valid) {
             this.submitted = false;
-            this.page = 4;
+            this.finalSubmit();
         }
     }
 
     async finalSubmit() {
-        var newPatient = new User();
-        newPatient.alias = this._patientPersonalForm.patientAlias.value;
-        newPatient.email = this._patientPersonalForm.patientEmail.value;
-        newPatient.password = this._patientPersonalForm.patientPassword.value
+        var createSuccess = await this.createPatientUser();
+
+        if (createSuccess) {
+            //Get checkout
+            
+            //Set page
+            this.nextPage();
+        }
+    }
+
+    async createPatientUser(): Promise<boolean> {
+        var patientUser = new PatientUser();
+        patientUser.email = this._patientPersonalForm.patientEmail.value;
+        patientUser.patientAlias = this._patientPersonalForm.patientAlias.value;
+        patientUser.password = this._patientPersonalForm.patientPassword.value;
+        patientUser.questionAnswers = this.patientAnswers;
+        patientUser.SelectedPsychologistId = this._availPsychForm.psychologistChoice.value;
+        patientUser.selectedPackageId = this._packageForm.packageChoice.value;
+
+        this.loading = true;
+        try {
+            var result = await this.patientService.register(patientUser)
+            //Success
+            this.loading = false;
+            var token = result.token;
+            this.authService.setAccessToken(token);
+
+            return true;
+        }
+        catch (error) {
+            //Error!
+            this.loading = false;
+            this.finalSubmitError = true;
+
+            //Check for duplictate username error
+            if (error.error.DuplicateUserName) {
+                this.duplicateUsername = true;
+                //Dont show generic error msg
+                this.finalSubmitError = false;
+            }
+            console.log(JSON.stringify(error.error));
+
+            return false;
+        };
     }
 
     private processPatientQuestionForm() {
@@ -177,7 +243,7 @@ export class PatientRegisterComponent implements OnInit {
                     answer = questionControl.value;
             }
             if (answer != '')
-                this.patientAnswers.push({ id: question.id, answer: answer });
+                this.patientAnswers.push({ questionId: question.id, answer: answer });
         });
     }
 

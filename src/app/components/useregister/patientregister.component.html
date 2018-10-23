@@ -4,7 +4,7 @@
     <div class="slds-col slds-size_12-of-12 slds-medium-size_8-of-12 slds-large-size_4-of-12 slds-p-horizontal_medium">
         <form [formGroup]="patientPersonalForm" (ngSubmit)="onPatientPersonalSubmit()">
 
-            <div [hidden]="page != 2">
+            <div [hidden]="page != 1">
                 <div class="slds-text-heading_large"><b>Step {{page}} of 3</b></div>
                 <div class="slds-text-heading_large">Personal details</div>
                 <br />
@@ -189,8 +189,8 @@
         </form>
 
         <form [formGroup]="packagesForm" (ngSubmit)="onPackageSubmit()">
-            <div [hidden]="page != 1">
-                <div class="slds-text-heading_large"><b>Step {{page}} of 4</b></div>
+            <div [hidden]="page != 4">
+                <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
                 <div class="slds-text-heading_large">Choose your package</div>
                 <br />
 
@@ -214,8 +214,8 @@
                                 </div>
                                 <div class="slds-radio_button-group slds-m-top_small">
                                     <span class="slds-button slds-radio_button">
-                                        <input type="radio" [id]="'package' + package.id"
-                                            formControlName="packageChoice" name="packageChoice" [value]="package.id" />
+                                        <input type="radio" [id]="'package' + package.id" formControlName="packageChoice"
+                                            name="packageChoice" [value]="package.id" />
                                         <label class="slds-radio_button__label" [for]="'package' + package.id">
                                             <span class="slds-radio_faux">Select</span>
                                         </label>
@@ -235,11 +235,41 @@
                 <div class="slds-m-top_medium">
                     <a (click)="goBack()" class="slds-button">Back</a>
                     <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
-                        routerLinkActive="router-link-active">Next</button>
+                        routerLinkActive="router-link-active">Continue to payment</button>
                 </div>
+
+                <div class="slds-m-top_medium slds-text-color_weak">By continuing up you agree to the <a target="_blank"
+                        routerLink="/patient-terms">terms
+                        and conditions</a></div>
             </div>
         </form>
 
+        <div [ngClass]="{'slds-hide': !finalSubmitError}" class="slds-m-top_medium slds-text-color_error">
+            An unexpected error occurred.
+        </div>
+
+        <div [ngClass]="{'slds-hide': !duplicateUsername}" class="slds-m-top_medium slds-text-color_error">
+            Email <b>{{ _patientPersonalForm.patientEmail.value }}</b> already exists in our system. Please login with
+            that
+            email address, or go back and select a different email address.
+        </div>
+
+        <div [hidden]="page != 99">
+            <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
+            <div class="slds-text-heading_large">Payment details</div>
+            <br />
+
+            <!-- <form action="signup/payment" class="paymentWidgets" data-brands="VISA MASTER AMEX"></form> -->
+        </div>
+
     </div>
     <div class="slds-col slds-size_0-of-12 slds-medium-size_2-of-12  slds-large-size_4-of-12"></div>
+</div>
+
+<div [hidden]="!loading" class="slds-spinner_container">
+    <div role="status" class="slds-spinner slds-spinner_medium">
+        <span class="slds-assistive-text">Loading</span>
+        <div class="slds-spinner__dot-a"></div>
+        <div class="slds-spinner__dot-b"></div>
+    </div>
 </div>
