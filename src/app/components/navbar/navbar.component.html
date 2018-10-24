@@ -11,24 +11,25 @@
         </button>
         <div actionMenuDropdown class="slds-dropdown slds-dropdown--left slds-m-top_x-small">
           <ul class="dropdown__list" role="menu">
-            <li class="slds-dropdown__header slds-truncate" title="Sign Up" role="separator">
+            <li *ngIf="!isLoggedIn" class="slds-dropdown__header slds-truncate" title="Sign Up" role="separator">
               <a role="menuitem" [routerLink]="['/signup']">
                 <span class="slds-text-title_caps">Sign Up</span>
               </a>
             </li>
-            <li class="slds-has-divider_top-space" role="separator"></li>
-            <li class="slds-dropdown__header slds-truncate" title="Apply" role="separator">
+            <li *ngIf="!isLoggedIn" class="slds-has-divider_top-space" role="separator"></li>
+            <li *ngIf="!isLoggedIn" class="slds-dropdown__header slds-truncate" title="Apply" role="separator">
               <span class="slds-text-title_caps">Apply</span>
             </li>
-            <li class="slds-dropdown__item">
+            <li *ngIf="!isLoggedIn" class="slds-dropdown__item">
               <a [routerLink]="['/apply']" role="menuitem">
                 <span class="slds-truncate">As a psychologist</span>
               </a>
             </li>
-            <li class="slds-has-divider_top-space" role="separator"></li>
+            <li *ngIf="!isLoggedIn" class="slds-has-divider_top-space" role="separator"></li>
             <li class="slds-dropdown__item">
               <a role="menuitem">
-                <span class="slds-truncate">Login</span>
+                <span *ngIf="!isLoggedIn" class="slds-truncate">Login</span>
+                <span *ngIf="isLoggedIn" class="slds-truncate">Logout</span>
               </a>
             </li>
           </ul>
@@ -49,10 +50,10 @@
             <img src="../../../assets/cropped-PuzzleofmyLifeLogo2-192x192.png" style="height:59px; margin-top: 5px;">
           </a>
         </div>
-        <div class="slds-col">
+        <div *ngIf="!isLoggedIn" class="slds-col">
           <div [routerLink]="['/signup']" class="slds-text-title--caps pointer">Sign up</div>
         </div>
-        <div class="slds-col">
+        <div *ngIf="!isLoggedIn" class="slds-col">
           <action-menu>
             <div actionMenuOrigin class="slds-text-title--caps pointer">Apply</div>
             <div actionMenuDropdown class="slds-dropdown slds-dropdown_left slds-m-top_x-small">
@@ -67,12 +68,12 @@
           </action-menu>
         </div>
         <div class="slds-col">
-          <div class="slds-text-title--caps">Login</div>
+          <div *ngIf="!isLoggedIn" class="slds-text-title--caps">Login</div>
         </div>
       </div>
     </div>
     <!-- Right hand side items (notifications, profile, etc)-->
-    <div class="slds-global-header__item">
+    <div *ngIf="isLoggedIn" class="slds-global-header__item">
       <ul class="slds-global-actions">
         <li class="slds-global-actions__item">
           <div class="slds-dropdown-trigger slds-dropdown-trigger_click">

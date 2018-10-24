@@ -19,10 +19,6 @@ export class AuthService {
 
   public isAuthenticated(): boolean {
     // get the token
-    const token = this.getAccessToken();
-    // return a boolean reflecting 
-    // whether or not the token is expired
-    var foo = tokenNotExpired(token);
-    return true;
+    return tokenNotExpired();
   }
 }
