@@ -25,6 +25,7 @@
     "@angular/router": "^7.0.0",
     "@material/top-app-bar": "^0.39.3",
     "@salesforce-ux/design-system": "^2.7.2",
+    "angular2-jwt": "^0.2.3",
     "bootstrap": "^4.1.3",
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
