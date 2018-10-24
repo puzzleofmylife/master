@@ -5,7 +5,7 @@
         <form [formGroup]="patientPersonalForm" (ngSubmit)="onPatientPersonalSubmit()">
 
             <div [hidden]="page != 1">
-                <div class="slds-text-heading_large"><b>Step {{page}} of 3</b></div>
+                <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
                 <div class="slds-text-heading_large">Personal details</div>
                 <br />
 
@@ -69,8 +69,9 @@
 
         <form [formGroup]="patientQuestionForm" (ngSubmit)="onPatientQuestionsSubmit()">
             <div [hidden]="page != 2">
-                <div class="slds-text-heading_large"><b>Step {{page}} of 3</b></div>
+                <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
                 <div class="slds-text-heading_large">A few questions</div>
+                <div class="slds-text-heading_small slds-m-top_x-small">This short optional questionaire will provide general and anonymous background information about you to your psychologist</div>
                 <br />
 
                 <div *ngFor="let question of patientQuestions">
@@ -138,7 +139,7 @@
 
         <form [formGroup]="availablePsychologistsForm" (ngSubmit)="onAvailablePsychologistsSubmit()">
             <div [hidden]="page != 3">
-                <div class="slds-text-heading_large"><b>Step {{page}} of 4</b></div>
+                <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
                 <div class="slds-text-heading_large">Choose your psychologist</div>
                 <br />
 
