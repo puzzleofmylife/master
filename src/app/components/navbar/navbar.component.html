@@ -73,8 +73,8 @@
       </div>
     </div>
     <!-- Right hand side items (notifications, profile, etc)-->
-    <div *ngIf="isLoggedIn" class="slds-global-header__item">
-      <ul class="slds-global-actions">
+    <div class="slds-global-header__item">
+      <ul *ngIf="isLoggedIn" class="slds-global-actions">
         <li class="slds-global-actions__item">
           <div class="slds-dropdown-trigger slds-dropdown-trigger_click">
             <button class="slds-button slds-button_icon slds-button_icon slds-button_icon-container slds-button_icon-small slds-global-actions__notifications slds-global-actions__item-action slds-incoming-notification">
