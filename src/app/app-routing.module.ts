@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { VerifyComponent } from './components/verify/verify.component';
 import { PsychtermsComponent } from './components/psychterms/psychterms.component';
 import { ApplyComponent } from './components/apply/apply.component';
+import { CheckoutResultComponent } from './components/checkout-result/checkout-result.component';
 
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
   {path: 'apply', component: ApplyComponent },
   {path: 'verify', component: VerifyComponent },
   {path: 'psychologist-terms', component: PsychtermsComponent },
-  {path: 'signup', component: PatientRegisterComponent}
+  {path: 'signup', component: PatientRegisterComponent},
+  {path: 'card/result', component: CheckoutResultComponent}
 ];
 
 @NgModule({

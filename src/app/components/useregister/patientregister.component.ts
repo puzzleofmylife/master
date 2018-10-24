@@ -13,6 +13,7 @@ import { DOCUMENT } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 import PatientQuestionAnswer from 'src/app/models/PatientQuestionAnswer';
 import { AuthService } from 'src/app/services/auth.service';
+import { PaymentService } from 'src/app/services/payment.service';
 
 @Component({
     templateUrl: 'patientregister.component.html',
@@ -24,6 +25,7 @@ export class PatientRegisterComponent implements OnInit {
     patientPersonalForm: FormGroup;
     availablePsychologistsForm: FormGroup;
     packagesForm: FormGroup;
+    paymentForm: FormGroup = new FormGroup({});
     loading = false;
     submitted = false;
     page: number = 1;
@@ -34,6 +36,8 @@ export class PatientRegisterComponent implements OnInit {
     patientAnswers: PatientQuestionAnswer[] = [];
     availablePsychologists: PsychologistPublic[];
     activePackages: Package[];
+    environment = environment;
+    selectedPackage: Package = new Package();
 
     constructor(
         private formBuilder: FormBuilder,
@@ -42,7 +46,8 @@ export class PatientRegisterComponent implements OnInit {
         private packageService: PackageService,
         private _renderer2: Renderer2,
         @Inject(DOCUMENT) private _document,
-        private authService: AuthService
+        private authService: AuthService,
+        private paymentService: PaymentService
     ) { }
 
     /* convenience getter for easy access to form fields */
@@ -80,10 +85,10 @@ export class PatientRegisterComponent implements OnInit {
         //this.initPaymentForm();
     }
 
-    initPaymentForm(): void {
-        /* let s = this._renderer2.createElement('script');
+    initPaymentForm(checkoutId: string): void {
+        let s = this._renderer2.createElement('script');
         s.src = environment.checkoutFormSrc + '?checkoutId=' + checkoutId;
-        this._renderer2.appendChild(this._document.body, s); */
+        this._renderer2.appendChild(this._document.body, s);
     }
 
     initChoosePackageForm(): void {
@@ -112,8 +117,6 @@ export class PatientRegisterComponent implements OnInit {
             let group: any = {};
             questions.forEach(question => {
                 if (question.type == 1) {
-                    var foo = question.multipleChoiceOptionsArr;
-                    var bar = question.key;
                     const arr = question.multipleChoiceOptionsArr.map(() => {
                         return new FormControl(false);
                     });
@@ -135,11 +138,11 @@ export class PatientRegisterComponent implements OnInit {
         //Clear any final submit errors that could have occured on a previous final submit
         this.finalSubmitError = false;
         this.duplicateUsername = false;
-      }
-    
-      nextPage() {
+    }
+
+    nextPage() {
         this.page += 1;
-      }
+    }
 
     /* Submit Forms */
 
@@ -173,42 +176,29 @@ export class PatientRegisterComponent implements OnInit {
     onPackageSubmit() {
         this.submitted = true;
         if (this.packagesForm.valid) {
+            this.selectedPackage = this.activePackages.filter(x => x.id == this._packageForm.packageChoice.value)[0];
             this.submitted = false;
             this.finalSubmit();
         }
     }
 
     async finalSubmit() {
-        var createSuccess = await this.createPatientUser();
-
-        if (createSuccess) {
+        try {
+            this.loading = true;
+            //Create user and get returned token
+            var token = await this.createPatientUser();
+            //Set token
+            this.authService.setAccessToken(token);
             //Get checkout
-            
+            var payAmount = this.activePackages.filter(x => x.id == this._packageForm.packageChoice.value)[0].cost;
+            var checkout = await this.getCheckoutId(payAmount)
+            //Dynamically build our payment form
+            this.initPaymentForm(checkout.checkoutId);
             //Set page
             this.nextPage();
-        }
-    }
 
-    async createPatientUser(): Promise<boolean> {
-        var patientUser = new PatientUser();
-        patientUser.email = this._patientPersonalForm.patientEmail.value;
-        patientUser.patientAlias = this._patientPersonalForm.patientAlias.value;
-        patientUser.password = this._patientPersonalForm.patientPassword.value;
-        patientUser.questionAnswers = this.patientAnswers;
-        patientUser.SelectedPsychologistId = this._availPsychForm.psychologistChoice.value;
-        patientUser.selectedPackageId = this._packageForm.packageChoice.value;
-
-        this.loading = true;
-        try {
-            var result = await this.patientService.register(patientUser)
-            //Success
             this.loading = false;
-            var token = result.token;
-            this.authService.setAccessToken(token);
-
-            return true;
-        }
-        catch (error) {
+        } catch (error) {
             //Error!
             this.loading = false;
             this.finalSubmitError = true;
@@ -219,10 +209,25 @@ export class PatientRegisterComponent implements OnInit {
                 //Dont show generic error msg
                 this.finalSubmitError = false;
             }
-            console.log(JSON.stringify(error.error));
+            console.log(JSON.stringify(error));
+        }
+    }
 
-            return false;
-        };
+    async getCheckoutId(amount: number): Promise<any> {
+        return await this.paymentService.createCheckout();
+    }
+
+    async createPatientUser(): Promise<string> {
+        var patientUser = new PatientUser();
+        patientUser.email = this._patientPersonalForm.patientEmail.value;
+        patientUser.patientAlias = this._patientPersonalForm.patientAlias.value;
+        patientUser.password = this._patientPersonalForm.patientPassword.value;
+        patientUser.questionAnswers = this.patientAnswers;
+        patientUser.SelectedPsychologistId = this._availPsychForm.psychologistChoice.value;
+        patientUser.selectedPackageId = this._packageForm.packageChoice.value;
+
+        var result = await this.patientService.register(patientUser)
+        return result.token;
     }
 
     private processPatientQuestionForm() {

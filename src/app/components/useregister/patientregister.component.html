@@ -254,12 +254,25 @@
             email address, or go back and select a different email address.
         </div>
 
-        <div [hidden]="page != 99">
+        <div [hidden]="page != 5">
             <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
             <div class="slds-text-heading_large">Payment details</div>
             <br />
 
-            <!-- <form action="signup/payment" class="paymentWidgets" data-brands="VISA MASTER AMEX"></form> -->
+            <div class="slds-text-heading_medium"><b>R{{selectedPackage.cost}}</b> every <b>{{selectedPackage.durationDays}}
+                    days</b></div>
+            <div class="slds-m-vertical_large">
+                <span class="slds-icon_container" title="Secure">
+                    <svg class="slds-icon_x-small" aria-hidden="true">
+                        <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#lock"></use>
+                    </svg>
+                    <span class="slds-assistive-text">Secure</span>
+                </span>
+                Register your card to be securely stored and charged R{{selectedPackage.cost}} every {{selectedPackage.durationDays}} days. The service can be cancelled at any time.
+            </div>
+
+            <form [formGroup]="paymentForm" [action]="environment.baseAppUrl + '/card/result?signup=1'" class="paymentWidgets"
+                data-brands="VISA MASTER"></form>
         </div>
 
     </div>

@@ -20,8 +20,8 @@ import { ActionMenuComponent } from './components/action-menu/action-menu.compon
 import { PatientRegisterComponent } from './components/useregister/patientregister.component';
 import { ApplyComponent } from './components/apply/apply.component';
 import { TooltipComponent } from './components/tooltip/tooltip.component';
-import { CustomHttpInterceptor } from './providers/CustomHttpInterceptor';
-
+import { TokenInterceptor } from './auth/token.interceptor';
+import { CheckoutResultComponent } from './components/checkout-result/checkout-result.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,8 @@ import { CustomHttpInterceptor } from './providers/CustomHttpInterceptor';
     ActionMenuComponent,
     PatientRegisterComponent,
     ApplyComponent,
-    TooltipComponent
+    TooltipComponent,
+    CheckoutResultComponent
 
   ],
   imports: [
@@ -52,7 +53,7 @@ import { CustomHttpInterceptor } from './providers/CustomHttpInterceptor';
   providers: [AlertService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: CustomHttpInterceptor,
+      useClass: TokenInterceptor,
       multi: true
     }],
   bootstrap: [AppComponent]

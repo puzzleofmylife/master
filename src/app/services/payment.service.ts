@@ -10,7 +10,12 @@ export class PaymentService {
 
   constructor(private http: HttpClient) { }
 
-  createCheckout(amount): Observable<string> {
-    return this.http.get<string>(environment.baseAPIURL + '/api/Payment/checkout', { params: new HttpParams().set('amount', amount.toString()) });
+  createCheckout(): Promise<any> {
+    return this.http.get<any>(environment.baseAPIURL + '/api/Payment/checkout').toPromise();
+  }
+
+  getCheckoutStatus(checkoutId: string): Promise<any> {
+    var params = { params: new HttpParams().set('checkoutId', checkoutId) }
+    return this.http.get<any>(environment.baseAPIURL + '/api/Payment/checkout/status', params).toPromise();
   }
 }
