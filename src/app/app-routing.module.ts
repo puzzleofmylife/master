@@ -9,10 +9,12 @@ import { VerifyComponent } from './components/verify/verify.component';
 import { PsychtermsComponent } from './components/psychterms/psychterms.component';
 import { ApplyComponent } from './components/apply/apply.component';
 import { CheckoutResultComponent } from './components/checkout-result/checkout-result.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
+  {path: 'login', component: LoginComponent},
   {path: 'apply/psychologist', component: PsyregisterComponent },
   {path: 'apply', component: ApplyComponent },
   {path: 'verify', component: VerifyComponent },

@@ -20,6 +20,7 @@ import { ApplyComponent } from './components/apply/apply.component';
 import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { CheckoutResultComponent } from './components/checkout-result/checkout-result.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { CheckoutResultComponent } from './components/checkout-result/checkout-r
     PatientRegisterComponent,
     ApplyComponent,
     TooltipComponent,
-    CheckoutResultComponent
+    CheckoutResultComponent,
+    LoginComponent
 
   ],
   imports: [
