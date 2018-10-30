@@ -60,8 +60,6 @@ export class PatientRegisterComponent implements OnInit {
 
     ngOnInit() {
 
-        this.authService.isAuthenticated();
-
         this.patientPersonalForm = this.formBuilder.group({
             patientAlias: ['', Validators.required],
             patientEmail: ['', [Validators.required, Validators.email]],
@@ -83,8 +81,6 @@ export class PatientRegisterComponent implements OnInit {
         });
 
         this.initChoosePackageForm();
-
-        //this.initPaymentForm();
     }
 
     initPaymentForm(checkoutId: string): void {
