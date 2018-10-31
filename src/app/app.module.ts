@@ -21,6 +21,7 @@ import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { CheckoutResultComponent } from './components/checkout-result/checkout-result.component';
 import { LoginComponent } from './components/login/login.component';
+import { PatientTermsComponent } from './components/patient-terms/patientterms.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { LoginComponent } from './components/login/login.component';
     ApplyComponent,
     TooltipComponent,
     CheckoutResultComponent,
-    LoginComponent
+    LoginComponent,
+    PatientTermsComponent
 
   ],
   imports: [

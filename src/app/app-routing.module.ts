@@ -10,6 +10,7 @@ import { PsychtermsComponent } from './components/psychterms/psychterms.componen
 import { ApplyComponent } from './components/apply/apply.component';
 import { CheckoutResultComponent } from './components/checkout-result/checkout-result.component';
 import { LoginComponent } from './components/login/login.component';
+import { PatientTermsComponent } from './components/patient-terms/patientterms.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path: 'apply', component: ApplyComponent },
   {path: 'verify', component: VerifyComponent },
   {path: 'psychologist-terms', component: PsychtermsComponent },
+  {path: 'patient-terms', component: PatientTermsComponent },
   {path: 'signup', component: PatientRegisterComponent},
   {path: 'card/result', component: CheckoutResultComponent}
 ];
