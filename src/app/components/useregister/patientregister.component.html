@@ -4,7 +4,7 @@
     <div class="slds-col slds-size_12-of-12 slds-medium-size_8-of-12 slds-large-size_4-of-12 slds-p-horizontal_medium">
         <form [formGroup]="patientPersonalForm" (ngSubmit)="onPatientPersonalSubmit()">
 
-            <div [hidden]="page != 1">
+            <div [hidden]="page != 1" class="slds-m-bottom_medium">
                 <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
                 <div class="slds-text-heading_large">Personal details</div>
                 <br />
@@ -68,7 +68,7 @@
         </form>
 
         <form [formGroup]="patientQuestionForm" (ngSubmit)="onPatientQuestionsSubmit()">
-            <div [hidden]="page != 2">
+            <div [hidden]="page != 2" class="slds-m-bottom_medium">
                 <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
                 <div class="slds-text-heading_large">A few questions</div>
                 <div class="slds-text-heading_small slds-m-top_x-small">This short optional questionaire will provide
@@ -139,7 +139,7 @@
         </form>
 
         <form [formGroup]="availablePsychologistsForm" (ngSubmit)="onAvailablePsychologistsSubmit()">
-            <div [hidden]="page != 3">
+            <div [hidden]="page != 3" class="slds-m-bottom_medium">
                 <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
                 <div class="slds-text-heading_large">Choose your psychologist</div>
                 <br />
@@ -191,7 +191,7 @@
         </form>
 
         <form [formGroup]="packagesForm" (ngSubmit)="onPackageSubmit()">
-            <div [hidden]="page != 4">
+            <div [hidden]="page != 4" class="slds-m-bottom_medium">
                 <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
                 <div class="slds-text-heading_large">Choose your package</div>
                 <br />
@@ -244,7 +244,7 @@
                         routerLink="/patient-terms">terms
                         and conditions</a></div>
             </div>
-            
+
             <div [ngClass]="{'slds-hide': !finalSubmitError}" class="slds-m-top_medium slds-text-color_error">
                 An unexpected error occurred.
             </div>
@@ -259,7 +259,7 @@
 
 
 
-        <div [hidden]="page != 5">
+        <div [hidden]="page != 5" class="slds-m-bottom_medium">
             <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
             <div class="slds-text-heading_large">Payment details</div>
             <br />
