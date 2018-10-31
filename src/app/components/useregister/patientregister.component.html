@@ -218,7 +218,10 @@
                             </div>
                             <div class="slds-card__body slds-card__body_inner" style="text-align:center; color:white">
                                 <div>
-                                    {{package.durationDays}} Days
+                                    {{package.durationDays}} days, unlimited interaction
+                                </div>
+                                <div *ngIf="package.trialDays" class="slds-p-top_small">
+                                    <b>{{package.trialDays}} day free trial</b>
                                 </div>
                                 <div class="slds-radio_button-group slds-m-top_small">
                                     <span class="slds-button slds-radio_button">
@@ -246,7 +249,7 @@
                         routerLinkActive="router-link-active">Continue to payment</button>
                 </div>
 
-                <div class="slds-m-top_medium slds-text-color_weak">By continuing up you agree to the <a target="_blank"
+                <div class="slds-m-top_medium slds-text-color_weak">By continuing you agree to the <a target="_blank"
                         routerLink="/patient-terms">terms
                         and conditions</a></div>
             </div>
