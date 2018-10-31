@@ -71,7 +71,8 @@
             <div [hidden]="page != 2">
                 <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
                 <div class="slds-text-heading_large">A few questions</div>
-                <div class="slds-text-heading_small slds-m-top_x-small">This short optional questionaire will provide general and anonymous background information about you to your psychologist</div>
+                <div class="slds-text-heading_small slds-m-top_x-small">This short optional questionaire will provide
+                    general and anonymous background information about you to your psychologist</div>
                 <br />
 
                 <div *ngFor="let question of patientQuestions">
@@ -243,17 +244,20 @@
                         routerLink="/patient-terms">terms
                         and conditions</a></div>
             </div>
+            
+            <div [ngClass]="{'slds-hide': !finalSubmitError}" class="slds-m-top_medium slds-text-color_error">
+                An unexpected error occurred.
+            </div>
+
+            <div [ngClass]="{'slds-hide': !duplicateUsername}" class="slds-m-top_medium slds-text-color_error">
+                Email <b>{{ _patientPersonalForm.patientEmail.value }}</b> already exists in our system. Please login
+                with
+                that
+                email address, or go back and select a different email address.
+            </div>
         </form>
 
-        <div [ngClass]="{'slds-hide': !finalSubmitError}" class="slds-m-top_medium slds-text-color_error">
-            An unexpected error occurred.
-        </div>
 
-        <div [ngClass]="{'slds-hide': !duplicateUsername}" class="slds-m-top_medium slds-text-color_error">
-            Email <b>{{ _patientPersonalForm.patientEmail.value }}</b> already exists in our system. Please login with
-            that
-            email address, or go back and select a different email address.
-        </div>
 
         <div [hidden]="page != 5">
             <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
@@ -269,7 +273,8 @@
                     </svg>
                     <span class="slds-assistive-text">Secure</span>
                 </span>
-                Register your card to be securely stored and charged R{{selectedPackage.cost}} every {{selectedPackage.durationDays}} days. The service can be cancelled at any time.
+                Register your card to be securely stored and charged R{{selectedPackage.cost}} every
+                {{selectedPackage.durationDays}} days. The service can be cancelled at any time.
             </div>
 
             <form [formGroup]="paymentForm" [action]="environment.baseAppUrl + '/card/result?signup=1'" class="paymentWidgets"
