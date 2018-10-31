@@ -18,7 +18,10 @@
 
       <div class="slds-m-top_large" *ngIf="isSignup">
         <div *ngIf="isSignup" class="slds-text-heading_medium">
-          You are now signed up and ready to go! Continue to your profile to start your first session.
+          You are now signed up and ready to go!
+          <br /><br />
+          Your psychologist <b>{{psychName}}</b> can't wait to meet you. Continue to your profile to start your first
+          session.
         </div>
         <div *ngIf="!isSignup" class="slds-text-heading_medium">
           Your payment details have been saved
@@ -40,8 +43,15 @@
         </span>
       </div>
 
-      <div class="slds-text-heading_large slds-align_absolute-center slds-m-top_medium">
+      <div *ngIf="isExpiredCheckout" class="slds-text-heading_large slds-align_absolute-center slds-m-top_medium">
+        Sorry, this page is no longer valid
+      </div>
+      <div *ngIf="!isExpiredCheckout" class="slds-text-heading_large slds-align_absolute-center slds-m-top_medium">
         Sorry, we could not save your payment details
+      </div>
+
+      <div class="slds-align_absolute-center slds-m-top_medium">
+        <button class="slds-button slds-button_brand">Continue to profile</button>
       </div>
     </div>
   </div>

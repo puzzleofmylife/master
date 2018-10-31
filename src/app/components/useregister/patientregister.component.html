@@ -286,7 +286,7 @@
                 {{selectedPackage.durationDays}} days. The service can be cancelled at any time.
             </div>
 
-            <form [formGroup]="paymentForm" [action]="environment.baseAppUrl + '/card/result?signup=1'" class="paymentWidgets"
+            <form [formGroup]="paymentForm" [action]="environment.baseAppUrl + '/card/result?signup=1&psych=' + chosenPsychName" class="paymentWidgets"
                 data-brands="VISA MASTER"></form>
         </div>
 

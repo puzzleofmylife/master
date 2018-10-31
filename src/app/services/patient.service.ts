@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { PatientQuestion } from '../models/PatientQuestion';
 import { environment } from 'src/environments/environment';
 import { PatientUser } from '../models/PatientUser';
+import Psychologist from '../models/Psychologist';
+import PsychologistPublic from '../models/PsychologistPublic';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +20,9 @@ export class PatientService {
 
   register(patientUser: PatientUser): Promise<any> {
     return this.http.post<any>(environment.baseAPIURL + '/api/User/patient', patientUser).toPromise();
+  }
+
+  getPsychologist(): Promise<PsychologistPublic> {
+    return this.http.get<any>(environment.baseAPIURL + '/api/Patient/psychologist').toPromise();
   }
 }
