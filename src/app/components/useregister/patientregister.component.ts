@@ -88,6 +88,19 @@ export class PatientRegisterComponent implements OnInit {
         let s = this._renderer2.createElement('script');
         s.src = environment.checkoutFormSrc + '?checkoutId=' + checkoutId;
         this._renderer2.appendChild(this._document.body, s);
+
+        let payFormOptions = this._renderer2.createElement('script');
+        payFormOptions.text = `
+            var wpwlOptions = {
+                onReady: function() {
+                    x=document.getElementsByClassName("wpwl-button-pay");  // Find the elements
+                    for(var i = 0; i < x.length; i++){
+                    x[i].innerText="Save card";    // Change the content
+                    }
+                }
+            }
+        `;
+        this._renderer2.appendChild(this._document.body, payFormOptions);
     }
 
     initChoosePackageForm(): void {
