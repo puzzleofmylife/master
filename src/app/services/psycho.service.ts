@@ -4,6 +4,8 @@ import { environment } from '../../environments/environment';
 import Psychologist from '../models/Psychologist';
 import PsychologistPublic from '../models/PsychologistPublic';
 import { PsychologistStatus } from './../models/PsychologistStatus';
+import { PsychologistNew } from '../models/PsychologistNew';
+import { Observable } from 'rxjs';
 
 
 
@@ -19,11 +21,11 @@ export class PsychoService {
       params: new HttpParams().set('limit', limit.toString())
     });
   }
-  getStatus() {
+  getStatuses() {
     return this.http.get<PsychologistStatus[]>(environment.baseAPIURL + '/api/Psychologist/statuses');
   }
-  getById(psychologistStatusId: number) {
-    return this.http.get<PsychologistStatus[]>(environment.baseAPIURL + '/api/Psychologist', {
+  getByStatus(psychologistStatusId: number): Observable<PsychologistNew[]> {
+    return this.http.get<PsychologistNew[]>(environment.baseAPIURL + '/api/Psychologist', {
       params: new HttpParams().set('psychologistStatusId', psychologistStatusId.toString())
     });
   }

@@ -3,6 +3,11 @@
   </div>
 </header>
 <div>
+  <select (change)="onPsychStatusChange($event.target.value)">
+    <option *ngFor="let psychStatus of psychologistStatuses" [selected]="psychStatus.id == statusId" value={{psychStatus.id}}>
+      {{psychStatus.name}}
+    </option>
+  </select>
   <table class="slds-table slds-table_cell-buffer slds-table_bordered">
     <thead>
       <tr class="slds-line-height_reset">
@@ -23,23 +28,23 @@
         </th>
     </thead>
     <tbody>
-      <tr *ngFor="let x of status ">
+      <tr *ngFor="let psych of psychologists">
         <td data-label="Image">
         </td>
         <td data-label="First Name">
-          {{x.firstName}}
+          {{psych.firstName}}
         </td>
         <td data-label="Last Name">
-          {{x.lastName}}
+          {{psych.lastName}}
         </td>
         <td data-label="Email Name">
-          {{x.email}}
+          {{psych.email}}
         </td>
         <td data-label="Phone Number">
-          {{x.phoneNumber}}
+          {{psych.phoneNumber}}
         </td>
         <td data-label="Status">
-          {{x.name}}
+          {{psych.name}}
         </td>
         <td data-label="Account Name">
 
