@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { AppComponent } from './app.component';
 import { ApplyComponent } from './components/apply/apply.component';
 import { CheckoutResultComponent } from './components/checkout-result/checkout-result.component';
@@ -11,18 +10,20 @@ import { PsyregisterComponent } from './components/psyregister/psyregister.compo
 import { PatientRegisterComponent } from './components/useregister/patientregister.component';
 import { VerifyComponent } from './components/verify/verify.component';
 import { PsychoService } from './services/psycho.service';
-
+import { LoginComponent } from './components/login/login.component';
+import { PatientTermsComponent } from './components/patient-terms/patientterms.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'apply/psychologist', component: PsyregisterComponent },
-  { path: 'apply', component: ApplyComponent },
-  { path: 'verify', component: VerifyComponent },
-  { path: 'psychologist-terms', component: PsychtermsComponent },
-  { path: 'signup', component: PatientRegisterComponent },
-  { path: 'card/result', component: CheckoutResultComponent },
+  {path: '', component: HomeComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'apply/psychologist', component: PsyregisterComponent },
+  {path: 'apply', component: ApplyComponent },
+  {path: 'verify', component: VerifyComponent },
+  {path: 'psychologist-terms', component: PsychtermsComponent },
+  {path: 'patient-terms', component: PatientTermsComponent },
+  {path: 'signup', component: PatientRegisterComponent},
+  {path: 'card/result', component: CheckoutResultComponent},
   { path: 'admin', component: PsychologistListComponent },
-
 ];
 
 @NgModule({

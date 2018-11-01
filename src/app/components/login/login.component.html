@@ -1,0 +1,39 @@
+<div class="slds-align_absolute-center">
+  <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()" style="width:285px">
+    <div class="slds-text-heading_large">Log in</div>
+    <div class="slds-m-top_small">
+      <div class="slds-grid">
+        <label class="slds-form-element__label slds-text-heading_medium" for="email">Email</label>
+      </div>
+      <div class="slds-form-element__control">
+        <input type="text" formControlName="email" class="form-control slds-input" />
+        <div *ngIf="submitted && loginForm.controls.email.errors" class="slds-text-color_error">
+          <div *ngIf="loginForm.controls.email.errors.required">Email is required</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slds-m-top_small">
+      <label class="slds-form-element__label slds-text-heading_medium" for="password">Password</label>
+      <div class="slds-form-element__control">
+        <input type="password" formControlName="password" class="form-control slds-input" />
+        <div *ngIf="submitted && loginForm.controls.password.errors" class="slds-text-color_error">
+          <div *ngIf="loginForm.controls.password.errors.required">Password is required</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slds-m-top_medium">
+      Not signed up? <a [routerLink]="['/signup']" class="slds-button">Sign up</a>
+      <button class="slds-button slds-button_brand btn-right" routerLinkActive="router-link-active">Log
+        in</button>
+    </div>
+    <div [ngClass]="{'slds-hide': !showError}" class="slds-m-top_medium slds-text-color_error">
+      An unexpected error occurred
+    </div>
+
+    <div [ngClass]="{'slds-hide': !showLoginFailed}" class="slds-m-top_medium slds-text-color_error">
+      Invalid username or password
+    </div>
+  </form>
+</div>

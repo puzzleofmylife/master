@@ -4,7 +4,7 @@
     <div class="slds-col slds-size_12-of-12 slds-medium-size_8-of-12 slds-large-size_4-of-12 slds-p-horizontal_medium">
         <form [formGroup]="patientPersonalForm" (ngSubmit)="onPatientPersonalSubmit()">
 
-            <div [hidden]="page != 1">
+            <div [hidden]="page != 1" class="slds-m-bottom_medium">
                 <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
                 <div class="slds-text-heading_large">Personal details</div>
                 <br />
@@ -68,10 +68,11 @@
         </form>
 
         <form [formGroup]="patientQuestionForm" (ngSubmit)="onPatientQuestionsSubmit()">
-            <div [hidden]="page != 2">
+            <div [hidden]="page != 2" class="slds-m-bottom_medium">
                 <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
                 <div class="slds-text-heading_large">A few questions</div>
-                <div class="slds-text-heading_small slds-m-top_x-small">This short optional questionaire will provide general and anonymous background information about you to your psychologist</div>
+                <div class="slds-text-heading_small slds-m-top_x-small">This short optional questionaire will provide
+                    general and anonymous background information about you to your psychologist</div>
                 <br />
 
                 <div *ngFor="let question of patientQuestions">
@@ -138,9 +139,9 @@
         </form>
 
         <form [formGroup]="availablePsychologistsForm" (ngSubmit)="onAvailablePsychologistsSubmit()">
-            <div [hidden]="page != 3">
+            <div [hidden]="page != 3" class="slds-m-bottom_medium">
                 <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
-                <div class="slds-text-heading_large">Choose your psychologist</div>
+                <div class="slds-text-heading_large">Choose your licensed psychologist</div>
                 <br />
 
                 <div class="slds-grid slds-wrap slds-gutters_x-small slds-grid_pull-padded-x-small">
@@ -153,8 +154,14 @@
                                             <span class="slds-card__header-link slds-truncate">
                                                 {{psychologist.firstName}} {{psychologist.lastName}}
                                             </span>
+                                            <div class="slds-text-body_regular">
+                                                {{psychologist.qualifications[0]}}
+                                                <br />
+                                                {{psychologist.experienceYears}} years experience
+                                            </div>
                                         </h2>
                                     </div>
+
                                 </header>
                             </div>
                             <div class="slds-card__body slds-card__body_inner" style="text-align:center">
@@ -190,7 +197,7 @@
         </form>
 
         <form [formGroup]="packagesForm" (ngSubmit)="onPackageSubmit()">
-            <div [hidden]="page != 4">
+            <div [hidden]="page != 4" class="slds-m-bottom_medium">
                 <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
                 <div class="slds-text-heading_large">Choose your package</div>
                 <br />
@@ -211,7 +218,10 @@
                             </div>
                             <div class="slds-card__body slds-card__body_inner" style="text-align:center; color:white">
                                 <div>
-                                    {{package.durationDays}} Days
+                                    {{package.durationDays}} days, unlimited interaction
+                                </div>
+                                <div *ngIf="package.trialDays" class="slds-p-top_small">
+                                    <b>{{package.trialDays}} day free trial</b>
                                 </div>
                                 <div class="slds-radio_button-group slds-m-top_small">
                                     <span class="slds-button slds-radio_button">
@@ -239,23 +249,26 @@
                         routerLinkActive="router-link-active">Continue to payment</button>
                 </div>
 
-                <div class="slds-m-top_medium slds-text-color_weak">By continuing up you agree to the <a target="_blank"
+                <div class="slds-m-top_medium slds-text-color_weak">By continuing you agree to the <a target="_blank"
                         routerLink="/patient-terms">terms
                         and conditions</a></div>
             </div>
+
+            <div [ngClass]="{'slds-hide': !finalSubmitError}" class="slds-m-top_medium slds-text-color_error">
+                An unexpected error occurred.
+            </div>
+
+            <div [ngClass]="{'slds-hide': !duplicateUsername}" class="slds-m-top_medium slds-text-color_error">
+                Email <b>{{ _patientPersonalForm.patientEmail.value }}</b> already exists in our system. Please login
+                with
+                that
+                email address, or go back and select a different email address.
+            </div>
         </form>
 
-        <div [ngClass]="{'slds-hide': !finalSubmitError}" class="slds-m-top_medium slds-text-color_error">
-            An unexpected error occurred.
-        </div>
 
-        <div [ngClass]="{'slds-hide': !duplicateUsername}" class="slds-m-top_medium slds-text-color_error">
-            Email <b>{{ _patientPersonalForm.patientEmail.value }}</b> already exists in our system. Please login with
-            that
-            email address, or go back and select a different email address.
-        </div>
 
-        <div [hidden]="page != 5">
+        <div [hidden]="page != 5" class="slds-m-bottom_medium">
             <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
             <div class="slds-text-heading_large">Payment details</div>
             <br />
@@ -269,10 +282,11 @@
                     </svg>
                     <span class="slds-assistive-text">Secure</span>
                 </span>
-                Register your card to be securely stored and charged R{{selectedPackage.cost}} every {{selectedPackage.durationDays}} days. The service can be cancelled at any time.
+                Register your card to be securely stored and charged R{{selectedPackage.cost}} every
+                {{selectedPackage.durationDays}} days. The service can be cancelled at any time.
             </div>
 
-            <form [formGroup]="paymentForm" [action]="environment.baseAppUrl + '/card/result?signup=1'" class="paymentWidgets"
+            <form [formGroup]="paymentForm" [action]="environment.baseAppUrl + '/card/result?signup=1&psych=' + chosenPsychName" class="paymentWidgets"
                 data-brands="VISA MASTER"></form>
         </div>
 

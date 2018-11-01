@@ -38,6 +38,7 @@ export class PatientRegisterComponent implements OnInit {
     activePackages: Package[];
     environment = environment;
     selectedPackage: Package = new Package();
+    chosenPsychName: string;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -60,8 +61,6 @@ export class PatientRegisterComponent implements OnInit {
 
     ngOnInit() {
 
-        this.authService.isAuthenticated();
-
         this.patientPersonalForm = this.formBuilder.group({
             patientAlias: ['', Validators.required],
             patientEmail: ['', [Validators.required, Validators.email]],
@@ -83,8 +82,6 @@ export class PatientRegisterComponent implements OnInit {
         });
 
         this.initChoosePackageForm();
-
-        //this.initPaymentForm();
     }
 
     initPaymentForm(checkoutId: string): void {
@@ -193,7 +190,12 @@ export class PatientRegisterComponent implements OnInit {
             this.authService.setAccessToken(token);
             //Get checkout
             var payAmount = this.activePackages.filter(x => x.id == this._packageForm.packageChoice.value)[0].cost;
-            var checkout = await this.getCheckoutId(payAmount)
+            var checkout = await this.getCheckoutId(payAmount);
+            
+            //get chosen psych name for use in the add card result page
+            var chosenPsych = this.availablePsychologists.filter(x => x.id == this._availPsychForm.psychologistChoice.value)[0];
+            this.chosenPsychName = encodeURI(chosenPsych.firstName + " " + chosenPsych.lastName);
+            
             //Dynamically build our payment form
             this.initPaymentForm(checkout.checkoutId);
             //Set page

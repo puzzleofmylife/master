@@ -3,4 +3,6 @@ export default class PsychologistPublic {
     firstName: string;
     lastName: string;
     photo: string;
+    qualifications: string[];
+    experienceYears: number;
 }

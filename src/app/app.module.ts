@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TokenInterceptor } from './auth/token.interceptor';
@@ -22,7 +21,8 @@ import { VerifyComponent } from './components/verify/verify.component';
 import { ActionMenuDropdownDirective } from './directives/action-menu-dropdown.directive';
 import { ActionMenuOriginDirective } from './directives/action-menu-origin.directive';
 import { AlertService } from './services/alert.service';
-
+import { LoginComponent } from './components/login/login.component';
+import { PatientTermsComponent } from './components/patient-terms/patientterms.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +43,8 @@ import { AlertService } from './services/alert.service';
     ApplyComponent,
     PsychologistListComponent,
 
+    LoginComponent,
+    PatientTermsComponent
 
   ],
   imports: [
