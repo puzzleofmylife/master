@@ -252,17 +252,18 @@
                 <div class="slds-m-top_medium slds-text-color_weak">By continuing you agree to the <a target="_blank"
                         routerLink="/patient-terms">terms
                         and conditions</a></div>
-            </div>
 
-            <div [ngClass]="{'slds-hide': !finalSubmitError}" class="slds-m-top_medium slds-text-color_error">
-                An unexpected error occurred.
-            </div>
+                <div [ngClass]="{'slds-hide': !finalSubmitError}" class="slds-m-top_medium slds-text-color_error">
+                    An unexpected error occurred.
+                </div>
 
-            <div [ngClass]="{'slds-hide': !duplicateUsername}" class="slds-m-top_medium slds-text-color_error">
-                Email <b>{{ _patientPersonalForm.patientEmail.value }}</b> already exists in our system. Please login
-                with
-                that
-                email address, or go back and select a different email address.
+                <div [ngClass]="{'slds-hide': !duplicateUsername}" class="slds-m-top_medium slds-text-color_error">
+                    Email <b>{{ _patientPersonalForm.patientEmail.value }}</b> already exists in our system. Please
+                    login
+                    with
+                    that
+                    email address, or go back and select a different email address.
+                </div>
             </div>
         </form>
 
@@ -286,8 +287,8 @@
                 {{selectedPackage.durationDays}} days. The service can be cancelled at any time.
             </div>
 
-            <form [formGroup]="paymentForm" [action]="environment.baseAppUrl + '/card/result?signup=1&psych=' + chosenPsychName" class="paymentWidgets"
-                data-brands="VISA MASTER"></form>
+            <form [formGroup]="paymentForm" [action]="environment.baseAppUrl + '/card/result?signup=1&psych=' + chosenPsychName"
+                class="paymentWidgets" data-brands="VISA MASTER"></form>
         </div>
 
     </div>
