@@ -1,0 +1,50 @@
+<header class="slds-global-header_container">
+  <div class="slds-global-header__item">
+  </div>
+</header>
+<div>
+  <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+    <thead>
+      <tr class="slds-line-height_reset">
+        <th class="slds-text-title_caps" scope="col">
+          <div class="slds-truncate" title="User Name">Image</div>
+        </th>
+        <th class="slds-text-title_caps" scope="col">
+          <div class="slds-truncate" title="User Name">First Name</div>
+        </th>
+        <th class="slds-text-title_caps" scope="col">
+          <div class="slds-truncate" title="User Name">Last Name</div>
+        </th>
+        <th class="slds-text-title_caps" scope="col">
+          <div class="slds-truncate" title="Account Name">Email</div>
+        </th>
+        <th class="slds-text-title_caps" scope="col">
+          <div class="slds-truncate" title="Account Name">Phone</div>
+        </th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let x of status ">
+        <td data-label="Image">
+        </td>
+        <td data-label="First Name">
+          {{x.firstName}}
+        </td>
+        <td data-label="Last Name">
+          {{x.lastName}}
+        </td>
+        <td data-label="Email Name">
+          {{x.email}}
+        </td>
+        <td data-label="Phone Number">
+          {{x.phoneNumber}}
+        </td>
+        <td data-label="Status">
+          {{x.name}}
+        </td>
+        <td data-label="Account Name">
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

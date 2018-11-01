@@ -50,9 +50,11 @@
             <img src="../../../assets/cropped-PuzzleofmyLifeLogo2-192x192.png" style="height:59px; margin-top: 5px;">
           </a>
         </div>
+
         <div *ngIf="!isLoggedIn" class="slds-col">
           <div [routerLink]="['/signup']" class="slds-text-title--caps pointer">Sign up</div>
         </div>
+
         <div *ngIf="!isLoggedIn" class="slds-col">
           <action-menu>
             <div actionMenuOrigin class="slds-text-title--caps pointer">Apply</div>
@@ -69,6 +71,9 @@
         </div>
         <div class="slds-col">
           <div *ngIf="!isLoggedIn" class="slds-text-title--caps">Login</div>
+        </div>
+        <div class="slds-col">
+          <div [routerLink]="['/admin']" class="slds-text-title--caps pointer">Admin</div>
         </div>
       </div>
     </div>
