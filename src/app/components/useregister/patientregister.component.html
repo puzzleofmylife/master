@@ -289,6 +289,11 @@
 
             <form [formGroup]="paymentForm" [action]="environment.baseAppUrl + '/card/result?signup=1&psych=' + chosenPsychName"
                 class="paymentWidgets" data-brands="VISA MASTER"></form>
+
+            <div>
+                <b>Please note</b>, on next screen you will see a "dummy" transaction for R1.00. Your account will <b>not</b>
+                be charged this, and it will only be held temporarily to verify your details.
+            </div>
         </div>
 
     </div>
