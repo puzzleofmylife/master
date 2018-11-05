@@ -1,55 +1,37 @@
-<header class="slds-global-header_container">
-  <div class="slds-global-header__item">
+<div class="slds-grid">
+  <div class="slds-col slds-size_0-of-12 slds-medium-size_2-of-12 slds-large-size_4-of-12"></div>
+  <div class="slds-col slds-size_12-of-12 slds-medium-size_8-of-12 slds-large-size_4-of-12">
+    <div class="slds-grid slds-grid_align-end">
+      <div class="slds-col">
+        <div class="slds-select_container">
+          <select (change)="onPsychStatusChange($event.target.value)" class="slds-select">
+            <option *ngFor="let psychStatus of psychologistStatuses" [selected]="psychStatus.id == statusId" value={{psychStatus.id}}>
+              {{psychStatus.name}}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div *ngFor="let psych of psychologists">
+      <div class="slds-m-top_small">
+        <div class="slds-grid slds-gutters_direct">
+          <div class="slds-col">
+            <img [src]="psych.photo" alt="profile photo" class="image-round">
+          </div>
+          <div class="slds-col slds-align-middle"><b>{{psych.firstName}} {{psych.lastName}}</b>
+            <br>
+            {{psych.email}}
+            <br>
+            {{psych.phoneNumber}}
+          </div>
+          <div class="slds-col slds-align-middle">{{psych.status}}</div>
+          <div class="slds-col slds-align-middle">
+            <button class="slds-button slds-button_brand btn-right">View</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</header>
-<div>
-  <select (change)="onPsychStatusChange($event.target.value)">
-    <option *ngFor="let psychStatus of psychologistStatuses" [selected]="psychStatus.id == statusId" value={{psychStatus.id}}>
-      {{psychStatus.name}}
-    </option>
-  </select>
-  <table class="slds-table slds-table_cell-buffer slds-table_bordered">
-    <thead>
-      <tr class="slds-line-height_reset">
-        <th class="slds-text-title_caps" scope="col">
-          <div class="slds-truncate" title="User Name">Image</div>
-        </th>
-        <th class="slds-text-title_caps" scope="col">
-          <div class="slds-truncate" title="User Name">First Name</div>
-        </th>
-        <th class="slds-text-title_caps" scope="col">
-          <div class="slds-truncate" title="User Name">Last Name</div>
-        </th>
-        <th class="slds-text-title_caps" scope="col">
-          <div class="slds-truncate" title="Account Name">Email</div>
-        </th>
-        <th class="slds-text-title_caps" scope="col">
-          <div class="slds-truncate" title="Account Name">Phone</div>
-        </th>
-    </thead>
-    <tbody>
-      <tr *ngFor="let psych of psychologists">
-        <td data-label="Image">
-        </td>
-        <td data-label="First Name">
-          {{psych.firstName}}
-        </td>
-        <td data-label="Last Name">
-          {{psych.lastName}}
-        </td>
-        <td data-label="Email Name">
-          {{psych.email}}
-        </td>
-        <td data-label="Phone Number">
-          {{psych.phoneNumber}}
-        </td>
-        <td data-label="Status">
-          {{psych.name}}
-        </td>
-        <td data-label="Account Name">
+  <div class="slds-col slds-size_0-of-12 slds-medium-size_2-of-12 slds-large-size_4-of-12"></div>
 
-        </td>
-      </tr>
-    </tbody>
-  </table>
 </div>
