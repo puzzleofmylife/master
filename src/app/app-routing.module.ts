@@ -23,7 +23,7 @@ const routes: Routes = [
   {path: 'patient-terms', component: PatientTermsComponent },
   {path: 'signup', component: PatientRegisterComponent},
   {path: 'card/result', component: CheckoutResultComponent},
-  { path: 'admin', component: PsychologistListComponent },
+  {path: 'admin/psychologist', component: PsychologistListComponent },
 ];
 
 @NgModule({
