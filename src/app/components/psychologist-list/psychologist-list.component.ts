@@ -9,7 +9,7 @@ import { PsychologistStatus } from 'src/app/models/PsychologistStatus';
   styleUrls: ['./psychologist-list.component.css']
 })
 export class PsychologistListComponent implements OnInit {
-  statusId: number = 2;
+  statusId: number = 1;
   psychologists: PsychologistNew[];
   psychologistStatuses: PsychologistStatus[];
 
@@ -17,10 +17,9 @@ export class PsychologistListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getPsychsByStatus(this.statusId);
-
     this.psychoService.getStatuses().subscribe(data => {
       this.psychologistStatuses = data;
+      this.getPsychsByStatus(this.statusId);
     }, error => {
       console.error(JSON.stringify(error));
     });
@@ -36,5 +35,18 @@ export class PsychologistListComponent implements OnInit {
 
   onPsychStatusChange(selectedId: string) {
     this.getPsychsByStatus(parseInt(selectedId));
+  }
+
+  getStatusClass(statusName: string) {
+    var statusId = this.psychologistStatuses.filter(x => x.name == statusName).map(x => x.id)[0];
+
+    switch (statusId) {
+      case 1:
+        return 'pending_approval';
+        break;
+      case 2:
+        return 'active';
+        break;
+    }
   }
 }
