@@ -16,7 +16,7 @@ import { PsychologistListComponent } from './components/psychologist-list/psycho
 import { PsychtermsComponent } from './components/psychterms/psychterms.component';
 import { PsyregisterComponent } from './components/psyregister/psyregister.component';
 import { TooltipComponent } from './components/tooltip/tooltip.component';
-import { PatientRegisterComponent } from './components/useregister/patientregister.component';
+import { PatientRegisterComponent } from './components/patientregister/patientregister.component';
 import { VerifyComponent } from './components/verify/verify.component';
 import { ActionMenuDropdownDirective } from './directives/action-menu-dropdown.directive';
 import { ActionMenuOriginDirective } from './directives/action-menu-origin.directive';

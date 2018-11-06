@@ -7,7 +7,7 @@ import { HomeComponent } from './components/home/home.component';
 import { PsychologistListComponent } from './components/psychologist-list/psychologist-list.component';
 import { PsychtermsComponent } from './components/psychterms/psychterms.component';
 import { PsyregisterComponent } from './components/psyregister/psyregister.component';
-import { PatientRegisterComponent } from './components/useregister/patientregister.component';
+import { PatientRegisterComponent } from './components/patientregister/patientregister.component';
 import { VerifyComponent } from './components/verify/verify.component';
 import { PsychoService } from './services/psycho.service';
 import { LoginComponent } from './components/login/login.component';

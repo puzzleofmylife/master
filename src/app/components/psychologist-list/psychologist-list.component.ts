@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PsychoService } from 'src/app/services/psycho.service';
-import { PsychologistNew } from 'src/app/models/PsychologistNew';
+import { Psychologist } from 'src/app/models/Psychologist';
 import { PsychologistStatus } from 'src/app/models/PsychologistStatus';
 
 @Component({
@@ -10,7 +10,7 @@ import { PsychologistStatus } from 'src/app/models/PsychologistStatus';
 })
 export class PsychologistListComponent implements OnInit {
   statusId: number = 1;
-  psychologists: PsychologistNew[];
+  psychologists: Psychologist[];
   psychologistStatuses: PsychologistStatus[];
 
   constructor(private psychoService: PsychoService) {

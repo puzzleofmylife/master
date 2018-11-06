@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { PsychoService } from '../../services/psycho.service';
-import { RegisterPsycho } from '../../models/RegisterPsycho';
+import { Psychologist } from 'src/app/models/Psychologist';
 
 @Component({
   templateUrl: 'psyregister.component.html',
@@ -122,27 +122,28 @@ export class PsyregisterComponent implements OnInit {
   }
 
   async finalSubmit() {
-    var registerPsycho = new RegisterPsycho();
-    registerPsycho.psychologistUser.email = this._personalForm.email.value;
-    registerPsycho.psychologistUser.password = this._personalForm.password.value;
-    registerPsycho.psychologistUser.firstName = this._personalForm.firstName.value;
-    registerPsycho.psychologistUser.lastName = this._personalForm.surname.value;
-    registerPsycho.psychologistUser.phoneNumber = this._personalForm.contactNum.value;
-    registerPsycho.psychologistUser.psychologistIDNumber = this._personalForm.idNumber.value;
-    registerPsycho.psychologistUser.psychologistAge = this._personalForm.age.value;
-    registerPsycho.psychologistUser.psychologistExperienceYears = this._professionalForm.yearsOfExperience.value;
-    registerPsycho.psychologistUser.psychologistLicenseNumber = this._professionalForm.licenseNum.value;
-    registerPsycho.psychologistUser.psychologistQualifications.push(this._professionalForm.qualification.value);
-    registerPsycho.psychologistUser.psychologistBankAccountAccountNumber = this._bankingForm.accountNum.value;
-    registerPsycho.psychologistUser.psychologistBankAccountBankName = this._bankingForm.bankName.value;
-    registerPsycho.psychologistUser.psychologistBankAccountBranchCode = this._bankingForm.branchCode.value;
-    registerPsycho.psychologistUser.psychologistBankAccountAccountType = this._bankingForm.accountType.value;
+    var psych = new Psychologist();
+    psych.email = this._personalForm.email.value;
+    psych.password = this._personalForm.password.value;
+    psych.firstName = this._personalForm.firstName.value;
+    psych.lastName = this._personalForm.surname.value;
+    psych.phoneNumber = this._personalForm.contactNum.value;
+    psych.idNumber = this._personalForm.idNumber.value;
+    psych.age = this._personalForm.age.value;
+    psych.experienceYears = this._professionalForm.yearsOfExperience.value;
+    psych.licenseNumber = this._professionalForm.licenseNum.value;
+    psych.qualifications = [];
+    psych.qualifications.push(this._professionalForm.qualification.value);
+    psych.AccountNumber = this._bankingForm.accountNum.value;
+    psych.BankName = this._bankingForm.bankName.value;
+    psych.BranchCode = this._bankingForm.branchCode.value;
+    psych.AccountType = this._bankingForm.accountType.value;
 
     var attachments = await this.generateAttachments();
-    registerPsycho.psychologistUser.attachments = attachments;
+    psych.attachments = attachments;
 
     this.loading = true;
-    this.psychoService.register(registerPsycho.psychologistUser).subscribe(result => {
+    this.psychoService.register(psych).subscribe(result => {
       //Success....
 
       //Hide loading spinner
@@ -293,7 +294,7 @@ export class PsyregisterComponent implements OnInit {
       var fr = new FileReader();
       fr.onloadend = (e) => {
         resolve({
-          Type: attachmentType,
+          TypeId: attachmentType,
           FileName: file.name,
           Base64File: fr.result.toString().split(',').pop()
         })

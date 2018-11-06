@@ -2,11 +2,10 @@ import { Component, OnInit, Renderer2, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 
-import { PatientUser } from '../../models/PatientUser';
+import { Patient } from '../../models/Patient';
 import { PatientQuestion } from 'src/app/models/PatientQuestion';
 import { PatientService } from 'src/app/services/patient.service';
 import { PsychoService } from 'src/app/services/psycho.service';
-import PsychologistPublic from 'src/app/models/PsychologistPublic';
 import { PackageService } from 'src/app/services/package.service';
 import { Package } from 'src/app/models/Package';
 import { DOCUMENT } from '@angular/platform-browser';
@@ -14,6 +13,7 @@ import { environment } from 'src/environments/environment';
 import PatientQuestionAnswer from 'src/app/models/PatientQuestionAnswer';
 import { AuthService } from 'src/app/services/auth.service';
 import { PaymentService } from 'src/app/services/payment.service';
+import { Psychologist } from 'src/app/models/Psychologist';
 
 @Component({
     templateUrl: 'patientregister.component.html',
@@ -34,7 +34,7 @@ export class PatientRegisterComponent implements OnInit {
     successEmailAddress: string;
     patientQuestions: PatientQuestion[];
     patientAnswers: PatientQuestionAnswer[] = [];
-    availablePsychologists: PsychologistPublic[];
+    availablePsychologists: Psychologist[];
     activePackages: Package[];
     environment = environment;
     selectedPackage: Package = new Package();
@@ -235,13 +235,13 @@ export class PatientRegisterComponent implements OnInit {
     }
 
     async createPatientUser(): Promise<string> {
-        var patientUser = new PatientUser();
+        var patientUser = new Patient();
         patientUser.email = this._patientPersonalForm.patientEmail.value;
-        patientUser.patientAlias = this._patientPersonalForm.patientAlias.value;
+        patientUser.alias = this._patientPersonalForm.patientAlias.value;
         patientUser.password = this._patientPersonalForm.patientPassword.value;
         patientUser.questionAnswers = this.patientAnswers;
-        patientUser.SelectedPsychologistId = this._availPsychForm.psychologistChoice.value;
-        patientUser.selectedPackageId = this._packageForm.packageChoice.value;
+        patientUser.currentPsychologistId = this._availPsychForm.psychologistChoice.value;
+        patientUser.currentPackageId = this._packageForm.packageChoice.value;
 
         var result = await this.patientService.register(patientUser)
         return result.token;

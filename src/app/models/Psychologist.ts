@@ -1,18 +1,16 @@
-export default class Psychologist {
-    id: number;
-    email: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    psychologistIDNumber: number;
-    psychologistAge: number;
-    psychologistExperienceYears: number;
-    psychologistLicenseNumber: string;
-    psychologistQualifications: string[];
-    psychologistBankAccountAccountNumber: number;
-    psychologistBankAccountBankName: string;
-    psychologistBankAccountBranchCode: number;
-    psychologistBankAccountAccountType: string;
-    phoneNumber: number;
+import { User } from './User';
+
+export class Psychologist extends User {
+    status:string;
+    idNumber: number;
+    age: number;
+    experienceYears: number;
+    licenseNumber: string;
+    qualifications: string[];
+    AccountNumber: number;
+    BankName: string;
+    BranchCode: number;
+    AccountType: string;
+    photo:string;
     attachments: any[];
 }

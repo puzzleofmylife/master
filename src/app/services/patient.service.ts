@@ -3,9 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PatientQuestion } from '../models/PatientQuestion';
 import { environment } from 'src/environments/environment';
-import { PatientUser } from '../models/PatientUser';
-import Psychologist from '../models/Psychologist';
-import PsychologistPublic from '../models/PsychologistPublic';
+import { Patient } from '../models/Patient';
+import { Psychologist } from '../models/Psychologist';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +17,11 @@ export class PatientService {
     return this.http.get<PatientQuestion[]>(environment.baseAPIURL + '/api/Patient/questions');
   }
 
-  register(patientUser: PatientUser): Promise<any> {
+  register(patientUser: Patient): Promise<any> {
     return this.http.post<any>(environment.baseAPIURL + '/api/User/patient', patientUser).toPromise();
   }
 
-  getPsychologist(): Promise<PsychologistPublic> {
+  getPsychologist(): Promise<Psychologist> {
     return this.http.get<any>(environment.baseAPIURL + '/api/Patient/psychologist').toPromise();
   }
 }
