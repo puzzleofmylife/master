@@ -47,8 +47,8 @@
 								<span class="slds-text-title_caps">Admin</span>
 							</li>
 							<li *ngIf="(isLoggedIn | async)" class="slds-dropdown__item">
-								<a [routerLink]="['admin/psychologist']" role="menuitem">
-									<span class="slds-truncate">Psychologist</span>
+								<a [routerLink]="['admin/psychologists']" role="menuitem">
+									<span class="slds-truncate">Psychologists</span>
 								</a>
 							</li>
 		             	</ul>
@@ -101,8 +101,8 @@
 						<div actionMenuDropdown class="slds-dropdown slds-dropdown_left slds-m-top_x-small">
 							<ul class="dropdown__list" role="menu">
 								<li class="slds-dropdown__item">
-									<a role="menuitem" [routerLink]="['admin/psychologist']">
-										<span class="slds-truncate">Psychologist</span>
+									<a role="menuitem" [routerLink]="['admin/psychologists']">
+										<span class="slds-truncate">Psychologists</span>
 									</a>
 								</li>
 							</ul>
