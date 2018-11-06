@@ -1,0 +1,19 @@
+.image-round {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+.active {
+  color: #027e46;
+}
+
+.pending_approval {
+  color: #ffb75d;
+}
+
+.disabled {
+  color: #c23934;
+}
