@@ -31,7 +31,6 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes)
   ],
-  providers: [PsychoService],
   bootstrap: [AppComponent]
 })
 export class AppRoutingModule { }
