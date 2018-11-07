@@ -23,6 +23,7 @@ import { ActionMenuOriginDirective } from './directives/action-menu-origin.direc
 import { AlertService } from './services/alert.service';
 import { LoginComponent } from './components/login/login.component';
 import { PatientTermsComponent } from './components/patient-terms/patientterms.component';
+import { JwtHelper } from 'angular2-jwt';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,7 @@ import { PatientTermsComponent } from './components/patient-terms/patientterms.c
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [AlertService,
+  providers: [AlertService, JwtHelper,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
