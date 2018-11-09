@@ -5,15 +5,3 @@
     object-fit: cover;
     object-position: center;
   }
-
-.active {
-  color: #027e46;
-}
-
-.pending_approval {
-  color: #ffb75d;
-}
-
-.disabled {
-  color: #c23934;
-}

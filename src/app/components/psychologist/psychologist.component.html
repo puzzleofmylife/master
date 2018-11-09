@@ -1,55 +1,135 @@
 <div class="slds-grid">
-    <div *ngIf="(loggedIn.IsAdmin)"></div>
-    <div class="slds-col">
-        <div class="slds-p-right_small slds-col slds-size_12-of-12 slds-medium-size_3-of-12 slds-large-size_2-of-12">
-            <img *ngIf="psychologist.photo" [src]="psychologist.photo" alt="profile photo" class="image-round">
+    <div class="slds-col slds-size_0-of-12 slds-medium-size_2-of-12 slds-large-size_3-of-12"></div>
+    <div *ngIf="loaded" class="slds-col slds-size_12-of-12 slds-medium-size_8-of-12 slds-large-size_6-of-12 slds-p-horizontal_medium">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_12-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+
+                <div>
+                    <div class="slds-m-bottom_small">
+                        <img *ngIf="psychologist.photo" [src]="psychologist.photo" alt="profile photo" class="image-round">
+                    </div>
+                    <div class="slds-text-heading_medium">
+                        <b>{{psychologist.firstName}} {{psychologist.lastName}}</b>
+                    </div>
+                    <div class="slds-m-bottom_x-small slds-text-heading_small">
+                        <span [className]="helpersService.getPsychStatusClass(psychologist.statusId)"><b>{{psychologist.status}}</b></span>
+                    </div>
+                </div>
+
+                <div>
+                    <span>{{psychologist.age}} Years old</span>
+                    <br>
+                    ID: {{psychologist.idNumber}}
+                    <br>
+                    Tel: {{psychologist.phoneNumber}}
+                    <br>
+                    {{psychologist.email}}
+                </div>
+            </div>
+            <div class="slds-col slds-size_12-of-12 slds-medium-size_8-of-12 slds-large-size_8-of-12">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-p-top_x-small slds-p-right_x-small slds-col slds-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_6-of-12">
+                        <div class="slds-m-bottom_x-small slds-text-heading_medium"><b>Professional Information</b></div>
+                        {{psychologist.qualifications}}
+                        <br>
+                        Lic: {{psychologist.licenseNumber}}
+                        <br>
+                        <span>{{psychologist.experienceYears}} Years experience</span>
+                    </div>
+                    <div class="slds-p-top_x-small slds-p-right_x-small slds-col slds-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_6-of-12">
+                        <div class="slds-m-bottom_x-small slds-text-heading_medium"><b>Banking Details</b></div>
+                        {{psychologist.bankName}}
+                        <br>
+                        {{psychologist.accountType}}
+                        <br>
+                        {{psychologist.accountNumber}}
+                        <br>
+                        {{psychologist.branchCode}}
+                    </div>
+                    <div class="slds-p-top_x-small slds-p-right_x-small slds-col slds-size_12-of-12">
+                        <div class="slds-m-bottom_x-small slds-text-heading_medium"><b>Attachments</b></div>
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-p-right_small slds-p-bottom_small slds-col slds-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_4-of-12"
+                                *ngFor="let attachment of psychologist.attachments">
+                                <div>
+                                    <div class="slds-file slds-file_card slds-has-title">
+                                        <figure>
+                                            <a href="javascript:void(0);" class="slds-file__crop">
+                                                <img src="/assets/images/placeholder-img@16x9.jpg" alt="Description of the image" />
+                                            </a>
+                                            <figcaption class="slds-file__title slds-file__title_card">
+                                                <div class="slds-media slds-media_small slds-media_center">
+                                                    <div class="slds-media__figure slds-line-height_reset">
+                                                        <span class="slds-icon_container" title="pdf" [ngSwitch]="attachment.typeId">
+
+                                                            <svg *ngSwitchCase="1" class="slds-icon slds-icon_x-small"
+                                                                aria-hidden="true">
+                                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                                    xlink:href="/assets/icons/doctype-sprite/svg/symbols.svg#gpres" />
+                                                            </svg>
+                                                            <svg *ngSwitchCase="3" class="slds-icon slds-icon_x-small"
+                                                                aria-hidden="true">
+                                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                                    xlink:href="/assets/icons/doctype-sprite/svg/symbols.svg#gsheet" />
+                                                            </svg>
+                                                            <svg *ngSwitchCase="4" class="slds-icon slds-icon_x-small"
+                                                                aria-hidden="true">
+                                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                                    xlink:href="/assets/icons/doctype-sprite/svg/symbols.svg#gdoc" />
+                                                            </svg>
+                                                            <svg *ngSwitchDefault class="slds-icon slds-icon_x-small"
+                                                                aria-hidden="true">
+                                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                                    xlink:href="/assets/icons/doctype-sprite/svg/symbols.svg#unknown" />
+                                                            </svg>
+                                                            <span class="slds-assistive-text">{{attachment.type}}</span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="slds-media__body">
+                                                        <span class="slds-file__text slds-truncate" title="{{attachment.type}}">{{getAttachmentDisplayName(attachment)}}</span>
+                                                    </div>
+                                                </div>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-grid slds-grid_align-end slds-m-vertical_medium" *ngIf="(psychologist.statusId == 1 && loggedIn.IsAdmin)">
+            <div>
+                <span><button class="slds-button slds-button_destructive">Deny</button></span>
+                <span class="slds-m-left_medium"><button class="slds-button slds-button_brand">Approve</button></span>
+            </div>
         </div>
     </div>
-	<div class="slds-col">
-		<b>{{psychologist.firstName}} {{psychologist.lastName}}</b>
-		<br>
-		{{psychologist.status}}
-		<br>
-		<span>{{psychologist.age}} Years</span>
-		<br>
-		{{psychologist.idNumber}}
-		<br>
-		{{psychologist.phoneNumber}}
-		<br>
-		{{psychologist.email}}
-	</div>
-    <div class="slds-col">
-		<span class="slds-text-heading_small">Professional Information</span><br>
-        {{psychologist.qualifications}}
-        <br>
-        {{psychologist.licenseNumber}}
-        <br>
-        <span>{{psychologist.experienceYears}} Years of experience</span>
-    </div>
-    <div class="slds-col">  
-		<span class="slds-text-heading_small">Banking Details</span><br>
-        {{psychologist.bankName}}
-        <br>
-        {{psychologist.accountType}}
-        <br>
-        {{psychologist.accountNumber}}
-        <br>
-        {{psychologist.branchCode}}
-    </div>
-    <div class="slds-col"> 
-		<span class="slds-text-heading_small">Attachments</span>
-		<ul>
-			<li *ngFor="let attachment of psychologist.attachments">
-				<div *ngIf= "(attachment.typeId != 2)">
-						*{{attachment.type}}
-				</div>
-			</li>
-		</ul> 
-    </div>
-    <div *ngIf="(psychologist.statusId != 2)">
-        <button class="slds-button slds-button_brand">Approve</button>
-        <button class="slds-button slds-button_destructive">Deny</button>
-    </div>
-
+    <div class="slds-col slds-size_0-of-12 slds-medium-size_2-of-12 slds-large-size_3-of-12"></div>
 </div>
-    
+
+<div>
+    <section role="alertdialog" tabindex="-1" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper"
+        class="slds-modal slds-fade-in-open slds-modal_prompt" aria-modal="true">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header slds-theme_warning">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+                    <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close" />
+                    </svg>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <h2 class="slds-text-heading_medium" id="prompt-heading-id">Confirm</h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" id="prompt-message-wrapper">
+                <p>Are you sure you want to <b>APPROVE</b> this psychologist?</p>
+            </div>
+            <footer class="slds-modal__footer slds-theme_default">
+                    <button class="slds-button slds-button_neutral">Cancel</button>
+                <button class="slds-button slds-button_neutral">Yes</button>
+            </footer>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</div>
