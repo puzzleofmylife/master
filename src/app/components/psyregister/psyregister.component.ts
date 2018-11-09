@@ -134,10 +134,10 @@ export class PsyregisterComponent implements OnInit {
     psych.licenseNumber = this._professionalForm.licenseNum.value;
     psych.qualifications = [];
     psych.qualifications.push(this._professionalForm.qualification.value);
-    psych.AccountNumber = this._bankingForm.accountNum.value;
-    psych.BankName = this._bankingForm.bankName.value;
-    psych.BranchCode = this._bankingForm.branchCode.value;
-    psych.AccountType = this._bankingForm.accountType.value;
+    psych.accountNumber = this._bankingForm.accountNum.value;
+    psych.bankName = this._bankingForm.bankName.value;
+    psych.branchCode = this._bankingForm.branchCode.value;
+    psych.accountType = this._bankingForm.accountType.value;
 
     var attachments = await this.generateAttachments();
     psych.attachments = attachments;

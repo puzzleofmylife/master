@@ -1,0 +1,55 @@
+<div class="slds-grid">
+    <div *ngIf="(loggedIn.IsAdmin)"></div>
+    <div class="slds-col">
+        <div class="slds-p-right_small slds-col slds-size_12-of-12 slds-medium-size_3-of-12 slds-large-size_2-of-12">
+            <img *ngIf="psychologist.photo" [src]="psychologist.photo" alt="profile photo" class="image-round">
+        </div>
+    </div>
+	<div class="slds-col">
+		<b>{{psychologist.firstName}} {{psychologist.lastName}}</b>
+		<br>
+		{{psychologist.status}}
+		<br>
+		<span>{{psychologist.age}} Years</span>
+		<br>
+		{{psychologist.idNumber}}
+		<br>
+		{{psychologist.phoneNumber}}
+		<br>
+		{{psychologist.email}}
+	</div>
+    <div class="slds-col">
+		<span class="slds-text-heading_small">Professional Information</span><br>
+        {{psychologist.qualifications}}
+        <br>
+        {{psychologist.licenseNumber}}
+        <br>
+        <span>{{psychologist.experienceYears}} Years of experience</span>
+    </div>
+    <div class="slds-col">  
+		<span class="slds-text-heading_small">Banking Details</span><br>
+        {{psychologist.bankName}}
+        <br>
+        {{psychologist.accountType}}
+        <br>
+        {{psychologist.accountNumber}}
+        <br>
+        {{psychologist.branchCode}}
+    </div>
+    <div class="slds-col"> 
+		<span class="slds-text-heading_small">Attachments</span>
+		<ul>
+			<li *ngFor="let attachment of psychologist.attachments">
+				<div *ngIf= "(attachment.typeId != 2)">
+						*{{attachment.type}}
+				</div>
+			</li>
+		</ul> 
+    </div>
+    <div *ngIf="(psychologist.statusId != 2)">
+        <button class="slds-button slds-button_brand">Approve</button>
+        <button class="slds-button slds-button_destructive">Deny</button>
+    </div>
+
+</div>
+    

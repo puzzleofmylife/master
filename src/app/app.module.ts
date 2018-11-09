@@ -24,6 +24,7 @@ import { AlertService } from './services/alert.service';
 import { LoginComponent } from './components/login/login.component';
 import { PatientTermsComponent } from './components/patient-terms/patientterms.component';
 import { JwtHelper } from 'angular2-jwt';
+import { PsychologistComponent } from './components/psychologist/psychologist.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { JwtHelper } from 'angular2-jwt';
     PsychologistListComponent,
 
     LoginComponent,
-    PatientTermsComponent
+    PatientTermsComponent,
+    PsychologistComponent
 
   ],
   imports: [

@@ -2,15 +2,16 @@ import { User } from './User';
 
 export class Psychologist extends User {
     status:string;
+    statusId:number;
     idNumber: number;
     age: number;
     experienceYears: number;
     licenseNumber: string;
     qualifications: string[];
-    AccountNumber: number;
-    BankName: string;
-    BranchCode: number;
-    AccountType: string;
+    accountNumber: number;
+    bankName: string;
+    branchCode: number;
+    accountType: string;
     photo:string;
     attachments: any[];
 }
