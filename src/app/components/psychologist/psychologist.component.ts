@@ -17,6 +17,13 @@ export class PsychologistComponent implements OnInit {
 	loggedIn: LoggedIn = new LoggedIn();
 	loaded: Boolean = false;
 
+	//Approve and Deny fields
+	showApproveDenyPrompt: boolean = false;
+	approve: boolean = false;
+	denyMessage: string;
+	denyReasonRequired: boolean = false;
+	approvalError: boolean = false;
+
 	constructor(private authService: AuthService, private psychoService: PsychoService, private route: ActivatedRoute, private helpersService: HelpersService) { }
 
 	ngOnInit() {
@@ -28,7 +35,7 @@ export class PsychologistComponent implements OnInit {
 			this.psychologist = psychologist;
 			this.psychologist.attachments = this.psychologist.attachments.filter(x => x.typeId != 2);
 			this.loaded = true;
-		})
+		});
 
 	}
 
@@ -37,5 +44,33 @@ export class PsychologistComponent implements OnInit {
 		var maxLength =  10;
 		attachmentDisplayName = attachmentDisplayName.length > maxLength ? attachmentDisplayName.substring(0, maxLength) + '...' : attachmentDisplayName;
 		return attachmentDisplayName;
+	}
+
+	//Approve and Deny functions
+	doApproval(approve: boolean) {
+		this.showApproveDenyPrompt = true;
+		this.approve = approve;
+	}
+
+	cancelApproval() {
+		this.showApproveDenyPrompt = false;
+	}
+
+	proceedApproval() {
+		if(!this.approve){
+			if(!this.denyMessage){
+				this.denyReasonRequired = true;
+				return;
+			}
+		}
+
+		this.psychoService.approveDeny(this.psychologist.id, this.approve, this.denyMessage).subscribe(x => {
+			this.psychologist.status = x.name;
+			this.psychologist.statusId = x.id;
+			this.showApproveDenyPrompt = false;
+		}, error => {
+			this.approvalError = true;
+			console.log(JSON.stringify(error));
+		});
 	}
 }

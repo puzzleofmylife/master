@@ -27,10 +27,16 @@ export class PsychoService {
 	}
 
 	getById(id: number): Observable<Psychologist> {
-		return this.http.get<Psychologist>(environment.baseAPIURL + '/api/Psychologist/'+id);
+		return this.http.get<Psychologist>(environment.baseAPIURL + '/api/Psychologist/' + id);
 	}
 
 	register(psycho: Psychologist) {
 		return this.http.post(environment.baseAPIURL + '/api/User/psychologist', psycho);
+	}
+
+	approveDeny(id: number, approve: boolean, denyMessage: string): Observable<any> {
+		var params = { psychologistId: id, approve: approve, denyMessage: denyMessage };
+
+		return this.http.post(environment.baseAPIURL + '/api/psychologist/approval', params);
 	}
 }
