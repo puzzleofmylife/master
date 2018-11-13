@@ -51,47 +51,41 @@
                         <div class="slds-grid slds-wrap">
                             <div class="slds-p-right_small slds-p-bottom_small slds-col slds-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_4-of-12"
                                 *ngFor="let attachment of psychologist.attachments">
-                                <div>
-                                    <div class="slds-file slds-file_card slds-has-title">
-                                        <figure>
-                                            <a href="javascript:void(0);" class="slds-file__crop">
-                                                <img src="/assets/images/placeholder-img@16x9.jpg" alt="Description of the image" />
-                                            </a>
-                                            <figcaption class="slds-file__title slds-file__title_card">
-                                                <div class="slds-media slds-media_small slds-media_center">
-                                                    <div class="slds-media__figure slds-line-height_reset">
-                                                        <span class="slds-icon_container" title="pdf" [ngSwitch]="attachment.typeId">
+                                <div (click)="downloadAttachment(attachment.id)" class="slds-file slds-file_card slds-has-title pointer">
+                                    <figure>
+                                        <a class="slds-file__crop">
+                                            <img src="/assets/images/placeholder-img@16x9.jpg" alt="Description of the image" />
+                                        </a>
+                                        <figcaption class="slds-file__title slds-file__title_card">
+                                            <div class="slds-media slds-media_small slds-media_center">
+                                                <div class="slds-media__figure slds-line-height_reset">
+                                                    <span class="slds-icon_container" title="pdf" [ngSwitch]="attachment.typeId">
 
-                                                            <svg *ngSwitchCase="1" class="slds-icon slds-icon_x-small"
-                                                                aria-hidden="true">
-                                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                    xlink:href="/assets/icons/doctype-sprite/svg/symbols.svg#gpres" />
-                                                            </svg>
-                                                            <svg *ngSwitchCase="3" class="slds-icon slds-icon_x-small"
-                                                                aria-hidden="true">
-                                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                    xlink:href="/assets/icons/doctype-sprite/svg/symbols.svg#gsheet" />
-                                                            </svg>
-                                                            <svg *ngSwitchCase="4" class="slds-icon slds-icon_x-small"
-                                                                aria-hidden="true">
-                                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                    xlink:href="/assets/icons/doctype-sprite/svg/symbols.svg#gdoc" />
-                                                            </svg>
-                                                            <svg *ngSwitchDefault class="slds-icon slds-icon_x-small"
-                                                                aria-hidden="true">
-                                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                    xlink:href="/assets/icons/doctype-sprite/svg/symbols.svg#unknown" />
-                                                            </svg>
-                                                            <span class="slds-assistive-text">{{attachment.type}}</span>
-                                                        </span>
-                                                    </div>
-                                                    <div class="slds-media__body">
-                                                        <span class="slds-file__text slds-truncate" title="{{attachment.type}}">{{getAttachmentDisplayName(attachment)}}</span>
-                                                    </div>
+                                                        <svg *ngSwitchCase="1" class="slds-icon slds-icon_x-small"
+                                                            aria-hidden="true">
+                                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/doctype-sprite/svg/symbols.svg#gpres" />
+                                                        </svg>
+                                                        <svg *ngSwitchCase="3" class="slds-icon slds-icon_x-small"
+                                                            aria-hidden="true">
+                                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/doctype-sprite/svg/symbols.svg#gsheet" />
+                                                        </svg>
+                                                        <svg *ngSwitchCase="4" class="slds-icon slds-icon_x-small"
+                                                            aria-hidden="true">
+                                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/doctype-sprite/svg/symbols.svg#gdoc" />
+                                                        </svg>
+                                                        <svg *ngSwitchDefault class="slds-icon slds-icon_x-small"
+                                                            aria-hidden="true">
+                                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/doctype-sprite/svg/symbols.svg#unknown" />
+                                                        </svg>
+                                                        <span class="slds-assistive-text">{{attachment.type}}</span>
+                                                    </span>
                                                 </div>
-                                            </figcaption>
-                                        </figure>
-                                    </div>
+                                                <div class="slds-media__body">
+                                                    <span class="slds-file__text slds-truncate" title="{{attachment.type}}">{{getAttachmentDisplayName(attachment)}}</span>
+                                                </div>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
                                 </div>
                             </div>
                         </div>

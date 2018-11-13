@@ -39,4 +39,10 @@ export class PsychoService {
 
 		return this.http.post(environment.baseAPIURL + '/api/psychologist/approval', params);
 	}
+
+	getAttachmentById(attachmentId: number): Observable<any> {
+		return this.http.get<any>(environment.baseAPIURL + '/api/Psychologist/attachment', {
+			params: new HttpParams().set('attachmentId', attachmentId.toString())
+		});
+	}
 }

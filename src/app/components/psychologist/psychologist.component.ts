@@ -46,6 +46,14 @@ export class PsychologistComponent implements OnInit {
 		return attachmentDisplayName;
 	}
 
+	downloadAttachment(attachmentId: number) {
+		this.psychoService.getAttachmentById(attachmentId).subscribe(x => {
+			window.open(x.fileUrl);
+		}, error => {
+			console.log(JSON.stringify(error));
+		});
+	}
+
 	//Approve and Deny functions
 	doApproval(approve: boolean) {
 		this.showApproveDenyPrompt = true;
