@@ -41,8 +41,6 @@ export class PsychologistComponent implements OnInit {
 
 	getAttachmentDisplayName(attachment: any): string{
 		var attachmentDisplayName = attachment.type + '.' + attachment.fileName.split('.')[1];
-		var maxLength =  10;
-		attachmentDisplayName = attachmentDisplayName.length > maxLength ? attachmentDisplayName.substring(0, maxLength) + '...' : attachmentDisplayName;
 		return attachmentDisplayName;
 	}
 
