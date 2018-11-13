@@ -25,7 +25,7 @@ const routes: Routes = [
   {path: 'signup', component: PatientRegisterComponent},
   {path: 'card/result', component: CheckoutResultComponent},
   {path: 'admin/psychologists', component: PsychologistListComponent },
-  {path: 'psychologist/:id',component:PsychologistComponent}
+  {path: 'psychologist-details/:id',component:PsychologistComponent}
 ];
 
 @NgModule({
