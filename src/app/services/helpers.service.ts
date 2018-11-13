@@ -15,6 +15,9 @@ export class HelpersService {
       case 2:
         return 'active';
         break;
+      case 3:
+        return 'denied';
+        break;
     }
   }
 }
