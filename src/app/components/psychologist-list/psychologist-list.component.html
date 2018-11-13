@@ -29,14 +29,14 @@
 							{{psych.phoneNumber}}
 							<br>
 							<span class="slds-hide_medium slds-text-heading_small">
-								<span [className]="getStatusClass(psych.status)"><b>{{psych.status}}</b></span>
+								<span [className]="helpersService.getPsychStatusClass(psych.statusId)"><b>{{psych.status}}</b></span>
 							</span>
 						</div>
 					</div>
 				</div>
 				
 				<div class="slds-col_bump-left slds-align-middle slds-show_medium slds-text-heading_small">
-					<span [className]="getStatusClass(psych.status)"><b>{{psych.status}}</b></span>
+					<span [className]="helpersService.getPsychStatusClass(psych.statusId)"><b>{{psych.status}}</b></span>
 				</div>
 
 				<div class="slds-align-middle slds-m-left_medium">

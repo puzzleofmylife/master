@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PsychoService } from 'src/app/services/psycho.service';
 import { Psychologist } from 'src/app/models/Psychologist';
 import { PsychologistStatus } from 'src/app/models/PsychologistStatus';
+import { HelpersService } from 'src/app/services/helpers.service';
 
 @Component({
   selector: 'app-psychologist-list',
@@ -13,7 +14,7 @@ export class PsychologistListComponent implements OnInit {
   psychologists: Psychologist[];
   psychologistStatuses: PsychologistStatus[];
 
-  constructor(private psychoService: PsychoService) {
+  constructor(private psychoService: PsychoService, private helpersService: HelpersService) {
   }
 
   ngOnInit() {
@@ -35,18 +36,5 @@ export class PsychologistListComponent implements OnInit {
 
   onPsychStatusChange(selectedId: string) {
     this.getPsychsByStatus(parseInt(selectedId));
-  }
-
-  getStatusClass(statusName: string) {
-    var statusId = this.psychologistStatuses.filter(x => x.name == statusName).map(x => x.id)[0];
-
-    switch (statusId) {
-      case 1:
-        return 'pending_approval';
-        break;
-      case 2:
-        return 'active';
-        break;
-    }
   }
 }
