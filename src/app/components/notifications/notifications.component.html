@@ -1,0 +1,41 @@
+<section class="slds-popover slds-popover_large slds-nubbin_top-right" role="dialog" aria-labelledby="dialog-heading-id-15"
+  aria-describedby="dialog-body-id-15" style="position:absolute;top:calc(100% + 12px);right:-12px">
+  <button class="slds-button slds-button_icon slds-button_icon-small slds-float_right slds-popover__close slds-button_icon"
+    title="Close dialog">
+    <svg class="slds-button__icon" aria-hidden="true">
+      <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+    </svg>
+    <span class="slds-assistive-text">Close dialog</span>
+  </button>
+  <span class="slds-notification-badge slds-show-notification">{{newNotificationCount}}</span>
+  <header class="slds-popover__header">
+    <h2 id="dialog-heading-id-15" class="slds-text-heading_small">Notifications</h2>
+
+  </header>
+  <div class="slds-popover__body slds-p-around_none" id="dialog-body-id-15">
+    <ul>
+      <li *ngFor="let notification of currentNotifications" class="slds-global-header__notification slds-global-header__notification_unread">
+        <div class="slds-media slds-has-flexi-truncate slds-p-around_x-small">
+          <div class="slds-media__figure">
+            <span class="slds-avatar slds-avatar_small">
+              <img alt="Val Handerly" src="/assets/images/avatar2.jpg" title="Val Handerly avatar" />
+            </span>
+          </div>
+          <div class="slds-media__body">
+            <div class="slds-grid slds-grid_align-spread">
+              <a href="javascript:void(0);" class="slds-text-link_reset slds-has-flexi-truncate">
+                <h3 class="slds-truncate" title="Val Handerly mentioned you">
+                  <strong>{{notification.notificationTypeName}}</strong>
+                </h3>
+                <p class="slds-truncate" title="messsages">{{notification.text}}</p>
+                <p *ngIf="!newNotificationCount" class="slds-m-top_x-small slds-text-color_weak">{{getTimeSinceDate(notification.createTime | date: 'mm')}}
+                  <abbr *ngIf="!notification.read" class="slds-text-link slds-m-horizontal_xxx-small" title="unread">●</abbr>
+                </p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
