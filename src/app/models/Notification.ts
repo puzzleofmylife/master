@@ -1,4 +1,4 @@
-export class Notifications {
+export class Notification {
     
     id: number;
     notificationTypeName: string;
