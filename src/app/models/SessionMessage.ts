@@ -2,6 +2,6 @@ export class SessionMessage {
     id: number;
     sessionId: number;
     mine: boolean;
-    createDate: string;
+    createDate: Date;
     text: string;
 }

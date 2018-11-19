@@ -13,19 +13,21 @@ import { PsychologistComponent } from './components/psychologist/psychologist.co
 import { PsychtermsComponent } from './components/psychterms/psychterms.component';
 import { PsyregisterComponent } from './components/psyregister/psyregister.component';
 import { VerifyComponent } from './components/verify/verify.component';
+import { SessionComponent } from './components/session/session.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'apply/psychologist', component: PsyregisterComponent },
-  {path: 'apply', component: ApplyComponent },
-  {path: 'verify', component: VerifyComponent },
-  {path: 'psychologist-terms', component: PsychtermsComponent },
-  {path: 'patient-terms', component: PatientTermsComponent },
-  {path: 'signup', component: PatientRegisterComponent},
-  {path: 'card/result', component: CheckoutResultComponent},
-  {path: 'admin/psychologists', component: PsychologistListComponent },
-  {path: 'psychologist/:id',component:PsychologistComponent}
+  { path: '', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'apply/psychologist', component: PsyregisterComponent },
+  { path: 'apply', component: ApplyComponent },
+  { path: 'verify', component: VerifyComponent },
+  { path: 'psychologist-terms', component: PsychtermsComponent },
+  { path: 'patient-terms', component: PatientTermsComponent },
+  { path: 'signup', component: PatientRegisterComponent },
+  { path: 'card/result', component: CheckoutResultComponent },
+  { path: 'admin/psychologists', component: PsychologistListComponent },
+  { path: 'psychologist/:id', component: PsychologistComponent },
+  { path: 'session', component: SessionComponent }
 ];
 
 @NgModule({

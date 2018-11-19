@@ -28,12 +28,12 @@ export class SessionService {
   getSessionMessagesSince(sessionId: number, sinceDate: Date): Observable<SessionMessage[]> {
     return this.http.get<SessionMessage[]>(environment.baseAPIURL + '/api/Session/messages/since', {
       params: new HttpParams()
-        .set('sinceDate', sinceDate.toString())
+        .set('sinceDate', sinceDate.toUTCString())
         .set('sessionId', sessionId.toString())
     });
   }
 
   createSessionMessage(sessionMessage: SessionMessage): Observable<SessionMessage> {
-    return this.http.post<SessionMessage>(environment.baseAPIURL + '/api/Session/messages/since', sessionMessage);
+    return this.http.post<SessionMessage>(environment.baseAPIURL + '/api/Session/message/create', sessionMessage);
   }
 }
