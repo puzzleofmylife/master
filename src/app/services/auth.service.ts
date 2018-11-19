@@ -39,7 +39,11 @@ export class AuthService {
 	}
 
 	login(email: string, password: string): Observable<any> {
-		return this.http.get<any>(environment.baseAPIURL + '/api/Auth/login?username=' + encodeURIComponent(email) + '&password=' + encodeURIComponent(password));
+		return this.http.get<any>(environment.baseAPIURL + '/api/Auth/login?username=' + encodeURIComponent(email) + '&password=' + encodeURIComponent(password))
+			.pipe(map(result => {
+				this.setAccessToken(result.token);
+				this.updateLoggedInSubject();
+			}));
 	}
 
 	logout(): void {
