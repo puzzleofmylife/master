@@ -26,6 +26,7 @@ import { PatientTermsComponent } from './components/patient-terms/patientterms.c
 import { JwtHelper } from 'angular2-jwt';
 import { PsychologistComponent } from './components/psychologist/psychologist.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { NotificationsComponent } from './components/notifications/notifications
     CheckoutResultComponent,
     ApplyComponent,
     PsychologistListComponent,
+    TimeAgoPipe,
 
     LoginComponent,
     PatientTermsComponent,
