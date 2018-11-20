@@ -26,6 +26,8 @@ import { PatientTermsComponent } from './components/patient-terms/patientterms.c
 import { JwtHelper } from 'angular2-jwt';
 import { PsychologistComponent } from './components/psychologist/psychologist.component';
 import { SessionComponent } from './components/session/session.component';
+import { TimeAgoPipe } from 'time-ago-pipe';
+import { TextareaAutosizeModule } from 'ngx-textarea-autosize';
 
 @NgModule({
   declarations: [
@@ -49,8 +51,8 @@ import { SessionComponent } from './components/session/session.component';
     LoginComponent,
     PatientTermsComponent,
     PsychologistComponent,
-    SessionComponent
-
+    SessionComponent,
+    TimeAgoPipe
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,8 @@ import { SessionComponent } from './components/session/session.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    TextareaAutosizeModule
   ],
   providers: [AlertService, JwtHelper,
     {

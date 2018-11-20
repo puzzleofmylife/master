@@ -25,10 +25,10 @@ export class SessionService {
     });
   }
 
-  getSessionMessagesSince(sessionId: number, sinceDate: Date): Observable<SessionMessage[]> {
+  getSessionMessagesSince(sessionId: number, sinceDate: string): Observable<SessionMessage[]> {
     return this.http.get<SessionMessage[]>(environment.baseAPIURL + '/api/Session/messages/since', {
       params: new HttpParams()
-        .set('sinceDate', sinceDate.toUTCString())
+        .set('sinceDate', sinceDate)
         .set('sessionId', sessionId.toString())
     });
   }
