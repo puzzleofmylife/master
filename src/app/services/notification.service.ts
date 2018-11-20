@@ -12,14 +12,19 @@ export class NotificationService {
 	constructor(private http: HttpClient) { }
 
 	getNotifications(limit: number, page: number): Observable<Notification[]> {
-		return this.http.get<Notification[]>(environment.baseAPIURL + '/api/notification', {
-			params: new HttpParams()
-			.set('limit', limit.toString())
-			.set('page', page.toString())
-		});
+		return this.http.get<Notification[]>(environment.baseAPIURL + '/api/notification',
+			{
+				params: new HttpParams()
+					.set('limit', limit.toString())
+					.set('page', page.toString())
+			});
 	}
 
 	getNewNotificationCount(): Observable<any> {
 		return this.http.get<any>(environment.baseAPIURL + '/api/notification/newcount');
+	}
+
+	markNotificationAsRead(): Observable<any> {
+		return this.http.post(environment.baseAPIURL + '/api/Notification/markasread', null);
 	}
 }
