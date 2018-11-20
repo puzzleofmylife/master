@@ -13,24 +13,24 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class NotificationsComponent implements OnInit {
 
 	currentNotifications: any[];
-	newNoficationCount: number;
+	newNotificationCount: number;
 	notificationLimit: number = 10;
 	createTime: Date;
 	showNotificationDropdown: boolean = false;
-	closeWindow: boolean = false;
+	notification: boolean = false;
 
 	constructor(private helpersService: HelpersService, private notificationService: NotificationService) { }
 
 	ngOnInit() {
 
 		this.notificationService.getNewNotificationCount().subscribe(response => {
-			this.newNoficationCount = response.count;
+			this.newNotificationCount = response.count;
 		}, error => {
 			console.error(JSON.stringify(error));
 		});
 
 		this.notificationService.getNotifications(this.notificationLimit, 0).subscribe(response => {
-			this.currentNotifications = response;
+			this.currentNotifications = response
 		}, error => {
 			console.error(JSON.stringify(error));
 		});
@@ -38,15 +38,21 @@ export class NotificationsComponent implements OnInit {
 		this.createTime = new Date();
 	}
 
-	getTimeSinceDate(): Date {
-		if (this.newNoficationCount > 0) {
-			return this.createTime = new Date();
-		}
-
+	onCloseNotificationsDropDown(): boolean {
+		this.notificationService.markNotificationAsRead().subscribe(x => {
+			this.markNotificationsRead();
+			this.resetNewNotificationCount();
+		});
+		return this.showNotificationDropdown = false;
 	}
 
-	onDropDownClose(){
-		this.showNotificationDropdown = false;
+	markNotificationsRead(): void {
+		this.currentNotifications.forEach(notification => {
+			notification.read = true;
+		});
 	}
 
+	resetNewNotificationCount(): number {
+		return this.newNotificationCount = 0;
+	}
 }
