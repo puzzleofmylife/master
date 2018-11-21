@@ -1,9 +1,8 @@
-import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, AfterViewChecked, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, AfterViewChecked, SimpleChanges, OnChanges, HostListener } from '@angular/core';
 import { Session } from 'src/app/models/Session';
 import { SessionService } from 'src/app/services/session.service';
 import { SessionMessage } from 'src/app/models/SessionMessage';
 import { TimerObservable } from "rxjs/observable/TimerObservable";
-import 'rxjs/add/operator/takeWhile';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment';
 
@@ -12,10 +11,11 @@ import * as moment from 'moment';
   templateUrl: './session.component.html',
   styleUrls: ['./session.component.css']
 })
-export class SessionComponent implements OnDestroy, AfterViewChecked {
+export class SessionComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   @ViewChild('chatDiv') private chatDiv: ElementRef;
   @ViewChild('messageInput') private messageInput: ElementRef;
+  @ViewChild('recipientAbbrevDiv') private recipientAbbrevDiv: ElementRef;
   newMsgSubscription: Subscription;
   sessionMessages: SessionMessage[] = [];
   showSessionEmptyMsg: boolean;
@@ -27,6 +27,7 @@ export class SessionComponent implements OnDestroy, AfterViewChecked {
   messagesAdded: boolean = false;
   messagesPage: number = 1;
   noMoreToLoad: boolean = false;
+  recipientAbbrev: string;
 
   private _session: Session = new Session();
   @Input() set session(value: Session) {
@@ -39,9 +40,26 @@ export class SessionComponent implements OnDestroy, AfterViewChecked {
 
   constructor(private sessionService: SessionService) { }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.setChatDivHeight();
+  }
+
+  ngOnInit(): void {
+    this.setChatDivHeight();
+  }
+
+  private setChatDivHeight() {
+    const headerDifferencePx = 174;
+    this.chatDiv.nativeElement.style.height = window.innerHeight - headerDifferencePx + 'px';
+  }
+
   initiateSession() {
+    this.session.recipientPhotoUrl = '';
+    this.session.recipientName = 'ghris';
     this.loaded = false;//Show spinner
     this.sessionMessages = [];//Clear any messages
+    this.setRecipientAbbrev();
 
     //Initial get of last X messages
     this.sessionService.getSessionMessages(this.session.id, this.initialGetCount, this.messagesPage).subscribe(response => {
@@ -172,5 +190,37 @@ export class SessionComponent implements OnDestroy, AfterViewChecked {
       this.messagesPage--;
       console.error(JSON.stringify(error));
     });
+  }
+
+  hashCode(str) { // java String#hashCode
+    var hash = 0;
+    for (var i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return hash;
+  }
+
+  intToRGB(i) {
+    var c = (i & 0x00FFFFFF)
+      .toString(16)
+      .toUpperCase();
+
+    return "00000".substring(0, 6 - c.length) + c;
+  }
+
+  setRecipientAbbrev() {
+    var substringLength = this.session.recipientName.length < 2 ? 1 : 2;
+    this.recipientAbbrev = this.session.recipientName.substring(0, substringLength).toUpperCase();
+    this.recipientAbbrevDiv.nativeElement.style.backgroundColor = '#' + this.intToRGB(this.hashCode(this.session.recipientName));
+    this.recipientAbbrevDiv.nativeElement.style.borderRadius = '50%';
+    //this.recipientAbbrevDiv.nativeElement.style.mixBlendMode = 'difference';
+
+    var rgb = this.recipientAbbrevDiv.nativeElement.style.backgroundColor.replace('rgb(', '').replace(')', '').split(',').map(Number);
+    var o = Math.round(((rgb[0] * 299) + (rgb[1] * 587) + (rgb[2] * 114)) / 1000);
+    if (o > 125) {
+      this.recipientAbbrevDiv.nativeElement.style.color = 'black';
+    } else {
+      this.recipientAbbrevDiv.nativeElement.style.color = 'white';
+    }
   }
 }
