@@ -28,6 +28,7 @@ import { PsychologistComponent } from './components/psychologist/psychologist.co
 import { SessionComponent } from './components/session/session.component';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { TextareaAutosizeModule } from 'ngx-textarea-autosize';
+import { PatientSessionComponent } from './components/patient-session/patient-session.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { TextareaAutosizeModule } from 'ngx-textarea-autosize';
     PatientTermsComponent,
     PsychologistComponent,
     SessionComponent,
-    TimeAgoPipe
+    TimeAgoPipe,
+    PatientSessionComponent
   ],
   imports: [
     BrowserModule,
