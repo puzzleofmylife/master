@@ -68,6 +68,7 @@ export class SessionComponent implements OnDestroy, AfterViewChecked {
   }
 
   createMessage() {
+    this.messageText = this.messageText.trim();
     if (this.messageText.length == 0)
       return;
 
