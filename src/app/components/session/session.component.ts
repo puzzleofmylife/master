@@ -4,7 +4,7 @@ import { SessionService } from 'src/app/services/session.service';
 import { SessionMessage } from 'src/app/models/SessionMessage';
 import { TimerObservable } from "rxjs/observable/TimerObservable";
 import { Subscription } from 'rxjs';
-import * as moment from 'moment';
+import { HelpersService } from 'src/app/services/helpers.service';
 
 @Component({
   selector: 'app-session',
@@ -38,7 +38,7 @@ export class SessionComponent implements OnInit, OnDestroy, AfterViewChecked {
     return this._session;
   }
 
-  constructor(private sessionService: SessionService) { }
+  constructor(private sessionService: SessionService, private helpersService: HelpersService) { }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -55,8 +55,6 @@ export class SessionComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   initiateSession() {
-    this.session.recipientPhotoUrl = '';
-    this.session.recipientName = 'ghris';
     this.loaded = false;//Show spinner
     this.sessionMessages = [];//Clear any messages
     this.setRecipientAbbrev();
@@ -142,10 +140,6 @@ export class SessionComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.messageInput.nativeElement.setAttribute('style', '');
   }
 
-  convertToLocalDate(utcDate: Date): Date {
-    return moment.utc(utcDate).local().toDate();
-  }
-
   autoGrowMessageInput() {
     var maxMessageInputHeight = 150;
     if (this.messageInput.nativeElement.scrollHeight <= maxMessageInputHeight) {
@@ -192,26 +186,10 @@ export class SessionComponent implements OnInit, OnDestroy, AfterViewChecked {
     });
   }
 
-  hashCode(str) { // java String#hashCode
-    var hash = 0;
-    for (var i = 0; i < str.length; i++) {
-      hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    return hash;
-  }
-
-  intToRGB(i) {
-    var c = (i & 0x00FFFFFF)
-      .toString(16)
-      .toUpperCase();
-
-    return "00000".substring(0, 6 - c.length) + c;
-  }
-
   setRecipientAbbrev() {
     var substringLength = this.session.recipientName.length < 2 ? 1 : 2;
     this.recipientAbbrev = this.session.recipientName.substring(0, substringLength).toUpperCase();
-    this.recipientAbbrevDiv.nativeElement.style.backgroundColor = '#' + this.intToRGB(this.hashCode(this.session.recipientName));
+    this.recipientAbbrevDiv.nativeElement.style.backgroundColor = '#' + this.helpersService.getColourHashCode(this.session.recipientName);
     this.recipientAbbrevDiv.nativeElement.style.borderRadius = '50%';
 
     var rgb = this.recipientAbbrevDiv.nativeElement.style.backgroundColor.replace('rgb(', '').replace(')', '').split(',').map(Number);

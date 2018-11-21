@@ -63,9 +63,9 @@
               </div>
               <div [ngSwitch]="message.mine">
                 <div class="slds-chat-message__meta">
-                  <span *ngSwitchCase="true">You • {{convertToLocalDate(message.createDate) | timeAgo}}</span>
+                  <span *ngSwitchCase="true">You • {{helpersService.convertToLocalDate(message.createDate) | timeAgo}}</span>
                   <span *ngSwitchCase="false">{{message.senderName}} •
-                    {{convertToLocalDate(message.createDate) | timeAgo}}</span>
+                    {{helpersService.convertToLocalDate(message.createDate) | timeAgo}}</span>
                 </div>
               </div>
             </div>
