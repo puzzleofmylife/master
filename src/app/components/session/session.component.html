@@ -31,6 +31,11 @@
       </div>
     </div>
 
+    <div *ngIf="loaded" class="slds-align_absolute-center">
+      <a *ngIf="!noMoreToLoad" class="slds-button" (click)="loadMoreMessages()">Load more</a>
+      <span *ngIf="noMoreToLoad">No previous messages found</span>
+    </div>
+
     <ul class="slds-chat-list">
 
       <li *ngIf="showSessionEmptyMsg" class="slds-chat-listitem">
@@ -54,7 +59,7 @@
             <div [ngSwitch]="message.mine">
               <div class="slds-chat-message__meta">
                 <span *ngSwitchCase="true">You • {{convertToLocalDate(message.createDate) | timeAgo}}</span>
-                <span *ngSwitchCase="false">{{session.recipientName}} •
+                <span *ngSwitchCase="false">{{message.senderName}} •
                   {{convertToLocalDate(message.createDate) | timeAgo}}</span>
               </div>
             </div>

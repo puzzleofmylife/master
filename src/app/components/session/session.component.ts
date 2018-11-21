@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, AfterViewChecked, SimpleChanges, OnChanges } from '@angular/core';
 import { Session } from 'src/app/models/Session';
 import { SessionService } from 'src/app/services/session.service';
 import { SessionMessage } from 'src/app/models/SessionMessage';
@@ -12,35 +12,43 @@ import * as moment from 'moment';
   templateUrl: './session.component.html',
   styleUrls: ['./session.component.css']
 })
-export class SessionComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class SessionComponent implements OnDestroy, AfterViewChecked {
 
-  @Input() session: Session;
   @ViewChild('chatDiv') private chatDiv: ElementRef;
   @ViewChild('messageInput') private messageInput: ElementRef;
   newMsgSubscription: Subscription;
   sessionMessages: SessionMessage[] = [];
   showSessionEmptyMsg: boolean;
   showSessionErrorMsg: boolean;
-  initialGetCount: number = 100;
+  initialGetCount: number = 50;
   newMessageGetInterval: number = 30 * 1000;//30 secs
   messageText: string = '';
   loaded: boolean = false;
   messagesAdded: boolean = false;
+  messagesPage: number = 1;
+  noMoreToLoad: boolean = false;
+
+  private _session: Session = new Session();
+  @Input() set session(value: Session) {
+    this._session = value;
+    this.initiateSession();
+  }
+  get session() {
+    return this._session;
+  }
 
   constructor(private sessionService: SessionService) { }
 
-  ngOnInit() {
-    //Temp
-    this.session = new Session();
-    this.session.id = 1;
-    this.session.recipientName = 'Dane Williams';
-    this.session.recipientPhotoUrl = 'https://eeip.blob.core.windows.net/puzzle-public-dev/00fa16d9-b4c4-43fd-b170-faeca2afb011.jpg';
+  initiateSession() {
+    this.loaded = false;//Show spinner
+    this.sessionMessages = [];//Clear any messages
 
     //Initial get of last X messages
-    this.sessionService.getSessionMessages(this.session.id, this.initialGetCount).subscribe(response => {
+    this.sessionService.getSessionMessages(this.session.id, this.initialGetCount, this.messagesPage).subscribe(response => {
       this.loaded = true;
 
-      this.sessionMessages = response;
+      //Reverse the array because we want to show most recent at the bototm of the session chat window 
+      this.sessionMessages = response.reverse();
       this.messagesAdded = true;
 
       if (this.sessionMessages.length == 0)
@@ -97,13 +105,13 @@ export class SessionComponent implements OnInit, OnDestroy, AfterViewChecked {
 
     this.sessionService.getSessionMessagesSince(this.session.id, lastMessageDate)
       .subscribe(response => {
-        response.forEach(item => {
-          //Only add new messages from the recipient
-          if (!item.mine) {
-            this.sessionMessages.push(item);
-            this.messagesAdded = true;
-          }
-        });
+        //Only add new messages from the recipient
+        var onlyRecipMessages = response.filter(x => !x.mine);
+
+        if (onlyRecipMessages.length > 0) {
+          this.sessionMessages.push(...onlyRecipMessages.reverse());
+          this.messagesAdded = true;
+        }
       }, error => {
         console.error(JSON.stringify(error));
       });
@@ -120,7 +128,8 @@ export class SessionComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   autoGrowMessageInput() {
-    if (this.messageInput.nativeElement.scrollHeight <= 150) {
+    var maxMessageInputHeight = 150;
+    if (this.messageInput.nativeElement.scrollHeight <= maxMessageInputHeight) {
       this.messageInput.nativeElement.style.overflow = 'hidden';
       this.messageInput.nativeElement.style.height = '0px';
       this.messageInput.nativeElement.style.height = this.messageInput.nativeElement.scrollHeight + 'px';
@@ -144,7 +153,23 @@ export class SessionComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
   }
 
-  scrollToBottom(): void {
+  scrollToBottom() {
     this.chatDiv.nativeElement.scrollTop = this.chatDiv.nativeElement.scrollHeight;
+  }
+
+  loadMoreMessages() {
+    this.loaded = false;
+    this.messagesPage++;
+    this.sessionService.getSessionMessages(this.session.id, this.initialGetCount, this.messagesPage).subscribe(response => {
+      this.loaded = true;
+      if (response.length > 0)
+        this.sessionMessages.unshift(...response.reverse());
+      else
+        this.noMoreToLoad = true;
+    }, error => {
+      this.loaded = true;
+      this.messagesPage--;
+      console.error(JSON.stringify(error));
+    });
   }
 }
