@@ -4,4 +4,5 @@ export class SessionMessage {
     mine: boolean;
     createDate: Date;
     text: string;
+    senderName: string;
 }
