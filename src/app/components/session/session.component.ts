@@ -213,7 +213,6 @@ export class SessionComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.recipientAbbrev = this.session.recipientName.substring(0, substringLength).toUpperCase();
     this.recipientAbbrevDiv.nativeElement.style.backgroundColor = '#' + this.intToRGB(this.hashCode(this.session.recipientName));
     this.recipientAbbrevDiv.nativeElement.style.borderRadius = '50%';
-    //this.recipientAbbrevDiv.nativeElement.style.mixBlendMode = 'difference';
 
     var rgb = this.recipientAbbrevDiv.nativeElement.style.backgroundColor.replace('rgb(', '').replace(')', '').split(',').map(Number);
     var o = Math.round(((rgb[0] * 299) + (rgb[1] * 587) + (rgb[2] * 114)) / 1000);
