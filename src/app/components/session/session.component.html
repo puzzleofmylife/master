@@ -36,7 +36,7 @@
         </div>
       </div>
 
-      <div *ngIf="loaded" class="slds-align_absolute-center">
+      <div *ngIf="loaded" class="slds-align_absolute-center slds-m-top_small">
         <a *ngIf="!noMoreToLoad" class="slds-button" (click)="loadMoreMessages()">Load more</a>
         <span *ngIf="noMoreToLoad">No previous messages found</span>
       </div>
