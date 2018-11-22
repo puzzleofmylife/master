@@ -9,7 +9,7 @@
 			<div class="slds-form-element__control">
 				<input type="text" formControlName="email" class="form-control slds-input" />
 				<div *ngIf="submitted && loginForm.controls.email.errors" class="slds-text-color_error">
-					<div *ngIf="loginForm.controls.email.errors.required">Email is required</div>
+					<div *ngIf="!loginForm.controls.email.errors.isFilled">Email is required</div>
 				</div>
 			</div>
 		</div>
@@ -19,7 +19,7 @@
 			<div class="slds-form-element__control">
 				<input type="password" formControlName="password" class="form-control slds-input" />
 				<div *ngIf="submitted && loginForm.controls.password.errors" class="slds-text-color_error">
-					<div *ngIf="loginForm.controls.password.errors.required">Password is required</div>
+					<div *ngIf="!loginForm.controls.password.errors.isFilled">Password is required</div>
 				</div>
 			</div>
 		</div>
