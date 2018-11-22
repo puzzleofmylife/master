@@ -21,6 +21,8 @@ export class AuthService {
 		if (loggedIn.IsLoggedIn) {
 			var decodedToken = this.jwtHelper.decodeToken(this.getAccessToken());
 			loggedIn.IsAdmin = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] == "Admin";
+			loggedIn.IsPatient = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] == "Patient";
+			loggedIn.IsPsychologist = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] == "Psychologist";
 		}
 
 		return loggedIn;
@@ -39,9 +41,7 @@ export class AuthService {
 	}
 
 	login(email: string, password: string): Observable<any> {
-		var params = { params: { username: email, password: password } };
-
-		return this.http.get<any>(environment.baseAPIURL + '/api/Auth/login', params)
+		return this.http.get<any>(environment.baseAPIURL + '/api/Auth/login?username=' + encodeURIComponent(email) + '&password=' + encodeURIComponent(password))
 			.pipe(map(result => {
 				this.setAccessToken(result.token);
 				this.updateLoggedInSubject();
