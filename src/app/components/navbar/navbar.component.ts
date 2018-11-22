@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { LoggedIn } from 'src/app/models/LoggedIn';
+
 
 @Component({
   selector: 'app-navbar',

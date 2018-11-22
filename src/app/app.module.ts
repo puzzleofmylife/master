@@ -29,6 +29,7 @@ import { SessionComponent } from './components/session/session.component';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { TextareaAutosizeModule } from 'ngx-textarea-autosize';
 import { PatientSessionComponent } from './components/patient-session/patient-session.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,9 @@ import { PatientSessionComponent } from './components/patient-session/patient-se
     PsychologistComponent,
     SessionComponent,
     TimeAgoPipe,
-    PatientSessionComponent
+    PatientSessionComponent,
+    NotificationsComponent
+
   ],
   imports: [
     BrowserModule,

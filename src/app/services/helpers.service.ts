@@ -2,25 +2,11 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class HelpersService {
 
-  constructor() { }
-
-  getPsychStatusClass(statusId: number) {
-    switch (statusId) {
-      case 1:
-        return 'pending_approval';
-        break;
-      case 2:
-        return 'active';
-        break;
-      case 3:
-        return 'denied';
-        break;
-    }
-  }
+	constructor() { }
 
   getColourHashCode(str) { // java String#hashCode
     var hash = 0;
@@ -38,4 +24,21 @@ export class HelpersService {
   convertToLocalDate(utcDate: Date): Date {
     return moment.utc(utcDate).local().toDate();
   }
+  
+	getPsychStatusClass(statusId: number): string {
+		let status: string;
+
+		switch (statusId) {
+			case 1:
+				status = 'pending_approval';
+				break;
+			case 2:
+				status = 'active';
+				break;
+			case 3:
+				status = 'denied';
+				break;
+		}
+       return status;
+	}
 }
