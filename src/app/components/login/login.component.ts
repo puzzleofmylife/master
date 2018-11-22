@@ -18,10 +18,9 @@ export class LoginComponent implements OnInit {
 
 	ngOnInit() {
 		this.loginForm = this.formBuilder.group({
-			email: [''],
-			password: ['']
-		},
-		{ validator: this.validateIsFilled });
+			email: ['', Validators.required],
+			password: ['', Validators.required]
+		});
 	}
 
 	onLoginSubmit() {
@@ -43,22 +42,4 @@ export class LoginComponent implements OnInit {
 				})
 		}
 	}
-
-	validateIsFilled(group: FormGroup) {
-		//We need to manually validate that these fields are filled because mobile Chrome autofill/complete does not seem to trigger the angular required validator 
-		//e.g if fields are auto-filled, the required field validators are still fired
-		let password = group.controls.password.value;
-        let email = group.controls.email.value;
-
-        if (password.trim() != '' && email.trim() != '')
-			return null;
-			
-        if (email.trim() == '') {
-			group.controls.email.setErrors({ isFilled: false });
-		}
-
-		if (password.trim() == '') {
-			group.controls.password.setErrors({ isFilled: false });
-		}
-    }
 }
