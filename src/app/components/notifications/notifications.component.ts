@@ -11,7 +11,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class NotificationsComponent implements OnInit {
 
   currentNotifications: any[];
-  newNoficationCount: number;
+  newNotificationCount: number;
   notificationLimit: number = 10;
   createTime: Date;
 
@@ -20,7 +20,7 @@ export class NotificationsComponent implements OnInit {
   ngOnInit() {
 
     this.notifcationService.getNewNotificationCount().subscribe(response => {
-      this.newNoficationCount = response.count;
+      this.newNotificationCount = response.count;
     }, error => {
       console.error(JSON.stringify(error));
     });
@@ -35,7 +35,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   getTimeSinceDate(){
-    if (this.newNoficationCount > 0)
+    if (this.newNotificationCount > 0)
       this.createTime = new Date();
   }
 
