@@ -10,6 +10,9 @@
 						<svg *ngSwitchCase="4" class="slds-icon slds-icon--xx-small" aria-hidden="true">
 							<use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#share_post"></use>
 						</svg>
+						<svg *ngSwitchCase="5" class="slds-icon slds-icon--xx-small" aria-hidden="true">
+							<use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#join_group"></use>
+						</svg>
 					</span>
 				</div>
 				<div class="slds-media__body">
@@ -19,7 +22,8 @@
 								<strong>{{notification.notificationTypeName}}</strong>
 							</h3>
 							<p>{{notification.text}}</p>
-							<p class="slds-m-top_x-small slds-text-color_weak"><span>{{helpersService.convertToLocalDate(notification.createDate)| timeAgo}}</span>
+							<p class="slds-m-top_x-small slds-text-color_weak"><span>{{helpersService.convertToLocalDate(notification.createDate)|
+									timeAgo}}</span>
 								<abbr [hidden]="notification.read" class="slds-text-link slds-m-horizontal_xxx-small" title="unread">●</abbr>
 							</p>
 						</a>
