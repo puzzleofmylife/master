@@ -13,8 +13,8 @@ import { PsychologistComponent } from './components/psychologist/psychologist.co
 import { PsychtermsComponent } from './components/psychterms/psychterms.component';
 import { PsyregisterComponent } from './components/psyregister/psyregister.component';
 import { VerifyComponent } from './components/verify/verify.component';
-import { NotificationListComponent } from './components/notification-list/notification-list.component';
 import { PatientSessionComponent } from './components/patient-session/patient-session.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -29,7 +29,7 @@ const routes: Routes = [
   { path: 'admin/psychologists', component: PsychologistListComponent },
   { path: 'psychologist/:id', component: PsychologistComponent },
   { path: 'session', component: PatientSessionComponent },
-  {path: 'notifications',component:NotificationListComponent}
+  { path: 'notifications',component:NotificationComponent}
 ];
 
 @NgModule({

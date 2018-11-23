@@ -5,18 +5,19 @@ import { TimerObservable } from "rxjs/observable/TimerObservable";
 import { Subscription } from 'rxjs';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
+import { Notification } from 'src/app/models/Notification';
 
 
 @Component({
-	selector: 'app-notifications',
-	templateUrl: './notifications.component.html',
-	styleUrls: ['./notifications.component.css']
+	selector: 'app-notification-nav',
+	templateUrl: './notification-nav.component.html',
+	styleUrls: ['./notification-nav.component.css']
 })
 
 
-export class NotificationsComponent implements OnInit, OnDestroy {
+export class NotificationNavComponent implements OnInit, OnDestroy {
 
-	currentNotifications: any[];
+	currentNotifications: Notification[];
 	newNotificationCount: number;
 	notificationLimit: number = 10;
 	showNotificationDropdown: boolean = false;
@@ -35,6 +36,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 	getNewNotifications(): any {
 		this.notificationService.getNewNotificationCount().subscribe(response => {
 			this.newNotificationCount = response.count;
+
 		}, error => {
 			console.error(JSON.stringify(error));
 		});
@@ -49,7 +51,8 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 	onOpenCloseNotificationDropDown(): void {
 		this.showNotificationDropdown = !this.showNotificationDropdown;
 
-		if (!this.showNotificationDropdown) {
+		//if closing the notifications dropdown and notifications exist mark them as read
+		if (!this.showNotificationDropdown && this.currentNotifications.length > 0) {
 			this.notificationService.markNotificationAsRead().subscribe(x => {
 				this.markNotificationsRead();
 				this.resetNewNotificationCount();
@@ -64,7 +67,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 	}
 
 	resetNewNotificationCount(): void {
-		this.newNotificationCount = 0;
+	   	this.newNotificationCount = 0;
 	}
 
 	convertToLocalDate(utcDate: Date): Date {

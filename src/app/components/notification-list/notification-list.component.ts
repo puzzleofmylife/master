@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { HelpersService } from 'src/app/services/helpers.service';
+import { Notification } from 'src/app/models/Notification';
 
 @Component({
   selector: 'app-notification-list',
@@ -6,8 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./notification-list.component.css']
 })
 export class NotificationListComponent implements OnInit {
+  @Input() notifications: Notification[];
 
-  constructor() { }
+  constructor(private helpersService: HelpersService) { }
 
   ngOnInit() {
   }
