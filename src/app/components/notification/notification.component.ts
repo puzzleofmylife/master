@@ -8,7 +8,6 @@ import { NotificationService } from 'src/app/services/notification.service';
 	styleUrls: ['./notification.component.css']
 })
 export class NotificationComponent implements OnInit {
-	//@Input() notifications: Notification[];
 	currentNotifications: Notification[] = [];
 	notificationLimit: number = 30;
 	page:number = 0;
