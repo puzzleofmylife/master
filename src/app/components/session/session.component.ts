@@ -77,15 +77,15 @@ export class SessionComponent implements OnDestroy {
 
     this.resetMessageInput();
 
+    //Insert new message at the beginning of array
     this.sessionMessages.unshift(newMessage);
-    var newMsgIndex = this.sessionMessages.length - 1;
-
+    
     this.sessionService.createSessionMessage(newMessage).subscribe(response => {
       //success, replace the new message inserted above with the actual confirmed message returned
-      this.sessionMessages[newMsgIndex] = response;
+      this.sessionMessages[this.sessionMessages.indexOf(newMessage)] = response;
     }, error => {
       //fail, remove new message inserted above, and restore message input textbox
-      this.sessionMessages.splice(newMsgIndex, 1);
+      this.sessionMessages.splice(0, 1);
       this.messageText = newMessage.text;
 
       console.error(JSON.stringify(error));
@@ -93,14 +93,7 @@ export class SessionComponent implements OnDestroy {
   }
 
   getNewMessages() {
-    var lastMessageDate = new Date(0).toDateString();
-    //Get the most recent message from the recipient
-    var lastRecipientMessage = this.sessionMessages.filter(x => !x.mine)[0];
-
-    if (lastRecipientMessage)
-      lastMessageDate = lastRecipientMessage.createDate.toString();
-
-    this.sessionService.getSessionMessagesSince(this.session.id, lastMessageDate)
+    this.sessionService.getNewSessionMessages(this.session.id)
       .subscribe(response => {
         //Only add new messages from the recipient
         var onlyRecipMessages = response.filter(x => !x.mine);
