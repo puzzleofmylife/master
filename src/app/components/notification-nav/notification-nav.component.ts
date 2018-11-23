@@ -23,6 +23,9 @@ export class NotificationNavComponent implements OnInit, OnDestroy {
 	showNotificationDropdown: boolean = false;
 	newNotificationsSubscription: Subscription;
 	newNotificationGetInterval: number = 60 * 1000;
+	get isMobile(): boolean {
+		return window.innerWidth <= 480;
+	}
 
 	constructor(private helpersService: HelpersService, private notificationService: NotificationService, private router: Router) { }
 

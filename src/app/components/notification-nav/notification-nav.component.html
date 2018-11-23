@@ -11,7 +11,7 @@
 </div>
 <!--Notification Dropdown Menu-->
 <div *ngIf="showNotificationDropdown">
-	<section class="slds-popover slds-popover_small" role="dialog" aria-labelledby="dialog-heading-id-7" aria-describedby="dialog-body-id-7" style="position:absolute;top:calc(100% + 10px);right:14px">
+	<section [ngClass]="{'slds-popover':true, 'slds-popover_small': isMobile}" role="dialog" aria-labelledby="dialog-heading-id-7" aria-describedby="dialog-body-id-7" style="position:absolute;top:calc(100% + 10px);right:14px">
 		<button (click)="onOpenCloseNotificationDropDown()" class="slds-button slds-button_icon slds-button_icon-small slds-float_right slds-popover__close slds-button_icon" title="Close dialog">
 			<svg class="slds-button__icon" aria-hidden="true">
 				<use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
