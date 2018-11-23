@@ -29,51 +29,53 @@ import { SessionComponent } from './components/session/session.component';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { TextareaAutosizeModule } from 'ngx-textarea-autosize';
 import { PatientSessionComponent } from './components/patient-session/patient-session.component';
-import { NotificationsComponent } from './components/notifications/notifications.component';
+import { NotificationNavComponent } from './components/notification-nav/notification-nav.component';
+import { NotificationListComponent } from './components/notification-list/notification-list.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    NavbarComponent,
-    PsyregisterComponent,
-    AlertComponent,
-    VerifyComponent,
-    PsychtermsComponent,
-    ActionMenuOriginDirective,
-    ActionMenuDropdownDirective,
-    ActionMenuComponent,
-    PatientRegisterComponent,
-    ApplyComponent,
-    TooltipComponent,
-    CheckoutResultComponent,
-    ApplyComponent,
-    PsychologistListComponent,
-
-    LoginComponent,
-    PatientTermsComponent,
-    PsychologistComponent,
-    SessionComponent,
-    TimeAgoPipe,
-    PatientSessionComponent,
-    NotificationsComponent
-
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    FormsModule,
-    TextareaAutosizeModule
-  ],
-  providers: [AlertService, JwtHelper,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true,
-    }],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		HomeComponent,
+		NavbarComponent,
+		PsyregisterComponent,
+		AlertComponent,
+		VerifyComponent,
+		PsychtermsComponent,
+		ActionMenuOriginDirective,
+		ActionMenuDropdownDirective,
+		ActionMenuComponent,
+		PatientRegisterComponent,
+		ApplyComponent,
+		TooltipComponent,
+		CheckoutResultComponent,
+		ApplyComponent,
+		PsychologistListComponent,
+		LoginComponent,
+		PatientTermsComponent,
+		PsychologistComponent,
+		NotificationNavComponent,
+		NotificationListComponent,
+		SessionComponent,
+		TimeAgoPipe,
+		PatientSessionComponent,
+		NotificationComponent
+	],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		BrowserAnimationsModule,
+		ReactiveFormsModule,
+		HttpClientModule,
+		FormsModule,
+		TextareaAutosizeModule
+	],
+	providers: [AlertService, JwtHelper,
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: TokenInterceptor,
+			multi: true,
+		}],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

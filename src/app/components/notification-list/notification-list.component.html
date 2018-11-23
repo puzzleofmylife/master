@@ -1,0 +1,31 @@
+<ul *ngFor="let notification of notifications">
+	<li [ngClass]="{'slds-global-header__notification':true, 'slds-global-header__notification_unread':!notification.read}">
+		<figure>
+			<div class="slds-media slds-has-flexi-truncate slds-p-around_x-small">
+				<div class="slds-media__figure">
+					<span class="slds-icon_container slds-icon-action-share-post slds-icon_container--circle" [ngSwitch]=notification.notificationTypeId>
+						<svg *ngSwitchCase="1" class="slds-icon slds-icon--xx-small" aria-hidden="true">
+							<use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#update"></use>
+						</svg>
+						<svg *ngSwitchCase="4" class="slds-icon slds-icon--xx-small" aria-hidden="true">
+							<use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#share_post"></use>
+						</svg>
+					</span>
+				</div>
+				<div class="slds-media__body">
+					<div class="slds-grid slds-grid_align-spread">
+						<a class="slds-text-link_reset slds-has-flexi-truncate">
+							<h3 class="slds-truncate">
+								<strong>{{notification.notificationTypeName}}</strong>
+							</h3>
+							<p>{{notification.text}}</p>
+							<p class="slds-m-top_x-small slds-text-color_weak"><span>{{helpersService.convertToLocalDate(notification.createDate)| timeAgo}}</span>
+								<abbr [hidden]="notification.read" class="slds-text-link slds-m-horizontal_xxx-small" title="unread">●</abbr>
+							</p>
+						</a>
+					</div>
+				</div>
+			</div>
+		</figure>
+	</li>
+</ul>

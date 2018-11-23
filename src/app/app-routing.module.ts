@@ -14,6 +14,7 @@ import { PsychtermsComponent } from './components/psychterms/psychterms.componen
 import { PsyregisterComponent } from './components/psyregister/psyregister.component';
 import { VerifyComponent } from './components/verify/verify.component';
 import { PatientSessionComponent } from './components/patient-session/patient-session.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,7 +28,8 @@ const routes: Routes = [
   { path: 'card/result', component: CheckoutResultComponent },
   { path: 'admin/psychologists', component: PsychologistListComponent },
   { path: 'psychologist/:id', component: PsychologistComponent },
-  { path: 'session', component: PatientSessionComponent }
+  { path: 'session', component: PatientSessionComponent },
+  { path: 'notifications',component:NotificationComponent}
 ];
 
 @NgModule({

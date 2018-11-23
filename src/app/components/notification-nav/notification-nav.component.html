@@ -1,0 +1,38 @@
+<!-- Notification Bell Icon -->
+<div class="slds-dropdown-trigger slds-dropdown-trigger_click">
+	<button (click)="onOpenCloseNotificationDropDown()" class="slds-button slds-button_icon slds-button_icon-container slds-button_icon-small slds-global-actions__notifications slds-global-actions__item-action slds-incoming-notification">
+		<svg class="slds-button__icon slds-global-header__icon">
+		    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#notification"></use>
+		</svg>
+	</button>
+	<div *ngIf="!newNotificationCount == 0">
+		<span class="slds-notification-badge slds-show-notification">{{newNotificationCount}}</span>
+	</div>
+</div>
+<!--Notification Dropdown Menu-->
+<div *ngIf="showNotificationDropdown">
+	<section class="slds-popover slds-popover_small" role="dialog" aria-labelledby="dialog-heading-id-7" aria-describedby="dialog-body-id-7" style="position:absolute;top:calc(100% + 10px);right:14px">
+		<button (click)="onOpenCloseNotificationDropDown()" class="slds-button slds-button_icon slds-button_icon-small slds-float_right slds-popover__close slds-button_icon" title="Close dialog">
+			<svg class="slds-button__icon" aria-hidden="true">
+				<use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+			</svg>
+		    <span class="slds-assistive-text">Close dialog</span>
+		</button>
+
+		<header class="slds-popover__header">
+		    <h2 id="dialog-heading-id-7" class="slds-text-heading_small">Notifications</h2>
+		</header>
+
+		<div class="scrollableDropDown">
+			<div class="slds-popover__body slds-p-around_none" id="dialog-body-id-7">
+				<app-notification-list [notifications]="currentNotifications"></app-notification-list>
+				<div *ngIf="currentNotifications.length == 0" class="slds-m-top_small slds-align_absolute-center">
+					No notifications
+				</div>
+				<div *ngIf="currentNotifications.length > 0" class="slds-align_absolute-center">
+					<a (click)="navToNotifications()" class="slds-button">Show all</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
