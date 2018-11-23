@@ -36,4 +36,11 @@ export class SessionService {
   createSessionMessage(sessionMessage: SessionMessage): Observable<SessionMessage> {
     return this.http.post<SessionMessage>(environment.baseAPIURL + '/api/Session/message/create', sessionMessage);
   }
+
+  getNewSessionMessages(sessionId: number): Observable<SessionMessage[]> {
+    return this.http.get<SessionMessage[]>(environment.baseAPIURL + '/api/Session/messages/new', {
+      params: new HttpParams()
+        .set('sessionId', sessionId.toString())
+    });
+  }
 }

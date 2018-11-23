@@ -11,27 +11,26 @@ import { HelpersService } from 'src/app/services/helpers.service';
   templateUrl: './session.component.html',
   styleUrls: ['./session.component.css']
 })
-export class SessionComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class SessionComponent implements OnDestroy {
 
-  @ViewChild('chatDiv') private chatDiv: ElementRef;
-  @ViewChild('messageInput') private messageInput: ElementRef;
   @ViewChild('recipientAbbrevDiv') private recipientAbbrevDiv: ElementRef;
+  @ViewChild('messageInput') private messageInput: ElementRef;
   newMsgSubscription: Subscription;
   sessionMessages: SessionMessage[] = [];
   showSessionEmptyMsg: boolean;
-  showSessionErrorMsg: boolean;
   initialGetCount: number = 50;
   newMessageGetInterval: number = 30 * 1000;//30 secs
   messageText: string = '';
-  loaded: boolean = false;
-  messagesAdded: boolean = false;
+  loading: boolean = false;
   messagesPage: number = 1;
   noMoreToLoad: boolean = false;
   recipientAbbrev: string;
+  showNewMessagePrompt: boolean = false;
 
   private _session: Session = new Session();
   @Input() set session(value: Session) {
     this._session = value;
+    //Using a setter will let us run initiateSession() every time the value changes
     this.initiateSession();
   }
   get session() {
@@ -40,32 +39,16 @@ export class SessionComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   constructor(private sessionService: SessionService, private helpersService: HelpersService) { }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this.setChatDivHeight();
-  }
-
-  ngOnInit(): void {
-    this.setChatDivHeight();
-  }
-
-  private setChatDivHeight() {
-    const headerDifferencePx = 174;
-    this.chatDiv.nativeElement.style.height = window.innerHeight - headerDifferencePx + 'px';
-  }
-
   initiateSession() {
-    this.loaded = false;//Show spinner
+    this.loading = true;//Show spinner
     this.sessionMessages = [];//Clear any messages
     this.setRecipientAbbrev();
 
     //Initial get of last X messages
     this.sessionService.getSessionMessages(this.session.id, this.initialGetCount, this.messagesPage).subscribe(response => {
-      this.loaded = true;
+      this.loading = false;
 
-      //Reverse the array because we want to show most recent at the bototm of the session chat window 
-      this.sessionMessages = response.reverse();
-      this.messagesAdded = true;
+      this.sessionMessages = response;
 
       if (this.sessionMessages.length == 0)
         this.showSessionEmptyMsg = true;
@@ -76,9 +59,7 @@ export class SessionComponent implements OnInit, OnDestroy, AfterViewChecked {
           this.getNewMessages();
         });
     }, error => {
-      this.loaded = true;
-
-      this.showSessionErrorMsg = true;
+      this.loading = false;
       console.error(JSON.stringify(error));
     });
   }
@@ -94,18 +75,17 @@ export class SessionComponent implements OnInit, OnDestroy, AfterViewChecked {
     newMessage.createDate = new Date(Date.now());
     newMessage.mine = true;
 
-    this.sessionMessages.push(newMessage);
-    this.messagesAdded = true;
-    var newMsgIndex = this.sessionMessages.length - 1;
-
     this.resetMessageInput();
 
+    //Insert new message at the beginning of array
+    this.sessionMessages.unshift(newMessage);
+    
     this.sessionService.createSessionMessage(newMessage).subscribe(response => {
       //success, replace the new message inserted above with the actual confirmed message returned
-      this.sessionMessages[newMsgIndex] = response;
+      this.sessionMessages[this.sessionMessages.indexOf(newMessage)] = response;
     }, error => {
       //fail, remove new message inserted above, and restore message input textbox
-      this.sessionMessages.splice(newMsgIndex, 1);
+      this.sessionMessages.splice(0, 1);
       this.messageText = newMessage.text;
 
       console.error(JSON.stringify(error));
@@ -113,36 +93,63 @@ export class SessionComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   getNewMessages() {
-    var lastMessageDate = new Date(0).toDateString();
-    //Get the most recent message from the recipient
-    var lastRecipientMessageIndex = this.sessionMessages.map(x => x.mine).lastIndexOf(false);
-
-    if (this.sessionMessages[lastRecipientMessageIndex])
-      lastMessageDate = this.sessionMessages[lastRecipientMessageIndex].createDate.toString();
-
-    this.sessionService.getSessionMessagesSince(this.session.id, lastMessageDate)
+    this.sessionService.getNewSessionMessages(this.session.id)
       .subscribe(response => {
         //Only add new messages from the recipient
         var onlyRecipMessages = response.filter(x => !x.mine);
 
         if (onlyRecipMessages.length > 0) {
-          this.sessionMessages.push(...onlyRecipMessages.reverse());
-          this.messagesAdded = true;
+          this.sessionMessages.unshift(...onlyRecipMessages);
         }
       }, error => {
         console.error(JSON.stringify(error));
       });
   }
 
-  private resetMessageInput() {
-    this.messageText = '';
-    this.messageInput.nativeElement.setAttribute('value', '');
-    this.messageInput.nativeElement.setAttribute('style', '');
+  ngOnDestroy() {
+    //We need to unsubscribe, otherwise the getting of new messages will continue even if we navigate away from this component
+    if (this.newMsgSubscription)
+      this.newMsgSubscription.unsubscribe();
+  }
+
+  loadPreviousMessages() {
+    this.loading = true;
+    this.messagesPage++;
+    this.sessionService.getSessionMessages(this.session.id, this.initialGetCount, this.messagesPage).subscribe(response => {
+      this.loading = false;
+      if (response.length > 0)
+        this.sessionMessages.push(...response);
+      else
+        this.noMoreToLoad = true;
+    }, error => {
+      this.loading = false;
+      this.messagesPage--;
+      console.error(JSON.stringify(error));
+    });
+  }
+
+  setRecipientAbbrev() {
+    //Get first 2 letters of recipient name
+    var substringLength = this.session.recipientName.length < 2 ? 1 : 2;
+    this.recipientAbbrev = this.session.recipientName.substring(0, substringLength).toUpperCase();
+    //Create a background colour from the recipient name
+    this.recipientAbbrevDiv.nativeElement.style.backgroundColor = '#' + this.helpersService.getColourHashCode(this.session.recipientName);
+    this.recipientAbbrevDiv.nativeElement.style.borderRadius = '50%';
+
+    //Check if the background color is light or dark, then set the text color to either black or white
+    var rgb = this.recipientAbbrevDiv.nativeElement.style.backgroundColor.replace('rgb(', '').replace(')', '').split(',').map(Number);
+    var o = Math.round(((rgb[0] * 299) + (rgb[1] * 587) + (rgb[2] * 114)) / 1000);
+    if (o > 125) {
+      this.recipientAbbrevDiv.nativeElement.style.color = 'black';
+    } else {
+      this.recipientAbbrevDiv.nativeElement.style.color = 'white';
+    }
   }
 
   autoGrowMessageInput() {
     var maxMessageInputHeight = 150;
-    if (this.messageInput.nativeElement.scrollHeight <= maxMessageInputHeight) {
+    var defaultMessageInputHeight = 60;
+    if (this.messageInput.nativeElement.scrollHeight <= maxMessageInputHeight && this.messageInput.nativeElement.scrollHeight > defaultMessageInputHeight) {
       this.messageInput.nativeElement.style.overflow = 'hidden';
       this.messageInput.nativeElement.style.height = '0px';
       this.messageInput.nativeElement.style.height = this.messageInput.nativeElement.scrollHeight + 'px';
@@ -153,51 +160,9 @@ export class SessionComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
   }
 
-  ngOnDestroy() {
-    //We need to unsubscribe, otherwise the getting of new messages will continue even if we navigate away from this component
-    if (this.newMsgSubscription)
-      this.newMsgSubscription.unsubscribe();
-  }
-
-  ngAfterViewChecked() {
-    if (this.messagesAdded) {
-      this.scrollToBottom();
-      this.messagesAdded = false;
-    }
-  }
-
-  scrollToBottom() {
-    this.chatDiv.nativeElement.scrollTop = this.chatDiv.nativeElement.scrollHeight;
-  }
-
-  loadMoreMessages() {
-    this.loaded = false;
-    this.messagesPage++;
-    this.sessionService.getSessionMessages(this.session.id, this.initialGetCount, this.messagesPage).subscribe(response => {
-      this.loaded = true;
-      if (response.length > 0)
-        this.sessionMessages.unshift(...response.reverse());
-      else
-        this.noMoreToLoad = true;
-    }, error => {
-      this.loaded = true;
-      this.messagesPage--;
-      console.error(JSON.stringify(error));
-    });
-  }
-
-  setRecipientAbbrev() {
-    var substringLength = this.session.recipientName.length < 2 ? 1 : 2;
-    this.recipientAbbrev = this.session.recipientName.substring(0, substringLength).toUpperCase();
-    this.recipientAbbrevDiv.nativeElement.style.backgroundColor = '#' + this.helpersService.getColourHashCode(this.session.recipientName);
-    this.recipientAbbrevDiv.nativeElement.style.borderRadius = '50%';
-
-    var rgb = this.recipientAbbrevDiv.nativeElement.style.backgroundColor.replace('rgb(', '').replace(')', '').split(',').map(Number);
-    var o = Math.round(((rgb[0] * 299) + (rgb[1] * 587) + (rgb[2] * 114)) / 1000);
-    if (o > 125) {
-      this.recipientAbbrevDiv.nativeElement.style.color = 'black';
-    } else {
-      this.recipientAbbrevDiv.nativeElement.style.color = 'white';
-    }
+  private resetMessageInput() {
+    this.messageText = '';
+    this.messageInput.nativeElement.setAttribute('value', '');
+    this.messageInput.nativeElement.setAttribute('style', 'line-height:1.2');
   }
 }
