@@ -1,4 +1,4 @@
 .scrollableDropDown {
-    height: 200px;
+    max-height: 350px;
     overflow: auto;
   }
