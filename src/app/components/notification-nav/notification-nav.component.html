@@ -5,7 +5,7 @@
 		    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#notification"></use>
 		</svg>
 	</button>
-	<div *ngIf="newNotificationCount != 0">
+	<div *ngIf="newNotificationCount && newNotificationCount != 0">
 		<span class="slds-notification-badge slds-show-notification">{{newNotificationCount}}</span>
 	</div>
 </div>
