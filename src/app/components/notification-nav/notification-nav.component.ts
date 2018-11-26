@@ -55,7 +55,7 @@ export class NotificationNavComponent implements OnInit, OnDestroy {
 		this.showNotificationDropdown = !this.showNotificationDropdown;
 
 		//if closing the notifications dropdown and notifications exist mark them as read
-		if (!this.showNotificationDropdown && this.currentNotifications.length > 0) {
+		if (!this.showNotificationDropdown && this.currentNotifications && this.currentNotifications.length > 0) {
 			this.notificationService.markNotificationAsRead().subscribe(x => {
 				this.markNotificationsRead();
 				this.resetNewNotificationCount();
