@@ -17,8 +17,9 @@ export class SessionComponent implements OnDestroy {
   @ViewChild('messageInput') private messageInput: ElementRef;
   newMsgSubscription: Subscription;
   sessionMessages: SessionMessage[] = [];
-  showSessionEmptyMsg: boolean;
-  initialGetCount: number = 50;
+  sessionEmpty: boolean;
+  initialGetCount: number = 3;
+  initialGetMaxedOut: boolean = true;
   newMessageGetInterval: number = 30 * 1000;//30 secs
   messageText: string = '';
   loading: boolean = false;
@@ -50,8 +51,12 @@ export class SessionComponent implements OnDestroy {
 
       this.sessionMessages = response;
 
-      if (this.sessionMessages.length == 0)
-        this.showSessionEmptyMsg = true;
+      if (this.sessionMessages.length == 0) {
+        this.sessionEmpty = true;
+        this.initialGetMaxedOut = false;
+      } else if (this.sessionMessages.length < this.initialGetCount) {
+        this.initialGetMaxedOut = false;
+      }
 
       //Set timer to get new messages
       this.newMsgSubscription = TimerObservable.create(this.newMessageGetInterval, this.newMessageGetInterval)
@@ -79,7 +84,7 @@ export class SessionComponent implements OnDestroy {
 
     //Insert new message at the beginning of array
     this.sessionMessages.unshift(newMessage);
-    
+
     this.sessionService.createSessionMessage(newMessage).subscribe(response => {
       //success, replace the new message inserted above with the actual confirmed message returned
       this.sessionMessages[this.sessionMessages.indexOf(newMessage)] = response;
@@ -117,10 +122,10 @@ export class SessionComponent implements OnDestroy {
     this.messagesPage++;
     this.sessionService.getSessionMessages(this.session.id, this.initialGetCount, this.messagesPage).subscribe(response => {
       this.loading = false;
-      if (response.length > 0)
-        this.sessionMessages.push(...response);
-      else
+      if (response.length < this.initialGetCount)
         this.noMoreToLoad = true;
+
+      this.sessionMessages.push(...response);
     }, error => {
       this.loading = false;
       this.messagesPage--;

@@ -45,7 +45,7 @@
 
   <ul class="slds-chat-list">
 
-    <li *ngIf="showSessionEmptyMsg" class="slds-chat-listitem">
+    <li *ngIf="sessionEmpty" class="slds-chat-listitem">
       <div class="slds-chat-bookend" style="border:0px">
         <span class="slds-icon_container slds-icon-utility-chat slds-chat-icon">
           <svg class="slds-icon slds-icon_x-small slds-icon-text-default" aria-hidden="true">
@@ -53,7 +53,7 @@
           </svg>
         </span>
         <p>This is the start of your first session with
-          <b>{{session.recipientName}}</b>. Please click <b>New message</b> above to begin.</p>
+          <b>{{session.recipientName}}</b>. Please <b>type and send</b> a message above to begin.</p>
       </div>
     </li>
 
@@ -86,33 +86,6 @@
 </div>
 
 <div *ngIf="!loading" class="slds-align_absolute-center slds-m-vertical_small">
-  <a *ngIf="!noMoreToLoad" class="slds-button" (click)="loadPreviousMessages()">Load more</a>
-  <span *ngIf="noMoreToLoad">No more messages found</span>
-</div>
-
-<div *ngIf="showNewMessagePrompt">
-  <section role="alertdialog" tabindex="-1" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper"
-    class="slds-modal slds-fade-in-open slds-modal_prompt" aria-modal="true">
-    <div class="slds-modal__container">
-      <header class="slds-modal__header slds-theme_inverse" style="background-color: #005eb8">
-        <button (click)="showNewMessagePrompt = !showNewMessagePrompt" class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
-          title="Close">
-          <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close" />
-          </svg>
-          <span class="slds-assistive-text">Close</span>
-        </button>
-        <h2 class="slds-text-heading_medium" id="prompt-heading-id">New message</h2>
-      </header>
-      <div class="slds-modal__content slds-p-around_medium" id="prompt-message-wrapper">
-        <p>Enter your message below</p>
-        <textarea [(ngModel)]="messageText" style="width:100%; height:100%" rows="5" name="messageText"></textarea>
-      </div>
-      <footer class="slds-modal__footer slds-theme_default">
-        <button class="slds-button slds-button_neutral" (click)="showNewMessagePrompt = !showNewMessagePrompt">Cancel</button>
-        <button class="slds-button slds-button_brand" (click)="createMessage()">Submit</button>
-      </footer>
-    </div>
-  </section>
-  <div class="slds-backdrop slds-backdrop_open"></div>
+  <a *ngIf="!noMoreToLoad && initialGetMaxedOut" class="slds-button" (click)="loadPreviousMessages()">Load more</a>
+  <span *ngIf="noMoreToLoad && initialGetMaxedOut">No more messages found</span>
 </div>
