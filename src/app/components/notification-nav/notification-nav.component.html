@@ -23,13 +23,13 @@
 		    <h2 id="dialog-heading-id-7" class="slds-text-heading_small">Notifications</h2>
 		</header>
 
-		<div class="scrollableDropDown">
+		<div class="scrollableDropDown slds-p-bottom_small">
 			<div class="slds-popover__body slds-p-around_none" id="dialog-body-id-7">
 				<app-notification-list [notifications]="currentNotifications"></app-notification-list>
-				<div *ngIf="currentNotifications.length == 0" class="slds-m-top_small slds-align_absolute-center">
+				<div *ngIf="currentNotifications && currentNotifications.length == 0" class="slds-m-top_small slds-align_absolute-center">
 					No notifications
 				</div>
-				<div *ngIf="currentNotifications.length > 0" class="slds-align_absolute-center">
+				<div *ngIf="currentNotifications && currentNotifications.length > 0" class="slds-align_absolute-center">
 					<a (click)="navToNotifications()" class="slds-button">Show all</a>
 				</div>
 			</div>
