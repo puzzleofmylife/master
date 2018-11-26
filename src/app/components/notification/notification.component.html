@@ -5,7 +5,7 @@
     <div *ngIf="!noMoreNotifications && !loading" class="slds-align_absolute-center">
       <a (click)="loadNotificationsPage()" class="slds-button">Load more</a>
     </div>
-    <div *ngIf="noMoreNotifications && !loading" class="slds-m-top_small slds-align_absolute-center">
+    <div *ngIf="noMoreNotifications && !loading" class="slds-m-vertical_small slds-align_absolute-center">
       No more notifications
     </div>
     <div *ngIf="loading" class="slds-align_absolute-center slds-m-top_x-large">
