@@ -18,7 +18,7 @@ export class SessionComponent implements OnDestroy {
   newMsgSubscription: Subscription;
   sessionMessages: SessionMessage[] = [];
   sessionEmpty: boolean;
-  initialGetCount: number = 3;
+  initialGetCount: number = 50;
   initialGetMaxedOut: boolean = true;
   newMessageGetInterval: number = 30 * 1000;//30 secs
   messageText: string = '';
