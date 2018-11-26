@@ -15,6 +15,8 @@ import { PsyregisterComponent } from './components/psyregister/psyregister.compo
 import { VerifyComponent } from './components/verify/verify.component';
 import { PatientSessionComponent } from './components/patient-session/patient-session.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { PsychologistSessionComponent } from './components/psychologist-session/psychologist-session.component';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,6 +29,7 @@ const routes: Routes = [
   { path: 'signup', component: PatientRegisterComponent },
   { path: 'card/result', component: CheckoutResultComponent },
   { path: 'admin/psychologists', component: PsychologistListComponent },
+  { path: 'psychologist/session', component: PsychologistSessionComponent},
   { path: 'psychologist/:id', component: PsychologistComponent },
   { path: 'session', component: PatientSessionComponent },
   { path: 'notifications',component:NotificationComponent}

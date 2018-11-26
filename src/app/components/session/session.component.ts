@@ -32,7 +32,8 @@ export class SessionComponent implements OnDestroy {
   @Input() set session(value: Session) {
     this._session = value;
     //Using a setter will let us run initiateSession() every time the value changes
-    this.initiateSession();
+    if(this.session)
+      this.initiateSession();
   }
   get session() {
     return this._session;

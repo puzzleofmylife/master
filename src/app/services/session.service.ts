@@ -43,4 +43,8 @@ export class SessionService {
         .set('sessionId', sessionId.toString())
     });
   }
+
+  getPsychologistSessions(): Observable<Session[]> {
+    return this.http.get<Session[]>(environment.baseAPIURL + '/api/Session/psychologist');
+  }
 }
