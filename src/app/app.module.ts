@@ -32,6 +32,9 @@ import { PatientSessionComponent } from './components/patient-session/patient-se
 import { NotificationNavComponent } from './components/notification-nav/notification-nav.component';
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { PatientProfileComponent } from './components/patient-profile/patient-profile.component';
+import { PaymentDetailsComponent } from './components/payment-details/payment-details.component';
+import { PaymentUpdateComponent } from './components/payment-update/payment-update.component';
 
 @NgModule({
 	declarations: [
@@ -59,7 +62,10 @@ import { NotificationComponent } from './components/notification/notification.co
 		SessionComponent,
 		TimeAgoPipe,
 		PatientSessionComponent,
-		NotificationComponent
+		NotificationComponent,
+		PatientProfileComponent,
+		PaymentDetailsComponent,
+		PaymentUpdateComponent
 	],
 	imports: [
 		BrowserModule,
