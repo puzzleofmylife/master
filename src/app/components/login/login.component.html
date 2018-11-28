@@ -27,6 +27,10 @@
 			Not signed up? 
 			<a [routerLink]="['/signup']" class="slds-button">Sign up</a>
 			<button class="slds-button slds-button_brand btn-right" routerLinkActive="router-link-active">Login</button>
+			<div>
+				<a [routerLink]="['/forgot-password']" class="slds-button">Forgot your password?</a>
+			</div>
+			
 		</div>
 
 		<div [ngClass]="{'slds-hide': !showError}" class="slds-m-top_medium slds-text-color_error">

@@ -28,6 +28,8 @@ import { PsychologistComponent } from './components/psychologist/psychologist.co
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
+import { ResetPasswordComponent } from './components/resetpassword/resetpassword.component';
+import { ForgotPasswordComponent } from './components/forgotpassword/forgotpassword.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { NotificationListComponent } from './components/notification-list/notifi
     PatientTermsComponent,
     PsychologistComponent,
     NotificationsComponent,
-    NotificationListComponent
+    NotificationListComponent,
+    ResetPasswordComponent,
+    ForgotPasswordComponent
 
   ],
   imports: [

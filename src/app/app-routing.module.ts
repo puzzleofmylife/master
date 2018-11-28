@@ -14,6 +14,10 @@ import { PsychtermsComponent } from './components/psychterms/psychterms.componen
 import { PsyregisterComponent } from './components/psyregister/psyregister.component';
 import { VerifyComponent } from './components/verify/verify.component';
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
+import { ForgotPasswordComponent } from './components/forgotpassword/forgotpassword.component';
+import { ResetPasswordComponent } from './components/resetpassword/resetpassword.component';
+
+
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -27,7 +31,9 @@ const routes: Routes = [
   {path: 'card/result', component: CheckoutResultComponent},
   {path: 'admin/psychologists', component: PsychologistListComponent },
   {path: 'psychologist-details/:id',component:PsychologistComponent},
-  {path: 'notifications',component:NotificationListComponent}
+  {path: 'notifications',component:NotificationListComponent},
+  {path: 'forgot-password',component:ForgotPasswordComponent },
+  {path: 'reset-password',component:ResetPasswordComponent }
 ];
 
 @NgModule({
