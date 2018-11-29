@@ -4,32 +4,32 @@ import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { LoggedIn } from '../models/LoggedIn';
+import { AuthState } from '../models/AuthState';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class AuthService {
-	loggedInSubject: BehaviorSubject<LoggedIn> = new BehaviorSubject<LoggedIn>(this.getLoggedIn());
+	authStateSubject: BehaviorSubject<AuthState> = new BehaviorSubject<AuthState>(this.getAuthState());
 
 	constructor(private http: HttpClient, private jwtHelper: JwtHelper) { }
 
-	private getLoggedIn(): LoggedIn {
-		var loggedIn = new LoggedIn();
-		loggedIn.IsLoggedIn = tokenNotExpired();
+	getAuthState(): AuthState {
+		var authState = new AuthState();
+		authState.IsLoggedIn = tokenNotExpired();
 
-		if (loggedIn.IsLoggedIn) {
+		if (authState.IsLoggedIn) {
 			var decodedToken = this.jwtHelper.decodeToken(this.getAccessToken());
-			loggedIn.IsAdmin = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] == "Admin";
-			loggedIn.IsPatient = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] == "Patient";
-			loggedIn.IsPsychologist = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] == "Psychologist";
+			authState.IsAdmin = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] == "Admin";
+			authState.IsPatient = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] == "Patient";
+			authState.IsPsychologist = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] == "Psychologist";
 		}
 
-		return loggedIn;
+		return authState;
 	}
 
 	private updateLoggedInSubject(): void {
-		this.loggedInSubject.next(this.getLoggedIn());
+		this.authStateSubject.next(this.getAuthState());
 	}
 
 	setAccessToken(token: string): void {
@@ -53,7 +53,7 @@ export class AuthService {
 		this.updateLoggedInSubject();
 	}
 
-	loggedIn(): Observable<LoggedIn> {
-		return this.loggedInSubject.asObservable();
+	authState(): Observable<AuthState> {
+		return this.authStateSubject.asObservable();
 	}
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-import { LoggedIn } from 'src/app/models/LoggedIn';
+import { AuthState } from 'src/app/models/AuthState';
 
 
 @Component({
@@ -10,12 +10,12 @@ import { LoggedIn } from 'src/app/models/LoggedIn';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  loggedIn: LoggedIn = new LoggedIn();
+  authState: AuthState = new AuthState();
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.authService.loggedIn().subscribe(x => this.loggedIn = x);
+    this.authService.authState().subscribe(x => this.authState = x);
   }
 
   logout() {
