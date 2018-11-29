@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
 	loginForm: FormGroup;
 	showLoginFailed: boolean;
 	showError: boolean;
+	loading: boolean = false;
 
 	constructor(private authService: AuthService, private formBuilder: FormBuilder, private router: Router) { }
 
@@ -29,8 +30,10 @@ export class LoginComponent implements OnInit {
 		this.submitted = true;
 
 		if (this.loginForm.valid) {
+			this.loading = true;
 			this.authService.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value)
 				.subscribe(result => {
+					this.loading = false;
 					var authState = this.authService.getAuthState();
 
 					if (authState.IsAdmin)
@@ -42,6 +45,7 @@ export class LoginComponent implements OnInit {
 					if (authState.IsPsychologist)
 						this.router.navigate(['/psychologist/patients']);
 				}, error => {
+					this.loading = false;
 					if (error.error.LoginFailed)
 						this.showLoginFailed = true;
 					else

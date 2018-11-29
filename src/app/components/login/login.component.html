@@ -1,6 +1,6 @@
 <div class="slds-align_absolute-center">
-    <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()" style="width:285px">
-	    <div class="slds-text-heading_large">Log in</div>
+	<form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()" style="width:285px">
+		<div class="slds-text-heading_large">Log in</div>
 
 		<div class="slds-m-top_small">
 			<div class="slds-grid">
@@ -24,13 +24,13 @@
 			</div>
 		</div>
 		<div class="slds-m-top_medium">
-			Not signed up? 
+			Not signed up?
 			<a [routerLink]="['/signup']" class="slds-button">Sign up</a>
 			<button class="slds-button slds-button_brand btn-right" routerLinkActive="router-link-active">Login</button>
 			<div>
 				<a [routerLink]="['/forgot-password']" class="slds-button">Forgot your password?</a>
 			</div>
-			
+
 		</div>
 
 		<div [ngClass]="{'slds-hide': !showError}" class="slds-m-top_medium slds-text-color_error">
@@ -40,5 +40,13 @@
 		<div [ngClass]="{'slds-hide': !showLoginFailed}" class="slds-m-top_medium slds-text-color_error">
 			Invalid username or password
 		</div>
-    </form>
+
+		<div *ngIf="loading" class="slds-align_absolute-center slds-m-vertical_x-large">
+			<div role="status" class="slds-spinner slds-spinner_medium slds-spinner_inline">
+				<span class="slds-assistive-text">Loading</span>
+				<div class="slds-spinner__dot-a"></div>
+				<div class="slds-spinner__dot-b"></div>
+			</div>
+		</div>
+	</form>
 </div>
