@@ -248,6 +248,7 @@ export class PatientRegisterComponent implements OnInit {
     }
 
     private processPatientQuestionForm() {
+        this.patientAnswers = [];
         this.patientQuestions.forEach(question => {
             var answer = '';
             var questionControl = this.patientQuestionForm.controls[question.key];
