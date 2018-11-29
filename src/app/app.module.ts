@@ -34,6 +34,9 @@ import { NotificationListComponent } from './components/notification-list/notifi
 import { NotificationComponent } from './components/notification/notification.component';
 import { ResetPasswordComponent } from './components/resetpassword/resetpassword.component';
 import { ForgotPasswordComponent } from './components/forgotpassword/forgotpassword.component';
+import { PatientProfileComponent } from './components/patient-profile/patient-profile.component';
+import { PaymentDetailsComponent } from './components/payment-details/payment-details.component';
+import { PaymentUpdateComponent } from './components/payment-update/payment-update.component';
 
 @NgModule({
 	declarations: [
@@ -64,6 +67,9 @@ import { ForgotPasswordComponent } from './components/forgotpassword/forgotpassw
 		NotificationComponent,
 		ResetPasswordComponent,
     	ForgotPasswordComponent
+		PatientProfileComponent,
+		PaymentDetailsComponent,
+		PaymentUpdateComponent
 	],
 	imports: [
 		BrowserModule,

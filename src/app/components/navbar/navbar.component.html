@@ -93,6 +93,9 @@
 						</div>
 					</action-menu>
 				</div>
+                <div *ngIf="(loggedIn.IsLoggedIn && loggedIn.IsPatient)" class="slds-col">
+					<div [routerLink]="['/profile']" class="slds-text-title--caps pointer">Profile</div>
+				</div>
 
 				<div *ngIf="(loggedIn.IsLoggedIn && loggedIn.IsPatient)" class="slds-col">
 					<div [routerLink]="['/session']" class="slds-text-title--caps pointer">Session</div>
