@@ -122,6 +122,12 @@ html {
   text-overflow: ellipsis;
 }
 
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .button-notification-badge {
   position: relative !important;
   margin-left: -12px !important;
