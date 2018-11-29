@@ -31,7 +31,16 @@ export class LoginComponent implements OnInit {
 		if (this.loginForm.valid) {
 			this.authService.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value)
 				.subscribe(result => {
-					this.router.navigate(['/']);
+					var authState = this.authService.getAuthState();
+
+					if (authState.IsAdmin)
+						this.router.navigate(['/admin/psychologists']);
+
+					if (authState.IsPatient)
+						this.router.navigate(['/session']);
+
+					if (authState.IsPsychologist)
+						this.router.navigate(['/psychologist/patients']);
 				}, error => {
 					if (error.error.LoginFailed)
 						this.showLoginFailed = true;
