@@ -33,6 +33,7 @@ import { NotificationNavComponent } from './components/notification-nav/notifica
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { PsychologistSessionComponent } from './components/psychologist-session/psychologist-session.component';
+import { QuestionaireAnswersComponent } from './components/questionaire-answers/questionaire-answers.component';
 
 @NgModule({
 	declarations: [
@@ -61,7 +62,8 @@ import { PsychologistSessionComponent } from './components/psychologist-session/
 		TimeAgoPipe,
 		PatientSessionComponent,
 		NotificationComponent,
-		PsychologistSessionComponent
+		PsychologistSessionComponent,
+		QuestionaireAnswersComponent
 	],
 	imports: [
 		BrowserModule,

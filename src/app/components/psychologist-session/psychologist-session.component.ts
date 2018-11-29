@@ -1,36 +1,59 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SessionService } from 'src/app/services/session.service';
 import { PatientService } from 'src/app/services/patient.service';
 import { Session } from 'src/app/models/Session';
 import { HelpersService } from 'src/app/services/helpers.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { TimerObservable } from 'rxjs/observable/TimerObservable';
+import { Subscription } from 'rxjs';
+import { PsychologistSession } from 'src/app/models/PsychologistSession';
 
 @Component({
   selector: 'app-psychologist-session',
   templateUrl: './psychologist-session.component.html',
   styleUrls: ['./psychologist-session.component.css']
 })
-export class PsychologistSessionComponent implements OnInit {
+export class PsychologistSessionComponent implements OnInit, OnDestroy {
 
-  sessions: Session[];
+  sessions: PsychologistSession[];
   currentSession: Session;
+  selectedTabIndex: number = 0;
+  sessionsGetInterval: number = 60 * 1000;
+  sessionsSubscription: Subscription;
+  loading: boolean = true;
+  sessionHasNewMessages: boolean = false;
 
   constructor(private sessionService: SessionService, private patientService: PatientService, private helpersService: HelpersService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.sessionService.getPsychologistSessions().subscribe(response => {
+      this.loading = false;
       this.sessions = response;
+
+      //Set timer to get sessions
+      this.sessionsSubscription = TimerObservable.create(this.sessionsGetInterval, this.sessionsGetInterval)
+        .subscribe(() => {
+          this.getSessionsNewMessageCount();
+        });
     }, error => {
+      this.loading = false;
       console.error(JSON.stringify(error));
     })
   }
 
-  getPatientQuestionaireAnswers(patientId: number){
-    this.patientService.getQuestionAnswers(patientId).subscribe(response => {
-
+  getSessionsNewMessageCount(): void {
+    this.sessionService.getPsychologistSessionsNewMessageCount().subscribe(response => {
+      //Update newMessageCount (but not for our current session)
+      var currentSessionId = this.currentSession ? this.currentSession.id : 0;
+      response.forEach(item => {
+        var sessionIndex = this.sessions.findIndex(x => x.id == item.id && x.id != currentSessionId);
+        if(sessionIndex > -1)
+          this.sessions[sessionIndex].newMessageCount = item.newMessageCount;
+      });
+      this.orderByNewMessageCount();
     }, error => {
       console.error(JSON.stringify(error));
-    });
+    })
   }
 
   getPatientNameAbbrev(patientName: string) {
@@ -40,27 +63,39 @@ export class PsychologistSessionComponent implements OnInit {
   }
 
   getPatientAbbrevStyle(patientName: string) {
-    var backgroundColor = this.helpersService.getColourHashCode(patientName);
-    var borderRadius = '50%';
-
-    var color = 'black';
-    //Check if the background color is light or dark, then set the text color to either black or white
-    var rgb = this.hexToRgb(backgroundColor);
-    var o = Math.round(((rgb[0] * 299) + (rgb[1] * 587) + (rgb[2] * 114)) / 1000);
-    if (o < 125) {
-      color = 'white';
-    }
-
-    return this.sanitizer.bypassSecurityTrustStyle(`background-color:#${backgroundColor};border-radius:${borderRadius};color:${color};width:50px;height:50px;text-align:center;`);
+    return this.sanitizer.bypassSecurityTrustStyle(this.helpersService.getDynamicColourAvatarStyle(patientName));
   }
 
-  hexToRgb(hex) {
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? 
-        [parseInt(result[1], 16),
-        parseInt(result[2], 16),
-        parseInt(result[3], 16)]
-     : null;
-}
+  launchSession(session: PsychologistSession) {
+    this.currentSession = new Session();
+    this.currentSession.id = session.id;
+    this.currentSession.recipientName = session.patientName;
+
+    session.newMessageCount = 0;
+    this.orderByNewMessageCount();
+
+    this.selectedTabIndex = 1;
+  }
+
+  markCurrentSesssionAsHasNewMessages($event) {
+    //Only if we're currently on the sessions tab
+    if(this.selectedTabIndex == 0)
+      this.sessionHasNewMessages = true;
+  }
+
+  changeToSessionTab() {
+    this.sessionHasNewMessages = false;
+    this.selectedTabIndex = 1;
+  }
+
+  orderByNewMessageCount(){
+    //Order by newMessageCount
+    this.sessions.sort((a, b) => { return b.newMessageCount - a.newMessageCount });
+  }
+
+  ngOnDestroy(): void {
+    if (this.sessionsSubscription)
+      this.sessionsSubscription.unsubscribe();
+  }
 
 }

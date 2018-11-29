@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PatientQuestion } from '../models/PatientQuestion';
 import { environment } from 'src/environments/environment';
@@ -27,6 +27,8 @@ export class PatientService {
   }
 
   getQuestionAnswers(patientId: number): Observable<PatientQuestionAnswer[]> {
-    return this.http.get<PatientQuestionAnswer[]>(environment.baseAPIURL + '/api/Patient/questions/answers');
+    return this.http.get<PatientQuestionAnswer[]>(environment.baseAPIURL + '/api/Patient/questions/answers',{
+			params: new HttpParams().set('patientId', patientId.toString())
+		});
   }
 }

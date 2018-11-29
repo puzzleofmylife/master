@@ -265,7 +265,7 @@ export class PatientRegisterComponent implements OnInit {
                     answer = questionControl.value;
             }
             if (answer != '')
-                this.patientAnswers.push({ questionId: question.id, answer: answer, question: null });
+                this.patientAnswers.push({ questionId: question.id, answer: answer, question: null, questionTypeId: null });
         });
     }
 

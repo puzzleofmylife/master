@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, AfterViewChecked, SimpleChanges, OnChanges, HostListener } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, AfterViewChecked, SimpleChanges, OnChanges, HostListener, Output, EventEmitter } from '@angular/core';
 import { Session } from 'src/app/models/Session';
 import { SessionService } from 'src/app/services/session.service';
 import { SessionMessage } from 'src/app/models/SessionMessage';
 import { TimerObservable } from "rxjs/observable/TimerObservable";
 import { Subscription } from 'rxjs';
 import { HelpersService } from 'src/app/services/helpers.service';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-session',
@@ -13,61 +14,155 @@ import { HelpersService } from 'src/app/services/helpers.service';
 })
 export class SessionComponent implements OnDestroy {
 
-  @ViewChild('recipientAbbrevDiv') private recipientAbbrevDiv: ElementRef;
+  readonly initialGetCount: number = 50;
+  readonly newMessageGetInterval: number = 30 * 1000;//30 secs
+
+  @Output() newMessagesEvent = new EventEmitter<number>();
   @ViewChild('messageInput') private messageInput: ElementRef;
   newMsgSubscription: Subscription;
-  sessionMessages: SessionMessage[] = [];
   sessionEmpty: boolean;
-  initialGetCount: number = 50;
-  initialGetMaxedOut: boolean = true;
-  newMessageGetInterval: number = 30 * 1000;//30 secs
-  messageText: string = '';
-  loading: boolean = false;
-  messagesPage: number = 1;
-  noMoreToLoad: boolean = false;
   recipientAbbrev: string;
-  showNewMessagePrompt: boolean = false;
+  dynamicColourAvatarStyle: SafeStyle;
+  messageText: string;
+  loading: boolean;
+  messagesPage: number;
+  noMoreToLoad: boolean;
+  sessionMessages: SessionMessage[];
+  sessionMessageCache: any[] = [];
+  initialGetMaxedOut: boolean;
 
-  private _session: Session = new Session();
+  private _session: Session;
   @Input() set session(value: Session) {
+    ////Using a setter will let us run initiateSession() every time the value changes
+
+    //Cache current session messages before setting/initiating the new session
+    if (this._session) {
+      this.unloadSession();
+    }
+
+    //Set new session value and initiate
     this._session = value;
-    //Using a setter will let us run initiateSession() every time the value changes
-    if(this.session)
+    if (this._session) {
       this.initiateSession();
+    }
   }
   get session() {
     return this._session;
   }
 
-  constructor(private sessionService: SessionService, private helpersService: HelpersService) { }
+  constructor(private sessionService: SessionService, private helpersService: HelpersService, private sanitizer: DomSanitizer) {
+    this.initProperties();
+  }
+
+  initProperties(): any {
+    //Set defaults
+    this.sessionMessages = [];
+    this.messageText = '';
+    this.loading = false;
+    this.messagesPage = 1;
+    this.noMoreToLoad = false;
+    this.initialGetMaxedOut = true;
+  }
+
+  unloadSession(): any {
+    //We need to unsubscribe from any previous session's subscription, 
+    //otherwise the getting of new messages will continue even after changing sessions
+    this.unsubscribeToNewMessages();
+    this.cacheSession();
+  }
+
+  cacheSession(): void {
+    var sessionCacheEntry = {
+      id: this.session.id,
+      sessionMessages: this.sessionMessages,
+      sessionEmpty: this.sessionEmpty,
+      initialGetMaxedOut: this.initialGetMaxedOut,
+      messagesPage: this.messagesPage,
+      noMoreToLoad: this.noMoreToLoad,
+      recipientAbbrev: this.recipientAbbrev,
+      dynamicColourAvatarStyle: this.dynamicColourAvatarStyle,
+      messageText: this.messageText,
+    }
+
+    var existingEntryIndex = this.sessionMessageCache.findIndex(x => x.id == this.session.id);
+    if (existingEntryIndex > - 1)
+      //Replace
+      this.sessionMessageCache.splice(existingEntryIndex, 1, sessionCacheEntry);
+    else
+      //Push new
+      this.sessionMessageCache.push(sessionCacheEntry);
+  }
 
   initiateSession() {
-    this.loading = true;//Show spinner
-    this.sessionMessages = [];//Clear any messages
-    this.setRecipientAbbrev();
+    //Reset properties
+    this.initProperties();
 
-    //Initial get of last X messages
-    this.sessionService.getSessionMessages(this.session.id, this.initialGetCount, this.messagesPage).subscribe(response => {
-      this.loading = false;
+    if (!this.loadFromCache()) {
+      this.loading = true;//Show spinner
+      this.dynamicColourAvatarStyle = this.getDynamicColourAvatarStyle(this.session.recipientName);
+      this.recipientAbbrev = this.getRecipientAbbrev(this.session.recipientName);
 
-      this.sessionMessages = response;
+      //Initial get of last X messages
+      this.sessionService.getSessionMessages(this.session.id, this.initialGetCount, this.messagesPage).subscribe(response => {
+        this.loading = false;
 
-      if (this.sessionMessages.length == 0) {
-        this.sessionEmpty = true;
-        this.initialGetMaxedOut = false;
-      } else if (this.sessionMessages.length < this.initialGetCount) {
-        this.initialGetMaxedOut = false;
-      }
+        this.sessionMessages = response;
 
-      //Set timer to get new messages
-      this.newMsgSubscription = TimerObservable.create(this.newMessageGetInterval, this.newMessageGetInterval)
-        .subscribe(() => {
-          this.getNewMessages();
-        });
-    }, error => {
-      this.loading = false;
-      console.error(JSON.stringify(error));
-    });
+        if (this.sessionMessages.length == 0) {
+          this.sessionEmpty = true;
+          this.initialGetMaxedOut = false;
+        } else if (this.sessionMessages.length < this.initialGetCount) {
+          this.initialGetMaxedOut = false;
+        }
+
+        //Set timer to get new messages
+        this.subscribeToNewMessages(this.newMessageGetInterval, this.newMessageGetInterval);
+      }, error => {
+        this.loading = false;
+        console.error(JSON.stringify(error));
+      });
+    } else {
+      //Set timer to get new messages right away
+      this.subscribeToNewMessages(0, this.newMessageGetInterval);
+    }
+  }
+
+  public subscribeToNewMessages(initalDelay: number = this.newMessageGetInterval, period: number = this.newMessageGetInterval) {
+    this.newMsgSubscription = TimerObservable.create(initalDelay, period)
+      .subscribe(() => {
+        this.getNewMessages();
+      });
+  }
+
+  public unsubscribeToNewMessages() {
+    if (this.newMsgSubscription)
+      this.newMsgSubscription.unsubscribe();
+  }
+
+  loadFromCache(): boolean {
+    var existingEntry = this.sessionMessageCache.filter(x => x.id == this.session.id)[0];
+    if (existingEntry) {
+      this.sessionMessages = existingEntry.sessionMessages;
+      this.sessionEmpty = existingEntry.sessionEmpty;
+      this.initialGetMaxedOut = existingEntry.initialGetMaxedOut;
+      this.messagesPage = existingEntry.messagesPage;
+      this.noMoreToLoad = existingEntry.noMoreToLoad;
+      this.recipientAbbrev = existingEntry.recipientAbbrev;
+      this.dynamicColourAvatarStyle = existingEntry.dynamicColourAvatarStyle;
+      this.messageText = existingEntry.messageText;
+
+      return true;
+    }
+    else
+      return false;
+  }
+
+  getSessionMessageCache(): SessionMessage[] {
+    var existingEntry = this.sessionMessageCache.filter(x => x.id == this.session.id)[0];
+    if (existingEntry)
+      return existingEntry.sessionMessages;
+    else
+      return null;
   }
 
   createMessage() {
@@ -106,6 +201,8 @@ export class SessionComponent implements OnDestroy {
 
         if (onlyRecipMessages.length > 0) {
           this.sessionMessages.unshift(...onlyRecipMessages);
+          //Notify parent of the number of new messages
+          this.newMessagesEvent.emit(onlyRecipMessages.length);
         }
       }, error => {
         console.error(JSON.stringify(error));
@@ -114,8 +211,7 @@ export class SessionComponent implements OnDestroy {
 
   ngOnDestroy() {
     //We need to unsubscribe, otherwise the getting of new messages will continue even if we navigate away from this component
-    if (this.newMsgSubscription)
-      this.newMsgSubscription.unsubscribe();
+    this.unsubscribeToNewMessages();
   }
 
   loadPreviousMessages() {
@@ -134,22 +230,8 @@ export class SessionComponent implements OnDestroy {
     });
   }
 
-  setRecipientAbbrev() {
-    //Get first 2 letters of recipient name
-    var substringLength = this.session.recipientName.length < 2 ? 1 : 2;
-    this.recipientAbbrev = this.session.recipientName.substring(0, substringLength).toUpperCase();
-    //Create a background colour from the recipient name
-    this.recipientAbbrevDiv.nativeElement.style.backgroundColor = '#' + this.helpersService.getColourHashCode(this.session.recipientName);
-    this.recipientAbbrevDiv.nativeElement.style.borderRadius = '50%';
-
-    //Check if the background color is light or dark, then set the text color to either black or white
-    var rgb = this.recipientAbbrevDiv.nativeElement.style.backgroundColor.replace('rgb(', '').replace(')', '').split(',').map(Number);
-    var o = Math.round(((rgb[0] * 299) + (rgb[1] * 587) + (rgb[2] * 114)) / 1000);
-    if (o > 125) {
-      this.recipientAbbrevDiv.nativeElement.style.color = 'black';
-    } else {
-      this.recipientAbbrevDiv.nativeElement.style.color = 'white';
-    }
+  getDynamicColourAvatarStyle(patientName: string) {
+    return this.sanitizer.bypassSecurityTrustStyle(this.helpersService.getDynamicColourAvatarStyle(patientName));
   }
 
   autoGrowMessageInput() {
@@ -170,5 +252,11 @@ export class SessionComponent implements OnDestroy {
     this.messageText = '';
     this.messageInput.nativeElement.setAttribute('value', '');
     this.messageInput.nativeElement.setAttribute('style', 'line-height:1.2');
+  }
+
+  getRecipientAbbrev(recipName: string) {
+    //Get first 2 letters of recipient name
+    var substringLength = recipName.length < 2 ? 1 : 2;
+    return recipName.substring(0, substringLength).toUpperCase();
   }
 }

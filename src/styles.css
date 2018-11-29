@@ -121,3 +121,9 @@ html {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.button-notification-badge {
+  position: relative !important;
+  margin-left: -12px !important;
+  background-color: #005fb2 !important;
+}
