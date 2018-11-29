@@ -1,0 +1,73 @@
+<div class="slds-grid">
+  <div class="slds-col slds-size_0-of-12 slds-medium-size_2-of-12  slds-large-size_3-of-12"></div>
+
+  <div class="slds-col slds-size_12-of-12 slds-medium-size_8-of-12 slds-large-size_6-of-12 slds-p-horizontal_small">
+    <div class="slds-tabs_default">
+      <ul class="slds-tabs_default__nav" role="tablist">
+        <li [ngClass]="{'slds-tabs_default__item':true, 'slds-is-active': selectedTabIndex == 0}" title="Item One" role="presentation">
+          <a (click)="selectedTabIndex = 0" class="slds-tabs_default__link" role="tab" tabindex="0" aria-selected="true"
+            aria-controls="tab-default-1" id="tab-default-1__item">Patients</a>
+        </li>
+        <li *ngIf="currentSession" [ngClass]="{'slds-tabs_default__item':true, 'truncate':true, 'slds-is-active': selectedTabIndex == 1}"
+          title="Item Two" role="presentation">
+          <a (click)="changeToSessionTab()" class="slds-tabs_default__link" role="tab" tabindex="-1" aria-selected="false"
+            aria-controls="tab-default-2" id="tab-default-2__item">
+            Session ({{currentSession.recipientName}})
+            <abbr *ngIf="sessionHasNewMessages" class="slds-text-link slds-m-horizontal_xxx-small" title="unread">●</abbr>
+          </a>
+        </li>
+      </ul>
+      <div id="tab-default-1" [ngClass]="{'slds-tabs_default__content':true, 'slds-hide':selectedTabIndex != 0}" role="tabpanel"
+        aria-labelledby="tab-default-1__item">
+        <div class="slds-p-horizontal_small">
+          <div *ngFor="let session of sessions" class="slds-border_bottom slds-p-bottom_medium slds-m-bottom_medium">
+
+            <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-spread">
+              <div class="slds-col slds-grid slds-grid_vertical-align-center" style="min-width: 0;">
+                <div class="slds-p-around_medium" [style]="getPatientAbbrevStyle(session.patientName)">
+                  {{getPatientNameAbbrev(session.patientName)}}
+                </div>
+                <div class="slds-p-left_x-small" style="min-width: 0;">
+                  <div class="slds-text-heading_small truncate">
+                    {{session.patientName}}
+                  </div>
+                  <div class="slds-hide_large slds-p-vertical_xx-small">
+                    <button (click)="launchSession(session)" class="slds-button slds-button_outline-brand">Enter
+                      session</button>
+                    <span *ngIf="session.newMessageCount > 0" aria-hidden="true" class="slds-notification-badge slds-show-notification button-notification-badge">{{session.newMessageCount}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="slds-col slds-show_large">
+                <button (click)="launchSession(session)" class="slds-button slds-button_outline-brand">Enter
+                  session
+                </button>
+                <span *ngIf="session.newMessageCount > 0" aria-hidden="true" class="slds-notification-badge slds-show-notification button-notification-badge">{{session.newMessageCount}}</span>
+              </div>
+            </div>
+
+            <app-questionaire-answers [questionAnswers]="session.patientQuestionAnswers"></app-questionaire-answers>
+          </div>
+
+          <div *ngIf="loading" class="slds-align_absolute-center slds-m-top_x-large">
+            <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_inline">
+              <span class="slds-assistive-text">Loading</span>
+              <div class="slds-spinner__dot-a"></div>
+              <div class="slds-spinner__dot-b"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div [ngClass]="{'slds-tabs_default__content':true, 'slds-hide':selectedTabIndex != 1}" role="tabpanel">
+        <div *ngIf="currentSession" class="slds-p-horizontal_small">
+          <app-session [session]="currentSession" (newMessagesEvent)="markCurrentSesssionAsHasNewMessages($event)"></app-session>
+        </div>
+        <div *ngIf="!currentSession" class="slds-text-heading_small slds-align_absolute-center slds-m-top_medium">
+          No patient selected. Enter a session from the Patients tab.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slds-col slds-size_0-of-12 slds-medium-size_2-of-12  slds-large-size_3-of-12"></div>
+</div>

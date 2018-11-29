@@ -34,6 +34,8 @@ import { NotificationListComponent } from './components/notification-list/notifi
 import { NotificationComponent } from './components/notification/notification.component';
 import { ResetPasswordComponent } from './components/resetpassword/resetpassword.component';
 import { ForgotPasswordComponent } from './components/forgotpassword/forgotpassword.component';
+import { PsychologistSessionComponent } from './components/psychologist-session/psychologist-session.component';
+import { QuestionaireAnswersComponent } from './components/questionaire-answers/questionaire-answers.component';
 
 @NgModule({
 	declarations: [
@@ -63,7 +65,9 @@ import { ForgotPasswordComponent } from './components/forgotpassword/forgotpassw
 		PatientSessionComponent,
 		NotificationComponent,
 		ResetPasswordComponent,
-    	ForgotPasswordComponent
+    	ForgotPasswordComponent,
+		PsychologistSessionComponent,
+		QuestionaireAnswersComponent
 	],
 	imports: [
 		BrowserModule,

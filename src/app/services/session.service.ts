@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { environment } from 'src/environments/environment';
 import { Session } from '../models/Session';
 import { SessionMessage } from '../models/SessionMessage';
+import { PsychologistSession } from '../models/PsychologistSession';
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +43,13 @@ export class SessionService {
       params: new HttpParams()
         .set('sessionId', sessionId.toString())
     });
+  }
+
+  getPsychologistSessions(): Observable<PsychologistSession[]> {
+    return this.http.get<PsychologistSession[]>(environment.baseAPIURL + '/api/Session/psychologist');
+  }
+
+  getPsychologistSessionsNewMessageCount(): Observable<PsychologistSession[]> {
+    return this.http.get<PsychologistSession[]>(environment.baseAPIURL + '/api/Session/psychologist/newmessages');
   }
 }

@@ -17,6 +17,8 @@ import { PatientSessionComponent } from './components/patient-session/patient-se
 import { NotificationComponent } from './components/notification/notification.component';
 import { ForgotPasswordComponent } from './components/forgotpassword/forgotpassword.component';
 import { ResetPasswordComponent } from './components/resetpassword/resetpassword.component';
+import { PsychologistSessionComponent } from './components/psychologist-session/psychologist-session.component';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -30,6 +32,8 @@ const routes: Routes = [
   { path: 'card/result', component: CheckoutResultComponent },
   { path: 'admin/psychologists', component: PsychologistListComponent },
   { path: 'psychologist-details/:id', component: PsychologistComponent },
+  { path: 'psychologist/session', component: PsychologistSessionComponent},
+  { path: 'psychologist/:id', component: PsychologistComponent },
   { path: 'session', component: PatientSessionComponent },
   { path: 'notifications', component: NotificationComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
