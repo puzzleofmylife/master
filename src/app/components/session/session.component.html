@@ -1,7 +1,7 @@
 <div class="slds-page-header" style="padding: 0.3rem;">
   <div class="slds-page-header__row">
     <div class="slds-page-header__col-title">
-      <div class="slds-media">
+      <div class="slds-media" style="align-items: center">
         <div *ngIf="session.recipientPhotoUrl" class="slds-media__figure">
           <span class="slds-icon_container">
             <img src="{{session.recipientPhotoUrl}}" alt="Profile picture" class="image-round">
@@ -11,9 +11,6 @@
           {{recipientAbbrev}}
         </div>
         <div class="slds-media__body slds-m-top_xx-small">
-          <div>
-            Your session with
-          </div>
           <div class="slds-text-heading_small truncate">
             <span>{{session.recipientName}}</span>
           </div>
