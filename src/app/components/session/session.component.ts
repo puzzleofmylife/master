@@ -62,6 +62,7 @@ export class SessionComponent implements OnDestroy {
     this.messagesPage = 1;
     this.noMoreToLoad = false;
     this.initialGetMaxedOut = true;
+    this.sessionEmpty = false;
   }
 
   unloadSession(): any {
