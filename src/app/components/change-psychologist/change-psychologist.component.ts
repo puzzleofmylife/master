@@ -15,6 +15,9 @@ export class ChangePsychologistComponent implements OnInit {
   availablePsychologistsForm: FormGroup;
   submitted: boolean;
   loading: boolean = true;
+  success: boolean;
+  resultText: string;
+  gotResult: boolean;
 
   constructor(private formBuilder: FormBuilder, private patientService: PatientService, private psychService: PsychoService) { }
 
@@ -41,10 +44,18 @@ export class ChangePsychologistComponent implements OnInit {
   onPsychologistChangeSubmit() {
     this.submitted = true;
     if (this.availablePsychologistsForm.valid) {
+      this.loading = true;
       var newPsychologistId = this.availablePsychologistsForm.controls.psychologistChoice.value;
       this.patientService.changePsychologist(newPsychologistId).subscribe(result => {
-
+        this.loading = false;
+        this.gotResult = true;
+        this.success = true;
+        this.resultText = 'Psychologist changed successfully'
       }, error => {
+        this.loading = false;
+        this.gotResult = true;
+        this.success = false;
+        this.resultText = 'Could not change your psychologist'
         console.error(JSON.stringify(error));
       });
     }
