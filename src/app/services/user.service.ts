@@ -21,4 +21,8 @@ export class UserService {
   resetPassword(userId: string, resetToken: string, newPassword: string): Observable<any> {
     return this.http.post(environment.baseAPIURL + '/api/User/resetpassword', { userId: userId, resetToken: resetToken, newPassword: newPassword });
   }
+
+  sendConfirmEmailLink(email: string) {
+    return this.http.post(environment.baseAPIURL + '/api/User/confirmemail/send/' + encodeURIComponent(email), null);
+  }
 }
