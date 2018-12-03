@@ -38,6 +38,8 @@ import { PsychologistSessionComponent } from './components/psychologist-session/
 import { QuestionaireAnswersComponent } from './components/questionaire-answers/questionaire-answers.component';
 import { PatientPsychologistComponent } from './components/patient-psychologist/patient-psychologist.component';
 import { ChangePsychologistComponent } from './components/change-psychologist/change-psychologist.component';
+import { ResultComponent } from './components/result/result.component';
+import { ConfirmEmailSendComponent } from './components/confirm-email-send/confirm-email-send.component';
 
 @NgModule({
 	declarations: [
@@ -71,7 +73,9 @@ import { ChangePsychologistComponent } from './components/change-psychologist/ch
 		PsychologistSessionComponent,
 		QuestionaireAnswersComponent,
 		PatientPsychologistComponent,
-		ChangePsychologistComponent
+		ChangePsychologistComponent,
+		ResultComponent,
+		ConfirmEmailSendComponent
 	],
 	imports: [
 		BrowserModule,

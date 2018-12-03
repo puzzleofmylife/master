@@ -41,6 +41,10 @@
 			Invalid username or password
 		</div>
 
+		<div [ngClass]="{'slds-hide': !showConfirmEmail}" class="slds-m-top_medium slds-text-color_error">
+			You have not confirmed your email address. Click <a (click)="sendEmailConfirmationLink()">here</a> to resend the confirmation link.
+		</div>
+
 		<div *ngIf="loading" class="slds-align_absolute-center slds-m-vertical_x-large">
 			<div role="status" class="slds-spinner slds-spinner_medium slds-spinner_inline">
 				<span class="slds-assistive-text">Loading</span>

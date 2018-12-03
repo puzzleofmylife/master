@@ -20,6 +20,7 @@ import { ResetPasswordComponent } from './components/resetpassword/resetpassword
 import { PsychologistSessionComponent } from './components/psychologist-session/psychologist-session.component';
 import { PatientPsychologistComponent } from './components/patient-psychologist/patient-psychologist.component';
 import { ChangePsychologistComponent } from './components/change-psychologist/change-psychologist.component';
+import { ConfirmEmailSendComponent } from './components/confirm-email-send/confirm-email-send.component';
 
 
 const routes: Routes = [
@@ -41,7 +42,8 @@ const routes: Routes = [
   { path: 'notifications', component: NotificationComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'patpsytemp', component: PatientPsychologistComponent }
+  { path: 'patpsytemp', component: PatientPsychologistComponent },
+  { path: 'confirmemail/send', component: ConfirmEmailSendComponent }
 ];
 
 @NgModule({
