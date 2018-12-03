@@ -22,13 +22,17 @@ export class PatientService {
     return this.http.post<any>(environment.baseAPIURL + '/api/User/patient', patientUser).toPromise();
   }
 
-  getPsychologist(): Promise<Psychologist> {
-    return this.http.get<any>(environment.baseAPIURL + '/api/Patient/psychologist').toPromise();
+  getPsychologist(): Observable<Psychologist> {
+    return this.http.get<any>(environment.baseAPIURL + '/api/Patient/psychologist');
   }
 
   getQuestionAnswers(patientId: number): Observable<PatientQuestionAnswer[]> {
-    return this.http.get<PatientQuestionAnswer[]>(environment.baseAPIURL + '/api/Patient/questions/answers',{
-			params: new HttpParams().set('patientId', patientId.toString())
-		});
+    return this.http.get<PatientQuestionAnswer[]>(environment.baseAPIURL + '/api/Patient/questions/answers', {
+      params: new HttpParams().set('patientId', patientId.toString())
+    });
+  }
+
+  changePsychologist(newPsychologistId: number) {
+    return this.http.post(environment.baseAPIURL + '/api/Patient/psychologist/change', newPsychologistId);
   }
 }

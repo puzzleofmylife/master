@@ -36,6 +36,8 @@ import { ResetPasswordComponent } from './components/resetpassword/resetpassword
 import { ForgotPasswordComponent } from './components/forgotpassword/forgotpassword.component';
 import { PsychologistSessionComponent } from './components/psychologist-session/psychologist-session.component';
 import { QuestionaireAnswersComponent } from './components/questionaire-answers/questionaire-answers.component';
+import { PatientPsychologistComponent } from './components/patient-psychologist/patient-psychologist.component';
+import { ChangePsychologistComponent } from './components/change-psychologist/change-psychologist.component';
 
 @NgModule({
 	declarations: [
@@ -67,7 +69,9 @@ import { QuestionaireAnswersComponent } from './components/questionaire-answers/
 		ResetPasswordComponent,
     	ForgotPasswordComponent,
 		PsychologistSessionComponent,
-		QuestionaireAnswersComponent
+		QuestionaireAnswersComponent,
+		PatientPsychologistComponent,
+		ChangePsychologistComponent
 	],
 	imports: [
 		BrowserModule,
