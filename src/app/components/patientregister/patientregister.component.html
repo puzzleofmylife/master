@@ -1,303 +1,290 @@
-<div class="slds-grid slds-wrap">
-    <div class="slds-col slds-size_0-of-12 slds-medium-size_2-of-12  slds-large-size_4-of-12"></div>
+<form [formGroup]="patientPersonalForm" (ngSubmit)="onPatientPersonalSubmit()">
 
-    <div class="slds-col slds-size_12-of-12 slds-medium-size_8-of-12 slds-large-size_4-of-12 slds-p-horizontal_medium">
-        <form [formGroup]="patientPersonalForm" (ngSubmit)="onPatientPersonalSubmit()">
+    <div [hidden]="page != 1" class="slds-m-bottom_medium">
+        <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
+        <div class="slds-text-heading_large">Personal details</div>
+        <br />
 
-            <div [hidden]="page != 1" class="slds-m-bottom_medium">
-                <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
-                <div class="slds-text-heading_large">Personal details</div>
-                <br />
-
-                <div class="slds-m-top_small">
-                    <div class="slds-grid">
-                        <label class="slds-form-element__label" for="patientAlias">Name or alias*</label>
-                        <app-tooltip text="You don't need to use your real name" top="-50px" left="0px" width="150px"></app-tooltip>
-                    </div>
-                    <div class="slds-form-element__control">
-                        <input type="text" formControlName="patientAlias" class="form-control slds-input" />
-                        <div *ngIf="submitted && _patientPersonalForm.patientAlias.errors" class="slds-text-color_error">
-                            <div *ngIf="_patientPersonalForm.patientAlias.errors.required">Name or alias is required</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="slds-m-top_small">
-                    <label class="slds-form-element__label" for="patientEmail">Email*</label>
-                    <div class="slds-form-element__control">
-                        <input type="text" formControlName="patientEmail" class="form-control slds-input" />
-                        <div *ngIf="submitted && _patientPersonalForm.patientEmail.errors" class="slds-text-color_error">
-                            <div *ngIf="_patientPersonalForm.patientEmail.errors.required">Email is required</div>
-                            <div *ngIf="_patientPersonalForm.patientEmail.errors.email">Invalid email</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="slds-m-top_small">
-                    <label class="slds-form-element__label" for="patientPassword">Choose your password*</label>
-                    <div class="slds-form-element__control">
-                        <input type="password" minlength="8" formControlName="patientPassword" class="form-control slds-input" />
-                        <div *ngIf="submitted && _patientPersonalForm.patientPassword.errors" class="slds-text-color_error">
-                            <div *ngIf="_patientPersonalForm.patientPassword.errors.required">Password is required</div>
-                            <div *ngIf="_patientPersonalForm.patientPassword.errors.minlength">Password must be at
-                                least 8 characters</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="slds-m-top_small">
-                    <label class="slds-form-element__label" for="patientConfirmPassword">Confirm your password*</label>
-                    <div class="slds-form-element__control">
-                        <input type="password" formControlName="patientConfirmPassword" class="form-control slds-input" />
-                        <div *ngIf="submitted && _patientPersonalForm.patientConfirmPassword.errors" class="slds-text-color_error">
-                            <div *ngIf="_patientPersonalForm.patientConfirmPassword.errors?.dontMatch">Confirmed
-                                password does not
-                                match</div>
-                            <div *ngIf="_patientPersonalForm.patientConfirmPassword.errors.required">Confirmed password
-                                is required</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="slds-m-top_medium">
-                    <a [routerLink]="['/']" class="slds-button">Cancel</a>
-                    <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
-                        routerLinkActive="router-link-active">Next</button>
-                </div>
+        <div class="slds-m-top_small">
+            <div class="slds-grid">
+                <label class="slds-form-element__label" for="patientAlias">Name or alias*</label>
+                <app-tooltip text="You don't need to use your real name" top="-50px" left="0px" width="150px"></app-tooltip>
             </div>
-        </form>
-
-        <form [formGroup]="patientQuestionForm" (ngSubmit)="onPatientQuestionsSubmit()">
-            <div [hidden]="page != 2" class="slds-m-bottom_medium">
-                <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
-                <div class="slds-text-heading_large">A few questions</div>
-                <div class="slds-text-heading_small slds-m-top_x-small">This short optional questionaire will provide
-                    general and anonymous background information about you to your psychologist</div>
-                <br />
-
-                <div *ngFor="let question of patientQuestions">
-                    <div class="slds-p-bottom_medium" [ngSwitch]="question.type">
-                        <div *ngSwitchCase="0">
-                            <div class="slds-p-bottom_xx-small slds-text-heading_small">
-                                {{question.question}}
-                            </div>
-                            <fieldset class="slds-form-element">
-                                <div class="slds-form-element__control">
-                                    <div class="slds-radio_button-group">
-                                        <span class="slds-button slds-radio_button">
-                                            <input type="radio" [id]="question.key + '-yes'" [formControlName]="question.key"
-                                                [name]="question.key" value="Yes" />
-                                            <label class="slds-radio_button__label" [for]="question.key + '-yes'">
-                                                <span class="slds-radio_faux">Yes</span>
-                                            </label>
-                                        </span>
-                                        <span class="slds-button slds-radio_button">
-                                            <input type="radio" [id]="question.key + '-no'" [formControlName]="question.key"
-                                                [name]="question.key" value="No" />
-                                            <label class="slds-radio_button__label" [for]="question.key + '-no'">
-                                                <span class="slds-radio_faux">No</span>
-                                            </label>
-                                        </span>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div>
-                        <div *ngSwitchCase="1">
-                            <div class="slds-p-bottom_xx-small">
-                                <span class="slds-text-heading_small">{{question.question}}</span>
-                            </div>
-                            <div [formArrayName]="question.key">
-                                <div class="slds-grid slds-grid_vertical-align-center" *ngFor="let possibleAnswer of patientQuestionForm.get(question.key).controls; let i = index">
-                                    <div class="slds-col_bump-right" [formGroupName]="i">
-                                        <div class="slds-p-bottom_xxx-small">
-                                            <div class="slds-checkbox_add-button">
-                                                <input (click)="possibleAnswer.value = !possibleAnswer.value" type="checkbox"
-                                                    class="slds-assistive-text" [id]="question.key + '-' + i" [value]="possibleAnswer.value" />
-                                                <label [for]="question.key + '-' + i" class="slds-checkbox_faux">
-                                                    <span class="slds-assistive-text">{{question.multipleChoiceOptionsArr[i]}}</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slds-col slds-m-left_small">
-                                        {{question.multipleChoiceOptionsArr[i]}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="slds-form-element__control">
+                <input type="text" formControlName="patientAlias" class="form-control slds-input" />
+                <div *ngIf="submitted && _patientPersonalForm.patientAlias.errors" class="slds-text-color_error">
+                    <div *ngIf="_patientPersonalForm.patientAlias.errors.required">Name or alias is required</div>
                 </div>
-
-                <div class="slds-m-top_medium">
-                    <a (click)="goBack()" class="slds-button">Back</a>
-                    <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
-                        routerLinkActive="router-link-active">Next</button>
-                </div>
-
-            </div>
-
-        </form>
-
-        <form [formGroup]="availablePsychologistsForm" (ngSubmit)="onAvailablePsychologistsSubmit()">
-            <div [hidden]="page != 3" class="slds-m-bottom_medium">
-                <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
-                <div class="slds-text-heading_large">Choose your licensed psychologist</div>
-                <br />
-
-                <div class="slds-grid slds-wrap slds-gutters_x-small slds-grid_pull-padded-x-small">
-                    <div *ngFor="let psychologist of availablePsychologists" class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-vertical_x-small">
-                        <article class="slds-card">
-                            <div class="slds-card__header slds-grid">
-                                <header class="slds-media slds-media_center slds-has-flexi-truncate">
-                                    <div class="slds-media__body">
-                                        <h2 class="slds-card__header-title" style="text-align:center">
-                                            <span class="slds-card__header-link slds-truncate">
-                                                {{psychologist.firstName}} {{psychologist.lastName}}
-                                            </span>
-                                            <div class="slds-text-body_regular">
-                                                {{psychologist.qualifications[0]}}
-                                                <br />
-                                                {{psychologist.experienceYears}} years experience
-                                            </div>
-                                        </h2>
-                                    </div>
-
-                                </header>
-                            </div>
-                            <div class="slds-card__body slds-card__body_inner" style="text-align:center">
-                                <div>
-                                    <img [src]="psychologist.photo" class="image-round" />
-                                </div>
-                                <div class="slds-radio_button-group slds-m-top_small">
-                                    <span class="slds-button slds-radio_button">
-                                        <input type="radio" [id]="psychologist.firstName + psychologist.id"
-                                            formControlName="psychologistChoice" name="psychologistChoice" [value]="psychologist.id" />
-                                        <label class="slds-radio_button__label" [for]="psychologist.firstName + psychologist.id">
-                                            <span class="slds-radio_faux">Select</span>
-                                        </label>
-                                    </span>
-                                </div>
-                            </div>
-
-                        </article>
-                    </div>
-                </div>
-
-                <div *ngIf="submitted && _availPsychForm.psychologistChoice.errors" class="slds-text-color_error">
-                    <div *ngIf="_availPsychForm.psychologistChoice.errors.required" style="text-align:center"><b>Please
-                            choose a psychologist</b></div>
-                </div>
-
-                <div class="slds-m-top_medium">
-                    <a (click)="goBack()" class="slds-button">Back</a>
-                    <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
-                        routerLinkActive="router-link-active">Next</button>
-                </div>
-            </div>
-        </form>
-
-        <form [formGroup]="packagesForm" (ngSubmit)="onPackageSubmit()">
-            <div [hidden]="page != 4" class="slds-m-bottom_medium">
-                <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
-                <div class="slds-text-heading_large">Choose your package</div>
-                <br />
-
-                <div class="slds-grid slds-wrap slds-gutters_x-small slds-grid_pull-padded-x-small">
-                    <div *ngFor="let package of activePackages" class="slds-col slds-size_1-of-2 slds-p-vertical_x-small">
-                        <article class="background-color-brand-blue slds-card">
-                            <div class="slds-card__header slds-grid">
-                                <header class="slds-media slds-media_center slds-has-flexi-truncate">
-                                    <div class="slds-media__body">
-                                        <h2 class="slds-card__header-title" style="text-align:center; color:white">
-                                            <span class="slds-card__header-link slds-truncate">
-                                                R{{package.cost}}
-                                            </span>
-                                        </h2>
-                                    </div>
-                                </header>
-                            </div>
-                            <div class="slds-card__body slds-card__body_inner" style="text-align:center; color:white">
-                                <div>
-                                    {{package.durationDays}} days, unlimited interaction
-                                </div>
-                                <div *ngIf="package.trialDays" class="slds-p-top_small">
-                                    <b>{{package.trialDays}} day free trial</b>
-                                </div>
-                                <div class="slds-radio_button-group slds-m-top_small">
-                                    <span class="slds-button slds-radio_button">
-                                        <input type="radio" [id]="'package' + package.id" formControlName="packageChoice"
-                                            name="packageChoice" [value]="package.id" />
-                                        <label class="slds-radio_button__label" [for]="'package' + package.id">
-                                            <span class="slds-radio_faux">Select</span>
-                                        </label>
-                                    </span>
-                                </div>
-                            </div>
-
-                        </article>
-                    </div>
-                </div>
-
-                <div *ngIf="submitted && _packageForm.packageChoice.errors" class="slds-text-color_error">
-                    <div *ngIf="_packageForm.packageChoice.errors.required" style="text-align:center"><b>Please
-                            choose a package</b></div>
-                </div>
-
-                <div class="slds-m-top_medium">
-                    <a (click)="goBack()" class="slds-button">Back</a>
-                    <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
-                        routerLinkActive="router-link-active">Continue to payment</button>
-                </div>
-
-                <div class="slds-m-top_medium slds-text-color_weak">By continuing you agree to the <a target="_blank"
-                        routerLink="/patient-terms">terms
-                        and conditions</a></div>
-
-                <div [ngClass]="{'slds-hide': !finalSubmitError}" class="slds-m-top_medium slds-text-color_error">
-                    An unexpected error occurred.
-                </div>
-
-                <div [ngClass]="{'slds-hide': !duplicateUsername}" class="slds-m-top_medium slds-text-color_error">
-                    Email <b>{{ _patientPersonalForm.patientEmail.value }}</b> already exists in our system. Please
-                    login
-                    with
-                    that
-                    email address, or go back and select a different email address.
-                </div>
-            </div>
-        </form>
-
-
-
-        <div [hidden]="page != 5" class="slds-m-bottom_medium">
-            <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
-            <div class="slds-text-heading_large">Payment details</div>
-            <br />
-
-            <div class="slds-text-heading_medium"><b>R{{selectedPackage.cost}}</b> every <b>{{selectedPackage.durationDays}}
-                    days</b></div>
-            <div class="slds-m-vertical_large">
-                <span class="slds-icon_container" title="Secure">
-                    <svg class="slds-icon_x-small" aria-hidden="true">
-                        <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#lock"></use>
-                    </svg>
-                    <span class="slds-assistive-text">Secure</span>
-                </span>
-                Save your card to be securely stored and charged R{{selectedPackage.cost}} every
-                {{selectedPackage.durationDays}} days. The service can be cancelled at any time.
-            </div>
-
-            <form [formGroup]="paymentForm" [action]="environment.baseAppUrl + '/card/result?signup=1&psych=' + chosenPsychName"
-                class="paymentWidgets" data-brands="VISA MASTER"></form>
-
-            <div>
-                <b>Please note</b>, on next screen you will see a "dummy" transaction for R1.00. Your account will <b>not</b>
-                be charged this, and it will only be held temporarily to verify your details.
             </div>
         </div>
 
+        <div class="slds-m-top_small">
+            <label class="slds-form-element__label" for="patientEmail">Email*</label>
+            <div class="slds-form-element__control">
+                <input type="text" formControlName="patientEmail" class="form-control slds-input" />
+                <div *ngIf="submitted && _patientPersonalForm.patientEmail.errors" class="slds-text-color_error">
+                    <div *ngIf="_patientPersonalForm.patientEmail.errors.required">Email is required</div>
+                    <div *ngIf="_patientPersonalForm.patientEmail.errors.email">Invalid email</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slds-m-top_small">
+            <label class="slds-form-element__label" for="patientPassword">Choose your password*</label>
+            <div class="slds-form-element__control">
+                <input type="password" minlength="8" formControlName="patientPassword" class="form-control slds-input" />
+                <div *ngIf="submitted && _patientPersonalForm.patientPassword.errors" class="slds-text-color_error">
+                    <div *ngIf="_patientPersonalForm.patientPassword.errors.required">Password is required</div>
+                    <div *ngIf="_patientPersonalForm.patientPassword.errors.minlength">Password must be at
+                        least 8 characters</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slds-m-top_small">
+            <label class="slds-form-element__label" for="patientConfirmPassword">Confirm your password*</label>
+            <div class="slds-form-element__control">
+                <input type="password" formControlName="patientConfirmPassword" class="form-control slds-input" />
+                <div *ngIf="submitted && _patientPersonalForm.patientConfirmPassword.errors" class="slds-text-color_error">
+                    <div *ngIf="_patientPersonalForm.patientConfirmPassword.errors?.dontMatch">Confirmed
+                        password does not
+                        match</div>
+                    <div *ngIf="_patientPersonalForm.patientConfirmPassword.errors.required">Confirmed password
+                        is required</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slds-m-top_medium">
+            <a [routerLink]="['/']" class="slds-button">Cancel</a>
+            <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right" routerLinkActive="router-link-active">Next</button>
+        </div>
     </div>
-    <div class="slds-col slds-size_0-of-12 slds-medium-size_2-of-12  slds-large-size_4-of-12"></div>
+</form>
+
+<form [formGroup]="patientQuestionForm" (ngSubmit)="onPatientQuestionsSubmit()">
+    <div [hidden]="page != 2" class="slds-m-bottom_medium">
+        <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
+        <div class="slds-text-heading_large">A few questions</div>
+        <div class="slds-text-heading_small slds-m-top_x-small">This short optional questionaire will provide
+            general and anonymous background information about you to your psychologist</div>
+        <br />
+
+        <div *ngFor="let question of patientQuestions">
+            <div class="slds-p-bottom_medium" [ngSwitch]="question.type">
+                <div *ngSwitchCase="0">
+                    <div class="slds-p-bottom_xx-small slds-text-heading_small">
+                        {{question.question}}
+                    </div>
+                    <fieldset class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <div class="slds-radio_button-group">
+                                <span class="slds-button slds-radio_button">
+                                    <input type="radio" [id]="question.key + '-yes'" [formControlName]="question.key"
+                                        [name]="question.key" value="Yes" />
+                                    <label class="slds-radio_button__label" [for]="question.key + '-yes'">
+                                        <span class="slds-radio_faux">Yes</span>
+                                    </label>
+                                </span>
+                                <span class="slds-button slds-radio_button">
+                                    <input type="radio" [id]="question.key + '-no'" [formControlName]="question.key"
+                                        [name]="question.key" value="No" />
+                                    <label class="slds-radio_button__label" [for]="question.key + '-no'">
+                                        <span class="slds-radio_faux">No</span>
+                                    </label>
+                                </span>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div *ngSwitchCase="1">
+                    <div class="slds-p-bottom_xx-small">
+                        <span class="slds-text-heading_small">{{question.question}}</span>
+                    </div>
+                    <div [formArrayName]="question.key">
+                        <div class="slds-grid slds-grid_vertical-align-center" *ngFor="let possibleAnswer of patientQuestionForm.get(question.key).controls; let i = index">
+                            <div class="slds-col_bump-right" [formGroupName]="i">
+                                <div class="slds-p-bottom_xxx-small">
+                                    <div class="slds-checkbox_add-button">
+                                        <input (click)="possibleAnswer.value = !possibleAnswer.value" type="checkbox"
+                                            class="slds-assistive-text" [id]="question.key + '-' + i" [value]="possibleAnswer.value" />
+                                        <label [for]="question.key + '-' + i" class="slds-checkbox_faux">
+                                            <span class="slds-assistive-text">{{question.multipleChoiceOptionsArr[i]}}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-m-left_small">
+                                {{question.multipleChoiceOptionsArr[i]}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slds-m-top_medium">
+            <a (click)="goBack()" class="slds-button">Back</a>
+            <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right" routerLinkActive="router-link-active">Next</button>
+        </div>
+
+    </div>
+
+</form>
+
+<form [formGroup]="availablePsychologistsForm" (ngSubmit)="onAvailablePsychologistsSubmit()">
+    <div [hidden]="page != 3" class="slds-m-bottom_medium">
+        <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
+        <div class="slds-text-heading_large">Choose your licensed psychologist</div>
+        <br />
+
+        <div class="slds-grid slds-wrap slds-gutters_x-small slds-grid_pull-padded-x-small">
+            <div *ngFor="let psychologist of availablePsychologists" class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-vertical_x-small">
+                <article class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title" style="text-align:center">
+                                    <span class="slds-card__header-link slds-truncate">
+                                        {{psychologist.firstName}} {{psychologist.lastName}}
+                                    </span>
+                                    <div class="slds-text-body_regular">
+                                        {{psychologist.qualifications[0]}}
+                                        <br />
+                                        {{psychologist.experienceYears}} years experience
+                                    </div>
+                                </h2>
+                            </div>
+
+                        </header>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner" style="text-align:center">
+                        <div>
+                            <img [src]="psychologist.photo" class="image-round" />
+                        </div>
+                        <div class="slds-radio_button-group slds-m-top_small">
+                            <span class="slds-button slds-radio_button">
+                                <input type="radio" [id]="psychologist.firstName + psychologist.id" formControlName="psychologistChoice"
+                                    name="psychologistChoice" [value]="psychologist.id" />
+                                <label class="slds-radio_button__label" [for]="psychologist.firstName + psychologist.id">
+                                    <span class="slds-radio_faux">Select</span>
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+
+                </article>
+            </div>
+        </div>
+
+        <div *ngIf="submitted && _availPsychForm.psychologistChoice.errors" class="slds-text-color_error">
+            <div *ngIf="_availPsychForm.psychologistChoice.errors.required" style="text-align:center"><b>Please
+                    choose a psychologist</b></div>
+        </div>
+
+        <div class="slds-m-top_medium">
+            <a (click)="goBack()" class="slds-button">Back</a>
+            <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right" routerLinkActive="router-link-active">Next</button>
+        </div>
+    </div>
+</form>
+
+<form [formGroup]="packagesForm" (ngSubmit)="onPackageSubmit()">
+    <div [hidden]="page != 4" class="slds-m-bottom_medium">
+        <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
+        <div class="slds-text-heading_large">Choose your package</div>
+        <br />
+
+        <div class="slds-grid slds-wrap slds-gutters_x-small slds-grid_pull-padded-x-small">
+            <div *ngFor="let package of activePackages" class="slds-col slds-size_1-of-2 slds-p-vertical_x-small">
+                <article class="background-color-brand-blue slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title" style="text-align:center; color:white">
+                                    <span class="slds-card__header-link slds-truncate">
+                                        R{{package.cost}}
+                                    </span>
+                                </h2>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner" style="text-align:center; color:white">
+                        <div>
+                            {{package.durationDays}} days, unlimited interaction
+                        </div>
+                        <div *ngIf="package.trialDays" class="slds-p-top_small">
+                            <b>{{package.trialDays}} day free trial</b>
+                        </div>
+                        <div class="slds-radio_button-group slds-m-top_small">
+                            <span class="slds-button slds-radio_button">
+                                <input type="radio" [id]="'package' + package.id" formControlName="packageChoice" name="packageChoice"
+                                    [value]="package.id" />
+                                <label class="slds-radio_button__label" [for]="'package' + package.id">
+                                    <span class="slds-radio_faux">Select</span>
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+
+                </article>
+            </div>
+        </div>
+
+        <div *ngIf="submitted && _packageForm.packageChoice.errors" class="slds-text-color_error">
+            <div *ngIf="_packageForm.packageChoice.errors.required" style="text-align:center"><b>Please
+                    choose a package</b></div>
+        </div>
+
+        <div class="slds-m-top_medium">
+            <a (click)="goBack()" class="slds-button">Back</a>
+            <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right" routerLinkActive="router-link-active">Continue
+                to payment</button>
+        </div>
+
+        <div class="slds-m-top_medium slds-text-color_weak">By continuing you agree to the <a target="_blank"
+                routerLink="/patient-terms">terms
+                and conditions</a></div>
+
+        <div [ngClass]="{'slds-hide': !finalSubmitError}" class="slds-m-top_medium slds-text-color_error">
+            An unexpected error occurred.
+        </div>
+
+        <div [ngClass]="{'slds-hide': !duplicateUsername}" class="slds-m-top_medium slds-text-color_error">
+            Email <b>{{ _patientPersonalForm.patientEmail.value }}</b> already exists in our system. Please
+            login
+            with
+            that
+            email address, or go back and select a different email address.
+        </div>
+    </div>
+</form>
+
+<div [hidden]="page != 5" class="slds-m-bottom_medium">
+    <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
+    <div class="slds-text-heading_large">Payment details</div>
+    <br />
+
+    <div class="slds-text-heading_medium"><b>R{{selectedPackage.cost}}</b> every <b>{{selectedPackage.durationDays}}
+            days</b></div>
+    <div class="slds-m-vertical_large">
+        <span class="slds-icon_container" title="Secure">
+            <svg class="slds-icon_x-small" aria-hidden="true">
+                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#lock"></use>
+            </svg>
+            <span class="slds-assistive-text">Secure</span>
+        </span>
+        Save your card to be securely stored and charged R{{selectedPackage.cost}} every
+        {{selectedPackage.durationDays}} days. The service can be cancelled at any time.
+    </div>
+
+    <form [formGroup]="paymentForm" [action]="environment.baseAppUrl + '/card/result?signup=1&psych=' + chosenPsychName"
+        class="paymentWidgets" data-brands="VISA MASTER"></form>
+
+    <div>
+        <b>Please note</b>, on next screen you will see a "dummy" transaction for R1.00. Your account will <b>not</b>
+        be charged this, and it will only be held temporarily to verify your details.
+    </div>
 </div>
 
 <div [hidden]="!loading" class="slds-spinner_container">
