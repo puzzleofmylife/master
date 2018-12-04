@@ -23,7 +23,6 @@ export class VerifyComponent implements OnInit {
       let userId = params['i'];
       let confirmToken = params['t'];
       this.isPsych = params['psych'] == "1" ? true : false;
-      console.log(this.isPsych);
 
       this.userService.confirmEmail(userId, encodeURIComponent(confirmToken)).subscribe(result => {
         this.success = true;
