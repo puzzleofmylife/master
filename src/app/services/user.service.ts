@@ -23,6 +23,6 @@ export class UserService {
   }
 
   sendConfirmEmailLink(email: string) {
-    return this.http.post(environment.baseAPIURL + '/api/User/confirmemail/send/' + encodeURIComponent(email), null);
+    return this.http.post(environment.baseAPIURL + '/api/User/confirmemail/send/', { email: email });
   }
 }
