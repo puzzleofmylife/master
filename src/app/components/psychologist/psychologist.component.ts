@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LoggedIn } from 'src/app/models/LoggedIn';
+import { AuthState } from 'src/app/models/AuthState';
 import { Psychologist } from 'src/app/models/Psychologist';
 import { AuthService } from './../../services/auth.service';
 import { PsychoService } from './../../services/psycho.service';
@@ -14,7 +14,7 @@ import { HelpersService } from 'src/app/services/helpers.service';
 export class PsychologistComponent implements OnInit {
 
 	psychologist: Psychologist = new Psychologist();
-	loggedIn: LoggedIn = new LoggedIn();
+	loggedIn: AuthState = new AuthState();
 	loaded: Boolean = false;
 
 	//Approve and Deny fields
@@ -28,7 +28,7 @@ export class PsychologistComponent implements OnInit {
 
 	ngOnInit() {
 
-		this.authService.loggedIn().subscribe(x => this.loggedIn = x);
+		this.authService.authState().subscribe(x => this.loggedIn = x);
 
 		const id = +(this.route.snapshot.params["id"]);
 		this.psychoService.getById(id).subscribe((psychologist) => {

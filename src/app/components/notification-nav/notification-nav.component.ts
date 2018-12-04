@@ -23,6 +23,9 @@ export class NotificationNavComponent implements OnInit, OnDestroy {
 	showNotificationDropdown: boolean = false;
 	newNotificationsSubscription: Subscription;
 	newNotificationGetInterval: number = 60 * 1000;
+	get isMobile(): boolean {
+		return window.innerWidth <= 480;
+	}
 
 	constructor(private helpersService: HelpersService, private notificationService: NotificationService, private router: Router) { }
 
@@ -52,7 +55,7 @@ export class NotificationNavComponent implements OnInit, OnDestroy {
 		this.showNotificationDropdown = !this.showNotificationDropdown;
 
 		//if closing the notifications dropdown and notifications exist mark them as read
-		if (!this.showNotificationDropdown && this.currentNotifications.length > 0) {
+		if (!this.showNotificationDropdown && this.currentNotifications && this.currentNotifications.length > 0) {
 			this.notificationService.markNotificationAsRead().subscribe(x => {
 				this.markNotificationsRead();
 				this.resetNewNotificationCount();

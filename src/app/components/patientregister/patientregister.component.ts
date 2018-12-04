@@ -248,6 +248,7 @@ export class PatientRegisterComponent implements OnInit {
     }
 
     private processPatientQuestionForm() {
+        this.patientAnswers = [];
         this.patientQuestions.forEach(question => {
             var answer = '';
             var questionControl = this.patientQuestionForm.controls[question.key];
@@ -265,7 +266,7 @@ export class PatientRegisterComponent implements OnInit {
                     answer = questionControl.value;
             }
             if (answer != '')
-                this.patientAnswers.push({ questionId: question.id, answer: answer });
+                this.patientAnswers.push({ questionId: question.id, answer: answer, question: null, questionTypeId: null });
         });
     }
 
