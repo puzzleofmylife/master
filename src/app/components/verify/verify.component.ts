@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class VerifyComponent implements OnInit {
   isPsych: boolean = false;
   environment = environment;
 
-  constructor(private userService: UserService, private route: ActivatedRoute) { }
+  constructor(private userService: UserService, private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -27,8 +28,7 @@ export class VerifyComponent implements OnInit {
       this.userService.confirmEmail(userId, encodeURIComponent(confirmToken)).subscribe(result => {
         this.success = true;
         this.loaded = true;
-        var token = result.token;
-        //console.log(token);
+        this.authService.setAccessToken(result.token);
       }, error => {
         this.success = false;
         this.loaded = true;
