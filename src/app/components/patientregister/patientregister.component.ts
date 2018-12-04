@@ -154,6 +154,7 @@ export class PatientRegisterComponent implements OnInit {
 
     nextPage() {
         this.page += 1;
+        window.scroll(0,0);
     }
 
     /* Submit Forms */
