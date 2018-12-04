@@ -13,6 +13,22 @@
   </div>
 
   <div class="slds-m-top_large">
+        <div *ngIf="isSignup" class="slds-text-heading_medium slds-align_absolute-center">
+          You are now signed up and ready to go!
+          <br /><br />
+          Your psychologist <b>{{psychName}}</b> can't wait to meet you. Click the button below to start your first
+          session.
+          <div class="slds-align_absolute-center slds-m-top_medium">
+            <button [routerLink]="['/session']" class="slds-button slds-button_brand">Enter session now</button>
+          </div>
+        </div>
+
+        <div *ngIf="!isSignup" class="slds-text-heading_medium slds-align_absolute-center">
+          Your payment details have been saved
+          <div class="slds-align_absolute-center slds-m-top_medium">
+            <button [routerLink]="['/profile']" class="slds-button slds-button_brand">Back to profile</button>
+          </div>
+        </div>
 
     <div *ngIf="isSignup" class="slds-text-heading_medium">
       You are now signed up and ready to go!

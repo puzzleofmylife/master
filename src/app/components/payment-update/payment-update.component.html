@@ -1,0 +1,16 @@
+<div class="slds-text-heading_large">Update card</div>
+<br />
+<form [formGroup]="paymentForm" [action]="environment.baseAppUrl + '/card/result'"
+	class="paymentWidgets" data-brands="VISA MASTER">
+ 	<div class="slds-align_absolute-center slds-m-top_x-large">
+    <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_inline">
+		<span class="slds-assistive-text">Loading</span>
+		<div class="slds-spinner__dot-a"></div>
+		<div class="slds-spinner__dot-b"></div>
+    </div>
+  </div>
+</form>
+<div>
+  <b>Please note</b>, on the next screen you will see a "dummy" transaction for R1.00. Your account will <b>not</b>
+  be charged this, and it will only be held temporarily to verify your details.
+</div>
