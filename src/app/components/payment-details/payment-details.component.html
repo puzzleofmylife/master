@@ -1,6 +1,6 @@
 <!-- Payment card details -->
-<div class="slds-text-heading_medium slds-m-bottom_x-small">Payment method</div>
-<article *ngIf="!loading" class="slds-card" style="width:225px">
+<div class="slds-text-heading_medium slds-m-bottom_small">Payment method</div>
+<article *ngIf="!loading" class="slds-card">
 	<div class="slds-card__body slds-card__body_inner" >
 		<div class="card-brand" title="card brand" [ngSwitch]="paymentCard.paymentBrand">
 			<img *ngSwitchCase="'VISA'" src="../../../assets/visa.png"/>
@@ -16,6 +16,6 @@
 		<div class="slds-truncate">
 			{{paymentCard.cardHolderName}}
 		</div>
-		<button class="slds-button slds-m-top_xx-small slds-button_brand" (click)="navigateToUpdateCard()">Update card</button>
+		<button class="slds-button slds-m-top_xx-small slds-button_brand slds-m-top_medium" (click)="navigateToUpdateCard()">Update card</button>
 	</div>
 </article>
