@@ -32,7 +32,7 @@ const routes: Routes = [
 	{ path: 'psychologist/:id', component: PsychologistComponent },
 	{ path: 'session', component: PatientSessionComponent },
 	{ path: 'notifications', component: NotificationComponent },
-	{ path: 'update-card', component: PaymentUpdateComponent },
+	{ path: 'update-card', component: PaymentUpdateComponent, },
 	{ path: 'profile', component: PatientProfileComponent }
 ];
 
