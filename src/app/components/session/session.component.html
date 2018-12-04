@@ -1,20 +1,17 @@
 <div class="slds-page-header" style="padding: 0.3rem;">
   <div class="slds-page-header__row">
     <div class="slds-page-header__col-title">
-      <div class="slds-media">
+      <div class="slds-media" style="align-items: center">
         <div *ngIf="session.recipientPhotoUrl" class="slds-media__figure">
           <span class="slds-icon_container">
             <img src="{{session.recipientPhotoUrl}}" alt="Profile picture" class="image-round">
           </span>
         </div>
-        <div [hidden]="session.recipientPhotoUrl" #recipientAbbrevDiv class="slds-media__figure slds-p-around_medium">
+        <div [hidden]="session.recipientPhotoUrl" [style]="dynamicColourAvatarStyle" class="slds-media__figure slds-p-around_medium">
           {{recipientAbbrev}}
         </div>
         <div class="slds-media__body slds-m-top_xx-small">
-          <div>
-            Your session with
-          </div>
-          <div class="slds-text-heading_small slds-truncate">
+          <div class="slds-text-heading_small truncate">
             <span>{{session.recipientName}}</span>
           </div>
         </div>
@@ -23,20 +20,13 @@
   </div>
 </div>
 
-<!-- <div *ngIf="!loading" class="slds-align_absolute-center slds-m-vertical_medium">
-    <button class="slds-button slds-button_outline-brand" (click)="showNewMessagePrompt = true">New message</button>
-</div> -->
-
-<div class="slds-form-element slds-m-top_medium">
+<div *ngIf="!loading" class="slds-form-element slds-m-top_medium">
   <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
     <textarea #messageInput rows="2" (keyup)="autoGrowMessageInput()" placeholder="Type your message here..."
       [(ngModel)]="messageText" style="line-height: 1.2" class="slds-input slds-p-around_xx-small"></textarea>
-    <button *ngIf="messageText.length > 0" (click)="createMessage()" class="slds-button slds-input__icon slds-input__icon_right"
+    <button style="height: 30px" *ngIf="messageText.length > 0" (click)="createMessage()" class="slds-button slds-button_outline-brand"
       title="Send">
-      <svg class="slds-button__icon" aria-hidden="true">
-        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#send" />
-      </svg>
-      <span class="slds-assistive-text">Send</span>
+      Send
     </button>
   </div>
 </div>

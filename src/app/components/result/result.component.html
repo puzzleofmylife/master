@@ -1,0 +1,25 @@
+<div class="slds-align_absolute-center slds-m-top_medium">
+  <span *ngIf="success" class="slds-icon_container" title="Success">
+    <svg class="slds-icon_large slds-icon-text-success" aria-hidden="true">
+      <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#success"></use>
+    </svg>
+    <span class="slds-assistive-text">Success</span>
+  </span>
+
+  <span *ngIf="!success" class="slds-icon_container" title="Failure">
+    <svg class="slds-icon_large slds-icon-text-error" aria-hidden="true">
+      <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#error"></use>
+    </svg>
+    <span class="slds-assistive-text">Failure</span>
+  </span>
+</div>
+
+<div *ngIf="heading" [innerHTML]="heading" class="slds-text-heading_large slds-align_absolute-center slds-m-top_medium slds-m-bottom_large">
+</div>
+
+<div *ngIf="text" [innerHTML]="text" class="slds-text-heading_medium slds-m-top_medium slds-align_absolute-center">
+</div>
+
+<div *ngIf="buttonText" class="slds-align_absolute-center slds-m-top_large">
+  <button [routerLink]="[buttonLink]" class="slds-button slds-button_brand">{{buttonText}}</button>
+</div>

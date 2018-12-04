@@ -32,13 +32,19 @@ import { PatientSessionComponent } from './components/patient-session/patient-se
 import { NotificationNavComponent } from './components/notification-nav/notification-nav.component';
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
 import { NotificationComponent } from './components/notification/notification.component';
-import { ResetPasswordComponent } from './components/resetpassword/resetpassword.component';
-import { ForgotPasswordComponent } from './components/forgotpassword/forgotpassword.component';
+import { ChangepackageComponent } from './components/changepackage/changepackage.component';
+import { PatientpackageComponent } from './components/patientpackage/patientpackage.component';
 import { PatientProfileComponent } from './components/patient-profile/patient-profile.component';
 import { PaymentDetailsComponent } from './components/payment-details/payment-details.component';
 import { PaymentUpdateComponent } from './components/payment-update/payment-update.component';
-import { ChangepackageComponent } from './components/patient-profile/changepackage/changepackage.component';
-import { PatientpackageComponent } from './components/patient-profile/patientpackage/patientpackage.component';
+import { ResetPasswordComponent } from './components/resetpassword/resetpassword.component';
+import { ForgotPasswordComponent } from './components/forgotpassword/forgotpassword.component';
+import { PsychologistSessionComponent } from './components/psychologist-session/psychologist-session.component';
+import { QuestionaireAnswersComponent } from './components/questionaire-answers/questionaire-answers.component';
+import { PatientPsychologistComponent } from './components/patient-psychologist/patient-psychologist.component';
+import { ChangePsychologistComponent } from './components/change-psychologist/change-psychologist.component';
+import { ResultComponent } from './components/result/result.component';
+import { ConfirmEmailSendComponent } from './components/confirm-email-send/confirm-email-send.component';
 
 @NgModule({
 	declarations: [
@@ -67,13 +73,19 @@ import { PatientpackageComponent } from './components/patient-profile/patientpac
 		TimeAgoPipe,
 		PatientSessionComponent,
 		NotificationComponent,
-		ResetPasswordComponent,
-    	ForgotPasswordComponent,
+		ChangepackageComponent,
+		PatientpackageComponent,
 		PatientProfileComponent,
 		PaymentDetailsComponent,
 		PaymentUpdateComponent,
-		ChangepackageComponent,
-		PatientpackageComponent,
+		ResetPasswordComponent,
+    	ForgotPasswordComponent,
+		PsychologistSessionComponent,
+		QuestionaireAnswersComponent,
+		PatientPsychologistComponent,
+		ChangePsychologistComponent,
+		ResultComponent,
+		ConfirmEmailSendComponent
 	],
 	imports: [
 		BrowserModule,

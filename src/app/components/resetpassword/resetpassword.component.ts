@@ -17,6 +17,7 @@ export class ResetPasswordComponent implements OnInit {
   userId: string;
   resetToken: string;
   submitted: boolean = false;
+  resultText: string;
 
   constructor(private authService: AuthService, private formBuilder: FormBuilder, private router: Router, private userService: UserService, private route: ActivatedRoute) { }
 
@@ -39,10 +40,12 @@ export class ResetPasswordComponent implements OnInit {
         this.gotResetResult = true;
         this.success = true;
         this.authService.setAccessToken(result.token);
+        this.resultText = 'Your password has been reset, and your are now logged in.';
       }, error => {
         this.success = false;
         this.gotResetResult = true;
-        console.log(JSON.stringify(error.error));
+        this.resultText = 'Sorry, your password could not be reset.';
+        console.log(JSON.stringify(error));
       });
     }
   }

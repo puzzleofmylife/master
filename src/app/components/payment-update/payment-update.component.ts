@@ -1,8 +1,8 @@
-import { Component, OnInit, Renderer2, Inject } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { DOCUMENT } from '@angular/platform-browser';
+import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { DOCUMENT } from '@angular/platform-browser';
 import { PaymentService } from 'src/app/services/payment.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
 	selector: 'app-payment-update',
@@ -13,7 +13,6 @@ export class PaymentUpdateComponent implements OnInit {
 	paymentForm: FormGroup = new FormGroup({});
 	environment = environment;
 
-
 	constructor(
 		private _renderer2: Renderer2,
 		@Inject(DOCUMENT) private _document,
@@ -21,9 +20,17 @@ export class PaymentUpdateComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		this.paymentService.createCheckout()
-			.then(response => { this.initPaymentForm(response.checkoutId) })
-			.catch(error => { console.log(JSON.stringify(error)) });
+		this.updatePaymentCard();
+	}
+
+	async updatePaymentCard() {
+		try {
+			let checkout = await this.getCheckoutId();
+			this.initPaymentForm(checkout.checkoutId);
+
+		} catch (error) {
+			console.log(JSON.stringify(error));
+		}
 	}
 
 	initPaymentForm(checkoutId: string): void {
@@ -43,5 +50,9 @@ export class PaymentUpdateComponent implements OnInit {
         }
     `;
 		this._renderer2.appendChild(this._document.body, payFormOptions);
+	}
+
+	getCheckoutId(): Promise<any> {
+		return this.paymentService.createCheckout();
 	}
 }
