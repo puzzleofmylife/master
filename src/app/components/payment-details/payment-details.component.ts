@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { PaymentCard } from '../../models/PaymentCard';
+import { PaymentService } from './../../services/payment.service';
 
 @Component({
 	selector: 'app-payment-details',
@@ -7,10 +9,20 @@ import { Router } from '@angular/router';
 	styleUrls: ['./payment-details.component.css']
 })
 export class PaymentDetailsComponent implements OnInit {
+	paymentCard: PaymentCard;
+	loading = true;
 
-	constructor(private _router: Router) { }
+	constructor(private _router: Router, private _paymentService: PaymentService) { }
 
 	ngOnInit() {
+		this._paymentService.getPaymentCardDetails().subscribe(response => {
+			this.loading = false;
+			this.paymentCard = response;
+
+		}, error => {
+			console.error(JSON.stringify(error));
+			this.loading = false;
+		})
 	}
 
 	navigateToUpdateCard() {
