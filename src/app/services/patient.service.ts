@@ -5,6 +5,7 @@ import { PatientQuestion } from '../models/PatientQuestion';
 import { environment } from 'src/environments/environment';
 import { Patient } from '../models/Patient';
 import { Psychologist } from '../models/Psychologist';
+import { Package } from '../models/Package';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +24,9 @@ export class PatientService {
 
   getPsychologist(): Promise<Psychologist> {
     return this.http.get<any>(environment.baseAPIURL + '/api/Patient/psychologist').toPromise();
+  }
+
+  getCurrentPatientPackage(): Observable<Package>{
+    return this.http.get<Package>(environment.baseAPIURL + '/api/Patient/package');
   }
 }

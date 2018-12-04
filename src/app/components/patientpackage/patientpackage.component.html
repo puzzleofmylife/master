@@ -1,0 +1,23 @@
+<article class="background-color-brand-blue slds-card">
+    <div class="slds-card__header slds-grid">
+        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+            <div class="slds-media__body">
+                <h2 class="slds-card__header-title" style="text-align:center; color:white">
+                    <span class="slds-card__header-link slds-truncate">
+                        R{{currentPackage.cost}}
+                    </span>
+                </h2>
+            </div>
+        </header>
+    </div>
+    <div class="slds-card__body slds-card__body_inner" style="text-align:center; color:white">
+        <div>
+            {{currentPackage.name}}
+        </div>
+    </div>
+
+    <div class="slds-m-top_medium">
+        <button class="slds-button slds-button_outline-brand btn-left" routerLinkActive="router-link-active">Change</button>
+    </div>
+
+</article>

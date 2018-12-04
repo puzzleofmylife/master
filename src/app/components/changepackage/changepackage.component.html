@@ -1,0 +1,78 @@
+<div class="slds-grid slds-wrap">
+  <div class="slds-col slds-size_0-of-12 slds-medium-size_2-of-12  slds-large-size_4-of-12"></div>
+
+  <div class="slds-col slds-size_12-of-12 slds-medium-size_8-of-12 slds-large-size_4-of-12 slds-p-horizontal_medium">
+
+    <form [formGroup]="changePatientPackagesForm" (ngSubmit)="onChangePackageSubmit()">
+      <div class="slds-m-bottom_medium">
+        <div class="slds-text-heading_large">Change your package</div>
+        <br />
+
+        <div class="slds-grid slds-wrap slds-gutters_x-small slds-grid_pull-padded-x-small">
+          <div *ngFor="let package of activePackages" class="slds-col slds-size_1-of-2 slds-p-vertical_x-small">
+            <article class="background-color-brand-blue slds-card">
+              <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                  <div class="slds-media__body">
+                    <h2 class="slds-card__header-title" style="text-align:center; color:white">
+                      <span class="slds-card__header-link slds-truncate">
+                        R{{package.cost}}
+                      </span>
+                    </h2>
+                  </div>
+                </header>
+              </div>
+              <div class="slds-card__body slds-card__body_inner" style="text-align:center; color:white">
+                <div>
+                  {{package.durationDays}} days, unlimited interaction
+                </div>
+                <div *ngIf="package.trialDays" class="slds-p-top_small">
+                  <b>{{package.trialDays}} day free trial</b>
+                </div>
+                <div class="slds-radio_button-group slds-m-top_small">
+                  <span class="slds-button slds-radio_button">
+                    <input type="radio" [id]="'package' + package.id" formControlName="packageChoice" name="packageChoice"
+                      [value]="package.id" />
+                    <label class="slds-radio_button__label" [for]="'package' + package.id">
+                      <span class="slds-radio_faux">Select</span>
+                    </label>
+                  </span>
+                </div>
+              </div>
+
+              <div class="slds-m-top_medium">
+                <button class="slds-button slds-button_outline-brand btn-left"
+                    routerLinkActive="router-link-active">Change</button>
+              </div>
+
+            </article>
+          </div>
+        </div>
+
+        <div *ngIf="submitted && _packageForm.packageChoice.errors" class="slds-text-color_error">
+          <div *ngIf="_packageForm.packageChoice.errors.required" style="text-align:center"><b>Please
+              choose a package</b></div>
+        </div>
+
+        <div class="slds-m-top_medium slds-text-color_weak">By continuing you agree to the <a target="_blank"
+            routerLink="/patient-terms">terms
+            and conditions</a></div>
+
+        <div [ngClass]="{'slds-hide': !finalSubmitError}" class="slds-m-top_medium slds-text-color_error">
+          An unexpected error occurred.
+        </div>
+      </div>
+    </form>
+
+  </div>
+
+  <div class="slds-col slds-size_0-of-12 slds-medium-size_2-of-12  slds-large-size_4-of-12"></div>
+</div>
+
+<div [hidden]="!loading" class="slds-spinner_container">
+  <div role="status" class="slds-spinner slds-spinner_medium">
+    <span class="slds-assistive-text">Loading</span>
+    <div class="slds-spinner__dot-a"></div>
+    <div class="slds-spinner__dot-b"></div>
+  </div>
+</div>
