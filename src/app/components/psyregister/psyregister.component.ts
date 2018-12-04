@@ -40,7 +40,7 @@ export class PsyregisterComponent implements OnInit {
       surname: ['', Validators.required],
       idNumber: ['', Validators.required],
       age: ['', Validators.required],
-      contactNum: ['', Validators.required],
+      contactNum: ['', [Validators.required, Validators.pattern('[0-9]+')]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]

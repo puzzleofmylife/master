@@ -46,9 +46,10 @@
         <div class="slds-m-top_small">
             <label class="slds-form-element__label" for="contactNum">Contact number*</label>
             <div class="slds-form-element__control">
-                <input type="number" formControlName="contactNum" class="form-control slds-input" />
+                <input type="tel" formControlName="contactNum" class="form-control slds-input" />
                 <div *ngIf="submitted && _personalForm.contactNum.errors" class="slds-text-color_error">
                     <div *ngIf="_personalForm.contactNum.errors.required">Contact number is required</div>
+                    <div *ngIf="_personalForm.contactNum.errors.pattern">Contact number is invalid (valid example: 0835551111)</div>
                 </div>
             </div>
         </div>
