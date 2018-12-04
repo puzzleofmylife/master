@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
 	selector: 'app-login',
@@ -10,30 +9,32 @@ import { UserService } from 'src/app/services/user.service';
 	styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-	submitted = false;
-	loginForm: FormGroup;
+	@ViewChild('email') private emailElem: ElementRef;
+	@ViewChild('password') private passwordElem: ElementRef;
+	email: string;
+	password: string;
+
 	showLoginFailed: boolean;
 	showError: boolean;
 	loading: boolean = false;
 	showConfirmEmail: boolean;
+	
+	emailRequired: boolean;
+	passwordRequired: boolean;
 
-	constructor(private authService: AuthService, private formBuilder: FormBuilder, private router: Router) { }
+	constructor(private authService: AuthService, private router: Router) { }
 
 	ngOnInit() {
-		this.loginForm = this.formBuilder.group({
-			email: ['', Validators.required],
-			password: ['', Validators.required]
-		});
 	}
 
 	onLoginSubmit() {
 		this.showLoginFailed = false;
 		this.showError = false;
-		this.submitted = true;
-
-		if (this.loginForm.valid) {
+		this.showConfirmEmail = false;
+		
+		if (this.validateFields()) {
 			this.loading = true;
-			this.authService.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value)
+			this.authService.login(this.email, this.password)
 				.subscribe(result => {
 					this.loading = false;
 					var authState = this.authService.getAuthState();
@@ -60,7 +61,29 @@ export class LoginComponent implements OnInit {
 		}
 	}
 
+	validateFields(): boolean {
+
+		//We need to use nativeElement.value because chrome autofill does not seem trigger Angular value updates (so binded values from the form are null)
+		this.email = this.emailElem.nativeElement.value;
+		this.password = this.passwordElem.nativeElement.value;
+		
+		if(!this.email || this.email.trim() == '')
+			this.emailRequired = true;
+		else
+			this.emailRequired = false;
+		
+		if(!this.password || this.password.trim() == '')
+			this.passwordRequired = true;
+		else
+			this.passwordRequired = false;
+
+		if(this.passwordRequired || this.emailRequired)
+			return false;
+		else
+			return true;
+	}
+
 	sendEmailConfirmationLink() {
-		this.router.navigate(['/confirmemail/send'], { queryParams: { email: this.loginForm.controls.email.value } });
+		this.router.navigate(['/confirmemail/send'], { queryParams: { email: this.email } });
 	}
 }
