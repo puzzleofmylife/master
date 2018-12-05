@@ -1,21 +1,26 @@
 <!-- Payment card details -->
 <div class="slds-text-heading_medium slds-m-bottom_x-small">Payment method</div>
 <article *ngIf="!loading" class="slds-card" style="width:225px">
-	<div class="slds-card__body slds-card__body_inner" >
-		<div class="card-brand" title="card brand" [ngSwitch]="paymentCard.paymentBrand">
-			<img *ngSwitchCase="'VISA'" src="../../../assets/visa.png"/>
-			<img *ngSwitchCase="'MASTER'" src="../../../assets/mastercard.png"/>
-		</div>
-		
-		<div class="slds-m-top_small"> 
-			<b>XXXX-XXXX-{{paymentCard.last4Digits}}</b>
-		</div>
-		<div>
-			{{paymentCard.expiryMonth}}/{{paymentCard.expiryYear}}
-		</div>
-		<div class="slds-truncate">
-			{{paymentCard.cardHolderName}}
-		</div>
-		<button class="slds-button slds-m-top_xx-small slds-button_brand" (click)="navigateToUpdateCard()">Update card</button>
+  <div class="slds-card__body slds-card__body_inner">
+    <div *ngIf="paymentCard">
+      <div class="card-brand" title="card brand" [ngSwitch]="paymentCard.paymentBrand">
+        <img *ngSwitchCase="'VISA'" src="../../../assets/visa.png" />
+        <img *ngSwitchCase="'MASTER'" src="../../../assets/mastercard.png" />
+      </div>
+
+      <div class="slds-m-top_small">
+        <b>XXXX-XXXX-{{paymentCard.last4Digits}}</b>
+      </div>
+      <div>
+        {{paymentCard.expiryMonth}}/{{paymentCard.expiryYear}}
+      </div>
+      <div class="slds-truncate">
+        {{paymentCard.cardHolderName}}
+      </div>
 	</div>
+	<div class="slds-m-vertical_small" *ngIf="!paymentCard">
+		No card found
+	</div>
+    <button class="slds-button slds-m-top_xx-small slds-button_brand" (click)="navigateToUpdateCard()">{{paymentCard ? 'Update card':'Add card'}}</button>
+  </div>
 </article>
