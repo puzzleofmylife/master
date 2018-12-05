@@ -1,0 +1,30 @@
+<form [formGroup]="patientEditForm" (ngSubmit)="updatePatientInfo()">
+	<div class="slds-m-bottom_medium">
+		<div class="slds-text-heading_medium slds-m-bottom_x-small">Personal information</div>
+		<div class="slds-m-top_small">
+			<div class="slds-grid">
+				<label class="slds-form-element__label" for="patientAlias">Name or alias*</label>
+				<app-tooltip text="You don't need to use your real name" top="-50px" left="0px" width="150px"></app-tooltip>
+			</div>
+			<div class="slds-form-element__control">
+				<input type="text" formControlName="patientAlias" class="form-control slds-input"[(ngModel)]="patient.alias" />
+				<div *ngIf="_patientEditForm.patientAlias.errors" class="slds-text-color_error">
+					<div *ngIf="_patientEditForm.patientAlias.errors.required">Name or alias is required</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="slds-m-top_small">
+			<label class="slds-form-element__label" for="patientEmail">Email*</label>
+			<div class="slds-form-element__control">
+				<input type="text" formControlName="patientEmail" class="form-control slds-input"[(ngModel)]="patient.email"/>
+				<div *ngIf="_patientEditForm.patientEmail.errors" class="slds-text-color_error">
+					<div *ngIf="_patientEditForm.patientEmail.errors.required">Email is required</div>
+					<div *ngIf="_patientEditForm.patientEmail.errors.email">Invalid email</div>
+				</div>
+			</div>
+		</div>
+		<button [routerLink]="['/edit-patient',patient.id]" 
+			class="slds-button slds-m-top_xx-small slds-button_brand">Update</button>
+	</div>
+</form>

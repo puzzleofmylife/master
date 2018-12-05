@@ -43,6 +43,7 @@ import { PatientPsychologistComponent } from './components/patient-psychologist/
 import { ChangePsychologistComponent } from './components/change-psychologist/change-psychologist.component';
 import { ResultComponent } from './components/result/result.component';
 import { ConfirmEmailSendComponent } from './components/confirm-email-send/confirm-email-send.component';
+import { PatientEditComponent } from './components/patient-edit/patient-edit.component';
 
 @NgModule({
 	declarations: [
@@ -81,7 +82,8 @@ import { ConfirmEmailSendComponent } from './components/confirm-email-send/confi
 		PatientPsychologistComponent,
 		ChangePsychologistComponent,
 		ResultComponent,
-		ConfirmEmailSendComponent
+		ConfirmEmailSendComponent,
+		PatientEditComponent
 	],
 	imports: [
 		BrowserModule,

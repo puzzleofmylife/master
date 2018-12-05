@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+import { PatientEditComponent } from './components/patient-edit/patient-edit.component';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { ApplyComponent } from './components/apply/apply.component';
@@ -45,7 +46,8 @@ const routes: Routes = [
   { path: 'patpsytemp', component: PatientPsychologistComponent },
   { path: 'confirmemail/send', component: ConfirmEmailSendComponent },
   { path: 'update-card', component: PaymentUpdateComponent },
-	{ path: 'profile', component: PatientProfileComponent }
+  { path: 'profile', component: PatientProfileComponent },
+  { path: 'edit-patient/:id',component:PatientEditComponent}
 ];
 
 @NgModule({
