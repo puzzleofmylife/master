@@ -35,12 +35,15 @@ export class PsyregisterComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    //Scroll to top
+    window.scroll(0,0);
+
     this.personalForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       surname: ['', Validators.required],
       idNumber: ['', Validators.required],
       age: ['', Validators.required],
-      contactNum: ['', Validators.required],
+      contactNum: ['', [Validators.required, Validators.pattern('[0-9]+')]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
@@ -248,6 +251,7 @@ export class PsyregisterComponent implements OnInit {
 
   nextPage() {
     this.page += 1;
+    window.scroll(0,0);
   }
 
   /* Helpers */

@@ -60,4 +60,6 @@
   </form>
 </div>
 
-<app-result *ngIf="!loading && gotResult" [success]="success" [text]="resultText" buttonText="Go to profile" buttonLink="/profile"></app-result>
+<div *ngIf="gotResult">
+  <app-result [success]="success" [text]="resultText" buttonText="Go to profile" buttonLink="/profile"></app-result>
+</div>

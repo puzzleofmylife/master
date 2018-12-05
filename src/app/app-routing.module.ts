@@ -43,7 +43,6 @@ const routes: Routes = [
   { path: 'notifications', component: NotificationComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'patpsytemp', component: PatientPsychologistComponent },
   { path: 'confirmemail/send', component: ConfirmEmailSendComponent },
   { path: 'update-card', component: PaymentUpdateComponent },
   { path: 'profile', component: PatientProfileComponent },

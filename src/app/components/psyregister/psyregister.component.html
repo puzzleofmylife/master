@@ -1,5 +1,5 @@
 <form [formGroup]="personalForm" (ngSubmit)="onPersonalSubmit()">
-    <div [hidden]="page != 1">
+    <div [hidden]="page != 1" class="slds-m-bottom_medium">
         <div class="slds-text-heading_large"><b>Step {{page}} of 4</b></div>
         <div class="slds-text-heading_large">Personal details</div>
         <br />
@@ -46,9 +46,10 @@
         <div class="slds-m-top_small">
             <label class="slds-form-element__label" for="contactNum">Contact number*</label>
             <div class="slds-form-element__control">
-                <input type="number" formControlName="contactNum" class="form-control slds-input" />
+                <input type="tel" formControlName="contactNum" class="form-control slds-input" />
                 <div *ngIf="submitted && _personalForm.contactNum.errors" class="slds-text-color_error">
                     <div *ngIf="_personalForm.contactNum.errors.required">Contact number is required</div>
+                    <div *ngIf="_personalForm.contactNum.errors.pattern">Contact number is invalid (valid example: 0835551111)</div>
                 </div>
             </div>
         </div>
@@ -95,7 +96,7 @@
 </form>
 
 <form [formGroup]="bankingForm" (ngSubmit)="onBankingSubmit()">
-    <div [hidden]="page != 4">
+    <div [hidden]="page != 4" class="slds-m-bottom_medium">
         <div class="slds-text-heading_large"><b>Step {{page}} of 4</b></div>
         <div class="slds-text-heading_large">Bank account (to receive your payments)</div>
 
@@ -167,7 +168,7 @@
 </form>
 
 <form [formGroup]="professionalForm" (ngSubmit)="onProfessionalSubmit()">
-    <div [hidden]="page != 2">
+    <div [hidden]="page != 2" class="slds-m-bottom_medium">
         <div class="slds-text-heading_large"><b>Step {{page}} of 4</b></div>
         <div class="slds-text-heading_large">Professional information</div>
 
@@ -212,7 +213,7 @@
 </form>
 
 <form [formGroup]="attachmentForm" (ngSubmit)="onAttachmentsSubmit()">
-    <div [hidden]="page != 3">
+    <div [hidden]="page != 3" class="slds-m-bottom_medium">
         <div class="slds-text-heading_large"><b>Step {{page}} of 4</b></div>
         <div class="slds-text-heading_large">Attachments</div>
         <br />
@@ -278,7 +279,7 @@
     </div>
 </form>
 
-<div [hidden]="page != 5">
+<div [hidden]="page != 5" class="slds-m-bottom_medium">
     <div class="slds-text-heading_large slds-align_absolute-center">
         Thank you
     </div>

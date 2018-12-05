@@ -1,7 +1,7 @@
 <header class="slds-global-header_container">
 	<div class="slds-global-header slds-grid slds-grid_align-spread">
 		<!-- MOBILE NAV - shown when screen size is not "large"-->
-		<div class="slds-global-header__item slds-hide_large">
+		<div *ngIf="!authState.IsLoggedIn" class="slds-global-header__item slds-hide_large">
 			<action-menu>
 				<button actionMenuOrigin class="slds-button slds-button_icon slds-button_icon slds-button_icon-container slds-button_icon-small slds-global-actions__notifications slds-global-actions__item-action">
 					<svg class="slds-button__icon slds-global-header__icon">
@@ -11,67 +11,29 @@
 
 				<div actionMenuDropdown class="slds-dropdown slds-dropdown--left slds-m-top_x-small">
 					<ul class="dropdown__list" role="menu">
-						<li *ngIf="!(authState.IsLoggedIn)" class="slds-dropdown__header slds-truncate" title="Sign Up" role="separator">
+						<li class="slds-dropdown__header slds-truncate" title="Sign Up" role="separator">
 							<a role="menuitem" [routerLink]="['/signup']">
 								<span class="slds-text-title_caps">Sign Up</span>
 							</a>
 						</li>
 
-						<li *ngIf="!(authState.IsLoggedIn)" class="slds-has-divider_top-space" role="separator"></li>
-						<li *ngIf="!(authState.IsLoggedIn)" class="slds-dropdown__header slds-truncate" title="Apply" role="separator">
+						<li class="slds-has-divider_top-space" role="separator"></li>
+						<li class="slds-dropdown__header slds-truncate" title="Apply" role="separator">
 							<span class="slds-text-title_caps">Apply</span>
 						</li>
 
-						<li *ngIf="!(authState.IsLoggedIn)" class="slds-dropdown__item">
+						<li class="slds-dropdown__item">
 							<a [routerLink]="['/apply']" role="menuitem">
 								<span class="slds-truncate">As a psychologist</span>
 							</a>
 						</li>
 
-						<li *ngIf="(authState.IsLoggedIn && authState.IsPatient)"  class="slds-dropdown__header slds-truncate" title="Profile" role="separator">
-							<a role="menuitem" [routerLink]="['/profile']">
-								<span class="slds-text-title--caps pointer">Profile</span>
-							</a>
-						</li>
-
-						<li *ngIf="(authState.IsLoggedIn && authState.IsPatient)" class="slds-dropdown__header slds-truncate" title="Session"
-						 role="separator">
-							<a role="menuitem" [routerLink]="['/session']">
-								<span class="slds-text-title_caps">Session</span>
-							</a>
-						</li>
-
-						<li *ngIf="(authState.IsLoggedIn && authState.IsPsychologist)" class="slds-dropdown__header slds-truncate" title="Patients"
-						 role="separator">
-							<a role="menuitem" [routerLink]="['/psychologist/patients']">
-								<span class="slds-text-title_caps">Patients</span>
-							</a>
-						</li>
-
-						<li *ngIf="!(authState.IsLoggedIn)" class="slds-has-divider_top-space" role="separator"></li>
-						<li *ngIf="!(authState.IsLoggedIn)" class="slds-dropdown__item">
+						<li class="slds-has-divider_top-space" role="separator"></li>
+						<li class="slds-dropdown__item">
 							<a role="menuitem">
 								<span [routerLink]="['/login']" class="slds-text-title_caps">Log in</span>
 							</a>
 						</li>
-
-						<li *ngIf="(authState.IsLoggedIn)" class="slds-dropdown__header slds-truncate" title="Logout" role="separator">
-							<a role="menuitem">
-								<span (click)="logout()" class="slds-text-title_caps">Logout</span>
-							</a>
-						</li>
-
-						<li *ngIf="(authState.IsLoggedIn && authState.IsAdmin)" class="slds-has-divider_top-space" role="separator"></li>
-						<ul *ngIf="(authState.IsLoggedIn && authState.IsAdmin)" class="dropdown__list" role="menu">
-							<li class="slds-dropdown__header slds-truncate" title="Admin" role="separator">
-								<span class="slds-text-title_caps">Admin</span>
-							</li>
-							<li class="slds-dropdown__item">
-								<a [routerLink]="['admin/psychologists']" role="menuitem">
-									<span class="slds-truncate">Psychologists</span>
-								</a>
-							</li>
-						</ul>
 					</ul>
 				</div>
 			</action-menu>
@@ -84,62 +46,34 @@
 		<!-- DESKTOP NAV - shown when screen size is "large"-->
 		<div class="slds-global-header__item slds-show_large">
 			<div class="slds-grid slds-gutters slds-grid_vertical-align-center">
-				<div class="slds-col">
+				<div>
 					<a [routerLink]="['/']">
 						<img src="../../../assets/cropped-PuzzleofmyLifeLogo2-192x192.png" style="height:59px; margin-top: 5px;">
 					</a>
 				</div>
-				<div *ngIf="!(authState.IsLoggedIn)" class="slds-col">
-					<div [routerLink]="['/signup']" class="slds-text-title--caps pointer">Sign up</div>
-				</div>
+				<div *ngIf="!authState.IsLoggedIn" class="slds-grid">
+					<div class="slds-col">
+						<div [routerLink]="['/signup']" class="slds-text-title--caps pointer">Sign up</div>
+					</div>
 
-				<div *ngIf="!(authState.IsLoggedIn)" class="slds-col">
-					<action-menu>
-						<div actionMenuOrigin class="slds-text-title--caps pointer">Apply</div>
-						<div actionMenuDropdown class="slds-dropdown slds-dropdown_left slds-m-top_x-small">
-							<ul class="dropdown__list" role="menu">
-								<li class="slds-dropdown__item">
-									<a role="menuitem" [routerLink]="['/apply']">
-										<span class="slds-truncate">As a psychologist</span>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</action-menu>
-				</div>
-                <div *ngIf="(authState.IsLoggedIn && authState.IsPatient)" class="slds-col">
-					<div [routerLink]="['/profile']" class="slds-text-title--caps pointer">Profile</div>
-				</div>
+					<div class="slds-col">
+						<action-menu>
+							<div actionMenuOrigin class="slds-text-title--caps pointer">Apply</div>
+							<div actionMenuDropdown class="slds-dropdown slds-dropdown_left slds-m-top_x-small">
+								<ul class="dropdown__list" role="menu">
+									<li class="slds-dropdown__item">
+										<a role="menuitem" [routerLink]="['/apply']">
+											<span class="slds-truncate">As a psychologist</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</action-menu>
+					</div>
 
-				<div *ngIf="(authState.IsLoggedIn && authState.IsPatient)" class="slds-col">
-					<div [routerLink]="['/session']" class="slds-text-title--caps pointer">Session</div>
-				</div>
-
-				<div *ngIf="(authState.IsLoggedIn && authState.IsPsychologist)" class="slds-col">
-					<div [routerLink]="['/psychologist/patients']" class="slds-text-title--caps pointer">Patients</div>
-				</div>
-
-				<div *ngIf="!(authState.IsLoggedIn)" class="slds-col">
-					<div [routerLink]="['/login']" class="slds-text-title--caps pointer">Log in</div>
-				</div>
-
-				<div *ngIf="(authState.IsLoggedIn)" class="slds-col">
-					<div (click)="logout()" class="slds-text-title--caps pointer">Logout</div>
-				</div>
-
-				<div *ngIf="(authState.IsLoggedIn && authState.IsAdmin)" class="slds-col">
-					<action-menu>
-						<div actionMenuOrigin class="slds-text-title--caps pointer">Admin</div>
-						<div actionMenuDropdown class="slds-dropdown slds-dropdown_left slds-m-top_x-small">
-							<ul class="dropdown__list" role="menu">
-								<li class="slds-dropdown__item">
-									<a role="menuitem" [routerLink]="['admin/psychologists']">
-										<span class="slds-truncate">Psychologists</span>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</action-menu>
+					<div class="slds-col">
+						<div [routerLink]="['/login']" class="slds-text-title--caps pointer">Log in</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -150,13 +84,56 @@
 					<app-notification-nav></app-notification-nav>
 				</li>
 				<li class="slds-global-actions__item">
-					<div class="slds-dropdown-trigger slds-dropdown-trigger_click">
-						<button class="slds-button slds-global-actions__avatar slds-global-actions__item-action">
+					<action-menu>
+						<button actionMenuOrigin class="slds-button slds-global-actions__avatar slds-global-actions__item-action">
 							<span class="slds-avatar slds-avatar_circle slds-avatar_medium">
-								<img alt="Profile" src="/assets/images/avatar2.jpg" title="User avatar" />
+								<img alt="Profile" src="../../../assets/avatar.png" title="User avatar" />
 							</span>
 						</button>
-					</div>
+
+						<div actionMenuDropdown class="slds-dropdown slds-dropdown--left slds-m-top_x-small">
+							<ul class="dropdown__list" role="menu">
+
+								<li *ngIf="authState.IsPatient" class="slds-dropdown__header slds-truncate" title="Profile" role="separator">
+									<a role="menuitem" [routerLink]="['/profile']">
+										<span class="slds-text-title--caps pointer">Profile</span>
+									</a>
+								</li>
+
+								<li *ngIf="authState.IsPatient" class="slds-dropdown__header slds-truncate" title="Session" role="separator">
+									<a role="menuitem" [routerLink]="['/session']">
+										<span class="slds-text-title_caps">Session</span>
+									</a>
+								</li>
+
+								<li *ngIf="authState.IsPsychologist" class="slds-dropdown__header slds-truncate" title="Patients" role="separator">
+									<a role="menuitem" [routerLink]="['/psychologist/patients']">
+										<span class="slds-text-title_caps">Patients</span>
+									</a>
+								</li>
+
+								<li class="slds-has-divider_top-space" role="separator"></li>
+
+								<li class="slds-dropdown__header slds-truncate" title="Logout" role="separator">
+									<a role="menuitem">
+										<span (click)="logout()" class="slds-text-title_caps">Logout</span>
+									</a>
+								</li>
+
+								<li *ngIf="authState.IsAdmin" class="slds-has-divider_top-space" role="separator"></li>
+								<ul *ngIf="authState.IsAdmin" class="dropdown__list" role="menu">
+									<li class="slds-dropdown__header slds-truncate" title="Admin" role="separator">
+										<span class="slds-text-title_caps">Admin</span>
+									</li>
+									<li class="slds-dropdown__item">
+										<a [routerLink]="['admin/psychologists']" role="menuitem">
+											<span class="slds-truncate">Psychologists</span>
+										</a>
+									</li>
+								</ul>
+							</ul>
+						</div>
+					</action-menu>
 				</li>
 			</ul>
 		</div>

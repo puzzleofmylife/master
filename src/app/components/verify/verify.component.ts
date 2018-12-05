@@ -15,6 +15,7 @@ export class VerifyComponent implements OnInit {
   loaded: boolean = false;
   isPsych: boolean = false;
   environment = environment;
+  resultText: string;
 
   constructor(private userService: UserService, private route: ActivatedRoute, private authService: AuthService) { }
 
@@ -27,10 +28,24 @@ export class VerifyComponent implements OnInit {
       this.userService.confirmEmail(userId, encodeURIComponent(confirmToken)).subscribe(result => {
         this.success = true;
         this.loaded = true;
+
+        if (this.isPsych) {
+          this.resultText = `Your email address has been verified.
+                              <br/><br/>
+                              Here's what happens next:
+                              <br/><br/>
+                              You will receive the outcome of your application within ${environment.applicationOutcomeDays} working days.
+                                Should you not hear from us within stipulated timeframe, kindly <a href="mailto:${environment.emailAdmin}"
+                                  target="_top">contact us</a>.`;
+        } else {
+          this.resultText = 'Your email address has been verified, and you are now logged in.';
+        }
+        
         this.authService.setAccessToken(result.token);
       }, error => {
         this.success = false;
         this.loaded = true;
+        this.resultText = 'This link is either invalid or has expired';
         console.log(JSON.stringify(error.error));
       });
     });

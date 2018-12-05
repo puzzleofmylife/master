@@ -24,12 +24,9 @@
   <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
     <textarea #messageInput rows="2" (keyup)="autoGrowMessageInput()" placeholder="Type your message here..."
       [(ngModel)]="messageText" style="line-height: 1.2" class="slds-input slds-p-around_xx-small"></textarea>
-    <button *ngIf="messageText.length > 0" (click)="createMessage()" class="slds-button slds-input__icon slds-input__icon_right"
+    <button style="height: 30px" *ngIf="messageText.length > 0" (click)="createMessage()" class="slds-button slds-button_outline-brand"
       title="Send">
-      <svg class="slds-button__icon" aria-hidden="true">
-        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#send" />
-      </svg>
-      <span class="slds-assistive-text">Send</span>
+      Send
     </button>
   </div>
 </div>
