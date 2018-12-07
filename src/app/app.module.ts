@@ -46,6 +46,7 @@ import { ChangePsychologistComponent } from './components/change-psychologist/ch
 import { ResultComponent } from './components/result/result.component';
 import { ConfirmEmailSendComponent } from './components/confirm-email-send/confirm-email-send.component';
 import { SettleBalanceComponent } from './components/settle-balance/settle-balance.component';
+import { PatientEditComponent } from './components/patient-edit/patient-edit.component';
 
 @NgModule({
 	declarations: [
@@ -87,7 +88,8 @@ import { SettleBalanceComponent } from './components/settle-balance/settle-balan
 		ChangePsychologistComponent,
 		ResultComponent,
 		ConfirmEmailSendComponent,
-		SettleBalanceComponent
+		SettleBalanceComponent,
+		PatientEditComponent
 	],
 	imports: [
 		BrowserModule,
