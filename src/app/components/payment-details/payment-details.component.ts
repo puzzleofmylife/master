@@ -11,14 +11,14 @@ import { PaymentService } from './../../services/payment.service';
 export class PaymentDetailsComponent implements OnInit {
 	paymentCard: PaymentCard;
 	loading = true;
-
+	
 	constructor(private _router: Router, private _paymentService: PaymentService) { }
 
 	ngOnInit() {
+		
 		this._paymentService.getPaymentCardDetails().subscribe(response => {
 			this.loading = false;
 			this.paymentCard = response;
-
 		}, error => {
 			console.error(JSON.stringify(error));
 			this.loading = false;
