@@ -32,8 +32,8 @@ import { PatientSessionComponent } from './components/patient-session/patient-se
 import { NotificationNavComponent } from './components/notification-nav/notification-nav.component';
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
 import { NotificationComponent } from './components/notification/notification.component';
-import { ChangepackageComponent } from './components/changepackage/changepackage.component';
-import { PatientpackageComponent } from './components/patientpackage/patientpackage.component';
+import { ChangePackageComponent } from './components/changepackage/changepackage.component';
+import { PatientPackageComponent } from './components/patientpackage/patientpackage.component';
 import { PatientProfileComponent } from './components/patient-profile/patient-profile.component';
 import { PaymentDetailsComponent } from './components/payment-details/payment-details.component';
 import { PaymentUpdateComponent } from './components/payment-update/payment-update.component';
@@ -45,6 +45,7 @@ import { PatientPsychologistComponent } from './components/patient-psychologist/
 import { ChangePsychologistComponent } from './components/change-psychologist/change-psychologist.component';
 import { ResultComponent } from './components/result/result.component';
 import { ConfirmEmailSendComponent } from './components/confirm-email-send/confirm-email-send.component';
+import { SettleBalanceComponent } from './components/settle-balance/settle-balance.component';
 
 @NgModule({
 	declarations: [
@@ -73,8 +74,8 @@ import { ConfirmEmailSendComponent } from './components/confirm-email-send/confi
 		TimeAgoPipe,
 		PatientSessionComponent,
 		NotificationComponent,
-		ChangepackageComponent,
-		PatientpackageComponent,
+		ChangePackageComponent,
+		PatientPackageComponent,
 		PatientProfileComponent,
 		PaymentDetailsComponent,
 		PaymentUpdateComponent,
@@ -85,7 +86,8 @@ import { ConfirmEmailSendComponent } from './components/confirm-email-send/confi
 		PatientPsychologistComponent,
 		ChangePsychologistComponent,
 		ResultComponent,
-		ConfirmEmailSendComponent
+		ConfirmEmailSendComponent,
+		SettleBalanceComponent
 	],
 	imports: [
 		BrowserModule,

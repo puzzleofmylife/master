@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChangePackageComponent } from './changepackage.component';
+import { SettleBalanceComponent } from './settle-balance.component';
 
-describe('ChangepackageComponent', () => {
-  let component: ChangePackageComponent;
-  let fixture: ComponentFixture<ChangePackageComponent>;
+describe('SettleBalanceComponent', () => {
+  let component: SettleBalanceComponent;
+  let fixture: ComponentFixture<SettleBalanceComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChangePackageComponent ]
+      declarations: [ SettleBalanceComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChangePackageComponent);
+    fixture = TestBed.createComponent(SettleBalanceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

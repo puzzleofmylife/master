@@ -1,23 +1,49 @@
-<article class="background-color-brand-blue slds-card">
+<div class="slds-text-heading_medium slds-m-bottom_small">Package</div>
+<article class="background-color-brand-white slds-card">
     <div class="slds-card__header slds-grid">
         <header class="slds-media slds-media_center slds-has-flexi-truncate">
             <div class="slds-media__body">
-                <h2 class="slds-card__header-title" style="text-align:center; color:white">
+                <h2 class="slds-card__header-title" style="text-align:center; color:black">
                     <span class="slds-card__header-link slds-truncate">
-                        R{{currentPackage.cost}}
+                        R{{currentPackage.packageCost}}
                     </span>
                 </h2>
             </div>
         </header>
     </div>
-    <div class="slds-card__body slds-card__body_inner" style="text-align:center; color:white">
-        <div>
-            {{currentPackage.name}}
+    <div class="slds-card__body slds-card__body_inner" style="text-align:center; color:black">
+        <div class="slds-m-bottom_small">
+            {{currentPackage.packageName}}
         </div>
-    </div>
+        <div class="slds-m-bottom_small">
+            <span [className]="helpersService.getPackageStatusClass(currentPackage.statusId)"><b>{{currentPackage.statusName}}</b></span>
+        </div>
 
-    <div class="slds-m-top_medium">
-        <button class="slds-button slds-button_outline-brand btn-left" routerLinkActive="router-link-active">Change</button>
+        <!-- Active -->
+        <div *ngIf="currentPackage.statusId == 1" class="slds-m-bottom_small">
+            <span *ngIf="!currentPackage.pendingCancellation">Next bill date:</span>
+            <span *ngIf="currentPackage.pendingCancellation">Pending cancellation on:</span>
+            <div><b>{{currentPackage.nextBillDate | date}}</b></div>
+
+            <div *ngIf="currentPackage.pendingCancellation" class="slds-m-top_small">
+                <button class="slds-button slds-button_outline-brand" (click)="stopCancel()">Stop cancellation</button>
+            </div>
+        </div>
+
+        <!-- Pending Payment -->
+        <div *ngIf="currentPackage.statusId == 2" class="slds-m-bottom_small">
+            (R{{outstandingBalance}})
+            <div class="slds-m-top_small">
+                <button class="slds-button slds-button_outline-brand" [routerLink]="['/settle-balance']">Pay now</button>
+            </div>
+        </div>
+        
+        <!-- Cancelled -->
+        <div *ngIf="currentPackage.statusId == 3" class="slds-m-bottom_small">
+            <button class="slds-button slds-button_outline-brand" (click)="activate()">Activate</button>
+        </div>
+
+        <button class="slds-button slds-button_outline-brand" (click)="changePackage()">Change package</button>
     </div>
 
 </article>

@@ -21,6 +21,8 @@ import { ResetPasswordComponent } from './components/resetpassword/resetpassword
 import { PsychologistSessionComponent } from './components/psychologist-session/psychologist-session.component';
 import { ChangePsychologistComponent } from './components/change-psychologist/change-psychologist.component';
 import { ConfirmEmailSendComponent } from './components/confirm-email-send/confirm-email-send.component';
+import { ChangePackageComponent } from './components/changepackage/changepackage.component';
+import { SettleBalanceComponent } from './components/settle-balance/settle-balance.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -45,7 +47,9 @@ const routes: Routes = [
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'confirmemail/send', component: ConfirmEmailSendComponent },
   { path: 'update-card', component: PaymentUpdateComponent },
-	{ path: 'profile', component: PatientProfileComponent }
+  { path: 'profile', component: PatientProfileComponent },
+  { path: 'profile/change-package', component: ChangePackageComponent},
+  { path: 'settle-balance', component: SettleBalanceComponent}
 ];
 
 @NgModule({

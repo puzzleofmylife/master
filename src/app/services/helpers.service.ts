@@ -42,6 +42,23 @@ export class HelpersService {
 		return status;
 	}
 
+	getPackageStatusClass(statusId: number): string {
+		let status: string;
+
+		switch (statusId) {
+			case 1:
+				status = 'active';
+				break;
+			case 2:
+				status = 'pending_payment';
+				break;
+			case 3:
+				status = 'cancelled';
+				break;
+		}
+		return status;
+	}
+
 	hexToRgb(hex) {
 		var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
 		return result ?
