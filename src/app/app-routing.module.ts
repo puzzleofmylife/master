@@ -35,7 +35,6 @@ const routes: Routes = [
   { path: 'signup', component: PatientRegisterComponent },
   { path: 'card/result', component: CheckoutResultComponent },
   { path: 'admin/psychologists', component: PsychologistListComponent },
-  { path: 'psychologist/:id', component: PsychologistComponent },
   { path: 'psychologist/patients', component: PsychologistSessionComponent},
   { path: 'profile/change-psychologist', component: ChangePsychologistComponent },
   { path: 'psychologist/:id', component: PsychologistComponent },
