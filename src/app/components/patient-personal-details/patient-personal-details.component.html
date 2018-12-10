@@ -1,0 +1,12 @@
+<!--Patient personal details-->
+<div class="slds-text-heading_medium slds-m-bottom_small">Personal details</div>
+<article class="slds-card">
+		<div class="slds-card__body slds-card__body_inner">
+			<div *ngIf="!loading" class="slds-m-top_small slds-truncate">
+				{{patient.alias}}
+				<br>
+				{{patient.email}}
+			</div>
+		<button class="slds-button slds-m-top_xx-small slds-button_outline-brand"(click)="navigateToPatientUpdateDetails()">Update</button>
+	</div>
+</article>
