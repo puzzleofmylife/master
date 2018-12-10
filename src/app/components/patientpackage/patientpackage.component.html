@@ -22,28 +22,42 @@
         <!-- Active -->
         <div *ngIf="currentPackage.statusId == 1" class="slds-m-bottom_small">
             <span *ngIf="!currentPackage.pendingCancellation">Next bill date:</span>
-            <span *ngIf="currentPackage.pendingCancellation">Pending cancellation on:</span>
+            <span *ngIf="currentPackage.pendingCancellation" class="cancelled">Pending cancellation on:</span>
             <div><b>{{currentPackage.nextBillDate | date}}</b></div>
 
             <div *ngIf="currentPackage.pendingCancellation" class="slds-m-top_small">
-                <button class="slds-button slds-button_outline-brand" (click)="stopCancel()">Stop cancellation</button>
+                <button class="slds-button slds-button_outline-brand" (click)="undoCancelPackage()">Stop cancellation</button>
+            </div>
+            <div *ngIf="!currentPackage.pendingCancellation" class="slds-m-top_small">
+                <button class="slds-button slds-button_destructive" (click)="cancelPackage()">Cancel package</button>
             </div>
         </div>
 
         <!-- Pending Payment -->
         <div *ngIf="currentPackage.statusId == 2" class="slds-m-bottom_small">
-            (R{{outstandingBalance}})
+            (R{{outstandingBalance}} is due)
             <div class="slds-m-top_small">
                 <button class="slds-button slds-button_outline-brand" [routerLink]="['/settle-balance']">Pay now</button>
             </div>
+            <div class="slds-m-top_small">
+                <button class="slds-button slds-button_destructive" (click)="cancelPackage()">Cancel package</button>
+            </div>
         </div>
-        
+
         <!-- Cancelled -->
         <div *ngIf="currentPackage.statusId == 3" class="slds-m-bottom_small">
-            <button class="slds-button slds-button_outline-brand" (click)="activate()">Activate</button>
+            <button class="slds-button slds-button_outline-brand" (click)="reactivatePackage()">Reactivate</button>
         </div>
 
         <button class="slds-button slds-button_outline-brand" (click)="changePackage()">Change package</button>
+    </div>
+
+    <div *ngIf="loading" class="slds-align_absolute-center slds-m-top_x-large">
+        <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_inline">
+            <span class="slds-assistive-text">Loading</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+        </div>
     </div>
 
 </article>

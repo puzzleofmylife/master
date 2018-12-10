@@ -45,4 +45,16 @@ export class PatientService {
   changePatientPackage(newPackageId: number) {
     return this.http.post(environment.baseAPIURL + '/api/Patient/package/change/' + newPackageId, null);
   }
+
+  cancelPatientPackage() {
+    return this.http.post(environment.baseAPIURL + '/api/Patient/package/cancel', null);
+  }
+
+  undoCancelPatientPackage() {
+    return this.http.post(environment.baseAPIURL + '/api/Patient/package/cancel/undo', null);
+  }
+
+  reactivatePatientPackage() {
+    return this.http.post(environment.baseAPIURL + '/api/Patient/package/reactivate', null);
+  }
 }
