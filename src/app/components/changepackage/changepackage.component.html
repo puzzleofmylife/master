@@ -12,11 +12,11 @@
     <form [formGroup]="availablePackagesForm" (ngSubmit)="onChoosePackageSubmit()">
         <div class="slds-grid slds-wrap slds-gutters_x-small slds-grid_pull-padded-x-small">
             <div *ngFor="let package of availablePackages" class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2  slds-p-vertical_x-small">
-                <article class="background-color-brand-white slds-card">
+                <article class="background-color-brand-blue slds-card">
                     <div class="slds-card__header slds-grid">
                         <header class="slds-media slds-media_center slds-has-flexi-truncate">
                             <div class="slds-media__body">
-                                <h2 class="slds-card__header-title" style="text-align:center; color:black">
+                                <h2 class="slds-card__header-title" style="text-align:center; color:white">
                                     <span class="slds-card__header-link slds-truncate">
                                         R{{package.cost}}
                                     </span>
@@ -24,7 +24,7 @@
                             </div>
                         </header>
                     </div>
-                    <div class="slds-card__body slds-card__body_inner" style="text-align:center; color:black">
+                    <div class="slds-card__body slds-card__body_inner" style="text-align:center; color:white">
                         <div class="slds-m-bottom_small">
                             {{package.name}}
                         </div>
