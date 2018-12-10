@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Package } from 'src/app/models/Package';
 import { PackageService } from 'src/app/services/package.service';
-import { Router } from '@angular/router';
 import { PatientService } from '../../services/patient.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -14,17 +13,13 @@ export class ChangePackageComponent implements OnInit {
 
   availablePackagesForm: FormGroup;
   availablePackages: Package[];
-  newPackage: Package;
-  currentPackage: Package;
   submitted = false;
   loaded: boolean;
   success: boolean = false;
   gotResult: boolean = false;
   resultText: string;
 
-
   constructor(
-    private router: Router,
     private packageService: PackageService,
     private patientService: PatientService,
     private formBuilder: FormBuilder
@@ -43,9 +38,11 @@ export class ChangePackageComponent implements OnInit {
         this.loaded = true;
       },
         error => {
+          this.loaded = true;
           console.error('Could not load available packages: ' + JSON.stringify(error.error));
         });
     }, error => {
+      this.loaded = true;
       console.error('Could not load patient current package: ' + JSON.stringify(error.error));
     });
 
