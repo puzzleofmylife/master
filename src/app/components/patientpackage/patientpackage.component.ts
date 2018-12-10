@@ -80,4 +80,8 @@ export class PatientPackageComponent implements OnInit {
       console.error(JSON.stringify(error.error));
     });
   }
+
+  getPackageStatusClass(statusId: number) {
+    return this.helpersService.getPackageStatusClass(statusId);
+  }
 }

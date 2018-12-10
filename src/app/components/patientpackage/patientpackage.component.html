@@ -16,7 +16,7 @@
             {{currentPackage.packageName}}
         </div>
         <div class="slds-m-bottom_small">
-            <span [className]="helpersService.getPackageStatusClass(currentPackage.statusId)"><b>{{currentPackage.statusName}}</b></span>
+            <span [className]="getPackageStatusClass(currentPackage.statusId)"><b>{{currentPackage.statusName}}</b></span>
         </div>
 
         <!-- Active -->
