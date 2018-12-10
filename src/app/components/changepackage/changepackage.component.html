@@ -1,0 +1,55 @@
+<div *ngIf="!loaded" class="slds-align_absolute-center slds-m-top_x-large">
+    <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_inline">
+        <span class="slds-assistive-text">Loading</span>
+        <div class="slds-spinner__dot-a"></div>
+        <div class="slds-spinner__dot-b"></div>
+    </div>
+</div>
+
+<div *ngIf="loaded && !gotResult">
+    <div class="slds-text-heading_medium slds-m-bottom_small">Packages</div>
+
+    <form [formGroup]="availablePackagesForm" (ngSubmit)="onChoosePackageSubmit()">
+        <div class="slds-grid slds-wrap slds-gutters_x-small slds-grid_pull-padded-x-small">
+            <div *ngFor="let package of availablePackages" class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2  slds-p-vertical_x-small">
+                <article class="background-color-brand-white slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title" style="text-align:center; color:black">
+                                    <span class="slds-card__header-link slds-truncate">
+                                        R{{package.cost}}
+                                    </span>
+                                </h2>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner" style="text-align:center; color:black">
+                        <div class="slds-m-bottom_small">
+                            {{package.name}}
+                        </div>
+
+                        <div class="slds-radio_button-group slds-m-top_small">
+                            <span class="slds-button slds-radio_button">
+                                <input type="radio" [id]="package.name + package.id" formControlName="packageChoice"
+                                    name="packageChoice" [value]="package.id" />
+                                <label class="slds-radio_button__label" [for]="package.name + package.id">
+                                    <span class="slds-radio_faux">Select</span>
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+
+                </article>
+            </div>
+        </div>
+        <div class="slds-m-top_medium">
+            <a [routerLink]="['/profile']" class="slds-button">Cancel</a>
+            <button *ngIf="availablePackagesForm.valid" class="slds-button slds-button_brand btn-right">Confirm</button>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="gotResult">
+    <app-result [success]="success" [text]="resultText" buttonText="Back to profile" buttonLink="/profile"></app-result>
+</div>

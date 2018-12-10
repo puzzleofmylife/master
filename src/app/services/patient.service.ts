@@ -1,38 +1,67 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PatientQuestion } from '../models/PatientQuestion';
 import { environment } from 'src/environments/environment';
-import { Patient } from '../models/Patient';
-import { Psychologist } from '../models/Psychologist';
+import { PatientQuestion } from '../models/PatientQuestion';
 import PatientQuestionAnswer from '../models/PatientQuestionAnswer';
+import { Psychologist } from '../models/Psychologist';
+import { Patient } from './../models/Patient';
+import { PatientPackage } from '../models/PatientPackage';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class PatientService {
 
-  constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient) { }
 
-  getQuestions(): Observable<PatientQuestion[]> {
-    return this.http.get<PatientQuestion[]>(environment.baseAPIURL + '/api/Patient/questions');
+	getQuestions(): Observable<PatientQuestion[]> {
+		return this.http.get<PatientQuestion[]>(environment.baseAPIURL + '/api/Patient/questions');
+	}
+
+	register(patientUser: Patient): Promise<any> {
+		return this.http.post<any>(environment.baseAPIURL + '/api/User/patient', patientUser).toPromise();
+	}
+
+	getPsychologist(): Observable<Psychologist> {
+		return this.http.get<any>(environment.baseAPIURL + '/api/Patient/psychologist');
+	}
+
+	getQuestionAnswers(patientId: number): Observable<PatientQuestionAnswer[]> {
+		return this.http.get<PatientQuestionAnswer[]>(environment.baseAPIURL + '/api/Patient/questions/answers', {
+			params: new HttpParams().set('patientId', patientId.toString())
+		});
+	}
+
+	changePsychologist(newPsychologistId: number) {
+		return this.http.post(environment.baseAPIURL + '/api/Patient/psychologist/change', newPsychologistId);
+	}
+
+	getPatient(): Observable<Patient> {
+		return this.http.get<any>(environment.baseAPIURL + '/api/Patient');
+	}
+	
+	updatePatient(_patient:Patient): Observable<any> {
+		return this.http.patch<any>(environment.baseAPIURL + '/api/Patient',_patient);
+	}
+
+  getCurrentPatientPackage(): Observable<PatientPackage>{
+    return this.http.get<PatientPackage>(environment.baseAPIURL + '/api/Patient/package');
   }
 
-  register(patientUser: Patient): Promise<any> {
-    return this.http.post<any>(environment.baseAPIURL + '/api/User/patient', patientUser).toPromise();
+  changePatientPackage(newPackageId: number) {
+    return this.http.post(environment.baseAPIURL + '/api/Patient/package/change/' + newPackageId, null);
   }
 
-  getPsychologist(): Observable<Psychologist> {
-    return this.http.get<any>(environment.baseAPIURL + '/api/Patient/psychologist');
+  cancelPatientPackage() {
+    return this.http.post(environment.baseAPIURL + '/api/Patient/package/cancel', null);
   }
 
-  getQuestionAnswers(patientId: number): Observable<PatientQuestionAnswer[]> {
-    return this.http.get<PatientQuestionAnswer[]>(environment.baseAPIURL + '/api/Patient/questions/answers', {
-      params: new HttpParams().set('patientId', patientId.toString())
-    });
+  undoCancelPatientPackage() {
+    return this.http.post(environment.baseAPIURL + '/api/Patient/package/cancel/undo', null);
   }
 
-  changePsychologist(newPsychologistId: number) {
-    return this.http.post(environment.baseAPIURL + '/api/Patient/psychologist/change', newPsychologistId);
+  reactivatePatientPackage() {
+    return this.http.post(environment.baseAPIURL + '/api/Patient/package/reactivate', null);
   }
 }
