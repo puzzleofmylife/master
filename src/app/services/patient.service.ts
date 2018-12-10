@@ -6,6 +6,7 @@ import { PatientQuestion } from '../models/PatientQuestion';
 import PatientQuestionAnswer from '../models/PatientQuestionAnswer';
 import { Psychologist } from '../models/Psychologist';
 import { Patient } from './../models/Patient';
+import { PatientPackage } from '../models/PatientPackage';
 
 @Injectable({
 	providedIn: 'root'
@@ -43,4 +44,24 @@ export class PatientService {
 	updatePatient(_patient:Patient): Observable<any> {
 		return this.http.patch<any>(environment.baseAPIURL + '/api/Patient',_patient);
 	}
+
+  getCurrentPatientPackage(): Observable<PatientPackage>{
+    return this.http.get<PatientPackage>(environment.baseAPIURL + '/api/Patient/package');
+  }
+
+  changePatientPackage(newPackageId: number) {
+    return this.http.post(environment.baseAPIURL + '/api/Patient/package/change/' + newPackageId, null);
+  }
+
+  cancelPatientPackage() {
+    return this.http.post(environment.baseAPIURL + '/api/Patient/package/cancel', null);
+  }
+
+  undoCancelPatientPackage() {
+    return this.http.post(environment.baseAPIURL + '/api/Patient/package/cancel/undo', null);
+  }
+
+  reactivatePatientPackage() {
+    return this.http.post(environment.baseAPIURL + '/api/Patient/package/reactivate', null);
+  }
 }

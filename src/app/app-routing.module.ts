@@ -20,9 +20,10 @@ import { PatientProfileComponent } from './components/patient-profile/patient-pr
 import { ForgotPasswordComponent } from './components/forgotpassword/forgotpassword.component';
 import { ResetPasswordComponent } from './components/resetpassword/resetpassword.component';
 import { PsychologistSessionComponent } from './components/psychologist-session/psychologist-session.component';
-import { PatientPsychologistComponent } from './components/patient-psychologist/patient-psychologist.component';
 import { ChangePsychologistComponent } from './components/change-psychologist/change-psychologist.component';
 import { ConfirmEmailSendComponent } from './components/confirm-email-send/confirm-email-send.component';
+import { ChangePackageComponent } from './components/changepackage/changepackage.component';
+import { SettleBalanceComponent } from './components/settle-balance/settle-balance.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -41,12 +42,17 @@ const routes: Routes = [
   { path: 'psychologist/:id', component: PsychologistComponent },
   { path: 'session', component: PatientSessionComponent },
   { path: 'notifications', component: NotificationComponent },
+  { path: 'update-card', component: PaymentUpdateComponent },
+  { path: 'profile', component: PatientProfileComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'confirmemail/send', component: ConfirmEmailSendComponent },
   { path: 'update-card', component: PaymentUpdateComponent },
   { path: 'profile', component: PatientProfileComponent },
-  { path: 'profile/update-details',component:PatientEditComponent}
+  { path: 'profile/update-details',component:PatientEditComponent},
+  { path: 'profile/change-package', component: ChangePackageComponent},
+  { path: 'settle-balance', component: SettleBalanceComponent},
+  { path: 'edit-patient/:id',component:PatientEditComponent}
 ];
 
 @NgModule({

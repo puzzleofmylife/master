@@ -1,5 +1,4 @@
 import { Component, OnInit, Renderer2, Inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 
 import { Patient } from '../../models/Patient';

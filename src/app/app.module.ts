@@ -32,6 +32,8 @@ import { PatientSessionComponent } from './components/patient-session/patient-se
 import { NotificationNavComponent } from './components/notification-nav/notification-nav.component';
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { ChangePackageComponent } from './components/changepackage/changepackage.component';
+import { PatientPackageComponent } from './components/patientpackage/patientpackage.component';
 import { PatientProfileComponent } from './components/patient-profile/patient-profile.component';
 import { PaymentDetailsComponent } from './components/payment-details/payment-details.component';
 import { PaymentUpdateComponent } from './components/payment-update/payment-update.component';
@@ -43,6 +45,7 @@ import { PatientPsychologistComponent } from './components/patient-psychologist/
 import { ChangePsychologistComponent } from './components/change-psychologist/change-psychologist.component';
 import { ResultComponent } from './components/result/result.component';
 import { ConfirmEmailSendComponent } from './components/confirm-email-send/confirm-email-send.component';
+import { SettleBalanceComponent } from './components/settle-balance/settle-balance.component';
 import { PatientEditComponent } from './components/patient-edit/patient-edit.component';
 import { PatientPersonalDetailsComponent } from './components/patient-personal-details/patient-personal-details.component';
 
@@ -73,6 +76,8 @@ import { PatientPersonalDetailsComponent } from './components/patient-personal-d
 		TimeAgoPipe,
 		PatientSessionComponent,
 		NotificationComponent,
+		ChangePackageComponent,
+		PatientPackageComponent,
 		PatientProfileComponent,
 		PaymentDetailsComponent,
 		PaymentUpdateComponent,
@@ -84,8 +89,9 @@ import { PatientPersonalDetailsComponent } from './components/patient-personal-d
 		ChangePsychologistComponent,
 		ResultComponent,
 		ConfirmEmailSendComponent,
-		PatientEditComponent,
-		PatientPersonalDetailsComponent
+		PatientPersonalDetailsComponent,
+		SettleBalanceComponent,
+		PatientEditComponent
 	],
 	imports: [
 		BrowserModule,
