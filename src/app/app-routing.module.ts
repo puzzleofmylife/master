@@ -46,7 +46,7 @@ const routes: Routes = [
   { path: 'confirmemail/send', component: ConfirmEmailSendComponent },
   { path: 'update-card', component: PaymentUpdateComponent },
   { path: 'profile', component: PatientProfileComponent },
-  { path: 'edit-patient/:id',component:PatientEditComponent}
+  { path: 'profile/update-details',component:PatientEditComponent}
 ];
 
 @NgModule({
