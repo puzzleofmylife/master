@@ -21,9 +21,7 @@ export class PsychoService {
 		return this.http.get<PsychologistStatus[]>(environment.baseAPIURL + '/api/Psychologist/statuses');
 	}
 	getByStatus(psychologistStatusId: number): Observable<Psychologist[]> {
-		return this.http.get<Psychologist[]>(environment.baseAPIURL + '/api/Psychologist', {
-			params: new HttpParams().set('psychologistStatusId', psychologistStatusId.toString())
-		});
+		return this.http.get<Psychologist[]>(environment.baseAPIURL + '/api/Psychologist/status/' + psychologistStatusId);
 	}
 
 	getById(id: number): Observable<Psychologist> {
