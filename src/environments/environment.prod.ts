@@ -4,5 +4,5 @@ export const environment = {
   applicationOutcomeDays: 7,
   emailAdmin: "admin@puzzleofmylife.co.za",
   checkoutFormSrc: "https://test.oppwa.com/v1/paymentWidgets.js",
-  baseAppUrl: "https://puzzleofmylifeapp.azurewebsites.net",
+  baseAppUrl: "https://puzzleapi.eu-gb.mybluemix.net",
 };
