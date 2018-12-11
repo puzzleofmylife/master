@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "dist": "ng build --prod && cp src/static/manifest.yml src/static/Staticfile dist/puzzleofmylifeapp",
+    "push": "npm run dist && cd dist/puzzleofmylifeapp && bluemix cf push"
   },
   "private": true,
   "dependencies": {
