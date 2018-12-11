@@ -30,16 +30,24 @@ export class PsychologistComponent implements OnInit {
 
 		this.authService.authState().subscribe(x => this.loggedIn = x);
 
-		const id = +(this.route.snapshot.params["id"]);
-		this.psychoService.getById(id).subscribe((psychologist) => {
-			this.psychologist = psychologist;
-			this.psychologist.attachments = this.psychologist.attachments.filter(x => x.typeId != 2);
-			this.loaded = true;
-		});
+		const id = this.route.snapshot.params["id"];
+		if (id) {
+			this.psychoService.getById(id).subscribe((psychologist) => {
+				this.psychologist = psychologist;
+				this.psychologist.attachments = this.psychologist.attachments.filter(x => x.typeId != 2);
+				this.loaded = true;
+			});
+		} else {
+			this.psychoService.getPsychologist().subscribe((psychologist) => {
+				this.psychologist = psychologist;
+				this.psychologist.attachments = this.psychologist.attachments.filter(x => x.typeId != 2);
+				this.loaded = true;
+			});
+		}
 
 	}
 
-	getAttachmentDisplayName(attachment: any): string{
+	getAttachmentDisplayName(attachment: any): string {
 		var attachmentDisplayName = attachment.type + '.' + attachment.fileName.split('.')[1];
 		return attachmentDisplayName;
 	}
@@ -63,8 +71,8 @@ export class PsychologistComponent implements OnInit {
 	}
 
 	proceedApproval() {
-		if(!this.approve){
-			if(!this.denyMessage){
+		if (!this.approve) {
+			if (!this.denyMessage) {
 				this.denyReasonRequired = true;
 				return;
 			}

@@ -45,4 +45,8 @@ export class PsychoService {
 			params: new HttpParams().set('attachmentId', attachmentId.toString())
 		});
 	}
+
+	getPsychologist(): Observable<Psychologist> {
+		return this.http.get<Psychologist>(environment.baseAPIURL + '/api/Psychologist');
+	}
 }
