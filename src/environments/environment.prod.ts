@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  baseAPIURL: "https://puzzleapi.azurewebsites.net",
+  baseAPIURL: "https://puzzleapi.eu-gb.mybluemix.net",
   applicationOutcomeDays: 7,
   emailAdmin: "admin@puzzleofmylife.co.za",
   checkoutFormSrc: "https://test.oppwa.com/v1/paymentWidgets.js",
