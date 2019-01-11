@@ -106,13 +106,19 @@
 									</a>
 								</li>
 
+								<li *ngIf="authState.IsPsychologist" class="slds-dropdown__header slds-truncate" title="Profile" role="separator">
+									<a role="menuitem" [routerLink]="['/profile/psychologist']">
+										<span class="slds-text-title_caps">Profile</span>
+									</a>
+								</li>
+
 								<li *ngIf="authState.IsPsychologist" class="slds-dropdown__header slds-truncate" title="Patients" role="separator">
 									<a role="menuitem" [routerLink]="['/psychologist/patients']">
 										<span class="slds-text-title_caps">Patients</span>
 									</a>
 								</li>
 
-								<li class="slds-has-divider_top-space" role="separator"></li>
+								<li *ngIf="!authState.IsAdmin" class="slds-has-divider_top-space" role="separator"></li>
 
 								<li class="slds-dropdown__header slds-truncate" title="Logout" role="separator">
 									<a role="menuitem">
