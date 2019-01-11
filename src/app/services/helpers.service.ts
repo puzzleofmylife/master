@@ -38,6 +38,8 @@ export class HelpersService {
 			case 3:
 				status = 'denied';
 				break;
+			case 4:
+				status = 'disabled';
 		}
 		return status;
 	}
