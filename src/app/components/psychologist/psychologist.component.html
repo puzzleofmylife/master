@@ -1,7 +1,6 @@
 <div *ngIf="loaded">
     <div class="slds-grid slds-wrap">
         <div style="word-break: break-word" class="slds-p-right_small slds-col slds-size_12-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12">
-
             <div>
                 <div class="slds-m-bottom_small">
                     <img *ngIf="psychologist.photo" [src]="psychologist.photo" alt="profile photo" class="image-round">
@@ -91,12 +90,61 @@
             </div>
         </div>
     </div>
-    <div class="slds-grid slds-grid_align-end slds-m-vertical_medium" *ngIf="(psychologist.statusId == 1 && loggedIn.IsAdmin)">
-        <div>
-            <span><button class="slds-button slds-button_destructive" (click)="doApproval(false)">Deny</button></span>
-            <span class="slds-m-left_medium"><button class="slds-button slds-button_brand" (click)="doApproval(true)">Approve</button></span>
+    <div class='slds-grid slds-grid_align-spread slds-m-vertical_medium'>
+        <div *ngIf="(loggedIn.IsPsychologist || loggedIn.IsAdmin)">
+            <button class="slds-button slds-button_outline-brand" [routerLink]="['/profile/psychologist/update', psychologist.id]">Edit</button>
+        </div>
+        <div *ngIf="(psychologist.statusId == 1 && loggedIn.IsAdmin)">
+            <div>
+                <span><button class="slds-button slds-button_destructive" (click)="doApproval(false)">Deny</button></span>
+                <span class="slds-m-left_medium"><button class="slds-button slds-button_brand" (click)="doApproval(true)">Approve</button></span>
+            </div>
         </div>
     </div>
+
+    <div class="slds-grid slds-grid_align-end slds-m-vertical_medium" *ngIf="(psychologist.statusId == 2 && loggedIn.IsAdmin)">
+        <span><button class="slds-button slds-button_destructive" (click)="doDisable(true)">Disable</button></span>
+    </div>
+
+    <div class="slds-grid slds-grid_align-end slds-m-vertical_medium" *ngIf="(psychologist.statusId == 4 && loggedIn.IsAdmin)">
+        <span><button class="slds-button slds-button_brand" (click)="doEnable(true)">Enable</button></span>
+    </div>
+</div>
+
+<div *ngIf="(showDisablePrompt)">
+    <section role="alertdialog" tabindex="-1" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper"
+        class="slds-modal slds-fade-in-open slds-modal_prompt" aria-modal="true">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header slds-theme_warning">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+                    <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close" />
+                    </svg>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <h2 class="slds-text-heading_medium" id="prompt-heading-id">Confirm</h2>
+            </header>
+            <div>
+                <div class="slds-modal__content slds-p-around_small" id="prompt-message-wrapper">
+                    <p>Are you sure you want to <b>DISABLE</b> this psychologist?</p>
+                </div>
+            </div>
+            <div>
+                <div class="slds-modal__content slds-p-around_xx-small" id="prompt-message-wrapper">
+                    <p>Please provide a reason for disabling</p>
+                    <textarea [(ngModel)]="disableMessage" style="width:100%; height:100%" rows="5" name="disableMessage"></textarea>
+                    <div *ngIf="disableReasonRequired" class="slds-text-color_error">Reason for disabling is required</div>
+                </div>
+            </div>
+            <footer class="slds-modal__footer slds-theme_default">
+                <button class="slds-button slds-button_neutral" (click)="cancelDisable()">Cancel</button>
+                <button class="slds-button slds-button_brand" (click)="proceedDisable()">Proceed</button>
+                <div *ngIf="disableError" class="slds-text-color_error">An error occurred</div>
+            </footer>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+    
 </div>
 
 
