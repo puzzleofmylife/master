@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthState } from 'src/app/models/AuthState';
 import { Psychologist } from 'src/app/models/Psychologist';
 import { AuthService } from './../../services/auth.service';
@@ -24,13 +24,24 @@ export class PsychologistComponent implements OnInit {
 	denyReasonRequired: boolean = false;
 	approvalError: boolean = false;
 
-	constructor(private authService: AuthService, private psychoService: PsychoService, private route: ActivatedRoute, private helpersService: HelpersService) { }
+	//Disabled and Enable fields
+	showDisablePrompt: boolean = false;
+	showEnablePrompt: boolean = false;
+	disableMessage: string;
+	disableReasonRequired: boolean = false;
+	disableError: boolean = false;
+	enableError: boolean = false;
+
+	constructor(
+		private authService: AuthService,
+		private psychoService: PsychoService,
+		private route: ActivatedRoute,
+		private router: Router,
+		private helpersService: HelpersService) { }
 
 	ngOnInit() {
-
 		this.authService.authState().subscribe(x => this.loggedIn = x);
-
-		const id = this.route.snapshot.params["id"];
+		const id = <any>this.route.snapshot.paramMap.get('id');
 		if (id) {
 			this.psychoService.getById(id).subscribe((psychologist) => {
 				this.psychologist = psychologist;
