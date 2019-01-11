@@ -47,4 +47,12 @@ export class PsychoService {
 	getPsychologist(): Observable<Psychologist> {
 		return this.http.get<Psychologist>(environment.baseAPIURL + '/api/Psychologist');
 	}
+
+	disable(id: number, reason: string): Observable<any> {
+		return this.http.post(environment.baseAPIURL + '/api/Psychologist/disable', {psychologistId: id, reason: reason});
+	}
+
+	enable(id: number): Observable<any> {
+		return this.http.post(environment.baseAPIURL + '/api/Psychologist/enable/' + id, null);
+	}
 }
