@@ -77,6 +77,49 @@ export class PsychologistComponent implements OnInit {
 		this.approve = approve;
 	}
 
+	doDisable() {
+		this.showDisablePrompt = true;
+	}
+
+	doEnable() {
+		this.showEnablePrompt = true;
+	}
+
+	proceedEnable() {
+		this.psychoService.enable(this.psychologist.id).subscribe(x => {
+			this.psychologist.status = x.name;
+			this.psychologist.statusId = x.id;
+			this.showEnablePrompt = false;
+		}, error => {
+			this.enableError = true;
+			console.log(JSON.stringify(error));
+		});
+	}
+
+	proceedDisable() {
+		if (!this.disableMessage) {
+			this.disableReasonRequired = true;
+			return;
+		}
+
+		this.psychoService.disable(this.psychologist.id, this.disableMessage).subscribe(x => {
+			this.psychologist.status = x.name;
+			this.psychologist.statusId = x.id;
+			this.showDisablePrompt = false;
+		}, error => {
+			this.disableError = true;
+			console.log(JSON.stringify(error));
+		});
+	}
+
+	cancelDisable() {
+		this.showDisablePrompt = false;
+	}
+
+	cancelEnable() {
+		this.showEnablePrompt = false;
+	}
+
 	cancelApproval() {
 		this.showApproveDenyPrompt = false;
 	}
