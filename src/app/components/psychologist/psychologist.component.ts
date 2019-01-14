@@ -41,7 +41,7 @@ export class PsychologistComponent implements OnInit {
 
 	ngOnInit() {
 		this.authService.authState().subscribe(x => this.loggedIn = x);
-		const id = <any>this.route.snapshot.paramMap.get('id');
+		const id = this.route.snapshot.paramMap.get('id') as any;
 		if (id) {
 			this.psychoService.getById(id).subscribe((psychologist) => {
 				this.psychologist = psychologist;
