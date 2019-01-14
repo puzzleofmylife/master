@@ -23,12 +23,11 @@ export class PsychologistUpdateComponent implements OnInit {
 
 	submitted: Boolean = false;
 	errors: Boolean = false;
-	success: Boolean = false;
-	loading: Boolean = true;
-	gotResult: Boolean;
+	loading: Boolean = false;
+	needsEmailConfirmation: Boolean;
 	errorMessage: string;
 	resultText: string;
-
+	saving: boolean;
 
 	constructor(
 		private _psychogistService: PsychoService,
@@ -70,6 +69,7 @@ export class PsychologistUpdateComponent implements OnInit {
 	}
 
 	initPsychUpdateForm(): void {
+		this.loading = true;
 		const id = +this._route.snapshot.paramMap.get('id');
 		this._psychogistService.getById(id).subscribe(response => {
 			this.updatePsychologistForm.controls.firstName.setValue(response.firstName);
@@ -87,9 +87,9 @@ export class PsychologistUpdateComponent implements OnInit {
 			this.updatePsychologistForm.controls.yearsOfExperience.setValue(response.experienceYears);
 			this.updatePsychologistForm.controls.licenseNum.setValue(response.licenseNumber);
 			this.psychologist.id = response.id;
-
 			this.loading = false;
 		});
+
 	}
 	async onPsychUpdateSubmit() {
 		this.submitted = true;
@@ -109,21 +109,20 @@ export class PsychologistUpdateComponent implements OnInit {
 			this.psychologist.experienceYears = this.updatePsychologistForm.controls.yearsOfExperience.value;
 			this.psychologist.licenseNumber = this.updatePsychologistForm.controls.licenseNum.value;
 			this.psychologist.attachments = await this.generateAttachments();
-			this.loading = true;
-			this._psychogistService.updatePsychologist(this.psychologist).subscribe(response => {
+			this.saving = true;
 
+			this._psychogistService.updatePsychologist(this.psychologist).subscribe(response => {
+				this.saving = false;
 				if (response.needsEmailConfirmation) {
-					this.success = true;
-					this.setResultFlags();
-					this.resultText = "We've sent you a verification email. Please confirm your email address to complete the update.";
+					this.needsEmailConfirmation = true;
+					this.resultText = "We've sent a confirmation email. Please confirm your email address to complete the update.";
 				} else {
 					this._router.navigate(['/profile/psychologist', this.psychologist.id]);
 				}
 			}, error => {
 				this.errors = true;
-				this.loading = false;
-
-				if (this.errors && error.error.DuplicateEmail) {
+				this.saving = false;
+				if (error.error.DuplicateEmail) {
 					this.errorMessage = "Email address already exists.";
 				} else {
 					this.errorMessage = "An error occured.";
@@ -132,12 +131,8 @@ export class PsychologistUpdateComponent implements OnInit {
 			});
 		} else {
 			this.errors = true;
-			this.errorMessage = 'Please ensure that all required fields are completed.';
+			this.errorMessage = 'Please ensure that all fields are valid.';
 		}
-	}
-	setResultFlags(): void {
-		this.loading = false;
-		this.gotResult = true;
 	}
 	/* File size attachment validation */
 	onCVFileChange(event) {

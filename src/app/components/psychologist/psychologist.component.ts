@@ -36,7 +36,6 @@ export class PsychologistComponent implements OnInit {
 		private authService: AuthService,
 		private psychoService: PsychoService,
 		private route: ActivatedRoute,
-		private router: Router,
 		private helpersService: HelpersService) { }
 
 	ngOnInit() {
