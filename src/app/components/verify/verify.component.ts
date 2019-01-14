@@ -16,6 +16,7 @@ export class VerifyComponent implements OnInit {
   isPsych: boolean = false;
   environment = environment;
   resultText: string;
+  isEmailUpdate: boolean;
 
   constructor(private userService: UserService, private route: ActivatedRoute, private authService: AuthService) { }
 
@@ -24,8 +25,9 @@ export class VerifyComponent implements OnInit {
       let userId = params['i'];
       let confirmToken = params['t'];
       this.isPsych = params['psych'] == "1" ? true : false;
+      this.isEmailUpdate = params['isEmailUpdate'] == "1" ? true : false;
 
-      this.userService.confirmEmail(userId, encodeURIComponent(confirmToken)).subscribe(result => {
+      this.userService.confirmEmail(userId, encodeURIComponent(confirmToken), this.isEmailUpdate).subscribe(result => {
         this.success = true;
         this.loaded = true;
 
@@ -37,10 +39,13 @@ export class VerifyComponent implements OnInit {
                               You will receive the outcome of your application within ${environment.applicationOutcomeDays} working days.
                                 Should you not hear from us within stipulated timeframe, kindly <a href="mailto:${environment.emailAdmin}"
                                   target="_top">contact us</a>.`;
+        }
+        if (this.isEmailUpdate) {
+          this.resultText = 'Your email address has been verified and updated.';
         } else {
           this.resultText = 'Your email address has been verified, and you are now logged in.';
         }
-        
+
         this.authService.setAccessToken(result.token);
       }, error => {
         this.success = false;
