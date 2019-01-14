@@ -94,6 +94,15 @@
         <div *ngIf="(loggedIn.IsPsychologist || loggedIn.IsAdmin)">
             <button class="slds-button slds-button_outline-brand" [routerLink]="['/profile/psychologist/update', psychologist.id]">Edit</button>
         </div>
+
+        <div *ngIf="(psychologist.statusId == 2 && loggedIn.IsAdmin)">
+            <span><button class="slds-button slds-button_destructive" (click)="doDisable(true)">Disable</button></span>
+        </div>
+    
+        <div *ngIf="(psychologist.statusId == 4 && loggedIn.IsAdmin)">
+            <span><button class="slds-button slds-button_brand" (click)="doEnable(true)">Enable</button></span>
+        </div>
+        
         <div *ngIf="(psychologist.statusId == 1 && loggedIn.IsAdmin)">
             <div>
                 <span><button class="slds-button slds-button_destructive" (click)="doApproval(false)">Deny</button></span>
@@ -102,13 +111,6 @@
         </div>
     </div>
 
-    <div class="slds-grid slds-grid_align-end slds-m-vertical_medium" *ngIf="(psychologist.statusId == 2 && loggedIn.IsAdmin)">
-        <span><button class="slds-button slds-button_destructive" (click)="doDisable(true)">Disable</button></span>
-    </div>
-
-    <div class="slds-grid slds-grid_align-end slds-m-vertical_medium" *ngIf="(psychologist.statusId == 4 && loggedIn.IsAdmin)">
-        <span><button class="slds-button slds-button_brand" (click)="doEnable(true)">Enable</button></span>
-    </div>
 </div>
 
 <div *ngIf="(showDisablePrompt)">
