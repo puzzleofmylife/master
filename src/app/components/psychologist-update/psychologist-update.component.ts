@@ -70,7 +70,7 @@ export class PsychologistUpdateComponent implements OnInit {
 	}
 
 	initPsychUpdateForm(): void {
-		const id = <any>this._route.snapshot.paramMap.get('id');
+		const id = +this._route.snapshot.paramMap.get('id');
 		this._psychogistService.getById(id).subscribe(response => {
 			this.updatePsychologistForm.controls.firstName.setValue(response.firstName);
 			this.updatePsychologistForm.controls.surname.setValue(response.lastName);
@@ -115,21 +115,19 @@ export class PsychologistUpdateComponent implements OnInit {
 				if (response.needsEmailConfirmation) {
 					this.success = true;
 					this.setResultFlags();
-					this.resultText = "We've sent a confirmation email to your new email address. Please confirm your email address to complete the update.";
+					this.resultText = "We've sent you a verification email. Please confirm your email address to complete the update.";
 				} else {
 					this._router.navigate(['/profile/psychologist', this.psychologist.id]);
 				}
 			}, error => {
 				this.errors = true;
 				this.loading = false;
-				if (this.errors) {
-					if (error.error.DuplicateEmail) {
-						this.errorMessage = "Email address already exists.";
-					}
-					else {
-						this.errorMessage = "An error occured.";
-						console.error(JSON.stringify(error));
-					}
+
+				if (this.errors && error.error.DuplicateEmail) {
+					this.errorMessage = "Email address already exists.";
+				} else {
+					this.errorMessage = "An error occured.";
+					console.error(JSON.stringify(error));
 				}
 			});
 		} else {
