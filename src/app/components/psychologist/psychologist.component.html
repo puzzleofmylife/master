@@ -92,7 +92,7 @@
     </div>
     <div class='slds-grid slds-grid_align-spread slds-m-vertical_medium'>
         <div *ngIf="(loggedIn.IsPsychologist || loggedIn.IsAdmin)">
-            <button class="slds-button slds-button_outline-brand" [routerLink]="['/profile/psychologist/update', psychologist.id]">Edit</button>
+            <button class="slds-button slds-button_outline-brand" [routerLink]="['/profile/psychologist/update', psychologist.id]">Update details</button>
         </div>
 
         <div *ngIf="(psychologist.statusId == 2 && loggedIn.IsAdmin)">
