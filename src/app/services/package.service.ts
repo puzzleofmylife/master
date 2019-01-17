@@ -14,4 +14,16 @@ export class PackageService {
   getActivePackages(): Observable<Package[]> {
     return this.http.get<Package[]>(environment.baseAPIURL + '/api/Package/active');
   }
+
+  getAllPackages(): Observable<Package[]> {
+    return this.http.get<Package[]>(environment.baseAPIURL + '/api/Package');
+  }
+
+  disable(packageId: number): Observable<Package> {
+    return this.http.post<Package>(environment.baseAPIURL + '/api/Package/disable/' + packageId, null);
+  }
+
+  enable(packageId: number): Observable<Package> {
+    return this.http.post<Package>(environment.baseAPIURL + '/api/Package/enable/' + packageId, null);
+  }
 }

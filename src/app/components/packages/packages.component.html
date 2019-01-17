@@ -1,0 +1,38 @@
+<div *ngIf="!loaded" class="slds-align_absolute-center slds-m-top_x-large">
+  <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_inline">
+    <span class="slds-assistive-text">Loading</span>
+    <div class="slds-spinner__dot-a"></div>
+    <div class="slds-spinner__dot-b"></div>
+  </div>
+</div>
+
+<div class="slds-grid slds-wrap slds-gutters_x-small slds-grid_pull-padded-x-small">
+  <div *ngFor="let package of packages" class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2  slds-p-vertical_x-small">
+    <article class="background-color-brand-blue slds-card">
+      <div class="slds-card__header slds-grid">
+        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+          <div class="slds-media__body">
+            <h2 class="slds-card__header-title" style="text-align:center; color:white">
+              <span class="slds-card__header-link slds-truncate">
+                R{{package.cost}}
+              </span>
+            </h2>
+          </div>
+        </header>
+      </div>
+      <div class="slds-card__body slds-card__body_inner" style="text-align:center; color:white">
+        <div class="slds-m-bottom_small">
+          <b>Name:</b> {{package.name}}
+        </div>
+        <div class="slds-m-bottom_small">
+          <b>Duration:</b> {{package.durationDays}} days
+        </div>
+        <button *ngIf="showEnabled" (click)="disable(package.id)" class="slds-button slds-button_destructive">Disable</button>
+        <button *ngIf="!showEnabled" (click)="enable(package.id)" class="slds-button slds-button_brand">Enable</button>
+
+        <button class="slds-button slds-button_outline-brand" [routerLink]="['/admin/package/edit', package.id]">Edit</button>
+      </div>
+
+    </article>
+  </div>
+</div>

@@ -48,6 +48,7 @@ import { ConfirmEmailSendComponent } from './components/confirm-email-send/confi
 import { SettleBalanceComponent } from './components/settle-balance/settle-balance.component';
 import { PatientEditComponent } from './components/patient-edit/patient-edit.component';
 import { PatientPersonalDetailsComponent } from './components/patient-personal-details/patient-personal-details.component';
+import { PackagesComponent } from './components/packages/packages.component';
 
 @NgModule({
 	declarations: [
@@ -91,7 +92,8 @@ import { PatientPersonalDetailsComponent } from './components/patient-personal-d
 		ConfirmEmailSendComponent,
 		PatientPersonalDetailsComponent,
 		SettleBalanceComponent,
-		PatientEditComponent
+		PatientEditComponent,
+		PackagesComponent
 	],
 	imports: [
 		BrowserModule,
