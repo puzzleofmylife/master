@@ -1,15 +1,19 @@
 <button [routerLink]="['/admin/package/create']" class="slds-button slds-float_right">New package</button>
 
-<div class="slds-text-heading_large slds-m-bottom_small">
+<div class="slds-text-heading_large slds-m-bottom_medium">
   <b>Packages</b>
 </div>
 
-<div class="slds-text-heading_medium">
-  Enabled
+<div class="slds-m-top_small">
+  <div class="slds-text-heading_medium">
+    Enabled
+  </div>
+  <app-packages #enabledPackagesCmp (packageUpdateEvt)="reload()" [showEnabled]="enabledPackagesFlag"></app-packages>
 </div>
-<app-packages #enabledPackagesCmp (packageUpdateEvt)="reload()" [showEnabled]="enabledPackagesFlag"></app-packages>
 
-<div class="slds-text-heading_medium">
-  Disabled
+<div class="slds-m-top_small">
+  <div class="slds-text-heading_medium">
+    Disabled
+  </div>
+  <app-packages #disbaledPackagesCmp (packageUpdateEvt)="reload()" [showEnabled]="disabledPackagesFlag"></app-packages>
 </div>
-<app-packages #disbaledPackagesCmp (packageUpdateEvt)="reload()" [showEnabled]="disabledPackagesFlag"></app-packages>
