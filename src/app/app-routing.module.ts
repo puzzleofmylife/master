@@ -1,3 +1,4 @@
+import { PsychologistUpdateComponent } from './components/psychologist-update/psychologist-update.component';
 import { PatientEditComponent } from './components/patient-edit/patient-edit.component';
 import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -41,7 +42,8 @@ const routes: Routes = [
   { path: 'admin/psychologists', component: PsychologistListComponent },
   { path: 'psychologist/patients', component: PsychologistSessionComponent},
   { path: 'profile/change-psychologist', component: ChangePsychologistComponent },
-  { path: 'psychologist/:id', component: PsychologistComponent },
+  { path: 'profile/psychologist/:id', component: PsychologistComponent },
+  { path: 'profile/psychologist', component: PsychologistComponent },
   { path: 'session', component: PatientSessionComponent },
   { path: 'notifications', component: NotificationComponent },
   { path: 'update-card', component: PaymentUpdateComponent },
@@ -57,7 +59,8 @@ const routes: Routes = [
   { path: 'edit-patient/:id',component:PatientEditComponent},
   { path: 'admin/packages',component:PackageManageComponent},
   { path: 'admin/package/edit/:id',component:PackageCreateUpdatesComponent},
-  { path: 'admin/package/create',component:PackageCreateUpdatesComponent}
+  { path: 'admin/package/create',component:PackageCreateUpdatesComponent},
+  { path: 'profile/psychologist/update/:id',component:PsychologistUpdateComponent}
 ];
 
 @NgModule({

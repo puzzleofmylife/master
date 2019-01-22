@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthState } from 'src/app/models/AuthState';
 import { Psychologist } from 'src/app/models/Psychologist';
 import { AuthService } from './../../services/auth.service';
@@ -32,13 +32,15 @@ export class PsychologistComponent implements OnInit {
 	disableError: boolean = false;
 	enableError: boolean = false;
 
-	constructor(private authService: AuthService, private psychoService: PsychoService, private route: ActivatedRoute, private helpersService: HelpersService) { }
+	constructor(
+		private authService: AuthService,
+		private psychoService: PsychoService,
+		private route: ActivatedRoute,
+		private helpersService: HelpersService) { }
 
 	ngOnInit() {
-
 		this.authService.authState().subscribe(x => this.loggedIn = x);
-
-		const id = this.route.snapshot.params["id"];
+		const id = this.route.snapshot.paramMap.get('id') as any;
 		if (id) {
 			this.psychoService.getById(id).subscribe((psychologist) => {
 				this.psychologist = psychologist;

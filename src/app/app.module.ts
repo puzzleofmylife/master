@@ -51,6 +51,7 @@ import { PatientPersonalDetailsComponent } from './components/patient-personal-d
 import { PackagesComponent } from './components/packages/packages.component';
 import { PackageManageComponent } from './components/package-manage/package-manage.component';
 import { PackageCreateUpdatesComponent } from './components/package-create-updates/package-create-updates.component';
+import { PsychologistUpdateComponent } from './components/psychologist-update/psychologist-update.component';
 
 @NgModule({
 	declarations: [
@@ -97,7 +98,8 @@ import { PackageCreateUpdatesComponent } from './components/package-create-updat
 		PatientEditComponent,
 		PackagesComponent,
 		PackageManageComponent,
-		PackageCreateUpdatesComponent
+		PackageCreateUpdatesComponent,
+		PsychologistUpdateComponent
 	],
 	imports: [
 		BrowserModule,

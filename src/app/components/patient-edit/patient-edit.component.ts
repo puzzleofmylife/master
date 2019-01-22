@@ -27,7 +27,7 @@ export class PatientEditComponent implements OnInit {
 		this._patientService.getPatient().subscribe(response => {
 			this.loading = false;
 			this.patientEditForm.controls.patientEmail.setValue(response.email);
-			this.patientEditForm.controls.patientAlias.setValue(response.alias)
+			this.patientEditForm.controls.patientAlias.setValue(response.alias);
 		});
 	}
 

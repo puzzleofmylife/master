@@ -31,7 +31,7 @@ export class PsychoService {
 	register(psycho: Psychologist) {
 		return this.http.post(environment.baseAPIURL + '/api/User/psychologist', psycho);
 	}
-
+    
 	approveDeny(id: number, approve: boolean, denyMessage: string): Observable<any> {
 		var params = { psychologistId: id, approve: approve, denyMessage: denyMessage };
 
@@ -55,4 +55,7 @@ export class PsychoService {
 	enable(id: number): Observable<any> {
 		return this.http.post(environment.baseAPIURL + '/api/Psychologist/enable/' + id, null);
 	}
+	updatePsychologist(_psychologist:Psychologist):Observable<any> {
+		return this.http.patch<any>(environment.baseAPIURL + '/api/Psychologist/update',_psychologist)
+	};
 }

@@ -1,0 +1,227 @@
+<div *ngIf="!needsEmailConfirmation">
+  <form [formGroup]="updatePsychologistForm" (ngSubmit)="onPsychUpdateSubmit()">
+    <!-- Personal details -->
+    <div class="slds-text-heading_large">
+      <b>Update details</b>
+    </div>
+    <div class="slds-text-heading_medium slds-m-top_large slds-m-bottom_x-small">Personal details</div>
+    <div class="slds-m-top_small">
+      <label class="slds-form-element__label" for="firstName">First name*</label>
+      <div class="slds-form-element__control">
+        <input type="text" formControlName="firstName" class="form-control slds-input" />
+        <div *ngIf="submitted && updatePsychologistForm.controls.firstName.errors" class="slds-text-color_error">
+          <div *ngIf="updatePsychologistForm.controls.firstName.errors.required">First name is required</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slds-m-top_small">
+      <label class="slds-form-element__label" for="surname">Surname*</label>
+      <div class="slds-form-element__control">
+        <input type="text" formControlName="surname" class="form-control slds-input" />
+        <div *ngIf="submitted && updatePsychologistForm.controls.surname.errors" class="slds-text-color_error">
+          <div *ngIf="updatePsychologistForm.controls.surname.errors.required">Surname is required</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slds-m-top_small">
+      <label class="slds-form-element__label" for="idNumber">ID number*</label>
+      <div class="slds-form-element__control">
+        <input type="number" formControlName="idNumber" class="form-control slds-input" />
+        <div *ngIf="submitted && updatePsychologistForm.controls.idNumber.errors" class="slds-text-color_error">
+          <div *ngIf="updatePsychologistForm.controls.idNumber.errors.required">ID number is required</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slds-m-top_small">
+      <label class="slds-form-element__label" for="age">Age*</label>
+      <div class="slds-form-element__control">
+        <input type="number" formControlName="age" class="form-control slds-input" />
+        <div *ngIf="submitted && updatePsychologistForm.controls.age.errors" class="slds-text-color_error">
+          <div *ngIf="updatePsychologistForm.controls.age.errors.required">Age is required</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slds-m-top_small">
+      <label class="slds-form-element__label" for="contactNum">Contact number*</label>
+      <div class="slds-form-element__control">
+        <input type="tel" formControlName="contactNum" class="form-control slds-input" />
+        <div *ngIf="submitted && updatePsychologistForm.controls.contactNum.errors" class="slds-text-color_error">
+          <div *ngIf="updatePsychologistForm.controls.contactNum.errors.required">Contact number is required</div>
+          <div *ngIf="updatePsychologistForm.controls.contactNum.errors.pattern">Contact number is invalid (valid
+            example: 0835551111)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slds-m-top_small">
+      <label class="slds-form-element__label" for="email">Email address*</label>
+      <div class="slds-form-element__control">
+        <input type="email" formControlName="email" email class="form-control slds-input" />
+        <div *ngIf="submitted && updatePsychologistForm.controls.email.errors" class="slds-text-color_error">
+          <div *ngIf="updatePsychologistForm.controls.email.errors.required">Email address is required</div>
+          <div *ngIf="updatePsychologistForm.controls.email.errors.email">Invalid email address</div>
+        </div>
+      </div>
+    </div>
+    <!--Banking details-->
+    <div class="slds-text-heading_medium slds-m-top_large slds-m-bottom_x-small">Banking details</div>
+    <div class="slds-m-top_small">
+      <label class="slds-form-element__label" for="bankName">Bank name*</label>
+      <div class="slds-form-element__control">
+        <input type="text" formControlName="bankName" class="form-control slds-input" />
+        <div *ngIf="submitted && updatePsychologistForm.controls.bankName.errors" class="slds-text-color_error">
+          <div *ngIf="updatePsychologistForm.controls.bankName.errors.required">Bank Name is required</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slds-m-top_small">
+      <label class="slds-form-element__label" for="accountType">Account type*</label>
+      <div class="slds-form-element__control">
+        <input type="text" formControlName="accountType" class="form-control slds-input" />
+        <div *ngIf="submitted && updatePsychologistForm.controls.accountType.errors" class="slds-text-color_error">
+          <div *ngIf="updatePsychologistForm.controls.accountType.errors.required">Account type is required</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slds-m-top_small">
+      <label class="slds-form-element__label" for="accountNum">Account number*</label>
+      <div class="slds-form-element__control">
+        <input type="number" formControlName="accountNum" class="form-control slds-input" />
+        <div *ngIf="submitted && updatePsychologistForm.controls.accountNum.errors" class="slds-text-color_error">
+          <div *ngIf="updatePsychologistForm.controls.accountNum.errors.required">Account number is required</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slds-m-top_small">
+      <label class="slds-form-element__label" for="branchCode">Branch code*</label>
+      <div class="slds-form-element__control">
+        <input type="number" formControlName="branchCode" class="form-control slds-input" />
+        <div *ngIf="submitted && updatePsychologistForm.controls.branchCode.errors" class="slds-text-color_error">
+          <div *ngIf="updatePsychologistForm.controls.branchCode.errors.required">Branch code is required</div>
+        </div>
+      </div>
+    </div>
+    <!--Professional information-->
+    <div class="slds-text-heading_medium slds-m-top_large slds-m-bottom_x-small">Professional information</div>
+    <div class="slds-m-top_small">
+      <label class="slds-form-element__label" for="qualification">Highest qualification*</label>
+      <div class="slds-form-element__control">
+        <input type="text" formControlName="qualification" class="form-control slds-input" />
+        <div *ngIf="submitted && updatePsychologistForm.controls.qualification.errors" class="slds-text-color_error">
+          <div *ngIf="updatePsychologistForm.controls.qualification.errors.required">Highest qualification is
+            required</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slds-m-top_small">
+      <label class="slds-form-element__label" for="yearsOfExperience">Number of years experience*</label>
+      <div class="slds-form-element__control">
+        <input type="number" formControlName="yearsOfExperience" class="form-control slds-input" />
+        <div *ngIf="submitted && updatePsychologistForm.controls.yearsOfExperience.errors" class="slds-text-color_error">
+          <div *ngIf="updatePsychologistForm.controls.yearsOfExperience.errors.required">Years of experience is
+            required</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slds-m-top_small">
+      <label class="slds-form-element__label" for="licenseNum">License number*</label>
+      <div class="slds-form-element__control">
+        <input type="text" formControlName="licenseNum" class="form-control slds-input" />
+        <div *ngIf="submitted && updatePsychologistForm.controls.licenseNum.errors" class="slds-text-color_error">
+          <div *ngIf="updatePsychologistForm.controls.licenseNum.errors.required">License number is required</div>
+        </div>
+      </div>
+    </div>
+    <!-- Attachments -->
+    <div class="slds-text-heading_medium slds-m-top_large slds-m-bottom_x-small">Profile photo</div>
+    <div class="slds-m-top_small">
+      <label class="slds-text-heading_medium" for="photoFile">Change photo (headshot)*</label>
+      <div class="slds-form-element__control slds-m-top_x-small">
+        <input #photoFile formControlName="photoFile" accept=".png, .jpeg, .jpg" type="file" (change)="onPhotoFileChange($event)" />
+        <div *ngIf="updatePsychologistForm.controls.photoFile.errors" class="slds-text-color_error">
+          <div *ngIf="updatePsychologistForm.controls.photoFile.errors?.tooLarge">File too large, max file size is
+            {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
+          <div *ngIf="updatePsychologistForm.controls.photoFile.errors?.isPDF">Please submit a .png or .jpeg</div>
+        </div>
+      </div>
+    </div>
+    <div class="slds-text-heading_medium slds-m-top_large slds-m-bottom_x-small">Attachments</div>
+    <div class="slds-m-top_medium">
+      <label class="slds-text-heading_medium" for="idDocFile">ID document*</label>
+      <div class="slds-form-element__control slds-m-top_x-small">
+        <input #idDocFile formControlName="idDocFile" accept=".png, .jpeg, .jpg, .pdf" type="file" (change)="onIdDocFileChange($event)" />
+        <div *ngIf="updatePsychologistForm.controls.idDocFile.errors" class="slds-text-color_error">
+          <div *ngIf="updatePsychologistForm.controls.idDocFile.errors?.tooLarge">File too large, max file size is
+            {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slds-m-top_medium">
+      <label class="slds-text-heading_medium" for="cvFile">Curriculum Vitae*</label>
+      <div class="slds-form-element__control slds-m-top_x-small">
+        <input #cvFile formControlName="cvFile" accept=".png, .jpeg, .jpg, .pdf, .doc, .docx, .txt, .odt, .ppt" type="file"
+          (change)="onCVFileChange($event)" />
+        <div *ngIf="updatePsychologistForm.controls.cvFile.errors" class="slds-text-color_error">
+          <div *ngIf="updatePsychologistForm.controls.cvFile.errors?.tooLarge">File too large, max file size is
+            {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slds-m-top_medium">
+      <label class="slds-text-heading_medium" for="licenseFile">License*</label>
+      <div class="slds-form-element__control slds-m-top_x-small">
+        <input #licenseFile formControlName="licenseFile" accept=".png, .jpeg, .jpg, .pdf, .doc, .docx, .txt, .odt, .ppt"
+          type="file" (change)="onLicenseFileChange($event)" />
+        <div *ngIf="updatePsychologistForm.controls.licenseFile.errors" class="slds-text-color_error">
+          <div *ngIf="updatePsychologistForm.controls.licenseFile.errors?.tooLarge">File too large, max file size is
+            {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
+        </div>
+      </div>
+    </div>
+    <div class='slds-grid slds-grid_align-center slds-m-top_small'>
+      <div class='slds-col'>
+        <div *ngIf="errors" class="slds-text-heading_small slds-text-color_error">
+          {{errorMessage}}
+        </div>
+      </div>
+    </div>
+    <div class="slds-m-vertical_medium slds-grid slds-grid_align-spread">
+      <div class="slds-col">
+        <button type="button" class="slds-button" (click)="cancel()">Cancel</button>
+      </div>
+      <div class="slds-col">
+        <div *ngIf="saving" role="status" class="slds-spinner slds-spinner_medium slds-spinner_inline">
+          <span class="slds-assistive-text">Loading</span>
+          <div class="slds-spinner__dot-a"></div>
+          <div class="slds-spinner__dot-b"></div>
+        </div>
+      </div>
+      <div class="slds-col">
+        <button type="submit" class="slds-button slds-button_brand">Save</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="needsEmailConfirmation">
+  <app-result [success]="true" [text]="resultText" buttonText="Go to profile" [buttonLink]="'/profile/psychologist/' + psychologist.id"></app-result>
+</div>
+
+<div *ngIf="loading" class="slds-spinner_container">
+  <div role="status" class="slds-spinner slds-spinner_medium">
+    <span class="slds-assistive-text">Loading</span>
+    <div class="slds-spinner__dot-a"></div>
+    <div class="slds-spinner__dot-b"></div>
+  </div>
+</div>

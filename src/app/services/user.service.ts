@@ -10,8 +10,8 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  confirmEmail(userId: string, confirmToken: string): Observable<any> {
-    return this.http.get(environment.baseAPIURL + '/api/User/confirmemail', { params: { userId: userId, confirmToken: confirmToken } });
+  confirmEmail(userId: string, confirmToken: string, isEmailUpdate: boolean): Observable<any> {
+    return this.http.get(environment.baseAPIURL + '/api/User/confirmemail', { params: { userId: userId, confirmToken: confirmToken, isEmailUpdate: isEmailUpdate.toString() } });
   }
 
   sendPasswordReset(email: string): Observable<any> {
