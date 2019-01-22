@@ -8,6 +8,13 @@
 
 <div *ngIf="!loading">
   <div class="slds-text-heading_medium"><b>{{heading}}</b></div>
+
+  <div *ngIf="package.id" class="slds-m-top_small">
+    <span class="slds-text-color_error">Please note:</span> updating cost, duration, or trial days on this package will affect all patients on this package.
+    If this is <b>not</b> your intention then rather disable this package and create a new one.
+
+  </div>
+
   <form [formGroup]="packageForm" (ngSubmit)="onPackageSubmit()">
     <div class="slds-m-bottom_medium">
       <div class="slds-m-top_small">
@@ -34,7 +41,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="slds-m-top_small">
         <label class="slds-form-element__label" for="packageCost">Package cost*</label>
         <div class="slds-form-element__control">
