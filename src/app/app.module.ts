@@ -49,6 +49,8 @@ import { SettleBalanceComponent } from './components/settle-balance/settle-balan
 import { PatientEditComponent } from './components/patient-edit/patient-edit.component';
 import { PatientPersonalDetailsComponent } from './components/patient-personal-details/patient-personal-details.component';
 import { PackagesComponent } from './components/packages/packages.component';
+import { PackageManageComponent } from './components/package-manage/package-manage.component';
+import { PackageCreateUpdatesComponent } from './components/package-create-updates/package-create-updates.component';
 
 @NgModule({
 	declarations: [
@@ -93,7 +95,9 @@ import { PackagesComponent } from './components/packages/packages.component';
 		PatientPersonalDetailsComponent,
 		SettleBalanceComponent,
 		PatientEditComponent,
-		PackagesComponent
+		PackagesComponent,
+		PackageManageComponent,
+		PackageCreateUpdatesComponent
 	],
 	imports: [
 		BrowserModule,

@@ -1,9 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { AuthService } from './../../services/auth.service';
 import { Package } from 'src/app/models/Package';
 import { PackageService } from 'src/app/services/package.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-packages',
@@ -16,19 +13,27 @@ export class PackagesComponent implements OnInit {
   loaded: Boolean;
   @Input() showEnabled: boolean = true;
   @Output() packageUpdateEvt = new EventEmitter<Package>();
+  @Input() showDisabled: boolean;
 
-  constructor(private authService: AuthService, private packageService: PackageService, private route: ActivatedRoute, private formBuilder: FormBuilder) { }
+  constructor(private packageService: PackageService) { }
 
   ngOnInit() {
+    this.load();
+  }
+
+  public load() {
+    this.packages = [];
+    this.loaded = false;
     this.packageService.getAllPackages().subscribe(results => {
-      this.packages = results.filter(x => x.enabled = this.showEnabled);
+      this.packages = results.filter(x => x.enabled == this.showEnabled);
       this.loaded = true;
     });
   }
 
   disable(packageId: number){
     this.packageService.disable(packageId).subscribe(resp => {
-      //this.packages = this.packages.filter(x => x.id != resp.id);
+      this.packages = this.packages.filter(x => x.id != resp.id);
+      this.showDisabled = true;
       this.packageUpdateEvt.emit(resp);
     }, error => {
      console.error(JSON.stringify(error));

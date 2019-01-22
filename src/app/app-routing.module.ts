@@ -24,6 +24,9 @@ import { ChangePsychologistComponent } from './components/change-psychologist/ch
 import { ConfirmEmailSendComponent } from './components/confirm-email-send/confirm-email-send.component';
 import { ChangePackageComponent } from './components/changepackage/changepackage.component';
 import { SettleBalanceComponent } from './components/settle-balance/settle-balance.component';
+import { PackageManageComponent } from './components/package-manage/package-manage.component';
+import { PackageCreateUpdatesComponent } from './components/package-create-updates/package-create-updates.component';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -51,7 +54,10 @@ const routes: Routes = [
   { path: 'profile/update-details',component:PatientEditComponent},
   { path: 'profile/change-package', component: ChangePackageComponent},
   { path: 'settle-balance', component: SettleBalanceComponent},
-  { path: 'edit-patient/:id',component:PatientEditComponent}
+  { path: 'edit-patient/:id',component:PatientEditComponent},
+  { path: 'admin/packages',component:PackageManageComponent},
+  { path: 'admin/package/edit/:id',component:PackageCreateUpdatesComponent},
+  { path: 'admin/package/create',component:PackageCreateUpdatesComponent}
 ];
 
 @NgModule({

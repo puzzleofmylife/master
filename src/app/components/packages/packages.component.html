@@ -21,12 +21,16 @@
         </header>
       </div>
       <div class="slds-card__body slds-card__body_inner" style="text-align:center; color:white">
-        <div class="slds-m-bottom_small">
+        <div class="slds-m-bottom_xx-small">
           <b>Name:</b> {{package.name}}
         </div>
-        <div class="slds-m-bottom_small">
+        <div class="slds-m-bottom_xx-small">
           <b>Duration:</b> {{package.durationDays}} days
         </div>
+        <div class="slds-m-bottom_small">
+          <b>Trial days:</b> {{package.trialDays}}
+        </div>
+
         <button *ngIf="showEnabled" (click)="disable(package.id)" class="slds-button slds-button_destructive">Disable</button>
         <button *ngIf="!showEnabled" (click)="enable(package.id)" class="slds-button slds-button_brand">Enable</button>
 

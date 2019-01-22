@@ -1,0 +1,23 @@
+<div *ngIf="loading" class="slds-align_absolute-center slds-m-top_x-large">
+  <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_inline">
+    <span class="slds-assistive-text">Loading</span>
+    <div class="slds-spinner__dot-a"></div>
+    <div class="slds-spinner__dot-b"></div>
+  </div>
+</div>
+
+<button [routerLink]="['/admin/package/create']" class="slds-button slds-float_right">New package</button>
+
+<div class="slds-text-heading_large slds-m-bottom_small">
+  <b>Packages</b>
+</div>
+
+<div class="slds-text-heading_medium">
+  Enabled
+</div>
+<app-packages #enabledPackagesCmp (packageUpdateEvt)="reload()" [showEnabled]="enabledPackagesFlag"></app-packages>
+
+<div class="slds-text-heading_medium">
+  Disabled
+</div>
+<app-packages #disbaledPackagesCmp (packageUpdateEvt)="reload()" [showEnabled]="disabledPackagesFlag"></app-packages>
