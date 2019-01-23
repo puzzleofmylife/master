@@ -1,0 +1,43 @@
+<div class="slds-grid slds-grid_align-spread slds-m-bottom_medium">
+	<div class="slds-col">
+		<div class="slds-text-heading_medium"><b>{{voucherGroupName}}</b></div>
+	</div>
+	<div class="slds-col">
+		<button [routerLink]="['/admin/vouchers']" class="slds-button">Back</button>
+	</div>
+</div>
+<table class="slds-table slds-table_cell-buffer slds-table_bordered">
+	<thead>
+		<tr class="slds-line-height_reset">
+			<th class="" scope="col">
+				<div class="slds-truncate"><b>Voucher code</b></div>
+			</th>
+			<th class="" scope="col">
+				<div class="slds-truncate"><b>Used</b></div>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let _vouchers of vouchers" class="slds-hint-parent">
+			<th scope="row">
+				<div class="slds-truncate">{{_vouchers.code}}</div>
+			</th>
+			<th scope="row">
+				<div class="slds-truncate">{{_vouchers.used ? 'Yes':'No'}}</div>
+			</th>
+		</tr>
+	</tbody>
+</table>
+<div *ngIf="loading" class="slds-align_absolute-center slds-m-top_x-large">
+	<div role="status" class="slds-spinner slds-spinner_medium slds-spinner_inline">
+		<span class="slds-assistive-text">Loading</span>
+		<div class="slds-spinner__dot-a"></div>
+		<div class="slds-spinner__dot-b"></div>
+	</div>
+</div>
+<div class="slds-align_absolute-center slds-text-heading_x-medium slds-m-top_medium">
+	<div *ngIf="moreVouchersToLoad">
+		<a (click)="loadMoreVouchers()" class="slds-button">Load more</a>
+	</div>
+</div>
+

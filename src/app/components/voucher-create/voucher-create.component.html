@@ -1,0 +1,121 @@
+<div class="slds-text-heading_medium slds-m-bottom_small"><b>Add voucher group</b></div>
+<form [formGroup]="voucherGroupForm" (submit)="createVoucherGroup()">
+  <div class="slds-m-bottom_medium">
+		<div class="slds-m-top_small">
+			<div class="slds-grid">
+				<label class="slds-form-element__label" for="voucherGroupName">Voucher group name*</label>
+			</div>
+			<div class="slds-form-element__control">
+				<input type="text" class="form-control slds-input" formControlName="voucherGroupName" />
+				<div *ngIf="submitted && voucherGroupForm.controls.voucherGroupName.errors" class="slds-text-color_error">
+					<div *ngIf="voucherGroupForm.controls.voucherGroupName.errors.required">
+						Voucher group name is required
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="slds-m-top_small">
+			<label class="slds-form-element__label" for="packageType">Package type*</label>
+			<div class="slds-grid">
+				<div class="slds-col">
+					<div class="slds-select_container">
+						<select formControlName="packageType" class="slds-select">
+							<option value="">Select</option>
+							<option [value]="packageType.id" *ngFor="let packageType of packageTypes">
+								{{packageType.name}}
+							</option>
+						</select>
+						<div *ngIf="submitted && voucherGroupForm.controls.packageType.errors" class="slds-text-color_error">
+							<div *ngIf="voucherGroupForm.controls.packageType.errors.required">
+								Package type is required
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="slds-m-top_small">
+			<label class="slds-form-element__label" for="noOfVouchersToGenerate">Number of vouchers*</label>
+			<div class="slds-form-element__control">
+				<input type="number" min="0" formControlName="noOfVouchersToGenerate" class="form-control slds-input" />
+				<div *ngIf="submitted && voucherGroupForm.controls.noOfVouchersToGenerate.errors" class="slds-text-color_error">
+					<div *ngIf="voucherGroupForm.controls.noOfVouchersToGenerate.errors.required">
+						Number of vouchers is required
+					</div>
+					<div *ngIf="voucherGroupForm.controls.noOfVouchersToGenerate.errors.max">
+						Max is {{voucherGroupForm.controls.noOfVouchersToGenerate.errors.max.max}}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="slds-m-top_small">
+			<label class="slds-form-element__label" for="expiryYear">Expiry date*</label>
+		</div>
+		<div class="slds-select_container">
+			<select formControlName="expiryYear" name="expiryYear" #yearSelect (change)="setDays()" class="slds-select">
+				<option value="">Year</option>
+				<option *ngFor="let year of years" [value]="year">{{year}}</option>
+			</select>
+		</div>
+		<div *ngIf="submitted && voucherGroupForm.controls.expiryYear.errors" class="slds-text-color_error">
+			<div *ngIf="voucherGroupForm.controls.expiryYear.errors.required">
+				Expiry year is required
+			</div>
+		</div>
+		<div class="slds-m-top_small">
+			<div class="slds-select_container">
+				<select formControlName="expiryMonth" #monthSelect (change)="setDays()" class="slds-select">
+					<option value="">Month</option>
+					<option value="1">Jan</option>
+					<option value="2">Feb</option>
+					<option value="3">Mar</option>
+					<option value="4">Apr</option>
+					<option value="5">May</option>
+					<option value="6">Jun</option>
+					<option value="7">Jul</option>
+					<option value="8">Aug</option>
+					<option value="9">Sep</option>
+					<option value="10">Oct</option>
+					<option value="11">Nov</option>
+					<option value="12">Dec</option>
+				</select>
+			</div>
+		</div>
+		<div *ngIf="submitted && voucherGroupForm.controls.expiryMonth.errors" class="slds-text-color_error">
+			<div *ngIf="voucherGroupForm.controls.expiryMonth.errors.required">
+				Expiry month is required
+			</div>
+		</div>
+		<div class="slds-m-top_small">
+			<div class="slds-select_container">
+				<select formControlName="expiryDay" class="slds-select">
+					<option value="">Day</option>
+					<option *ngFor="let day of days" [value]="day">{{day}}</option>
+				</select>
+			</div>
+			<div *ngIf="submitted && voucherGroupForm.controls.expiryDay.errors" class="slds-text-color_error">
+				<div *ngIf="voucherGroupForm.controls.expiryDay.errors.required">
+					Expiry day is required
+				</div>
+			</div>
+		</div>
+
+		<div class="slds-m-vertical_medium slds-grid slds-grid_align-spread">
+			<div class="slds-col">
+				<button type="button" class="slds-button" [routerLink]="['/admin/vouchers']">Cancel</button>
+			</div>
+			<div class="slds-col">
+				<div *ngIf="saving" role="status" class="slds-spinner slds-spinner_medium slds-spinner_inline slds-m-top_medium">
+					<span class="slds-assistive-text">Loading</span>
+					<div class="slds-spinner__dot-a"></div>
+					<div class="slds-spinner__dot-b"></div>
+				</div>
+			</div>
+			<div class="slds-col">
+				<button type="submit" class="slds-button slds-button_brand">Save</button>
+			</div>
+		</div>
+    </div>
+</form>

@@ -84,4 +84,18 @@ export class HelpersService {
 		
 		return `background-color:#${backgroundColor};border-radius:${borderRadius};color:${color};width:50px;height:50px;text-align:center;`;
 	}
+
+	getVoucherGroupStatusClass(statusKey: boolean): string {
+		let statusValue: string;
+
+		switch (statusKey) {
+			case true:
+				statusValue = 'success';
+				break;
+			case false:
+				statusValue = 'error';
+				break;
+		}
+		return statusValue;
+	}
 }
