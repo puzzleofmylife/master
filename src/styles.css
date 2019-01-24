@@ -132,3 +132,10 @@ html {
   margin-left: -12px !important;
   background-color: #005fb2 !important;
 }
+.success {
+  color: #027e46;
+}
+
+.error {
+  color: #c23934;
+}
