@@ -13,7 +13,7 @@ export class VoucherGroupListComponent implements OnInit {
 
 	voucherGroups: VoucherGroup[] = [];
 	loading: boolean = true;
-	limit: number = 5;
+	limit: number = 100;
 	page: number = 0;
 	moreVoucherGroupsToLoad: boolean;
 

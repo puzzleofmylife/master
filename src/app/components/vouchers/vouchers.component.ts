@@ -11,7 +11,7 @@ import { VoucherService } from 'src/app/services/voucher.service';
 export class VouchersComponent implements OnInit {
 
 	vouchers: any = [];
-	limit: number = 2;
+	limit: number = 100;
 	page: number = 0;
 	loading = true;
 	voucherGroupName: string;

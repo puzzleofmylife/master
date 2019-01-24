@@ -1,10 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Package } from 'src/app/models/Package';
 import { VoucherGroup } from 'src/app/models/VoucherGroup';
 import { PackageService } from 'src/app/services/package.service';
 import { VoucherService } from 'src/app/services/voucher.service';
-import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-voucher-create',
@@ -22,17 +22,15 @@ export class VoucherCreateComponent implements OnInit {
 	days: number[] = [];
 	selectedPackageTypeId: number;
 	voucherGroup: VoucherGroup = new VoucherGroup();
-	package: Package = new Package();
 
 	submitted: boolean;
 	saving: boolean;
-	showSubmit: Boolean = false;
 
 	constructor(
 		private _packageService: PackageService,
 		private _voucherService: VoucherService,
 		private _formbuilder: FormBuilder,
-		private _router:Router
+		private _router: Router
 	) { }
 
 	ngOnInit() {
@@ -103,7 +101,6 @@ export class VoucherCreateComponent implements OnInit {
 			this.days = [];
 			return;
 		}
-		var foo = new Date(parseInt(selectedYear), parseInt(selectedMonth), 0);
 
 		var daysInMonth = new Date(parseInt(selectedYear), parseInt(selectedMonth), 0).getDate();
 		this.days = [];
