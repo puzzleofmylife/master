@@ -10,6 +10,8 @@ import { ForgotPasswordComponent } from './components/forgotpassword/forgotpassw
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { PackageCreateUpdatesComponent } from './components/package-create-updates/package-create-updates.component';
+import { PackageManageComponent } from './components/package-manage/package-manage.component';
 import { PatientEditComponent } from './components/patient-edit/patient-edit.component';
 import { PatientProfileComponent } from './components/patient-profile/patient-profile.component';
 import { PatientSessionComponent } from './components/patient-session/patient-session.component';
@@ -28,6 +30,7 @@ import { VerifyComponent } from './components/verify/verify.component';
 import { VoucherCreateComponent } from './components/voucher-create/voucher-create.component';
 import { VoucherGroupListComponent } from './components/voucher-group-list/voucher-group-list.component';
 import { VouchersComponent } from './components/vouchers/vouchers.component';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -60,7 +63,15 @@ const routes: Routes = [
   { path: 'profile/psychologist/update/:id', component: PsychologistUpdateComponent },
   { path: 'admin/create-voucher', component: VoucherCreateComponent },
   { path: 'admin/vouchers', component: VoucherGroupListComponent },
-  { path: 'admin/vouchers/:id/:voucherGroupName', component: VouchersComponent }
+  { path: 'admin/vouchers/:id/:voucherGroupName', component: VouchersComponent },
+  { path: 'profile/update-details', component: PatientEditComponent },
+  { path: 'profile/change-package', component: ChangePackageComponent },
+  { path: 'settle-balance', component: SettleBalanceComponent },
+  { path: 'edit-patient/:id', component: PatientEditComponent },
+  { path: 'admin/packages', component: PackageManageComponent },
+  { path: 'admin/package/edit/:id', component: PackageCreateUpdatesComponent },
+  { path: 'admin/package/create', component: PackageCreateUpdatesComponent },
+  { path: 'profile/psychologist/update/:id', component: PsychologistUpdateComponent }
 ];
 
 @NgModule({

@@ -23,6 +23,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
 import { NotificationNavComponent } from './components/notification-nav/notification-nav.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { PackageCreateUpdatesComponent } from './components/package-create-updates/package-create-updates.component';
+import { PackageManageComponent } from './components/package-manage/package-manage.component';
+import { PackagesComponent } from './components/packages/packages.component';
 import { PatientEditComponent } from './components/patient-edit/patient-edit.component';
 import { PatientPersonalDetailsComponent } from './components/patient-personal-details/patient-personal-details.component';
 import { PatientProfileComponent } from './components/patient-profile/patient-profile.component';
@@ -99,8 +102,11 @@ import { AlertService } from './services/alert.service';
 		PsychologistUpdateComponent,
 		VoucherCreateComponent,
 		VoucherGroupListComponent,
-		VouchersComponent
-	
+		VouchersComponent,
+		PackagesComponent,
+		PackageManageComponent,
+		PackageCreateUpdatesComponent,
+		PsychologistUpdateComponent
 	],
 	imports: [
 		BrowserModule,
