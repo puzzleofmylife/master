@@ -23,7 +23,7 @@
         <div *ngIf="currentPackage.statusId == 1" class="slds-m-bottom_small">
             <span *ngIf="!currentPackage.pendingCancellation">Next bill date:</span>
             <span *ngIf="currentPackage.pendingCancellation" class="cancelled">Pending cancellation on:</span>
-            <div><b>{{currentPackage.nextBillDate | date}}</b></div>
+            <div><b>{{helpersService.convertToLocalDate(currentPackage.nextBillDate) | date}}</b></div>
 
             <div *ngIf="currentPackage.pendingCancellation" class="slds-m-top_small">
                 <button class="slds-button slds-button_outline-brand" (click)="undoCancelPackage()">Stop cancellation</button>
