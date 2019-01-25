@@ -2,16 +2,64 @@
 	<li [ngClass]="{'slds-global-header__notification':true, 'slds-global-header__notification_unread':!notification.read}">
 		<figure>
 			<div class="slds-media slds-has-flexi-truncate slds-p-around_x-small">
-				<div class="slds-media__figure">
-					<span class="slds-icon_container slds-icon-action-share-post slds-icon_container--circle" [ngSwitch]=notification.notificationTypeId>
-						<svg *ngSwitchCase="1" class="slds-icon slds-icon--xx-small" aria-hidden="true">
+				<div class="slds-media__figure" [ngSwitch]=notification.notificationTypeId>
+					<span *ngSwitchCase="1" class="slds-icon_container slds-icon-action-share-post slds-icon_container--circle">
+						<svg class="slds-icon slds-icon--xx-small" aria-hidden="true">
 							<use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#update"></use>
 						</svg>
-						<svg *ngSwitchCase="4" class="slds-icon slds-icon--xx-small" aria-hidden="true">
+					</span>
+
+					<span *ngSwitchCase="2" class="slds-icon_container slds-icon-action-submit-for-approval slds-icon_container--circle">
+						<svg class="slds-icon slds-icon--xx-small" aria-hidden="true">
+							<use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#submit_for_approval"></use>
+						</svg>
+					</span>
+
+					<span *ngSwitchCase="3" class="slds-icon_container slds-icon-action-close slds-icon_container--circle">
+							<svg class="slds-icon slds-icon--xx-small" aria-hidden="true">
+								<use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#close"></use>
+							</svg>
+						</span>
+
+					<span *ngSwitchCase="4" class="slds-icon_container slds-icon-action-share-post slds-icon_container--circle">
+						<svg class="slds-icon slds-icon--xx-small" aria-hidden="true">
 							<use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#share_post"></use>
 						</svg>
-						<svg *ngSwitchCase="5" class="slds-icon slds-icon--xx-small" aria-hidden="true">
+					</span>
+
+					<span *ngSwitchCase="5" class="slds-icon_container slds-icon-action-join-group slds-icon_container--circle">
+						<svg class="slds-icon slds-icon--xx-small" aria-hidden="true">
 							<use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#join_group"></use>
+						</svg>
+					</span>
+
+					<span *ngSwitchCase="6" class="slds-icon_container slds-icon-action-close slds-icon_container--circle">
+						<svg class="slds-icon slds-icon--xx-small" aria-hidden="true">
+							<use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#close"></use>
+						</svg>
+					</span>
+
+					<span *ngSwitchCase="7" class="slds-icon_container slds-icon-action-priority slds-icon_container--circle">
+						<svg class="slds-icon slds-icon--xx-small" aria-hidden="true">
+							<use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#priority"></use>
+						</svg>
+					</span>
+
+					<span *ngSwitchCase="8" class="slds-icon_container slds-icon-action-close slds-icon_container--circle">
+						<svg class="slds-icon slds-icon--xx-small" aria-hidden="true">
+							<use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#close"></use>
+						</svg>
+					</span>
+
+					<span *ngSwitchCase="9" class="slds-icon_container slds-icon-action-update-status slds-icon_container--circle">
+						<svg class="slds-icon slds-icon--xx-small" aria-hidden="true">
+							<use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#update_status"></use>
+						</svg>
+					</span>
+
+					<span *ngSwitchDefault class="slds-icon_container slds-icon-action-info slds-icon_container--circle">
+						<svg class="slds-icon slds-icon--xx-small" aria-hidden="true">
+							<use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#info"></use>
 						</svg>
 					</span>
 				</div>
