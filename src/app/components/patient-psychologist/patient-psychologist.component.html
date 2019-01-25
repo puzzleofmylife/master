@@ -4,7 +4,7 @@
   <div class="slds-card__header slds-grid">
     <header class="slds-media slds-media_center slds-has-flexi-truncate">
       <div class="slds-media__body">
-        <h2 class="slds-card__header-title slds-truncate" style="text-align:center">
+        <h2 *ngIf="psychologist" class="slds-card__header-title slds-truncate" style="text-align:center">
           <span class="slds-card__header-link slds-truncate">
             {{psychologist.firstName}} {{psychologist.lastName}}
           </span>
@@ -14,15 +14,25 @@
             {{psychologist.experienceYears}} years experience
           </div>
         </h2>
+        <h2 *ngIf="showNoPsychMsg" class="slds-card__header-title slds-truncate" style="text-align:center">
+          <span class="slds-card__header-link slds-truncate">
+            No psychologist
+          </span>
+        </h2>
       </div>
     </header>
   </div>
   <div class="slds-card__body slds-card__body_inner" style="text-align:center">
-    <div>
+    <div *ngIf="psychologist">
       <img [src]="psychologist.photo" class="image-round" />
     </div>
+
+    <div *ngIf="showNoPsychMsg">
+      Please choose a psychologist
+    </div>
+
     <div class="slds-m-top_small">
-      <button (click)="changePsychologist()" class="slds-button slds-button_outline-brand">Change psychologist</button>
+      <button (click)="changePsychologist()" class="slds-button slds-button_outline-brand">{{ showNoPsychMsg ? 'Choose' : 'Change'}} psychologist</button>
     </div>
   </div>
 </article>

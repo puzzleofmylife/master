@@ -2,6 +2,10 @@
   <app-result [success]="false" text="Could not load session. Your package is not active."></app-result>
 </div>
 
+<div *ngIf="showNoPsychError" class="slds-p-horizontal_medium">
+  <app-result [success]="false" text="Could not load your session because you don't have a psychologist." buttonText="Choose a psychologist" buttonLink="/profile/change-psychologist"></app-result>
+</div>
+
 <div *ngIf="!showPackageNotActiveError && session">
   <div class="slds-text-heading_large slds-m-bottom_small">
     Your session

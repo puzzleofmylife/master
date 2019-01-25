@@ -27,14 +27,21 @@ export class ChangePsychologistComponent implements OnInit {
     });
 
     this.patientService.getPsychologist().subscribe(patientPsych => {
-      this.psychService.getAvailable(4).subscribe(result => {
-        this.loading = false;
-        //Remove patients current psychologist
-        this.psychologists = result.filter(x => x.id != patientPsych.id);
-      }, error => {
-        this.loading = false;
-        console.error(JSON.stringify(error));
-      });
+      if (patientPsych)
+        this.getAvailPsychs(patientPsych.id);
+      else
+        this.getAvailPsychs(0);
+    }, error => {
+      this.loading = false;
+      console.error(JSON.stringify(error));
+    });
+  }
+
+  private getAvailPsychs(psychId: number) {
+    this.psychService.getAvailable(5).subscribe(result => {
+      this.loading = false;
+      //Remove patients current psychologist
+      this.psychologists = result.filter(x => x.id != psychId);
     }, error => {
       this.loading = false;
       console.error(JSON.stringify(error));
@@ -50,7 +57,7 @@ export class ChangePsychologistComponent implements OnInit {
         this.loading = false;
         this.gotResult = true;
         this.success = true;
-        this.resultText = 'Psychologist changed successfully'
+        this.resultText = 'Psychologist changed'
       }, error => {
         this.loading = false;
         this.gotResult = true;
