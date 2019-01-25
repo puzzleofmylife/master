@@ -14,6 +14,9 @@ export class PatientPackageComponent implements OnInit {
   currentPackage: PatientPackage = new PatientPackage();
   outstandingBalance: number;
   loading: boolean;
+  cancelReason: string;
+  cancelReasonRequired: boolean;
+  showCancelPromptFlag: boolean;
 
   constructor(
     private patientService: PatientService,
@@ -47,7 +50,8 @@ export class PatientPackageComponent implements OnInit {
 
   cancelPackage() {
     this.loading = true;
-    this.patientService.cancelPatientPackage().subscribe(result => {
+    this.showCancelPromptFlag = false;
+    this.patientService.cancelPatientPackage(this.cancelReason).subscribe(result => {
       //Success...reload
       this.getPatientPackage();
       this.loading = false;
@@ -83,5 +87,13 @@ export class PatientPackageComponent implements OnInit {
 
   getPackageStatusClass(statusId: number) {
     return this.helpersService.getPackageStatusClass(statusId);
+  }
+
+  hideCancelPrompt() {
+    this.showCancelPromptFlag = false;
+  }
+
+  showCancelPrompt() {
+    this.showCancelPromptFlag = true;
   }
 }
