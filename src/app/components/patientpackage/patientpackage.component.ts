@@ -12,6 +12,7 @@ import { HelpersService } from '../../services/helpers.service';
 })
 export class PatientPackageComponent implements OnInit {
   currentPackage: PatientPackage = new PatientPackage();
+
   outstandingBalance: number;
   loading: boolean;
   cancelReason: string;
