@@ -37,7 +37,7 @@
         <div *ngIf="currentPackage.statusId == 2" class="slds-m-bottom_small">
             (R{{outstandingBalance}} is due)
             <div class="slds-m-top_small">
-                <button class="slds-button slds-button_outline-brand" [routerLink]="['/settle-balance']">Pay now</button>
+                <button class="slds-button slds-button_success" [routerLink]="['/settle-balance']">Pay now</button>
             </div>
             <div class="slds-m-top_small">
                 <button class="slds-button slds-button_destructive" (click)="cancelPackage()">Cancel package</button>
