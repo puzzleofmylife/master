@@ -6,6 +6,7 @@ import { PatientQuestion } from '../models/PatientQuestion';
 import PatientQuestionAnswer from '../models/PatientQuestionAnswer';
 import { Psychologist } from '../models/Psychologist';
 import { Patient } from './../models/Patient';
+import { CancelReason } from '../models/CancelReason';
 import { PatientPackage } from '../models/PatientPackage';
 
 @Injectable({
@@ -63,5 +64,14 @@ export class PatientService {
 
 	reactivatePatientPackage() {
 		return this.http.post(environment.baseAPIURL + '/api/Patient/package/reactivate', null);
+	}
+
+	getCancelReasons(limit: number, page: number): Observable<CancelReason[]> {
+		return this.http.get<CancelReason[]>(environment.baseAPIURL + '/api/Patient/cancellations', {
+			params: new HttpParams()
+			.set('limit', limit.toString())
+			.set('page', page.toString())
+
+		});
 	}
 }

@@ -30,6 +30,7 @@ import { VerifyComponent } from './components/verify/verify.component';
 import { VoucherCreateComponent } from './components/voucher-create/voucher-create.component';
 import { VoucherGroupListComponent } from './components/voucher-group-list/voucher-group-list.component';
 import { VouchersComponent } from './components/vouchers/vouchers.component';
+import { CancelReasonComponent } from './components/cancel-reason/cancel-reason.component';
 
 
 const routes: Routes = [
@@ -71,7 +72,8 @@ const routes: Routes = [
   { path: 'admin/packages', component: PackageManageComponent },
   { path: 'admin/package/edit/:id', component: PackageCreateUpdatesComponent },
   { path: 'admin/package/create', component: PackageCreateUpdatesComponent },
-  { path: 'profile/psychologist/update/:id', component: PsychologistUpdateComponent }
+  { path: 'profile/psychologist/update/:id', component: PsychologistUpdateComponent },
+  { path: 'admin/cancellations', component: CancelReasonComponent },
 ];
 
 @NgModule({

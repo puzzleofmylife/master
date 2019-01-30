@@ -55,6 +55,8 @@ import { VouchersComponent } from './components/vouchers/vouchers.component';
 import { ActionMenuDropdownDirective } from './directives/action-menu-dropdown.directive';
 import { ActionMenuOriginDirective } from './directives/action-menu-origin.directive';
 import { AlertService } from './services/alert.service';
+import { CancelReasonComponent } from './components/cancel-reason/cancel-reason.component';
+import { PsychologistHistoryComponent } from './components/psychologist-history/psychologist-history.component';
 
 @NgModule({
 	declarations: [
@@ -106,7 +108,9 @@ import { AlertService } from './services/alert.service';
 		PackagesComponent,
 		PackageManageComponent,
 		PackageCreateUpdatesComponent,
-		PsychologistUpdateComponent
+		PsychologistUpdateComponent,
+		CancelReasonComponent,
+		PsychologistHistoryComponent
 	],
 	imports: [
 		BrowserModule,
