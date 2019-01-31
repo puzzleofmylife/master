@@ -195,7 +195,7 @@
         <div class="slds-text-heading_large"><b>Step {{page}} of 5</b></div>
         <div class="slds-text-heading_large">Choose your package</div>
 
-        <div *ngIf="showVouchercode" class="slds-m-top_x-small" style="text-align:center">
+        <div *ngIf="showVouchercode" class="slds-m-top_small" style="text-align:center">
             <label class="slds-form-element__label slds-text-heading_medium" for="voucherCode"><b>Voucher code</b></label>
             <div class="slds-form-element__control slds-m-bottom_medium">
                 <input type="text" formControlName="voucherCode" class="form-control slds-input" style="width:200px" />
@@ -210,7 +210,7 @@
         <br />
 
         <div class="slds-grid slds-wrap slds-gutters_x-small slds-grid_pull-padded-x-small">
-            <div *ngFor="let package of activePackages" class="slds-col slds-size_1-of-2 slds-p-vertical_x-small">
+            <div *ngFor="let package of activePackages" class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 slds-p-vertical_x-small">
                 <article class="background-color-brand-blue slds-card">
                     <div class="slds-card__header slds-grid">
                         <header class="slds-media slds-media_center slds-has-flexi-truncate">
