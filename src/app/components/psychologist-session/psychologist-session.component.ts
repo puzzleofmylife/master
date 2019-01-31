@@ -22,6 +22,8 @@ export class PsychologistSessionComponent implements OnInit, OnDestroy {
   sessionsSubscription: Subscription;
   loading: boolean = true;
   sessionHasNewMessages: boolean = false;
+  showAccNotActive: boolean;
+  noPatientsFound: boolean;
 
   constructor(private sessionService: SessionService, private patientService: PatientService, private helpersService: HelpersService, private sanitizer: DomSanitizer) { }
 
@@ -30,6 +32,9 @@ export class PsychologistSessionComponent implements OnInit, OnDestroy {
       this.loading = false;
       this.sessions = response;
 
+      if(this.sessions.length == 0)
+        this.noPatientsFound = true;
+
       //Set timer to get sessions
       this.sessionsSubscription = TimerObservable.create(this.sessionsGetInterval, this.sessionsGetInterval)
         .subscribe(() => {
@@ -37,6 +42,9 @@ export class PsychologistSessionComponent implements OnInit, OnDestroy {
         });
     }, error => {
       this.loading = false;
+      if(error.error.PsychologistNotActive)
+        this.showAccNotActive = true;
+        
       console.error(JSON.stringify(error));
     })
   }

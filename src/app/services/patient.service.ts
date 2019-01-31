@@ -6,6 +6,7 @@ import { PatientQuestion } from '../models/PatientQuestion';
 import PatientQuestionAnswer from '../models/PatientQuestionAnswer';
 import { Psychologist } from '../models/Psychologist';
 import { Patient } from './../models/Patient';
+import { CancelReason } from '../models/CancelReason';
 import { PatientPackage } from '../models/PatientPackage';
 
 @Injectable({
@@ -40,28 +41,37 @@ export class PatientService {
 	getPatient(): Observable<Patient> {
 		return this.http.get<any>(environment.baseAPIURL + '/api/Patient');
 	}
-	
-	updatePatient(_patient:Patient): Observable<any> {
-		return this.http.patch<any>(environment.baseAPIURL + '/api/Patient',_patient);
+
+	updatePatient(_patient: Patient): Observable<any> {
+		return this.http.patch<any>(environment.baseAPIURL + '/api/Patient', _patient);
 	}
 
-  getCurrentPatientPackage(): Observable<PatientPackage>{
-    return this.http.get<PatientPackage>(environment.baseAPIURL + '/api/Patient/package');
-  }
+	getCurrentPatientPackage(): Observable<PatientPackage> {
+		return this.http.get<PatientPackage>(environment.baseAPIURL + '/api/Patient/package');
+	}
 
-  changePatientPackage(newPackageId: number) {
-    return this.http.post(environment.baseAPIURL + '/api/Patient/package/change/' + newPackageId, null);
-  }
+	changePatientPackage(newPackageId: number) {
+		return this.http.post(environment.baseAPIURL + '/api/Patient/package/change/' + newPackageId, null);
+	}
 
-  cancelPatientPackage() {
-    return this.http.post(environment.baseAPIURL + '/api/Patient/package/cancel', null);
-  }
+	cancelPatientPackage(cancelReason: string) {
+		return this.http.post(environment.baseAPIURL + '/api/Patient/package/cancel', { cancelReason: cancelReason });
+	}
 
-  undoCancelPatientPackage() {
-    return this.http.post(environment.baseAPIURL + '/api/Patient/package/cancel/undo', null);
-  }
+	undoCancelPatientPackage() {
+		return this.http.post(environment.baseAPIURL + '/api/Patient/package/cancel/undo', null);
+	}
 
-  reactivatePatientPackage() {
-    return this.http.post(environment.baseAPIURL + '/api/Patient/package/reactivate', null);
-  }
+	reactivatePatientPackage() {
+		return this.http.post(environment.baseAPIURL + '/api/Patient/package/reactivate', null);
+	}
+
+	getCancelReasons(limit: number, page: number): Observable<CancelReason[]> {
+		return this.http.get<CancelReason[]>(environment.baseAPIURL + '/api/Patient/cancellations', {
+			params: new HttpParams()
+			.set('limit', limit.toString())
+			.set('page', page.toString())
+
+		});
+	}
 }

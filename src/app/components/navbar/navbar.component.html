@@ -85,9 +85,12 @@
 				</li>
 				<li class="slds-global-actions__item">
 					<action-menu>
+
 						<button actionMenuOrigin class="slds-button slds-global-actions__avatar slds-global-actions__item-action">
-							<span class="slds-avatar slds-avatar_circle slds-avatar_medium">
-								<img alt="Profile" src="../../../assets/avatar.png" title="User avatar" />
+							<span class="slds-icon_container slds-icon-action-user slds-icon_container--circle">
+								<svg class="slds-icon slds-icon--xx-small" aria-hidden="true">
+									<use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#user"></use>
+								</svg>
 							</span>
 						</button>
 
@@ -144,6 +147,11 @@
 									<li class="slds-dropdown__item">
 										<a [routerLink]="['admin/packages']" role="menuitem">
 											<span class="slds-truncate">Packages</span>
+										</a>
+									</li>
+									<li class="slds-dropdown__item">
+										<a [routerLink]="['admin/cancellations']" role="menuitem">
+											<span class="slds-truncate">Cancellations</span>
 										</a>
 									</li>
 								</ul>

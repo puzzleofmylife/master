@@ -23,13 +23,13 @@
         <div *ngIf="currentPackage.statusId == 1" class="slds-m-bottom_small">
             <span *ngIf="!currentPackage.pendingCancellation">Next bill date:</span>
             <span *ngIf="currentPackage.pendingCancellation" class="cancelled">Pending cancellation on:</span>
-            <div><b>{{currentPackage.nextBillDate | date}}</b></div>
+            <div><b>{{helpersService.convertToLocalDate(currentPackage.nextBillDate) | date}}</b></div>
 
             <div *ngIf="currentPackage.pendingCancellation" class="slds-m-top_small">
                 <button class="slds-button slds-button_outline-brand" (click)="undoCancelPackage()">Stop cancellation</button>
             </div>
             <div *ngIf="!currentPackage.pendingCancellation" class="slds-m-top_small">
-                <button class="slds-button slds-button_destructive" (click)="cancelPackage()">Cancel package</button>
+                <button class="slds-button slds-button_destructive" (click)="showCancelPrompt()">Cancel package</button>
             </div>
         </div>
 
@@ -37,7 +37,7 @@
         <div *ngIf="currentPackage.statusId == 2" class="slds-m-bottom_small">
             (R{{outstandingBalance}} is due)
             <div class="slds-m-top_small">
-                <button class="slds-button slds-button_outline-brand" [routerLink]="['/settle-balance']">Pay now</button>
+                <button class="slds-button slds-button_success" [routerLink]="['/settle-balance']">Pay now</button>
             </div>
             <div class="slds-m-top_small">
                 <button class="slds-button slds-button_destructive" (click)="cancelPackage()">Cancel package</button>
@@ -50,6 +50,41 @@
         </div>
 
         <button class="slds-button slds-button_outline-brand" (click)="changePackage()">Change package</button>
+        
+        <!-- Cancel patient package -->
+        <div *ngIf="showCancelPromptFlag">
+            <section role="alertdialog" tabindex="-1" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper"
+                class="slds-modal slds-fade-in-open slds-modal_prompt" aria-modal="true">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header slds-theme_warning">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+                            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close" />
+                            </svg>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 class="slds-text-heading_medium" id="prompt-heading-id">Confirm</h2>
+                    </header>
+                    <div>
+                        <div class="slds-modal__content slds-p-around_small" id="prompt-message-wrapper">
+                            <p>Are you sure you want to <b>CANCEL</b> this package?</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="slds-modal__content slds-p-around_xx-small" id="prompt-message-wrapper">
+                            <p>Reason for cancellation (optional)</p>
+                            <textarea [(ngModel)]="cancelReason" style="width:100%; height:100%" rows="5" name="cancelReason"></textarea>
+                        </div>
+                    </div>
+                    <footer class="slds-modal__footer slds-theme_default">
+                        <button class="slds-button slds-button_neutral" (click)="hideCancelPrompt()">Cancel</button>
+                        <button class="slds-button slds-button_brand" (click)="cancelPackage()">Proceed</button>
+                        <div *ngIf="enableError" class="slds-text-color_error">An error occurred</div>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
     </div>
 
     <div *ngIf="loading" class="slds-align_absolute-center slds-m-top_x-large">

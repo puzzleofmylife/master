@@ -12,6 +12,7 @@ export class PatientPsychologistComponent implements OnInit {
 
   psychologist: Psychologist;
   loaded: boolean;
+  showNoPsychMsg: boolean;
 
   constructor(private patientService: PatientService, private router: Router) { }
 
@@ -19,7 +20,11 @@ export class PatientPsychologistComponent implements OnInit {
     this.patientService.getPsychologist().subscribe(response => {
       this.loaded = true;
       this.psychologist = response;
+
+      if (!this.psychologist)
+        this.showNoPsychMsg = true;
     }, error => {
+      this.loaded = true;
       console.error(JSON.stringify(error));
     });
   }

@@ -1,7 +1,8 @@
-<div class="slds-text-heading_large slds-m-left_small">
-  Your patients
+<div *ngIf="showAccNotActive" class="slds-p-horizontal_medium">
+  <app-result [success]="false" text="Could not load patients. Your account is not active."></app-result>
 </div>
-<div class="slds-tabs_default">
+
+<div *ngIf="!showAccNotActive" class="slds-tabs_default">
   <ul class="slds-tabs_default__nav" role="tablist">
     <li [ngClass]="{'slds-tabs_default__item':true, 'slds-is-active': selectedTabIndex == 0}" title="Item One" role="presentation">
       <a (click)="selectedTabIndex = 0" class="slds-tabs_default__link" role="tab" tabindex="0" aria-selected="true"
@@ -65,4 +66,8 @@
       No patient selected. Enter a session from the Patients tab.
     </div>
   </div>
+</div>
+
+<div *ngIf="noPatientsFound" class="slds-text-heading_medium slds-align_absolute-center slds-m-top_medium slds-m-bottom_large">
+  You don't have any patients yet.
 </div>

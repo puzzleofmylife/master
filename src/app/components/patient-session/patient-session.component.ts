@@ -11,6 +11,7 @@ export class PatientSessionComponent implements OnInit {
 
   session: Session;
   showPackageNotActiveError: boolean = false;
+  showNoPsychError: boolean;
 
   constructor(private sessionService: SessionService) { }
 
@@ -20,10 +21,12 @@ export class PatientSessionComponent implements OnInit {
     }, error => {
       if (error.error.PackageNotActive) {
         this.showPackageNotActiveError = true;
+      } else if(error.error.PsychologistNotFound) {
+        this.showNoPsychError = true;
       } else {
         console.error(JSON.stringify(error));
       }
     });
   }
-  
+
 }

@@ -215,11 +215,17 @@
                     <div class="slds-card__header slds-grid">
                         <header class="slds-media slds-media_center slds-has-flexi-truncate">
                             <div class="slds-media__body">
-                                <h2 class="slds-card__header-title" style="text-align:center; color:white">
-                                    <span class="slds-card__header-link slds-truncate">
-                                        R{{package.cost}}
+                                <div class="slds-m-bottom_small slds-text-heading_medium" style="text-align:center; color:white">
+                                    <span class="slds-truncate">
+                                        {{package.name}}
                                     </span>
-                                </h2>
+                                </div>
+                                <div class="slds-m-bottom_small" style="text-align:center; color:white">
+                                    <span class="slds-text-heading_small">R</span>
+                                    <span class="slds-text-heading_large slds-truncate">
+                                        <b>{{package.cost}}</b>
+                                    </span>
+                                </div>
                             </div>
                         </header>
                     </div>
@@ -227,7 +233,7 @@
                         <div>
                             {{package.durationDays}} days, unlimited interaction
                         </div>
-                        <div *ngIf="package.trialDays" class="slds-p-top_small">
+                        <div *ngIf="package.trialDays" class="slds-p-top_small slds-text-heading_small">
                             <b>{{package.trialDays}} day free trial</b>
                         </div>
                         <div class="slds-radio_button-group slds-m-top_small">
