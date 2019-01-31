@@ -6,4 +6,5 @@ export class Patient extends User {
     currentPackageId: number;
     currentPsychologistId: number;
     questionAnswers: PatientQuestionAnswer[] = [];
+    voucherCode: string;
 }

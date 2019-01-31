@@ -41,4 +41,8 @@ export class VoucherService {
 	enable(voucherGroupId: number): Observable<VoucherGroup> {
 		return this.http.post<VoucherGroup>(environment.baseAPIURL + '/api/Voucher/group/enable/' + voucherGroupId, null);
 	}
+
+	get(voucherCode: string): Observable<any> {
+		return this.http.get<any>(environment.baseAPIURL + '/api/Voucher/' + voucherCode);
+	}
 }
