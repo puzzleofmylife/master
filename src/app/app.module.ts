@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtHelper } from 'angular2-jwt';
-import { TextareaAutosizeModule } from 'ngx-textarea-autosize';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -118,8 +117,7 @@ import { PsychologistHistoryComponent } from './components/psychologist-history/
 		BrowserAnimationsModule,
 		ReactiveFormsModule,
 		HttpClientModule,
-		FormsModule,
-		TextareaAutosizeModule
+		FormsModule
 	],
 	providers: [AlertService, JwtHelper,
 		{
