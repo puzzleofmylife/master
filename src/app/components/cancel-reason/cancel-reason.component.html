@@ -5,16 +5,12 @@
 </div>
 
 <div *ngFor="let cancelReason of cancelReasons">
-  <div class="slds-grid slds-border_bottom slds-p-bottom_medium slds-m-bottom_medium">
-    <div class="slds-col">
-      <div class="slds-grid slds-wrap">
-        <div class="slds-col slds-size_12-of-12 slds-medium-size_9-of-12 slds-large-size_10-of-12">
-          <div><b>{{cancelReason.createDate | date}}</b></div>
-          <div>{{cancelReason.cancelReason}}</div>
-          <app-psychologist-history [psychologistHistory]="cancelReason.psychologistHistory"></app-psychologist-history>
-        </div>
-      </div>
-    </div>
+  <div class="slds-border_bottom slds-p-bottom_medium slds-m-bottom_medium">
+
+    <div><b>{{cancelReason.createDate | date}}</b></div>
+    <div>{{cancelReason.cancelReason}}</div>
+    <app-psychologist-history [psychologistHistory]="cancelReason.psychologistHistory"></app-psychologist-history>
+
   </div>
 </div>
 
