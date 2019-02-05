@@ -14,4 +14,5 @@ export class Psychologist extends User {
     accountType: string;
     photo:string;
     attachments: any[];
+    paymentPercent: number;
 }

@@ -4,6 +4,8 @@ import { PsychoService } from 'src/app/services/psycho.service';
 import { Psychologist } from 'src/app/models/Psychologist';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { AuthService } from 'src/app/services/auth.service';
+import { AuthState } from 'src/app/models/AuthState';
 
 @Component({
 	selector: 'app-psychologist-update',
@@ -28,16 +30,19 @@ export class PsychologistUpdateComponent implements OnInit {
 	errorMessage: string;
 	resultText: string;
 	saving: boolean;
+	authState: AuthState;
 
 	constructor(
 		private _psychogistService: PsychoService,
 		private _formBuilder: FormBuilder,
 		private _location: Location,
 		private _route: ActivatedRoute,
-		private _router: Router
+		private _router: Router,
+		private authService: AuthService
 	) { }
 
 	ngOnInit() {
+		this.authService.authState().subscribe(x => this.authState = x);
 		this.createPsyUpdateForm();
 		this.initPsychUpdateForm();
 	}
@@ -51,6 +56,7 @@ export class PsychologistUpdateComponent implements OnInit {
 			age: ['', Validators.required],
 			contactNum: ['', [Validators.required, Validators.pattern('[0-9]+')]],
 			email: ['', [Validators.required, Validators.email]],
+			commissionPercent: ['', [Validators.required, Validators.max(100), Validators.min(0)]],
 			/* Banking details */
 			bankName: ['', Validators.required],
 			accountType: ['', Validators.required],
@@ -86,6 +92,7 @@ export class PsychologistUpdateComponent implements OnInit {
 			this.updatePsychologistForm.controls.qualification.setValue(qualification);
 			this.updatePsychologistForm.controls.yearsOfExperience.setValue(response.experienceYears);
 			this.updatePsychologistForm.controls.licenseNum.setValue(response.licenseNumber);
+			this.updatePsychologistForm.controls.commissionPercent.setValue(response.paymentPercent);
 			this.psychologist.id = response.id;
 			this.loading = false;
 		});
@@ -108,6 +115,7 @@ export class PsychologistUpdateComponent implements OnInit {
 			this.psychologist.qualifications.push(this.updatePsychologistForm.controls.qualification.value);
 			this.psychologist.experienceYears = this.updatePsychologistForm.controls.yearsOfExperience.value;
 			this.psychologist.licenseNumber = this.updatePsychologistForm.controls.licenseNum.value;
+			this.psychologist.paymentPercent = this.updatePsychologistForm.controls.commissionPercent.value;
 			this.psychologist.attachments = await this.generateAttachments();
 			this.saving = true;
 
