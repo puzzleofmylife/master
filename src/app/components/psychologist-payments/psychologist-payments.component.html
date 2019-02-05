@@ -1,0 +1,52 @@
+<div class="slds-text-heading_large">
+  <b>Psychologist payments</b>
+</div>
+
+<div class="slds-text-heading_medium slds-m-top_x-small slds-m-bottom_large">
+  Due as of <b>{{balanceDate | date}}</b>
+</div>
+
+<div *ngIf="!loading">
+  <div *ngIf="paymentsDue.length == 0" class="slds-align_absolute-center slds-text-heading_small">
+    No payments are due
+  </div>
+</div>
+
+<div *ngFor="let payment of paymentsDue">
+  <div class="slds-border_bottom slds-p-bottom_medium slds-m-bottom_medium">
+    <div class="slds-grid slds-text-heading_small">
+      <div class="slds-col slds-grid slds-wrap slds-grid_vertical-align-center">
+        <div class="slds-col slds-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+          {{payment.psychologistName}}
+        </div>
+        <div class="slds-col slds-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+          <b>R{{payment.balance}}</b>
+        </div>
+      </div>
+      <div>
+        <div>
+          <button [routerLink]="['/profile/psychologist',payment.psychologistId]" class="slds-float_right slds-m-bottom_xx-small slds-button slds-button_outline-brand">View</button>
+        </div>
+        <div>
+          <button (click)="showRecordPaymentPrompt(payment)" class="slds-button slds-button_outline-brand">Record
+            payment</button>
+        </div>
+      </div>
+    </div>
+    <app-section [innerHtml]="getBankingDetails(payment)" heading="Banking details"></app-section>
+  </div>
+</div>
+
+<div *ngIf="!hideLoadMore" class="slds-align_absolute-center slds-m-bottom_medium">
+  <button (click)="load()" class="slds-button">Load more</button>
+</div>
+
+<div *ngIf="loading" class="slds-align_absolute-center slds-m-top_x-large">
+  <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_inline">
+    <span class="slds-assistive-text">Loading</span>
+    <div class="slds-spinner__dot-a"></div>
+    <div class="slds-spinner__dot-b"></div>
+  </div>
+</div>
+
+<app-prompt *ngIf="showPrompt" (promptResultEvt)="handlePromptResult($event)" heading="Confirm" [text]="promptText"></app-prompt>

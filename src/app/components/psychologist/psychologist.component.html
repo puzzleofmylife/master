@@ -1,4 +1,26 @@
-<div *ngIf="loaded">
+<div>
+    <div class='slds-grid slds-grid_align-spread slds-m-vertical_medium'>
+        <div *ngIf="(loggedIn.IsPsychologist || loggedIn.IsAdmin)">
+            <button class="slds-button slds-button_outline-brand" [routerLink]="['/profile/psychologist/update', psychologist.id]">Update
+                details</button>
+        </div>
+
+        <div *ngIf="(psychologist.statusId == 2 && loggedIn.IsAdmin)">
+            <span><button class="slds-button slds-button_destructive" (click)="doDisable(true)">Disable</button></span>
+        </div>
+
+        <div *ngIf="(psychologist.statusId == 4 && loggedIn.IsAdmin)">
+            <span><button class="slds-button slds-button_brand" (click)="doEnable(true)">Enable</button></span>
+        </div>
+
+        <div *ngIf="(psychologist.statusId == 1 && loggedIn.IsAdmin)">
+            <div>
+                <span><button class="slds-button slds-button_destructive" (click)="doApproval(false)">Deny</button></span>
+                <span class="slds-m-left_small"><button class="slds-button slds-button_brand" (click)="doApproval(true)">Approve</button></span>
+            </div>
+        </div>
+    </div>
+
     <div class="slds-grid slds-wrap">
         <div style="word-break: break-word" class="slds-p-right_small slds-col slds-size_12-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12">
             <div>
@@ -90,26 +112,19 @@
             </div>
         </div>
     </div>
-    <div class='slds-grid slds-grid_align-spread slds-m-vertical_medium'>
-        <div *ngIf="(loggedIn.IsPsychologist || loggedIn.IsAdmin)">
-            <button class="slds-button slds-button_outline-brand" [routerLink]="['/profile/psychologist/update', psychologist.id]">Update details</button>
-        </div>
 
-        <div *ngIf="(psychologist.statusId == 2 && loggedIn.IsAdmin)">
-            <span><button class="slds-button slds-button_destructive" (click)="doDisable(true)">Disable</button></span>
-        </div>
-    
-        <div *ngIf="(psychologist.statusId == 4 && loggedIn.IsAdmin)">
-            <span><button class="slds-button slds-button_brand" (click)="doEnable(true)">Enable</button></span>
-        </div>
-        
-        <div *ngIf="(psychologist.statusId == 1 && loggedIn.IsAdmin)">
-            <div>
-                <span><button class="slds-button slds-button_destructive" (click)="doApproval(false)">Deny</button></span>
-                <span class="slds-m-left_medium"><button class="slds-button slds-button_brand" (click)="doApproval(true)">Approve</button></span>
-            </div>
-        </div>
+    <div class="slds-m-vertical_small slds-text-heading_medium">
+        <b>Payments</b>
     </div>
+
+    <div class="slds-m-top_x-small slds-m-bottom_medium">
+        <app-psychologist-balance [psychologistId]="psychologist.id"></app-psychologist-balance>
+    </div>
+
+    <div class="slds-text-heading_small slds-m-bottom_x-small">
+        <b>Transaction history</b>
+    </div>
+    <app-psychologist-transactions [psychologistId]="psychologist.id"></app-psychologist-transactions>
 
 </div>
 
@@ -129,8 +144,9 @@
             <div>
                 <div class="slds-modal__content slds-p-around_small" id="prompt-message-wrapper">
                     <p>Are you sure you want to <b>DISABLE</b> this psychologist?</p>
-                    <br/>
-                    <p><b>Please note:</b> all the psychologist's patients will be notified and removed from this psychologist.</p>
+                    <br />
+                    <p><b>Please note:</b> all the psychologist's patients will be notified and removed from this
+                        psychologist.</p>
                 </div>
             </div>
             <div>
@@ -148,7 +164,7 @@
         </div>
     </section>
     <div class="slds-backdrop slds-backdrop_open"></div>
-    
+
 </div>
 
 <div *ngIf="showEnablePrompt">

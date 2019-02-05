@@ -56,6 +56,11 @@ import { ActionMenuOriginDirective } from './directives/action-menu-origin.direc
 import { AlertService } from './services/alert.service';
 import { CancelReasonComponent } from './components/cancel-reason/cancel-reason.component';
 import { PsychologistHistoryComponent } from './components/psychologist-history/psychologist-history.component';
+import { PsychologistPaymentsComponent } from './components/psychologist-payments/psychologist-payments.component';
+import { SectionComponent } from './components/section/section.component';
+import { PromptComponent } from './components/prompt/prompt.component';
+import { PsychologistBalanceComponent } from './components/psychologist-balance/psychologist-balance.component';
+import { PsychologistTransactionsComponent } from './components/psychologist-transactions/psychologist-transactions.component';
 
 @NgModule({
 	declarations: [
@@ -109,7 +114,12 @@ import { PsychologistHistoryComponent } from './components/psychologist-history/
 		PackageCreateUpdatesComponent,
 		PsychologistUpdateComponent,
 		CancelReasonComponent,
-		PsychologistHistoryComponent
+		PsychologistHistoryComponent,
+		PsychologistPaymentsComponent,
+		SectionComponent,
+		PromptComponent,
+		PsychologistBalanceComponent,
+		PsychologistTransactionsComponent
 	],
 	imports: [
 		BrowserModule,

@@ -1,0 +1,36 @@
+<div *ngIf="!loading">
+  <div *ngIf="transactions.length == 0" class="slds-align_absolute-center">
+    No transactions found
+  </div>
+</div>
+
+<div *ngFor="let transaction of transactions">
+  <div class="slds-border_bottom slds-p-bottom_x-small slds-m-bottom_x-small">
+    <div class="slds-grid slds-grid_align-spread slds-text-heading_small">
+      <div>
+        {{transaction.createDate | date}}
+      </div>
+      <div *ngIf="transaction.debitAmount > 0">
+        <b>R-{{transaction.debitAmount}}</b>
+      </div>
+      <div *ngIf="transaction.creditAmount > 0">
+        <b>R{{transaction.creditAmount}}</b>
+      </div>
+    </div>
+    <div>
+        {{transaction.description}}
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loadMore" class="slds-align_absolute-center slds-m-bottom_medium">
+  <button (click)="load()" class="slds-button">Load more</button>
+</div>
+
+<div *ngIf="loading" class="slds-align_absolute-center slds-m-top_x-large">
+  <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_inline">
+    <span class="slds-assistive-text">Loading</span>
+    <div class="slds-spinner__dot-a"></div>
+    <div class="slds-spinner__dot-b"></div>
+  </div>
+</div>

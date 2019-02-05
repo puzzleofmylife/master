@@ -31,6 +31,7 @@ import { VoucherCreateComponent } from './components/voucher-create/voucher-crea
 import { VoucherGroupListComponent } from './components/voucher-group-list/voucher-group-list.component';
 import { VouchersComponent } from './components/vouchers/vouchers.component';
 import { CancelReasonComponent } from './components/cancel-reason/cancel-reason.component';
+import { PsychologistPaymentsComponent } from './components/psychologist-payments/psychologist-payments.component';
 
 
 const routes: Routes = [
@@ -74,6 +75,7 @@ const routes: Routes = [
   { path: 'admin/package/create', component: PackageCreateUpdatesComponent },
   { path: 'profile/psychologist/update/:id', component: PsychologistUpdateComponent },
   { path: 'admin/cancellations', component: CancelReasonComponent },
+  { path: 'admin/psychologists/payments', component: PsychologistPaymentsComponent }
 ];
 
 @NgModule({
