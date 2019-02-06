@@ -68,6 +68,7 @@ html {
   color: #027e46;
 }
 
+.paused,
 .pending_approval, 
 .pending_payment {
   color: #ffb75d;

@@ -32,6 +32,7 @@ import { VoucherGroupListComponent } from './components/voucher-group-list/vouch
 import { VouchersComponent } from './components/vouchers/vouchers.component';
 import { CancelReasonComponent } from './components/cancel-reason/cancel-reason.component';
 import { PsychologistPaymentsComponent } from './components/psychologist-payments/psychologist-payments.component';
+import { PsychologistPauseComponent } from './components/psychologist-pause/psychologist-pause.component';
 
 
 const routes: Routes = [
@@ -47,6 +48,7 @@ const routes: Routes = [
   { path: 'admin/psychologists', component: PsychologistListComponent },
   { path: 'psychologist/patients', component: PsychologistSessionComponent },
   { path: 'profile/change-psychologist', component: ChangePsychologistComponent },
+  { path: 'profile/psychologist/pause/:id', component: PsychologistPauseComponent },
   { path: 'profile/psychologist/:id', component: PsychologistComponent },
   { path: 'profile/psychologist', component: PsychologistComponent },
   { path: 'session', component: PatientSessionComponent },

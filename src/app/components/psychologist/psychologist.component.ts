@@ -144,4 +144,14 @@ export class PsychologistComponent implements OnInit {
 	getPsychStatusClass(statusId: number) {
 		return this.helpersService.getPsychStatusClass(statusId);
 	}
+
+	unpause() {
+		this.psychoService.unpause(this.psychologist.id).subscribe(resp => {
+			this.psychologist.status = resp.name;
+			this.psychologist.statusId = resp.id;
+			this.psychologist.pauseReturnDate = null;
+		}, error => {
+
+		});
+	}
 }

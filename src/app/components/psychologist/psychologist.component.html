@@ -19,6 +19,14 @@
                 <span class="slds-m-left_small"><button class="slds-button slds-button_brand" (click)="doApproval(true)">Approve</button></span>
             </div>
         </div>
+
+        <div *ngIf="(psychologist.statusId == 2)">
+            <span><button class="slds-button slds-button_outline-brand" [routerLink]="['/profile/psychologist/pause', psychologist.id]">Pause</button></span>
+        </div>
+
+        <div *ngIf="(psychologist.statusId == 5)">
+            <span><button class="slds-button slds-button_outline-brand" (click)="unpause()">Unpause</button></span>
+        </div>
     </div>
 
     <div class="slds-grid slds-wrap">
@@ -37,7 +45,14 @@
                     {{psychologist.isFullTime ? 'Full-time' : 'Part-time'}}
                 </div>
                 <div class="slds-text-heading_small">
-                    <span [className]="getPsychStatusClass(psychologist.statusId)"><b>{{psychologist.status}}</b></span>
+                    <div [className]="getPsychStatusClass(psychologist.statusId)">
+                        <span>
+                            <b>{{psychologist.status}}</b>
+                        </span>
+                        <span *ngIf="psychologist.pauseReturnDate">
+                            ({{psychologist.pauseReturnDate | date}})
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>

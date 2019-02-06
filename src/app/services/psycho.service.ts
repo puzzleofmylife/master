@@ -92,4 +92,12 @@ export class PsychoService {
 	getBalanceDate(): Observable<any> {
 		return this.http.get<any>(environment.baseAPIURL + '/api/Psychologist/balance/date');
 	}
+
+	pause(psychologistId: number, pauseReturnDate: Date): Observable<any> {
+		return this.http.post<any>(environment.baseAPIURL + '/api/Psychologist/pause', { psychologistId: psychologistId, pauseReturnDate: pauseReturnDate });
+	}
+
+	unpause(psychologistId: number): Observable<any> {
+		return this.http.post<any>(environment.baseAPIURL + '/api/Psychologist/unpause/' + psychologistId, null);
+	}
 }

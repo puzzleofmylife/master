@@ -40,6 +40,9 @@ export class HelpersService {
 				break;
 			case 4:
 				status = 'disabled';
+				break;
+			case 5:
+				status = 'paused';
 		}
 		return status;
 	}
@@ -72,16 +75,16 @@ export class HelpersService {
 
 	getDynamicColourAvatarStyle(inputString: string) {
 		var backgroundColor = this.getColourHashCode(inputString);
-    var borderRadius = '50%';
+		var borderRadius = '50%';
 
-    var color = 'black';
-    //Check if the background color is light or dark, then set the text color to either black or white
-    var rgb = this.hexToRgb(backgroundColor);
-    var o = Math.round(((rgb[0] * 299) + (rgb[1] * 587) + (rgb[2] * 114)) / 1000);
-    if (o < 125) {
-      color = 'white';
+		var color = 'black';
+		//Check if the background color is light or dark, then set the text color to either black or white
+		var rgb = this.hexToRgb(backgroundColor);
+		var o = Math.round(((rgb[0] * 299) + (rgb[1] * 587) + (rgb[2] * 114)) / 1000);
+		if (o < 125) {
+			color = 'white';
 		}
-		
+
 		return `background-color:#${backgroundColor};border-radius:${borderRadius};color:${color};width:50px;height:50px;text-align:center;`;
 	}
 

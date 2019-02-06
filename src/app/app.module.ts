@@ -61,6 +61,8 @@ import { SectionComponent } from './components/section/section.component';
 import { PromptComponent } from './components/prompt/prompt.component';
 import { PsychologistBalanceComponent } from './components/psychologist-balance/psychologist-balance.component';
 import { PsychologistTransactionsComponent } from './components/psychologist-transactions/psychologist-transactions.component';
+import { PsychologistPauseComponent } from './components/psychologist-pause/psychologist-pause.component';
+import { DatepickerComponent } from './components/datepicker/datepicker.component';
 
 @NgModule({
 	declarations: [
@@ -119,7 +121,9 @@ import { PsychologistTransactionsComponent } from './components/psychologist-tra
 		SectionComponent,
 		PromptComponent,
 		PsychologistBalanceComponent,
-		PsychologistTransactionsComponent
+		PsychologistTransactionsComponent,
+		PsychologistPauseComponent,
+		DatepickerComponent
 	],
 	imports: [
 		BrowserModule,

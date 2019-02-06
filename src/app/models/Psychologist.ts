@@ -16,4 +16,5 @@ export class Psychologist extends User {
     attachments: any[];
     paymentPercent: number;
     isFullTime: boolean;
+    pauseReturnDate: boolean;
 }
