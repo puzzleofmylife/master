@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "dist": "ng build --prod && cp src/static/manifest.yml src/static/Staticfile dist/puzzleofmylifeapp",
-    "push": "npm run dist && git push && cd dist/puzzleofmylifeapp && ibmcloud logout && ibmcloud login --apikey 3Qq1CavYM8qtBFGqGrVjt5IWnGD6h7_ZCo0pTLaxI4tx && ibmcloud target --cf && ibmcloud app push"
+    "deploy": "npm run dist && git push && cd dist/puzzleofmylifeapp && ibmcloud logout && ibmcloud login --apikey 3Qq1CavYM8qtBFGqGrVjt5IWnGD6h7_ZCo0pTLaxI4tx && ibmcloud target --cf && ibmcloud app push"
   },
   "private": true,
   "dependencies": {
