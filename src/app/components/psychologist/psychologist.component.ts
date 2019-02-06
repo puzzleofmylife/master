@@ -5,6 +5,8 @@ import { Psychologist } from 'src/app/models/Psychologist';
 import { AuthService } from './../../services/auth.service';
 import { PsychoService } from './../../services/psycho.service';
 import { HelpersService } from 'src/app/services/helpers.service';
+import { Toast } from 'src/app/models/Toast';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
 	selector: 'app-psychologist',
@@ -36,7 +38,8 @@ export class PsychologistComponent implements OnInit {
 		private authService: AuthService,
 		private psychoService: PsychoService,
 		private route: ActivatedRoute,
-		private helpersService: HelpersService) { }
+		private helpersService: HelpersService,
+		private toastService: ToastService) { }
 
 	ngOnInit() {
 		this.authService.authState().subscribe(x => this.loggedIn = x);
@@ -150,8 +153,9 @@ export class PsychologistComponent implements OnInit {
 			this.psychologist.status = resp.name;
 			this.psychologist.statusId = resp.id;
 			this.psychologist.pauseReturnDate = null;
+			this.toastService.set(new Toast('success', 'Successfully unpaused'));
 		}, error => {
-
+			this.toastService.set(new Toast('error', 'An error occurred'));
 		});
 	}
 }

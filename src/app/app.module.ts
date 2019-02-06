@@ -63,6 +63,7 @@ import { PsychologistBalanceComponent } from './components/psychologist-balance/
 import { PsychologistTransactionsComponent } from './components/psychologist-transactions/psychologist-transactions.component';
 import { PsychologistPauseComponent } from './components/psychologist-pause/psychologist-pause.component';
 import { DatepickerComponent } from './components/datepicker/datepicker.component';
+import { ToastComponent } from './components/toast/toast.component';
 
 @NgModule({
 	declarations: [
@@ -123,7 +124,8 @@ import { DatepickerComponent } from './components/datepicker/datepicker.componen
 		PsychologistBalanceComponent,
 		PsychologistTransactionsComponent,
 		PsychologistPauseComponent,
-		DatepickerComponent
+		DatepickerComponent,
+		ToastComponent
 	],
 	imports: [
 		BrowserModule,

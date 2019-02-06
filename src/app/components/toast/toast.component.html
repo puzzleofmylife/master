@@ -1,0 +1,41 @@
+<div *ngIf="showToast">
+  <div class="slds-notify_container">
+    <div [ngSwitch]="toast.state" [className]="getStateClass()" role="status" style="min-width: 18rem;">
+      <span *ngSwitchCase="'success'" class="slds-icon_container slds-icon-utility-success slds-m-right_small slds-no-flex slds-align-top"
+        title="Description of icon when needed">
+        <svg class="slds-icon slds-icon_small" aria-hidden="true">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#success" />
+        </svg>
+      </span>
+      <span *ngSwitchCase="'error'" class="slds-icon_container slds-icon-utility-error slds-m-right_small slds-no-flex slds-align-top"
+        title="Description of icon when needed">
+        <svg class="slds-icon slds-icon_small" aria-hidden="true">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#error" />
+        </svg>
+      </span>
+      <span *ngSwitchCase="'warning'" class="slds-icon_container slds-icon-utility-warning slds-m-right_small slds-no-flex slds-align-top"
+        title="Description of icon when needed">
+        <svg class="slds-icon slds-icon_small" aria-hidden="true">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#warning" />
+        </svg>
+      </span>
+      <span *ngSwitchCase="'info'" class="slds-icon_container slds-icon-utility-info slds-m-right_small slds-no-flex slds-align-top"
+        title="Description of icon when needed">
+        <svg class="slds-icon slds-icon_small" aria-hidden="true">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info" />
+        </svg>
+      </span>
+      <div class="slds-notify__content">
+        <h2 class="slds-text-heading_small ">{{toast.message}}</h2>
+      </div>
+      <div class="slds-notify__close">
+        <button (click)="showToast = false" class="slds-button slds-button_icon slds-button_icon-inverse" title="Close">
+          <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close" />
+          </svg>
+          <span class="slds-assistive-text">Close</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
