@@ -140,4 +140,8 @@ export class PsychologistComponent implements OnInit {
 			console.log(JSON.stringify(error));
 		});
 	}
+
+	getPsychStatusClass(statusId: number) {
+		return this.helpersService.getPsychStatusClass(statusId);
+	}
 }

@@ -37,7 +37,7 @@
                     {{psychologist.isFullTime ? 'Full-time' : 'Part-time'}}
                 </div>
                 <div class="slds-text-heading_small">
-                    <span [className]="helpersService.getPsychStatusClass(psychologist.statusId)"><b>{{psychologist.status}}</b></span>
+                    <span [className]="getPsychStatusClass(psychologist.statusId)"><b>{{psychologist.status}}</b></span>
                 </div>
             </div>
         </div>
