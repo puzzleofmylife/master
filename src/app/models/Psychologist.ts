@@ -15,4 +15,5 @@ export class Psychologist extends User {
     photo:string;
     attachments: any[];
     paymentPercent: number;
+    isFullTime: boolean;
 }

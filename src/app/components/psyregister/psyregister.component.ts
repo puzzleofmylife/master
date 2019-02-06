@@ -60,7 +60,8 @@ export class PsyregisterComponent implements OnInit {
     this.professionalForm = this.formBuilder.group({
       qualification: ['', Validators.required],
       yearsOfExperience: ['', Validators.required],
-      licenseNum: ['', Validators.required]
+      licenseNum: ['', Validators.required],
+      isFullTime: ['', Validators.required]
     });
 
     this.attachmentForm = this.formBuilder.group({
@@ -141,6 +142,7 @@ export class PsyregisterComponent implements OnInit {
     psych.bankName = this._bankingForm.bankName.value;
     psych.branchCode = this._bankingForm.branchCode.value;
     psych.accountType = this._bankingForm.accountType.value;
+    psych.isFullTime = this._professionalForm.isFullTime.value;
 
     var attachments = await this.generateAttachments();
     psych.attachments = attachments;

@@ -125,8 +125,38 @@
         </div>
       </div>
     </div>
+
     <!--Professional information-->
     <div class="slds-text-heading_medium slds-m-top_large slds-m-bottom_x-small">Professional information</div>
+
+    <div class="slds-m-top_small">
+      <div class="slds-grid">
+        <label class="slds-form-element__label">Full or part time*</label>
+        <app-tooltip text="Will you be available full or part time?" top="-50px" left="0px" width="150px"></app-tooltip>
+      </div>
+      <fieldset class="slds-form-element">
+        <div class="slds-form-element__control">
+          <div class="slds-radio_button-group">
+            <span class="slds-button slds-radio_button">
+              <input type="radio" id="isFullTime-yes" formControlName="isFullTime" name="isFullTime" [value]="true" />
+              <label class="slds-radio_button__label" for="isFullTime-yes">
+                <span class="slds-radio_faux">Full-time</span>
+              </label>
+            </span>
+            <span class="slds-button slds-radio_button">
+              <input type="radio" id="isFullTime-no" formControlName="isFullTime" name="isFullTime" [value]="false" />
+              <label class="slds-radio_button__label" for="isFullTime-no">
+                <span class="slds-radio_faux">Part-time</span>
+              </label>
+            </span>
+          </div>
+        </div>
+      </fieldset>
+      <div *ngIf="submitted && updatePsychologistForm.controls.isFullTime.errors" class="slds-text-color_error">
+        <div *ngIf="updatePsychologistForm.controls.isFullTime.errors.required">Full or part time is required</div>
+      </div>
+    </div>
+
     <div class="slds-m-top_small">
       <label class="slds-form-element__label" for="qualification">Highest qualification*</label>
       <div class="slds-form-element__control">
@@ -158,10 +188,11 @@
         </div>
       </div>
     </div>
+
     <!-- Attachments -->
     <div class="slds-text-heading_medium slds-m-top_large slds-m-bottom_x-small">Profile photo</div>
     <div class="slds-m-top_small">
-      <label class="slds-text-heading_medium" for="photoFile">Change photo (headshot)*</label>
+      <label class="slds-text-heading_small" for="photoFile">Change photo (headshot)</label>
       <div class="slds-form-element__control slds-m-top_x-small">
         <input #photoFile formControlName="photoFile" accept=".png, .jpeg, .jpg" type="file" (change)="onPhotoFileChange($event)" />
         <div *ngIf="updatePsychologistForm.controls.photoFile.errors" class="slds-text-color_error">
@@ -173,7 +204,7 @@
     </div>
     <div class="slds-text-heading_medium slds-m-top_large slds-m-bottom_x-small">Attachments</div>
     <div class="slds-m-top_medium">
-      <label class="slds-text-heading_medium" for="idDocFile">ID document*</label>
+      <label class="slds-text-heading_small" for="idDocFile">ID document</label>
       <div class="slds-form-element__control slds-m-top_x-small">
         <input #idDocFile formControlName="idDocFile" accept=".png, .jpeg, .jpg, .pdf" type="file" (change)="onIdDocFileChange($event)" />
         <div *ngIf="updatePsychologistForm.controls.idDocFile.errors" class="slds-text-color_error">
@@ -184,7 +215,7 @@
     </div>
 
     <div class="slds-m-top_medium">
-      <label class="slds-text-heading_medium" for="cvFile">Curriculum Vitae*</label>
+      <label class="slds-text-heading_small" for="cvFile">Curriculum Vitae</label>
       <div class="slds-form-element__control slds-m-top_x-small">
         <input #cvFile formControlName="cvFile" accept=".png, .jpeg, .jpg, .pdf, .doc, .docx, .txt, .odt, .ppt" type="file"
           (change)="onCVFileChange($event)" />
@@ -196,7 +227,7 @@
     </div>
 
     <div class="slds-m-top_medium">
-      <label class="slds-text-heading_medium" for="licenseFile">License*</label>
+      <label class="slds-text-heading_small" for="licenseFile">License</label>
       <div class="slds-form-element__control slds-m-top_x-small">
         <input #licenseFile formControlName="licenseFile" accept=".png, .jpeg, .jpg, .pdf, .doc, .docx, .txt, .odt, .ppt"
           type="file" (change)="onLicenseFileChange($event)" />

@@ -49,7 +49,8 @@
                 <input type="tel" formControlName="contactNum" class="form-control slds-input" />
                 <div *ngIf="submitted && _personalForm.contactNum.errors" class="slds-text-color_error">
                     <div *ngIf="_personalForm.contactNum.errors.required">Contact number is required</div>
-                    <div *ngIf="_personalForm.contactNum.errors.pattern">Contact number is invalid (valid example: 0835551111)</div>
+                    <div *ngIf="_personalForm.contactNum.errors.pattern">Contact number is invalid (valid example:
+                        0835551111)</div>
                 </div>
             </div>
         </div>
@@ -201,6 +202,36 @@
                 <div *ngIf="submitted && _professionalForm.licenseNum.errors" class="slds-text-color_error">
                     <div *ngIf="_professionalForm.licenseNum.errors.required">License number is required</div>
                 </div>
+            </div>
+        </div>
+
+        <div class="slds-m-top_small">
+            <div class="slds-grid">
+                <label class="slds-form-element__label">Full or part time*</label>
+                <app-tooltip text="Will you be available full or part time?" top="-50px" left="0px" width="150px"></app-tooltip>
+            </div>
+            <fieldset class="slds-form-element">
+                <div class="slds-form-element__control">
+                    <div class="slds-radio_button-group">
+                        <span class="slds-button slds-radio_button">
+                            <input type="radio" id="isFullTime-yes" formControlName="isFullTime" name="isFullTime"
+                                [value]="true" />
+                            <label class="slds-radio_button__label" for="isFullTime-yes">
+                                <span class="slds-radio_faux">Full-time</span>
+                            </label>
+                        </span>
+                        <span class="slds-button slds-radio_button">
+                            <input type="radio" id="isFullTime-no" formControlName="isFullTime" name="isFullTime"
+                                [value]="false" />
+                            <label class="slds-radio_button__label" for="isFullTime-no">
+                                <span class="slds-radio_faux">Part-time</span>
+                            </label>
+                        </span>
+                    </div>
+                </div>
+            </fieldset>
+            <div *ngIf="submitted && _professionalForm.isFullTime.errors" class="slds-text-color_error">
+                <div *ngIf="_professionalForm.isFullTime.errors.required">Full or part time is required</div>
             </div>
         </div>
 

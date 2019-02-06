@@ -66,6 +66,7 @@ export class PsychologistUpdateComponent implements OnInit {
 			qualification: ['', Validators.required],
 			yearsOfExperience: ['', Validators.required],
 			licenseNum: ['', Validators.required],
+			isFullTime: ['', Validators.required],
 			/* Attachments */
 			photoFile: [''],
 			idDocFile: [''],
@@ -93,6 +94,7 @@ export class PsychologistUpdateComponent implements OnInit {
 			this.updatePsychologistForm.controls.yearsOfExperience.setValue(response.experienceYears);
 			this.updatePsychologistForm.controls.licenseNum.setValue(response.licenseNumber);
 			this.updatePsychologistForm.controls.commissionPercent.setValue(response.paymentPercent);
+			this.updatePsychologistForm.controls.isFullTime.setValue(response.isFullTime);
 			this.psychologist.id = response.id;
 			this.loading = false;
 		});
@@ -116,6 +118,7 @@ export class PsychologistUpdateComponent implements OnInit {
 			this.psychologist.experienceYears = this.updatePsychologistForm.controls.yearsOfExperience.value;
 			this.psychologist.licenseNumber = this.updatePsychologistForm.controls.licenseNum.value;
 			this.psychologist.paymentPercent = this.updatePsychologistForm.controls.commissionPercent.value;
+			this.psychologist.isFullTime = this.updatePsychologistForm.controls.isFullTime.value;
 			this.psychologist.attachments = await this.generateAttachments();
 			this.saving = true;
 
