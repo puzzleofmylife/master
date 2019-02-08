@@ -1,6 +1,6 @@
 <div class="slds-text-heading_medium slds-m-bottom_small"><b>Add voucher group</b></div>
 <form [formGroup]="voucherGroupForm" (submit)="createVoucherGroup()">
-  <div class="slds-m-bottom_medium">
+	<div class="slds-m-bottom_medium">
 		<div class="slds-m-top_small">
 			<div class="slds-grid">
 				<label class="slds-form-element__label" for="voucherGroupName">Voucher group name*</label>
@@ -45,6 +45,64 @@
 					</div>
 					<div *ngIf="voucherGroupForm.controls.noOfVouchersToGenerate.errors.max">
 						Max is {{voucherGroupForm.controls.noOfVouchersToGenerate.errors.max.max}}
+					</div>
+					<div *ngIf="voucherGroupForm.controls.noOfVouchersToGenerate.errors.min">
+						Min is {{voucherGroupForm.controls.noOfVouchersToGenerate.errors.min.min}}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="slds-m-top_small">
+			<div class="slds-grid">
+				<label class="slds-form-element__label" for="freePeriods">Number of free periods*</label>
+				<app-tooltip
+					text="The number of package periods given to the patient for free. For example 2 package periods on a 7 day package = 14 days free"
+					top="-50px" left="0px" width="150px"></app-tooltip>
+			</div>
+			<div class="slds-form-element__control">
+				<input type="number" min="0" formControlName="freePeriods" class="form-control slds-input" />
+				<div *ngIf="submitted && voucherGroupForm.controls.freePeriods.errors" class="slds-text-color_error">
+					<div *ngIf="voucherGroupForm.controls.freePeriods.errors.required">
+						Number of free periods is required
+					</div>
+					<div *ngIf="voucherGroupForm.controls.freePeriods.errors.min">
+						Min is {{voucherGroupForm.controls.freePeriods.errors.min.min}}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="slds-m-top_small">
+			<label class="slds-form-element__label" for="discountPercent">Percentage discount*</label>
+			<div class="slds-form-element__control">
+				<input type="number" min="0" formControlName="discountPercent" class="form-control slds-input" />
+				<div *ngIf="submitted && voucherGroupForm.controls.discountPercent.errors" class="slds-text-color_error">
+					<div *ngIf="voucherGroupForm.controls.discountPercent.errors.required">
+						Percentage discount is required
+					</div>
+					<div *ngIf="voucherGroupForm.controls.discountPercent.errors.max">
+						Max is {{voucherGroupForm.controls.discountPercent.errors.max.max}}
+					</div>
+					<div *ngIf="voucherGroupForm.controls.discountPercent.errors.min">
+						Min is {{voucherGroupForm.controls.discountPercent.errors.min.min}}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="slds-m-top_small">
+			<div class="slds-grid">
+				<label class="slds-form-element__label" for="discountPeriods">Number of discount periods*</label>
+				<app-tooltip
+					text="The number of package periods to apply the discount. For example 6 package periods on a 10 day package = 60 days of discount"
+					top="-50px" left="0px" width="150px"></app-tooltip>
+			</div>
+			<div class="slds-form-element__control">
+				<input type="number" min="0" formControlName="discountPeriods" class="form-control slds-input" />
+				<div *ngIf="submitted && voucherGroupForm.controls.discountPeriods.errors" class="slds-text-color_error">
+					<div *ngIf="voucherGroupForm.controls.discountPeriods.errors.required">
+						Number of discount periods is required
+					</div>
+					<div *ngIf="voucherGroupForm.controls.discountPeriods.errors.min">
+						Min is {{voucherGroupForm.controls.discountPeriods.errors.min.min}}
 					</div>
 				</div>
 			</div>
@@ -107,7 +165,8 @@
 				<button type="button" class="slds-button" [routerLink]="['/admin/vouchers']">Cancel</button>
 			</div>
 			<div class="slds-col">
-				<div *ngIf="saving" role="status" class="slds-spinner slds-spinner_medium slds-spinner_inline slds-m-top_medium">
+				<div *ngIf="saving" role="status"
+					class="slds-spinner slds-spinner_medium slds-spinner_inline slds-m-top_medium">
 					<span class="slds-assistive-text">Loading</span>
 					<div class="slds-spinner__dot-a"></div>
 					<div class="slds-spinner__dot-b"></div>
@@ -117,5 +176,5 @@
 				<button type="submit" class="slds-button slds-button_brand">Save</button>
 			</div>
 		</div>
-    </div>
+	</div>
 </form>

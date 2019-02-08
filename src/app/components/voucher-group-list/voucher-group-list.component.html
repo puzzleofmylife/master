@@ -16,7 +16,7 @@
         </div>
         <div class="slds-text-heading_medium">
           <span [className]="getVoucherGroupStatusClass(voucherGroup.enabled)">
-            <b>{{voucherGroup.enabled ? 'Enabled' :'Disabled'}}</b>
+            {{voucherGroup.enabled ? 'Enabled' :'Disabled'}}
           </span>
         </div>
       </div>
@@ -30,6 +30,15 @@
         <div>
           <span><b>Used:</b> {{voucherGroup.numberOfVouchersUsed}}</span>
         </div>
+        <div>
+          <span><b>Free periods:</b> {{voucherGroup.freePeriods}}</span>
+        </div>
+        <div>
+          <span><b>Discount percent:</b> {{voucherGroup.discountPercent}}%</span>
+        </div>
+        <div>
+          <span><b>Discount periods:</b> {{voucherGroup.discountPeriods}}</span>
+        </div>
         <div class="slds-truncate">
           <span><b>Expiry:</b> {{voucherGroup.expiryDate | date}} </span>
         </div>
@@ -38,11 +47,14 @@
     </div>
     <div>
       <div class="slds-m-bottom_x-small">
-        <button [routerLink]="['/admin/vouchers',voucherGroup.id, voucherGroup.name]" class="slds-button slds-button_outline-brand">View</button>
+        <button [routerLink]="['/admin/vouchers',voucherGroup.id, voucherGroup.name]"
+          class="slds-button slds-button_outline-brand">View</button>
       </div>
       <div>
-        <button *ngIf="voucherGroup.enabled" class="slds-button slds-button_destructive" (click)="disableVoucherGroup(voucherGroup.id)">Disable</button>
-        <button *ngIf="!voucherGroup.enabled" class="slds-button slds-button slds-button_brand" (click)="enableVoucherGroup(voucherGroup.id)">Enable</button>
+        <button *ngIf="voucherGroup.enabled" class="slds-button slds-button_destructive"
+          (click)="disableVoucherGroup(voucherGroup.id)">Disable</button>
+        <button *ngIf="!voucherGroup.enabled" class="slds-button slds-button slds-button_brand"
+          (click)="enableVoucherGroup(voucherGroup.id)">Enable</button>
       </div>
     </div>
   </div>

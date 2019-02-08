@@ -7,4 +7,7 @@ export class VoucherGroup {
 	numberOfVouchers: number;
 	numberOfVouchersUsed: number;
 	enabled: boolean;
+	discountPeriods: number;
+    discountPercent: number;
+    freePeriods: number;
 }

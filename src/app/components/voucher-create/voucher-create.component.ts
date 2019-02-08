@@ -47,11 +47,14 @@ export class VoucherCreateComponent implements OnInit {
 	createVoucherGroupForm(): void {
 		this.voucherGroupForm = this._formbuilder.group({
 			voucherGroupName: ['', Validators.required],
-			noOfVouchersToGenerate: ['', [Validators.required, Validators.max(100000)]],
+			noOfVouchersToGenerate: ['', [Validators.required, Validators.max(100000), Validators.min(0)]],
 			packageType: ['', Validators.required],
 			expiryDay: ['', Validators.required],
 			expiryMonth: ['', Validators.required],
-			expiryYear: ['', Validators.required]
+			expiryYear: ['', Validators.required],
+			freePeriods: ['', [Validators.required, Validators.min(0)]],
+			discountPercent: ['', [Validators.required, Validators.max(100), Validators.min(0)]],
+			discountPeriods: ['', [Validators.required, Validators.min(0)]]
 		});
 	}
 
@@ -62,6 +65,9 @@ export class VoucherCreateComponent implements OnInit {
 			this.voucherGroup.name = this.voucherGroupForm.controls.voucherGroupName.value;
 			this.voucherGroup.numberOfVouchers = this.voucherGroupForm.controls.noOfVouchersToGenerate.value;
 			this.voucherGroup.packageId = this.voucherGroupForm.controls.packageType.value;
+			this.voucherGroup.freePeriods = this.voucherGroupForm.controls.freePeriods.value;
+			this.voucherGroup.discountPercent = this.voucherGroupForm.controls.discountPercent.value;
+			this.voucherGroup.discountPeriods = this.voucherGroupForm.controls.discountPeriods.value;
 			this.voucherGroup.expiryDate = this.createDate();
 
 			this._voucherService.create(this.voucherGroup).subscribe(() => {
