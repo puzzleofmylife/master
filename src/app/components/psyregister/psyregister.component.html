@@ -1,314 +1,335 @@
-<form [formGroup]="personalForm" (ngSubmit)="onPersonalSubmit()">
-    <div [hidden]="page != 1" class="slds-m-bottom_medium">
-        <div class="slds-text-heading_large"><b>Step {{page}} of 4</b></div>
-        <div class="slds-text-heading_large">Personal details</div>
-        <br />
-        <div class="slds-m-top_small">
-            <label class="slds-form-element__label" for="firstName">First name*</label>
-            <div class="slds-form-element__control">
-                <input type="text" formControlName="firstName" class="form-control slds-input" />
-                <div *ngIf="submitted && _personalForm.firstName.errors" class="slds-text-color_error">
-                    <div *ngIf="_personalForm.firstName.errors.required">First name is required</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slds-m-top_small">
-            <label class="slds-form-element__label" for="surname">Surname*</label>
-            <div class="slds-form-element__control">
-                <input type="text" formControlName="surname" class="form-control slds-input" />
-                <div *ngIf="submitted && _personalForm.surname.errors" class="slds-text-color_error">
-                    <div *ngIf="_personalForm.surname.errors.required">Surname is required</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slds-m-top_small">
-            <label class="slds-form-element__label" for="idNumber">ID number*</label>
-            <div class="slds-form-element__control">
-                <input type="number" formControlName="idNumber" class="form-control slds-input" />
-                <div *ngIf="submitted && _personalForm.idNumber.errors" class="slds-text-color_error">
-                    <div *ngIf="_personalForm.idNumber.errors.required">ID number is required</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slds-m-top_small">
-            <label class="slds-form-element__label" for="age">Age*</label>
-            <div class="slds-form-element__control">
-                <input type="number" formControlName="age" class="form-control slds-input" />
-                <div *ngIf="submitted && _personalForm.age.errors" class="slds-text-color_error">
-                    <div *ngIf="_personalForm.age.errors.required">Age is required</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slds-m-top_small">
-            <label class="slds-form-element__label" for="contactNum">Contact number*</label>
-            <div class="slds-form-element__control">
-                <input type="tel" formControlName="contactNum" class="form-control slds-input" />
-                <div *ngIf="submitted && _personalForm.contactNum.errors" class="slds-text-color_error">
-                    <div *ngIf="_personalForm.contactNum.errors.required">Contact number is required</div>
-                    <div *ngIf="_personalForm.contactNum.errors.pattern">Contact number is invalid (valid example:
-                        0835551111)</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slds-m-top_small">
-            <label class="slds-form-element__label" for="email">Email address*</label>
-            <div class="slds-form-element__control">
-                <input type="email" formControlName="email" email class="form-control slds-input" />
-                <div *ngIf="submitted && _personalForm.email.errors" class="slds-text-color_error">
-                    <div *ngIf="_personalForm.email.errors.required">Email address is required</div>
-                    <div *ngIf="_personalForm.email.errors.email">Invalid email address</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slds-m-top_small">
-            <label class="slds-form-element__label" for="password">Choose your password*</label>
-            <div class="slds-form-element__control">
-                <input type="password" minlength="8" formControlName="password" class="form-control slds-input" />
-                <div *ngIf="submitted && _personalForm.password.errors" class="slds-text-color_error">
-                    <div *ngIf="_personalForm.password.errors.required">Password is required</div>
-                    <div *ngIf="_personalForm.password.errors.minlength">Password must be at least 8 characters</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slds-m-top_small">
-            <label class="slds-form-element__label" for="confirmPassword">Confirm your password*</label>
-            <div class="slds-form-element__control">
-                <input type="password" formControlName="confirmPassword" class="form-control slds-input" />
-                <div *ngIf="submitted && _personalForm.confirmPassword.errors" class="slds-text-color_error">
-                    <div *ngIf="_personalForm.confirmPassword.errors?.dontMatch">Confirmed password does not
-                        match</div>
-                    <div *ngIf="_personalForm.confirmPassword.errors.required">Confirmed password is required</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slds-m-top_medium">
-            <a [routerLink]="['/']" class="slds-button">Cancel</a>
-            <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right" routerLinkActive="router-link-active">Next</button>
-        </div>
-    </div>
-</form>
-
-<form [formGroup]="bankingForm" (ngSubmit)="onBankingSubmit()">
-    <div [hidden]="page != 4" class="slds-m-bottom_medium">
-        <div class="slds-text-heading_large"><b>Step {{page}} of 4</b></div>
-        <div class="slds-text-heading_large">Bank account (to receive your payments)</div>
-
-        <div class="slds-m-top_small">
-            <label class="slds-form-element__label" for="bankName">Bank name*</label>
-            <div class="slds-form-element__control">
-                <input type="text" formControlName="bankName" class="form-control slds-input" />
-                <div *ngIf="submitted && _bankingForm.bankName.errors" class="slds-text-color_error">
-                    <div *ngIf="_bankingForm.bankName.errors.required">Bank Name is required</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slds-m-top_small">
-            <label class="slds-form-element__label" for="accountType">Account type*</label>
-            <div class="slds-form-element__control">
-                <input type="text" formControlName="accountType" class="form-control slds-input" />
-                <div *ngIf="submitted && _bankingForm.accountType.errors" class="slds-text-color_error">
-                    <div *ngIf="_bankingForm.accountType.errors.required">Account type is required</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slds-m-top_small">
-            <label class="slds-form-element__label" for="accountNum">Account number*</label>
-            <div class="slds-form-element__control">
-                <input type="number" formControlName="accountNum" class="form-control slds-input" />
-                <div *ngIf="submitted && _bankingForm.accountNum.errors" class="slds-text-color_error">
-                    <div *ngIf="_bankingForm.accountNum.errors.required">Account number is required</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slds-m-top_small">
-            <label class="slds-form-element__label" for="branchCode">Branch code*</label>
-            <div class="slds-form-element__control">
-                <input type="number" formControlName="branchCode" class="form-control slds-input" />
-                <div *ngIf="submitted && _bankingForm.branchCode.errors" class="slds-text-color_error">
-                    <div *ngIf="_bankingForm.branchCode.errors.required">Branch code is required</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slds-m-top_medium">
-            <button (click)="goBack()" type="button" class="slds-button">Back</button>
-            <button [disabled]="loading" class="slds-button slds-button_brand btn-right" routerLinkActive="router-link-active">Apply</button>
-
-            <div [hidden]="!loading" class="slds-spinner_container">
-                <div role="status" class="slds-spinner slds-spinner_medium">
-                    <span class="slds-assistive-text">Loading</span>
-                    <div class="slds-spinner__dot-a"></div>
-                    <div class="slds-spinner__dot-b"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slds-m-top_medium slds-text-color_weak">By applying you agree to the <a target="_blank" routerLink="/psychologist-terms">terms
-                and conditions</a></div>
-
-        <div [ngClass]="{'slds-hide': !finalSumbitError}" class="slds-m-top_medium slds-text-color_error">
-            An unexpected error occurred.
-        </div>
-
-        <div [ngClass]="{'slds-hide': !duplicateUsername}" class="slds-m-top_medium slds-text-color_error">
-            Email <b>{{ _personalForm.email.value }}</b> already exists in our system. Please login with that
-            email address, or go back and select a different email address.
-        </div>
-    </div>
-</form>
-
-<form [formGroup]="professionalForm" (ngSubmit)="onProfessionalSubmit()">
-    <div [hidden]="page != 2" class="slds-m-bottom_medium">
-        <div class="slds-text-heading_large"><b>Step {{page}} of 4</b></div>
-        <div class="slds-text-heading_large">Professional information</div>
-
-        <div class="slds-m-top_small">
-            <label class="slds-form-element__label" for="qualification">Highest qualification*</label>
-            <div class="slds-form-element__control">
-                <input type="text" formControlName="qualification" class="form-control slds-input" />
-                <div *ngIf="submitted && _professionalForm.qualification.errors" class="slds-text-color_error">
-                    <div *ngIf="_professionalForm.qualification.errors.required">Highest qualification is
-                        required</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slds-m-top_small">
-            <label class="slds-form-element__label" for="yearsOfExperience">Number of years experience*</label>
-            <div class="slds-form-element__control">
-                <input type="number" formControlName="yearsOfExperience" class="form-control slds-input" [ngClass]="{ 'is-invalid': submitted && _professionalForm.yearsOfExperience.errors }" />
-                <div *ngIf="submitted && _professionalForm.yearsOfExperience.errors" class="slds-text-color_error">
-                    <div *ngIf="_professionalForm.yearsOfExperience.errors.required">Years of experience is
-                        required</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slds-m-top_small">
-            <label class="slds-form-element__label" for="licenseNum">License number*</label>
-            <div class="slds-form-element__control">
-                <input type="text" formControlName="licenseNum" class="form-control slds-input" />
-                <div *ngIf="submitted && _professionalForm.licenseNum.errors" class="slds-text-color_error">
-                    <div *ngIf="_professionalForm.licenseNum.errors.required">License number is required</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slds-m-top_small">
-            <div class="slds-grid">
-                <label class="slds-form-element__label">Full or part time*</label>
-                <app-tooltip text="Will you be available full or part time?" top="-50px" left="0px" width="150px"></app-tooltip>
-            </div>
-            <fieldset class="slds-form-element">
-                <div class="slds-form-element__control">
-                    <div class="slds-radio_button-group">
-                        <span class="slds-button slds-radio_button">
-                            <input type="radio" id="isFullTime-yes" formControlName="isFullTime" name="isFullTime"
-                                [value]="true" />
-                            <label class="slds-radio_button__label" for="isFullTime-yes">
-                                <span class="slds-radio_faux">Full-time</span>
-                            </label>
-                        </span>
-                        <span class="slds-button slds-radio_button">
-                            <input type="radio" id="isFullTime-no" formControlName="isFullTime" name="isFullTime"
-                                [value]="false" />
-                            <label class="slds-radio_button__label" for="isFullTime-no">
-                                <span class="slds-radio_faux">Part-time</span>
-                            </label>
-                        </span>
+<div class="slds-grid slds-grid_align-center">
+    <div class="slds-col slds-size_12-of-12 form-width">
+        <form [formGroup]="personalForm" (ngSubmit)="onPersonalSubmit()">
+            <div [hidden]="page != 1" class="slds-m-bottom_medium">
+                <div class="slds-text-heading_large"><b>Step {{page}} of 4</b></div>
+                <div class="slds-text-heading_large">Personal details</div>
+                <br />
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="firstName">First name*</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" formControlName="firstName" class="form-control slds-input" />
+                        <div *ngIf="submitted && _personalForm.firstName.errors" class="slds-text-color_error">
+                            <div *ngIf="_personalForm.firstName.errors.required">First name is required</div>
+                        </div>
                     </div>
                 </div>
-            </fieldset>
-            <div *ngIf="submitted && _professionalForm.isFullTime.errors" class="slds-text-color_error">
-                <div *ngIf="_professionalForm.isFullTime.errors.required">Full or part time is required</div>
+
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="surname">Surname*</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" formControlName="surname" class="form-control slds-input" />
+                        <div *ngIf="submitted && _personalForm.surname.errors" class="slds-text-color_error">
+                            <div *ngIf="_personalForm.surname.errors.required">Surname is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="idNumber">ID number*</label>
+                    <div class="slds-form-element__control">
+                        <input type="number" formControlName="idNumber" class="form-control slds-input" />
+                        <div *ngIf="submitted && _personalForm.idNumber.errors" class="slds-text-color_error">
+                            <div *ngIf="_personalForm.idNumber.errors.required">ID number is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="age">Age*</label>
+                    <div class="slds-form-element__control">
+                        <input type="number" formControlName="age" class="form-control slds-input" />
+                        <div *ngIf="submitted && _personalForm.age.errors" class="slds-text-color_error">
+                            <div *ngIf="_personalForm.age.errors.required">Age is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="contactNum">Contact number*</label>
+                    <div class="slds-form-element__control">
+                        <input type="tel" formControlName="contactNum" class="form-control slds-input" />
+                        <div *ngIf="submitted && _personalForm.contactNum.errors" class="slds-text-color_error">
+                            <div *ngIf="_personalForm.contactNum.errors.required">Contact number is required</div>
+                            <div *ngIf="_personalForm.contactNum.errors.pattern">Contact number is invalid (valid
+                                example:
+                                0835551111)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="email">Email address*</label>
+                    <div class="slds-form-element__control">
+                        <input type="email" formControlName="email" email class="form-control slds-input" />
+                        <div *ngIf="submitted && _personalForm.email.errors" class="slds-text-color_error">
+                            <div *ngIf="_personalForm.email.errors.required">Email address is required</div>
+                            <div *ngIf="_personalForm.email.errors.email">Invalid email address</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="password">Choose your password*</label>
+                    <div class="slds-form-element__control">
+                        <input type="password" minlength="8" formControlName="password"
+                            class="form-control slds-input" />
+                        <div *ngIf="submitted && _personalForm.password.errors" class="slds-text-color_error">
+                            <div *ngIf="_personalForm.password.errors.required">Password is required</div>
+                            <div *ngIf="_personalForm.password.errors.minlength">Password must be at least 8 characters
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="confirmPassword">Confirm your password*</label>
+                    <div class="slds-form-element__control">
+                        <input type="password" formControlName="confirmPassword" class="form-control slds-input" />
+                        <div *ngIf="submitted && _personalForm.confirmPassword.errors" class="slds-text-color_error">
+                            <div *ngIf="_personalForm.confirmPassword.errors?.dontMatch">Confirmed password does not
+                                match</div>
+                            <div *ngIf="_personalForm.confirmPassword.errors.required">Confirmed password is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_medium">
+                    <a [routerLink]="['/']" class="slds-button">Cancel</a>
+                    <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
+                        routerLinkActive="router-link-active">Next</button>
+                </div>
             </div>
-        </div>
+        </form>
 
-        <div class="slds-m-top_medium">
-            <button (click)="goBack()" type="button" class="slds-button">Back</button>
-            <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right" routerLinkActive="router-link-active">Next</button>
-        </div>
+        <form [formGroup]="bankingForm" (ngSubmit)="onBankingSubmit()">
+            <div [hidden]="page != 4" class="slds-m-bottom_medium">
+                <div class="slds-text-heading_large"><b>Step {{page}} of 4</b></div>
+                <div class="slds-text-heading_large">Bank account (to receive your payments)</div>
 
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="bankName">Bank name*</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" formControlName="bankName" class="form-control slds-input" />
+                        <div *ngIf="submitted && _bankingForm.bankName.errors" class="slds-text-color_error">
+                            <div *ngIf="_bankingForm.bankName.errors.required">Bank Name is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="accountType">Account type*</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" formControlName="accountType" class="form-control slds-input" />
+                        <div *ngIf="submitted && _bankingForm.accountType.errors" class="slds-text-color_error">
+                            <div *ngIf="_bankingForm.accountType.errors.required">Account type is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="accountNum">Account number*</label>
+                    <div class="slds-form-element__control">
+                        <input type="number" formControlName="accountNum" class="form-control slds-input" />
+                        <div *ngIf="submitted && _bankingForm.accountNum.errors" class="slds-text-color_error">
+                            <div *ngIf="_bankingForm.accountNum.errors.required">Account number is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="branchCode">Branch code*</label>
+                    <div class="slds-form-element__control">
+                        <input type="number" formControlName="branchCode" class="form-control slds-input" />
+                        <div *ngIf="submitted && _bankingForm.branchCode.errors" class="slds-text-color_error">
+                            <div *ngIf="_bankingForm.branchCode.errors.required">Branch code is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_medium">
+                    <button (click)="goBack()" type="button" class="slds-button">Back</button>
+                    <button [disabled]="loading" class="slds-button slds-button_brand btn-right"
+                        routerLinkActive="router-link-active">Apply</button>
+
+                    <div [hidden]="!loading" class="slds-spinner_container">
+                        <div role="status" class="slds-spinner slds-spinner_medium">
+                            <span class="slds-assistive-text">Loading</span>
+                            <div class="slds-spinner__dot-a"></div>
+                            <div class="slds-spinner__dot-b"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_medium slds-text-color_weak">By applying you agree to the <a target="_blank"
+                        routerLink="/psychologist-terms">terms
+                        and conditions</a></div>
+
+                <div [ngClass]="{'slds-hide': !finalSumbitError}" class="slds-m-top_medium slds-text-color_error">
+                    An unexpected error occurred.
+                </div>
+
+                <div [ngClass]="{'slds-hide': !duplicateUsername}" class="slds-m-top_medium slds-text-color_error">
+                    Email <b>{{ _personalForm.email.value }}</b> already exists in our system. Please login with that
+                    email address, or go back and select a different email address.
+                </div>
+            </div>
+        </form>
+
+        <form [formGroup]="professionalForm" (ngSubmit)="onProfessionalSubmit()">
+            <div [hidden]="page != 2" class="slds-m-bottom_medium">
+                <div class="slds-text-heading_large"><b>Step {{page}} of 4</b></div>
+                <div class="slds-text-heading_large">Professional information</div>
+
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="qualification">Highest qualification*</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" formControlName="qualification" class="form-control slds-input" />
+                        <div *ngIf="submitted && _professionalForm.qualification.errors" class="slds-text-color_error">
+                            <div *ngIf="_professionalForm.qualification.errors.required">Highest qualification is
+                                required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="yearsOfExperience">Number of years experience*</label>
+                    <div class="slds-form-element__control">
+                        <input type="number" formControlName="yearsOfExperience" class="form-control slds-input"
+                            [ngClass]="{ 'is-invalid': submitted && _professionalForm.yearsOfExperience.errors }" />
+                        <div *ngIf="submitted && _professionalForm.yearsOfExperience.errors"
+                            class="slds-text-color_error">
+                            <div *ngIf="_professionalForm.yearsOfExperience.errors.required">Years of experience is
+                                required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label" for="licenseNum">License number*</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" formControlName="licenseNum" class="form-control slds-input" />
+                        <div *ngIf="submitted && _professionalForm.licenseNum.errors" class="slds-text-color_error">
+                            <div *ngIf="_professionalForm.licenseNum.errors.required">License number is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_small">
+                    <div class="slds-grid">
+                        <label class="slds-form-element__label">Full or part time*</label>
+                        <app-tooltip text="Will you be available full or part time?" top="-50px" left="0px"
+                            width="150px"></app-tooltip>
+                    </div>
+                    <fieldset class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <div class="slds-radio_button-group">
+                                <span class="slds-button slds-radio_button">
+                                    <input type="radio" id="isFullTime-yes" formControlName="isFullTime"
+                                        name="isFullTime" [value]="true" />
+                                    <label class="slds-radio_button__label" for="isFullTime-yes">
+                                        <span class="slds-radio_faux">Full-time</span>
+                                    </label>
+                                </span>
+                                <span class="slds-button slds-radio_button">
+                                    <input type="radio" id="isFullTime-no" formControlName="isFullTime"
+                                        name="isFullTime" [value]="false" />
+                                    <label class="slds-radio_button__label" for="isFullTime-no">
+                                        <span class="slds-radio_faux">Part-time</span>
+                                    </label>
+                                </span>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div *ngIf="submitted && _professionalForm.isFullTime.errors" class="slds-text-color_error">
+                        <div *ngIf="_professionalForm.isFullTime.errors.required">Full or part time is required</div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_medium">
+                    <button (click)="goBack()" type="button" class="slds-button">Back</button>
+                    <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
+                        routerLinkActive="router-link-active">Next</button>
+                </div>
+
+            </div>
+        </form>
+
+        <form [formGroup]="attachmentForm" (ngSubmit)="onAttachmentsSubmit()">
+            <div [hidden]="page != 3" class="slds-m-bottom_medium">
+                <div class="slds-text-heading_large"><b>Step {{page}} of 4</b></div>
+                <div class="slds-text-heading_large">Attachments</div>
+                <br />
+
+                <div class="slds-m-top_small">
+                    <label class="slds-text-heading_medium" for="photoFile">Photo of yourself (headshot)*</label>
+                    <div class="slds-form-element__control slds-m-top_x-small">
+                        <input required #photoFile formControlName="photoFile" accept=".png, .jpeg, .jpg" type="file"
+                            (change)="onPhotoFileChange($event)" />
+                        <div *ngIf="_attachmentForm.photoFile.errors" class="slds-text-color_error">
+                            <div *ngIf="submitted && _attachmentForm.photoFile.errors.required">Photo of yourself is
+                                required</div>
+                            <div *ngIf="_attachmentForm.photoFile.errors?.tooLarge">File too large, max file size is
+                                {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
+                            <div *ngIf="_attachmentForm.photoFile.errors?.isPDF">Please submit a .png or .jpeg</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_medium">
+                    <label class="slds-text-heading_medium" for="idDocFile">ID document*</label>
+                    <div class="slds-form-element__control slds-m-top_x-small">
+                        <input #idDocFile required formControlName="idDocFile" accept=".png, .jpeg, .jpg, .pdf"
+                            type="file" (change)="onIdDocFileChange($event)" />
+                        <div *ngIf="_attachmentForm.idDocFile.errors" class="slds-text-color_error">
+                            <div *ngIf="submitted && _attachmentForm.idDocFile.errors.required">ID document is required
+                            </div>
+                            <div *ngIf="_attachmentForm.idDocFile.errors?.tooLarge">File too large, max file size is
+                                {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_medium">
+                    <label class="slds-text-heading_medium" for="cvFile">Curriculum Vitae*</label>
+                    <div class="slds-form-element__control slds-m-top_x-small">
+                        <input #cvFile required formControlName="cvFile"
+                            accept=".png, .jpeg, .jpg, .pdf, .doc, .docx, .txt, .odt, .ppt" type="file"
+                            (change)="onCVFileChange($event)" />
+                        <div *ngIf="_attachmentForm.cvFile.errors" class="slds-text-color_error">
+                            <div *ngIf="submitted && _attachmentForm.cvFile.errors.required">CV is required</div>
+                            <div *ngIf="_attachmentForm.cvFile.errors?.tooLarge">File too large, max file size is
+                                {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_medium">
+                    <label class="slds-text-heading_medium" for="licenseFile">License*</label>
+                    <div class="slds-form-element__control slds-m-top_x-small">
+                        <input #licenseFile required formControlName="licenseFile"
+                            accept=".png, .jpeg, .jpg, .pdf, .doc, .docx, .txt, .odt, .ppt" type="file"
+                            (change)="onLicenseFileChange($event)" />
+                        <div *ngIf="_attachmentForm.licenseFile.errors" class="slds-text-color_error">
+                            <div *ngIf="submitted && _attachmentForm.licenseFile.errors.required">License is required
+                            </div>
+                            <div *ngIf="_attachmentForm.licenseFile.errors?.tooLarge">File too large, max file size is
+                                {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_medium">
+                    <button (click)="goBack()" type="button" class="slds-button">Back</button>
+                    <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
+                        routerLinkActive="router-link-active">Next</button>
+                </div>
+
+            </div>
+        </form>
     </div>
-</form>
-
-<form [formGroup]="attachmentForm" (ngSubmit)="onAttachmentsSubmit()">
-    <div [hidden]="page != 3" class="slds-m-bottom_medium">
-        <div class="slds-text-heading_large"><b>Step {{page}} of 4</b></div>
-        <div class="slds-text-heading_large">Attachments</div>
-        <br />
-
-        <div class="slds-m-top_small">
-            <label class="slds-text-heading_medium" for="photoFile">Photo of yourself (headshot)*</label>
-            <div class="slds-form-element__control slds-m-top_x-small">
-                <input required #photoFile formControlName="photoFile" accept=".png, .jpeg, .jpg" type="file" (change)="onPhotoFileChange($event)" />
-                <div *ngIf="_attachmentForm.photoFile.errors" class="slds-text-color_error">
-                    <div *ngIf="submitted && _attachmentForm.photoFile.errors.required">Photo of yourself is
-                        required</div>
-                    <div *ngIf="_attachmentForm.photoFile.errors?.tooLarge">File too large, max file size is
-                        {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
-                    <div *ngIf="_attachmentForm.photoFile.errors?.isPDF">Please submit a .png or .jpeg</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slds-m-top_medium">
-            <label class="slds-text-heading_medium" for="idDocFile">ID document*</label>
-            <div class="slds-form-element__control slds-m-top_x-small">
-                <input #idDocFile required formControlName="idDocFile" accept=".png, .jpeg, .jpg, .pdf" type="file"
-                    (change)="onIdDocFileChange($event)" />
-                <div *ngIf="_attachmentForm.idDocFile.errors" class="slds-text-color_error">
-                    <div *ngIf="submitted && _attachmentForm.idDocFile.errors.required">ID document is required</div>
-                    <div *ngIf="_attachmentForm.idDocFile.errors?.tooLarge">File too large, max file size is
-                        {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slds-m-top_medium">
-            <label class="slds-text-heading_medium" for="cvFile">Curriculum Vitae*</label>
-            <div class="slds-form-element__control slds-m-top_x-small">
-                <input #cvFile required formControlName="cvFile" accept=".png, .jpeg, .jpg, .pdf, .doc, .docx, .txt, .odt, .ppt"
-                    type="file" (change)="onCVFileChange($event)" />
-                <div *ngIf="_attachmentForm.cvFile.errors" class="slds-text-color_error">
-                    <div *ngIf="submitted && _attachmentForm.cvFile.errors.required">CV is required</div>
-                    <div *ngIf="_attachmentForm.cvFile.errors?.tooLarge">File too large, max file size is
-                        {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slds-m-top_medium">
-            <label class="slds-text-heading_medium" for="licenseFile">License*</label>
-            <div class="slds-form-element__control slds-m-top_x-small">
-                <input #licenseFile required formControlName="licenseFile" accept=".png, .jpeg, .jpg, .pdf, .doc, .docx, .txt, .odt, .ppt"
-                    type="file" (change)="onLicenseFileChange($event)" />
-                <div *ngIf="_attachmentForm.licenseFile.errors" class="slds-text-color_error">
-                    <div *ngIf="submitted && _attachmentForm.licenseFile.errors.required">License is required</div>
-                    <div *ngIf="_attachmentForm.licenseFile.errors?.tooLarge">File too large, max file size is
-                        {{maxFileSizeBytes / (1024 * 1024) | number}} MB</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slds-m-top_medium">
-            <button (click)="goBack()" type="button" class="slds-button">Back</button>
-            <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right" routerLinkActive="router-link-active">Next</button>
-        </div>
-
-    </div>
-</form>
+</div>
 
 <div [hidden]="page != 5" class="slds-m-bottom_medium">
     <div class="slds-text-heading_large slds-align_absolute-center">
