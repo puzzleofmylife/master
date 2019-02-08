@@ -22,7 +22,7 @@ export class NotificationNavComponent implements OnInit, OnDestroy {
 	notificationLimit: number = 10;
 	showNotificationDropdown: boolean = false;
 	newNotificationsSubscription: Subscription;
-	newNotificationGetInterval: number = 60 * 1000;
+	newNotificationGetInterval: number = 5 * 60 * 1000;//5min
 	get isMobile(): boolean {
 		return window.innerWidth <= 480;
 	}
