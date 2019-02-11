@@ -1,3 +1,5 @@
+import { PatientPackageVoucher } from "./PatientPackageVoucher";
+
 export class PatientPackage {
     id: number;
     packageId: number;
@@ -10,4 +12,5 @@ export class PatientPackage {
     statusName: string;
     patientId: number;
     pendingCancellation: boolean;
+    packageVoucher: PatientPackageVoucher;
 }
