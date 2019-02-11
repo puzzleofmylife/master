@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="!voucherSuccess">
     <div class="slds-grid slds-grid_align-center">
         <div class="slds-col slds-size_12-of-12 form-width">
             <form [formGroup]="patientPersonalForm" (ngSubmit)="onPatientPersonalSubmit()" class="">
