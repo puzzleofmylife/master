@@ -3,6 +3,7 @@ import { Package } from 'src/app/models/Package';
 import { PackageService } from 'src/app/services/package.service';
 import { PatientService } from '../../services/patient.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PatientPackage } from 'src/app/models/PatientPackage';
 
 @Component({
   selector: 'app-changepackage',
@@ -18,6 +19,7 @@ export class ChangePackageComponent implements OnInit {
   success: boolean = false;
   gotResult: boolean = false;
   resultText: string;
+  showVoucherConfirm: boolean;
 
   constructor(
     private packageService: PackageService,
@@ -33,6 +35,9 @@ export class ChangePackageComponent implements OnInit {
 
     this.submitted = true;
     this.patientService.getCurrentPatientPackage().subscribe(curPackage => {
+      if(curPackage.packageVoucher)
+        this.showVoucherConfirm = true;
+        
       this.packageService.getActivePackages().subscribe(result => {
         this.availablePackages = result.filter(x => x.id != curPackage.packageId);
         this.loaded = true;

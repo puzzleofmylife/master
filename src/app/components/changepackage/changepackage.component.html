@@ -6,29 +6,55 @@
     </div>
 </div>
 
-<div *ngIf="loaded && !gotResult">
+<div *ngIf="showVoucherConfirm">
+    <div class="slds-text-heading_medium">
+        <div class="slds-align_absolute-center slds-m-bottom_medium">
+            <span class="slds-icon_container slds-p-right_xx-small" title="Warning">
+                <svg class="slds-icon_large slds-icon-text-warning" aria-hidden="true">
+                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#warning"></use>
+                </svg>
+                <span class="slds-assistive-text">Warning</span>
+            </span>
+        </div>
+        You have a voucher linked to your current package. Changing your package will completely remove the voucher from your account,
+        and cannot be undone.
+    </div>
+    <div class="slds-m-top_medium">
+        <a [routerLink]="['/profile']" class="slds-button">Cancel</a>
+        <button class="slds-button slds-button_brand btn-right" (click)="showVoucherConfirm = false">Continue</button>
+    </div>
+</div>
+
+<div *ngIf="loaded && !showVoucherConfirm && !gotResult">
     <div class="slds-text-heading_medium slds-m-bottom_small">Packages</div>
 
     <form [formGroup]="availablePackagesForm" (ngSubmit)="onChoosePackageSubmit()">
         <div class="slds-grid slds-wrap slds-gutters_x-small slds-grid_pull-padded-x-small">
-            <div *ngFor="let package of availablePackages" class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2  slds-p-vertical_x-small">
+            <div *ngFor="let package of availablePackages"
+                class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2  slds-p-vertical_x-small">
                 <article class="background-color-brand-blue slds-card">
                     <div class="slds-card__header slds-grid">
                         <header class="slds-media slds-media_center slds-has-flexi-truncate">
                             <div class="slds-media__body">
-                                <h2 class="slds-card__header-title" style="text-align:center; color:white">
-                                    <span class="slds-card__header-link slds-truncate">
-                                        R{{package.cost}}
+                                <div class="slds-m-bottom_small slds-text-heading_medium"
+                                    style="text-align:center; color:white">
+                                    <span class="slds-truncate">
+                                        {{package.name}}
                                     </span>
-                                </h2>
+                                </div>
+                                <div class="slds-m-bottom_small" style="text-align:center; color:white">
+                                    <span class="slds-text-heading_small">R</span>
+                                    <span class="slds-text-heading_large slds-truncate">
+                                        <b>{{package.cost}}</b>
+                                    </span>
+                                </div>
                             </div>
                         </header>
                     </div>
                     <div class="slds-card__body slds-card__body_inner" style="text-align:center; color:white">
-                        <div class="slds-m-bottom_small">
-                            {{package.name}}
+                        <div>
+                            {{package.durationDays}} days, unlimited interaction
                         </div>
-
                         <div class="slds-radio_button-group slds-m-top_small">
                             <span class="slds-button slds-radio_button">
                                 <input type="radio" [id]="package.name + package.id" formControlName="packageChoice"
@@ -39,7 +65,6 @@
                             </span>
                         </div>
                     </div>
-
                 </article>
             </div>
         </div>
