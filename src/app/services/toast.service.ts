@@ -19,4 +19,16 @@ export class ToastService {
   set(toast: Toast) {
     this.toastSubject.next(toast);
   }
+
+  setError(message: string){
+    this.toastSubject.next(new Toast("error", message));
+  }
+
+  setSuccess(message: string){
+    this.toastSubject.next(new Toast("success", message));
+  }
+
+  setWarning(message: string){
+    this.toastSubject.next(new Toast("warning", message));
+  }
 }

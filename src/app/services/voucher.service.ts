@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { VoucherGroup } from './../models/VoucherGroup';
+import { VoucherInfo } from '../models/VoucherInfo';
 
 @Injectable({
 	providedIn: 'root'
@@ -42,7 +43,7 @@ export class VoucherService {
 		return this.http.post<VoucherGroup>(environment.baseAPIURL + '/api/Voucher/group/enable/' + voucherGroupId, null);
 	}
 
-	get(voucherCode: string): Observable<any> {
-		return this.http.get<any>(environment.baseAPIURL + '/api/Voucher/' + voucherCode);
+	get(voucherCode: string): Observable<VoucherInfo> {
+		return this.http.get<VoucherInfo>(environment.baseAPIURL + '/api/Voucher/' + voucherCode);
 	}
 }

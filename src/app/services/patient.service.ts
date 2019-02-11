@@ -74,4 +74,8 @@ export class PatientService {
 
 		});
 	}
+
+	applyVoucher(voucherCode: string) {
+		return this.http.post(environment.baseAPIURL + '/api/Patient/voucher/apply/' + voucherCode, null);
+	}
 }
