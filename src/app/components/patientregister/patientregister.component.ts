@@ -248,18 +248,18 @@ export class PatientRegisterComponent implements OnInit {
 	}
 
 	private doVoucherSuccess() {
-		this.voucherService.get(this._packageForm.voucherCode.value).subscribe(resp => {
+		this.patientService.getCurrentPatientPackage().subscribe(resp => {
 			this.voucherSuccessResultText = `You are now signed up and ready to go!
 			<br /><br />Your voucher gives you the following:<br/><br/>`;
 			
-			if(resp.freePeriods > 0)
+			if(resp.packageVoucher.freePeriods > 0)
 			{
-				this.voucherSuccessResultText += `<div><b>${resp.packageName}</b> - free for the first <b>${resp.freePeriods}</b> billing cycle(s).</div>`;
+				this.voucherSuccessResultText += `<div><b>${resp.packageName}</b> - free for the first <b>${resp.packageVoucher.freePeriods}</b> billing cycle(s).</div>`;
 			}
 
-			if(resp.discountPeriods > 0 && resp.discountPercent > 0)
+			if(resp.packageVoucher.discountPeriods > 0 && resp.packageVoucher.discountPercent > 0)
 			{
-				this.voucherSuccessResultText += `<div><b>${resp.discountPercent}%</b> off for the next <b>${resp.discountPeriods}</b> billing cycle(s).</div>`;
+				this.voucherSuccessResultText += `<div><b>${resp.packageVoucher.discountPercent}%</b> off for the next <b>${resp.packageVoucher.discountPeriods}</b> billing cycle(s).</div>`;
 			}
 
 			this.voucherSuccessResultText += `<br /><br />Your psychologist <b>${this.chosenPsychName}</b> can't wait to meet you. Click the button below to start your first session.`;
