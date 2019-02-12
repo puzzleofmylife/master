@@ -15,19 +15,22 @@ export class VoucherApplyComponent implements OnInit {
   voucherInfo: VoucherInfo;
   voucherCodeValid: boolean;
   loading: boolean;
+  invalidVoucher: boolean;
 
   constructor(
-    private voucherService: VoucherService, 
+    private voucherService: VoucherService,
     private patientService: PatientService,
     private toastService: ToastService) { }
 
   ngOnInit() {
     this.loading = true;
     this.patientService.getCurrentPatientPackage().subscribe(curPackage => {
-      if(curPackage.packageVoucher)
+      if (curPackage.packageVoucher)
         this.cmpState = "voucher_warning";
+      else
+        this.cmpState = "init";
 
-        this.loading = false;
+      this.loading = false;
     }, error => {
       this.loading = false;
       this.toastService.setError("An error occurred");
@@ -37,6 +40,7 @@ export class VoucherApplyComponent implements OnInit {
 
   getVoucherInfo() {
     this.loading = true;
+    this.invalidVoucher = false;
     this.voucherService.get(this.voucherCode).subscribe(resp => {
       this.cmpState = "voucher_info";
       this.voucherInfo = resp;
@@ -44,14 +48,14 @@ export class VoucherApplyComponent implements OnInit {
     }, error => {
       this.loading = false;
 
-      if(error.error.InvalidVoucherCode)
-        this.cmpState = "invalid_voucher";
+      if (error.error.InvalidVoucherCode)
+        this.invalidVoucher = true;
       else
         this.toastService.setError("An error occurred");
     });
   }
 
-  confirmApplyVoucher(){
+  confirmApplyVoucher() {
     this.loading = true;
     this.patientService.applyVoucher(this.voucherCode).subscribe(resp => {
       this.loading = false;

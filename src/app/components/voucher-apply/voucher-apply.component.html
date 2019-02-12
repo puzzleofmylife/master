@@ -1,3 +1,7 @@
+<div class="slds-text-heading_large slds-m-bottom_medium">
+  Use a voucher
+</div>
+
 <div *ngIf="loading" class="slds-align_absolute-center slds-m-top_x-large">
   <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_inline">
     <span class="slds-assistive-text">Loading</span>
@@ -25,23 +29,31 @@
   </div>
 </div>
 
-<div *ngIf="cmpState == 'init'" style="text-align:center">
-  <label class="slds-form-element__label slds-text-heading_medium" for="voucherCode"><b>Voucher
+<div *ngIf="cmpState == 'init'">
+  <label class="slds-form-element__label slds-text-heading_small" for="voucherCode"><b>Enter voucher
       code</b></label>
   <div class="slds-form-element__control slds-m-bottom_medium">
     <input type="text" [(ngModel)]="voucherCode" class="form-control slds-input" style="width:200px" />
   </div>
+  <div *ngIf="invalidVoucher" class="slds-text-color_error">Invalid voucher code</div>
 
   <div class="slds-m-top_medium">
     <a [routerLink]="['/profile']" class="slds-button">Cancel</a>
     <button class="slds-button slds-button_brand btn-right" (click)="getVoucherInfo()">Continue</button>
   </div>
-  <div *ngIf="invalidVoucher" class="slds-text-color_error">Invalid voucher code</div>
 </div>
 
-<div *ngIf="cmpState == 'voucher_info' && !loading" class="slds-text-heading_medium">
+<div *ngIf="cmpState == 'voucher_info' && !loading">
   <div class="slds-text-heading_medium">
-    Apply the following voucher?
+    Confirm you want to use the following voucher?
+  </div>
+  <div class="slds-m-top_small" *ngIf="voucherInfo.freePeriods > 0">
+    <span class="slds-icon_container slds-p-right_xx-small" title="Success">
+      <svg class="slds-icon_small slds-icon-text-success" aria-hidden="true">
+        <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#success"></use>
+      </svg>
+      <span class="slds-assistive-text">Success</span>
+    </span>Package: {{voucherInfo.packageName}}
   </div>
   <div class="slds-m-top_small" *ngIf="voucherInfo.freePeriods > 0">
     <span class="slds-icon_container slds-p-right_xx-small" title="Success">
@@ -65,10 +77,11 @@
   </div>
   <div class="slds-m-top_medium">
     <a [routerLink]="['/profile']" class="slds-button">Cancel</a>
-    <button class="slds-button slds-button_brand btn-right" (click)="getVoucherInfo()">Apply voucher</button>
+    <button class="slds-button slds-button_brand btn-right" (click)="confirmApplyVoucher()">Confirm</button>
   </div>
 </div>
 
 <div *ngIf="cmpState == 'voucher_success' && !loading">
-    <app-result [success]="cmpState == 'voucher_success'" text="Voucher applied successfully" buttonText="Back to profile" buttonLink="/profile"></app-result>
+  <app-result [success]="cmpState == 'voucher_success'" text="Voucher applied successfully" buttonText="Back to profile"
+    buttonLink="/profile"></app-result>
 </div>

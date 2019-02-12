@@ -21,7 +21,10 @@
     <div class="slds-m-vertical_small" *ngIf="!paymentCard">
       No card found
     </div>
-    <button class="slds-button slds-m-top_xx-small slds-button_outline-brand" (click)="navigateToUpdateCard()">{{paymentCard
-      ? 'Update card':'Add card'}}</button>
+    <div class="slds-grid slds-grid_align-spread slds-m-top_xx-small">
+      <button class="slds-button slds-button_outline-brand" (click)="navigateToUpdateCard()">{{paymentCard
+        ? 'Update card':'Add card'}}</button>
+      <button class="slds-button slds-button_outline-brand" [routerLink]="['/voucher/use']">Use voucher</button>
+    </div>
   </div>
 </article>
