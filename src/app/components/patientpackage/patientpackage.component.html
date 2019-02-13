@@ -20,8 +20,7 @@
     <div class="slds-card__body slds-card__body_inner">
         <div style="text-align:center; color:black">
             <div class="slds-m-bottom_small slds-text-heading_medium">
-                <span
-                    [className]="getPackageStatusClass(currentPackage.statusId)"><b>{{currentPackage.statusName}}</b></span>
+                <span [className]="getPackageStatusClass(currentPackage.statusId)"><b>{{currentPackage.statusName}}</b></span>
             </div>
 
             <!-- Active -->
@@ -40,29 +39,30 @@
                         cancellation</button>
                 </div>
                 <div *ngIf="!currentPackage.pendingCancellation" class="slds-m-top_small">
-                    <button class="slds-button slds-button_destructive" (click)="showCancelPrompt()">Cancel
+                    <button class="slds-button slds-button_destructive" [routerLink]="['/profile/package/cancel']">Cancel
                         package</button>
                 </div>
             </div>
 
             <!-- Pending Payment -->
             <div *ngIf="currentPackage.statusId == 2" class="slds-m-bottom_small">
-                (R{{outstandingBalance}} is due)
-                <div class="slds-m-top_small">
-                    <button class="slds-button slds-button_success" [routerLink]="['/settle-balance']">Pay now</button>
+                <div *ngIf="currentPackage.pendingCancellation" class="cancelled">Pending cancellation on
+                    <b>{{helpersService.convertToLocalDate(currentPackage.pendingCancellationJobDate) | date}}</b>
+                </div>
+                <div *ngIf="!currentPackage.pendingCancellation" class="slds-m-top_small">
+                    <button class="slds-button slds-button_brand" [routerLink]="['/settle-balance']">Pay R{{outstandingBalance}} now</button>
                 </div>
                 <div class="slds-m-top_small">
-                    <button class="slds-button slds-button_destructive" (click)="cancelPackage()">Cancel
-                        package</button>
+                    <button class="slds-button slds-button_destructive" [routerLink]="['/profile/package/cancel']">Cancel package</button>
                 </div>
             </div>
 
             <!-- Cancelled -->
             <div *ngIf="currentPackage.statusId == 3" class="slds-m-bottom_small">
-                <button class="slds-button slds-button_outline-brand" (click)="reactivatePackage()">Reactivate</button>
+                <button class="slds-button slds-button_outline-brand" [routerLink]="['/profile/package/reactivate']">Reactivate</button>
             </div>
 
-            <button class="slds-button slds-button_outline-brand" (click)="changePackage()">Change package</button>
+            <button class="slds-button slds-button_outline-brand" [routerLink]="['/profile/package/change']">Change package</button>
         </div>
 
         <div *ngIf="currentPackage.packageVoucher" class="slds-border_top slds-p-top_large slds-m-top_large">
@@ -75,12 +75,10 @@
                         <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#success"></use>
                     </svg>
                     <span class="slds-assistive-text">Success</span>
-                </span>First <span
-                    class="slds-text-heading_small"><b>{{currentPackage.packageVoucher.freePeriods}}</b></span>
+                </span>First <span class="slds-text-heading_small"><b>{{currentPackage.packageVoucher.freePeriods}}</b></span>
                 billing cycles FREE.
             </div>
-            <div class="slds-m-top_small"
-                *ngIf="currentPackage.packageVoucher.discountPeriodsRemaining > 0 && currentPackage.packageVoucher.discountPercent > 0">
+            <div class="slds-m-top_small" *ngIf="currentPackage.packageVoucher.discountPeriodsRemaining > 0 && currentPackage.packageVoucher.discountPercent > 0">
                 <span class="slds-icon_container slds-p-right_xx-small" title="Success">
                     <svg class="slds-icon_small slds-icon-text-success" aria-hidden="true">
                         <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#success"></use>
@@ -88,50 +86,10 @@
                     <span class="slds-assistive-text">Success</span>
                 </span>
                 <span class="slds-text-heading_small"><b>{{currentPackage.packageVoucher.discountPercent}}%</b></span>
-                off the next <span
-                    class="slds-text-heading_small"><b>{{currentPackage.packageVoucher.discountPeriodsRemaining}}</b></span>
+                off the next <span class="slds-text-heading_small"><b>{{currentPackage.packageVoucher.discountPeriodsRemaining}}</b></span>
                 billing cycles.
             </div>
         </div>
-    </div>
-
-    <!-- Cancel patient prompt -->
-    <div *ngIf="showCancelPromptFlag">
-        <section role="alertdialog" tabindex="-1" aria-labelledby="prompt-heading-id"
-            aria-describedby="prompt-message-wrapper" class="slds-modal slds-fade-in-open slds-modal_prompt"
-            aria-modal="true">
-            <div class="slds-modal__container">
-                <header class="slds-modal__header slds-theme_warning">
-                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
-                        title="Close">
-                        <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
-                            <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close" />
-                        </svg>
-                        <span class="slds-assistive-text">Close</span>
-                    </button>
-                    <h2 class="slds-text-heading_medium" id="prompt-heading-id">Confirm</h2>
-                </header>
-                <div>
-                    <div class="slds-modal__content slds-p-around_small" id="prompt-message-wrapper">
-                        <p>Are you sure you want to <b>CANCEL</b> this package?</p>
-                    </div>
-                </div>
-                <div>
-                    <div class="slds-modal__content slds-p-around_xx-small" id="prompt-message-wrapper">
-                        <p>Reason for cancellation (optional)</p>
-                        <textarea [(ngModel)]="cancelReason" style="width:100%; height:100%" rows="5"
-                            name="cancelReason"></textarea>
-                    </div>
-                </div>
-                <footer class="slds-modal__footer slds-theme_default">
-                    <button class="slds-button slds-button_neutral" (click)="hideCancelPrompt()">Cancel</button>
-                    <button class="slds-button slds-button_brand" (click)="cancelPackage()">Proceed</button>
-                    <div *ngIf="enableError" class="slds-text-color_error">An error occurred</div>
-                </footer>
-            </div>
-        </section>
-        <div class="slds-backdrop slds-backdrop_open"></div>
     </div>
 
     <div *ngIf="loading" class="slds-align_absolute-center slds-m-top_x-large">

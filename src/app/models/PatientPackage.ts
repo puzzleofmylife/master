@@ -14,4 +14,5 @@ export class PatientPackage {
     pendingCancellation: boolean;
     pendingCancellationJobDate: Date;
     packageVoucher: PatientPackageVoucher;
+    isInTrial: boolean;
 }

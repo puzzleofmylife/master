@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { PatientPackage } from '../../models/PatientPackage';
 import { PaymentService } from '../../services/payment.service';
 import { HelpersService } from '../../services/helpers.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-patientpackage',
@@ -23,7 +24,8 @@ export class PatientPackageComponent implements OnInit {
     private patientService: PatientService,
     private router: Router,
     private paymentService: PaymentService,
-    private helpersService: HelpersService
+    private helpersService: HelpersService,
+    private toastService: ToastService
   ) { }
 
   ngOnInit() {
@@ -45,31 +47,16 @@ export class PatientPackageComponent implements OnInit {
     });
   }
 
-  changePackage() {
-    this.router.navigate(['/profile/change-package']);
-  }
-
-  cancelPackage() {
-    this.loading = true;
-    this.showCancelPromptFlag = false;
-    this.patientService.cancelPatientPackage(this.cancelReason).subscribe(result => {
-      //Success...reload
-      this.getPatientPackage();
-      this.loading = false;
-    }, error => {
-      this.loading = false;
-      console.error(JSON.stringify(error.error));
-    });
-  }
-
   undoCancelPackage() {
     this.loading = true;
     this.patientService.undoCancelPatientPackage().subscribe(result => {
+      this.toastService.setSuccess('Success');
       //Success...reload
       this.getPatientPackage();
       this.loading = false;
     }, error => {
       this.loading = false;
+      this.toastService.setError();
       console.error(JSON.stringify(error.error));
     });
   }

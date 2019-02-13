@@ -65,6 +65,8 @@ import { PsychologistPauseComponent } from './components/psychologist-pause/psyc
 import { DatepickerComponent } from './components/datepicker/datepicker.component';
 import { ToastComponent } from './components/toast/toast.component';
 import { VoucherApplyComponent } from './components/voucher-apply/voucher-apply.component';
+import { PackageCancelComponent } from './components/package-cancel/package-cancel.component';
+import { PackageReactivateComponent } from './components/package-reactivate/package-reactivate.component';
 
 @NgModule({
 	declarations: [
@@ -127,7 +129,9 @@ import { VoucherApplyComponent } from './components/voucher-apply/voucher-apply.
 		PsychologistPauseComponent,
 		DatepickerComponent,
 		ToastComponent,
-		VoucherApplyComponent
+		VoucherApplyComponent,
+		PackageCancelComponent,
+		PackageReactivateComponent
 	],
 	imports: [
 		BrowserModule,

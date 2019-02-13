@@ -13,20 +13,34 @@ export class PatientPsychologistComponent implements OnInit {
   psychologist: Psychologist;
   loaded: boolean;
   showNoPsychMsg: boolean;
+  showPackageNotActive: boolean;
 
   constructor(private patientService: PatientService, private router: Router) { }
 
   ngOnInit() {
-    this.patientService.getPsychologist().subscribe(response => {
+    this.patientService.getCurrentPatientPackage().subscribe(response => {
       this.loaded = true;
-      this.psychologist = response;
+      if (response.statusId == 1)//Active package
+      {
+        this.patientService.getPsychologist().subscribe(response => {
+          this.loaded = true;
+          this.psychologist = response;
 
-      if (!this.psychologist)
-        this.showNoPsychMsg = true;
+          if (!this.psychologist)
+            this.showNoPsychMsg = true;
+        }, error => {
+          this.loaded = true;
+          console.error(JSON.stringify(error));
+        });
+      } else {
+        this.showPackageNotActive = true;
+      }
     }, error => {
       this.loaded = true;
       console.error(JSON.stringify(error));
     });
+
+
   }
 
   changePsychologist() {

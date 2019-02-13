@@ -18,6 +18,7 @@ export class ChangePsychologistComponent implements OnInit {
   success: boolean;
   resultText: string;
   gotResult: boolean;
+  resultButtonText: string;
 
   constructor(private formBuilder: FormBuilder, private patientService: PatientService, private psychService: PsychoService) { }
 
@@ -58,11 +59,13 @@ export class ChangePsychologistComponent implements OnInit {
         this.gotResult = true;
         this.success = true;
         this.resultText = 'Psychologist changed'
+        this.resultButtonText = 'Enter session';
       }, error => {
         this.loading = false;
         this.gotResult = true;
         this.success = false;
-        this.resultText = 'Could not change your psychologist'
+        this.resultText = 'Could not change your psychologist';
+        this.resultButtonText = null;
         console.error(JSON.stringify(error));
       });
     }

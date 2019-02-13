@@ -1,38 +1,45 @@
 <div class="slds-text-heading_medium slds-m-bottom_small">Psychologist</div>
 
 <article *ngIf="loaded" class="slds-card">
-  <div class="slds-card__header slds-grid">
-    <header class="slds-media slds-media_center slds-has-flexi-truncate">
-      <div class="slds-media__body">
-        <h2 *ngIf="psychologist" class="slds-card__header-title slds-truncate" style="text-align:center">
-          <span class="slds-card__header-link slds-truncate">
-            {{psychologist.firstName}} {{psychologist.lastName}}
-          </span>
-          <div class="slds-text-body_regular">
-            {{psychologist.qualifications[0]}}
-            <br />
-            {{psychologist.experienceYears}} years experience
-          </div>
-        </h2>
-        <h2 *ngIf="showNoPsychMsg" class="slds-card__header-title slds-truncate" style="text-align:center">
-          <span class="slds-card__header-link slds-truncate">
-            No psychologist
-          </span>
-        </h2>
+  <div *ngIf="!showPackageNotActive">
+    <div class="slds-card__header slds-grid">
+      <header class="slds-media slds-media_center slds-has-flexi-truncate">
+        <div class="slds-media__body">
+          <h2 *ngIf="psychologist" class="slds-card__header-title slds-truncate" style="text-align:center">
+            <span class="slds-card__header-link slds-truncate">
+              {{psychologist.firstName}} {{psychologist.lastName}}
+            </span>
+            <div class="slds-text-body_regular">
+              {{psychologist.qualifications[0]}}
+              <br />
+              {{psychologist.experienceYears}} years experience
+            </div>
+          </h2>
+          <h2 *ngIf="showNoPsychMsg" class="slds-card__header-title slds-truncate" style="text-align:center">
+            <span class="slds-card__header-link slds-truncate">
+              No psychologist
+            </span>
+          </h2>
+        </div>
+      </header>
+    </div>
+    <div class="slds-card__body slds-card__body_inner" style="text-align:center">
+      <div *ngIf="psychologist">
+        <img [src]="psychologist.photo" class="image-round" />
       </div>
-    </header>
+
+      <div *ngIf="showNoPsychMsg">
+        Please choose a psychologist
+      </div>
+
+      <div class="slds-m-top_small">
+        <button (click)="changePsychologist()" class="slds-button slds-button_outline-brand">{{ showNoPsychMsg ? 'Choose' : 'Change'}} psychologist</button>
+      </div>
+    </div>
   </div>
-  <div class="slds-card__body slds-card__body_inner" style="text-align:center">
-    <div *ngIf="psychologist">
-      <img [src]="psychologist.photo" class="image-round" />
-    </div>
-
-    <div *ngIf="showNoPsychMsg">
-      Please choose a psychologist
-    </div>
-
-    <div class="slds-m-top_small">
-      <button (click)="changePsychologist()" class="slds-button slds-button_outline-brand">{{ showNoPsychMsg ? 'Choose' : 'Change'}} psychologist</button>
+  <div *ngIf="showPackageNotActive">
+    <div class="slds-card__header slds-grid slds-text_heading_small">
+      No psychologist. Your package is not active.
     </div>
   </div>
 </article>

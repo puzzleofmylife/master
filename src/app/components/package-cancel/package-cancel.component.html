@@ -1,0 +1,37 @@
+<div class="slds-text-heading_large slds-m-bottom_medium">
+  Cancel package
+</div>
+
+<div *ngIf="loading" class="slds-align_absolute-center slds-m-top_x-large">
+  <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_inline">
+    <span class="slds-assistive-text">Loading</span>
+    <div class="slds-spinner__dot-a"></div>
+    <div class="slds-spinner__dot-b"></div>
+  </div>
+</div>
+
+<div *ngIf="!loading">
+  <div class="slds-text-heading_medium slds-m-bottom_medium">
+    Are you sure you want to cancel your package?
+
+    <span *ngIf="patientPackage.isInTrial">Your package is currently still in the trial period, therefore cancelling now will schedule your package for cancellation <b>immediately.</b></span>
+    <span *ngIf="!patientPackage.isInTrial && patientPackage.statusId != 2">Your package will be scheduled for cancellation on <b>{{patientPackage.nextBillDate | date}}.</b></span>
+    <!-- Pending payment so cancel immediately -->
+    <span *ngIf="patientPackage.statusId == 2">Your package will be scheduled for cancellation <b>immediately.</b></span>
+  </div>
+
+  <p class="slds-m-top_small slds-m-bottom_medium">
+    <b>Please note:</b> once your package is cancelled and you decide to reactivate your package, you will need to choose a new psychologist.
+  </p>
+
+  <div>
+    <p>Reason for cancellation (optional)</p>
+    <textarea maxlength="1000" [(ngModel)]="cancelReason" style="width:100%; height:100px" rows="5" name="cancelReason"></textarea>
+    <div *ngIf="cancelReasonTooLong" class="slds-text-color_error">Reason for cancellation is 1000 characters maximum</div>
+  </div>
+
+  <div class="slds-m-top_medium">
+    <a [routerLink]="['/profile']" class="slds-button">Cancel</a>
+    <button class="slds-button slds-button_brand btn-right" (click)="cancelPackage()">Confirm</button>
+  </div>
+</div>

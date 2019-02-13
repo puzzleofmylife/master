@@ -34,6 +34,8 @@ import { CancelReasonComponent } from './components/cancel-reason/cancel-reason.
 import { PsychologistPaymentsComponent } from './components/psychologist-payments/psychologist-payments.component';
 import { PsychologistPauseComponent } from './components/psychologist-pause/psychologist-pause.component';
 import { VoucherApplyComponent } from './components/voucher-apply/voucher-apply.component';
+import { PackageCancelComponent } from './components/package-cancel/package-cancel.component';
+import { PackageReactivateComponent } from './components/package-reactivate/package-reactivate.component';
 
 
 const routes: Routes = [
@@ -62,7 +64,6 @@ const routes: Routes = [
   { path: 'update-card', component: PaymentUpdateComponent },
   { path: 'profile', component: PatientProfileComponent },
   { path: 'profile/update-details', component: PatientEditComponent },
-  { path: 'profile/change-package', component: ChangePackageComponent },
   { path: 'settle-balance', component: SettleBalanceComponent },
   { path: 'edit-patient/:id', component: PatientEditComponent },
   { path: 'profile/psychologist/update/:id', component: PsychologistUpdateComponent },
@@ -70,7 +71,7 @@ const routes: Routes = [
   { path: 'admin/vouchers', component: VoucherGroupListComponent },
   { path: 'admin/vouchers/:id/:voucherGroupName', component: VouchersComponent },
   { path: 'profile/update-details', component: PatientEditComponent },
-  { path: 'profile/change-package', component: ChangePackageComponent },
+  { path: 'profile/package/change', component: ChangePackageComponent },
   { path: 'settle-balance', component: SettleBalanceComponent },
   { path: 'edit-patient/:id', component: PatientEditComponent },
   { path: 'admin/packages', component: PackageManageComponent },
@@ -79,7 +80,9 @@ const routes: Routes = [
   { path: 'profile/psychologist/update/:id', component: PsychologistUpdateComponent },
   { path: 'admin/cancellations', component: CancelReasonComponent },
   { path: 'admin/psychologists/payments', component: PsychologistPaymentsComponent },
-  { path: 'voucher/use', component: VoucherApplyComponent }
+  { path: 'voucher/use', component: VoucherApplyComponent },
+  { path: 'profile/package/cancel', component: PackageCancelComponent },
+  { path: 'profile/package/reactivate', component: PackageReactivateComponent }
 ];
 
 @NgModule({

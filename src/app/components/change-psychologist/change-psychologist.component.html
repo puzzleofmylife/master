@@ -35,8 +35,7 @@
             </div>
             <div class="slds-radio_button-group slds-m-top_small">
               <span class="slds-button slds-radio_button">
-                <input type="radio" [id]="psychologist.firstName + psychologist.id" formControlName="psychologistChoice"
-                  name="psychologistChoice" [value]="psychologist.id" />
+                <input type="radio" [id]="psychologist.firstName + psychologist.id" formControlName="psychologistChoice" name="psychologistChoice" [value]="psychologist.id" />
                 <label class="slds-radio_button__label" [for]="psychologist.firstName + psychologist.id">
                   <span class="slds-radio_faux">Select</span>
                 </label>
@@ -61,5 +60,5 @@
 </div>
 
 <div *ngIf="gotResult">
-  <app-result [success]="success" [text]="resultText" buttonText="Enter session" buttonLink="/session"></app-result>
+  <app-result [success]="success" [text]="resultText" [buttonText]="resultButtonText" buttonLink="/session"></app-result>
 </div>
