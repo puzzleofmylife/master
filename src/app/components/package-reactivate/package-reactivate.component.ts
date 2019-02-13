@@ -29,6 +29,7 @@ export class PackageReactivateComponent implements OnInit {
   }
 
   reactivatePackage() {
+    this.loading = true;
     this.patientService.reactivatePatientPackage().subscribe(resp => {
       this.loading = false;
       this.toastService.setSuccess('Success');
