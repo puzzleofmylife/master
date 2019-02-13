@@ -14,8 +14,7 @@
   <div class="slds-text-heading_medium slds-m-bottom_medium">
     Are you sure you want to reactivate your package?
 
-    <span *ngIf="patientPackage.isInTrial">Your package is currently still in the trial period, therefore it will be reactivated <b>immediately</b>, and you will only be billed on <b>{{patientPackage.nextBillDate | date}}.</b></span>
-    <span *ngIf="!patientPackage.isInTrial">By confirming you will be billed <b>immediately.</b></span>
+    <span>By confirming you will be billed <b>immediately.</b></span>
   </div>
 
   <div class="slds-m-top_medium">
