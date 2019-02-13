@@ -2,23 +2,23 @@
   <app-result [success]="false" text="Could not load patients. Your account is not active."></app-result>
 </div>
 
+<div *ngIf="showAccPaused" class="slds-p-horizontal_medium">
+  <app-result [success]="false" text="Your account is paused. Unpause it to see your patients."></app-result>
+</div>
+
 <div *ngIf="!showAccNotActive" class="slds-tabs_default">
   <ul class="slds-tabs_default__nav" role="tablist">
     <li [ngClass]="{'slds-tabs_default__item':true, 'slds-is-active': selectedTabIndex == 0}" title="Item One" role="presentation">
-      <a (click)="selectedTabIndex = 0" class="slds-tabs_default__link" role="tab" tabindex="0" aria-selected="true"
-        aria-controls="tab-default-1" id="tab-default-1__item">Patients</a>
+      <a (click)="selectedTabIndex = 0" class="slds-tabs_default__link" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-default-1" id="tab-default-1__item">Patients</a>
     </li>
-    <li *ngIf="currentSession" [ngClass]="{'slds-tabs_default__item':true, 'truncate':true, 'slds-is-active': selectedTabIndex == 1}"
-      title="Item Two" role="presentation">
-      <a (click)="changeToSessionTab()" class="slds-tabs_default__link" role="tab" tabindex="-1" aria-selected="false"
-        aria-controls="tab-default-2" id="tab-default-2__item">
+    <li *ngIf="currentSession" [ngClass]="{'slds-tabs_default__item':true, 'truncate':true, 'slds-is-active': selectedTabIndex == 1}" title="Item Two" role="presentation">
+      <a (click)="changeToSessionTab()" class="slds-tabs_default__link" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-2" id="tab-default-2__item">
         Session ({{currentSession.recipientName}})
         <abbr *ngIf="sessionHasNewMessages" class="slds-text-link slds-m-horizontal_xxx-small" title="unread">●</abbr>
       </a>
     </li>
   </ul>
-  <div id="tab-default-1" [ngClass]="{'slds-tabs_default__content':true, 'slds-hide':selectedTabIndex != 0}" role="tabpanel"
-    aria-labelledby="tab-default-1__item">
+  <div id="tab-default-1" [ngClass]="{'slds-tabs_default__content':true, 'slds-hide':selectedTabIndex != 0}" role="tabpanel" aria-labelledby="tab-default-1__item">
     <div class="slds-p-horizontal_small">
       <div *ngFor="let session of sessions" class="slds-border_bottom slds-p-bottom_medium slds-m-bottom_medium">
 

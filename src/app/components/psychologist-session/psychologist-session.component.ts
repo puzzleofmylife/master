@@ -24,6 +24,7 @@ export class PsychologistSessionComponent implements OnInit, OnDestroy {
   sessionHasNewMessages: boolean = false;
   showAccNotActive: boolean;
   noPatientsFound: boolean;
+  showAccPaused: boolean;
 
   constructor(private sessionService: SessionService, private patientService: PatientService, private helpersService: HelpersService, private sanitizer: DomSanitizer) { }
 
@@ -32,7 +33,7 @@ export class PsychologistSessionComponent implements OnInit, OnDestroy {
       this.loading = false;
       this.sessions = response;
 
-      if(this.sessions.length == 0)
+      if (this.sessions.length == 0)
         this.noPatientsFound = true;
 
       //Set timer to get sessions
@@ -42,9 +43,12 @@ export class PsychologistSessionComponent implements OnInit, OnDestroy {
         });
     }, error => {
       this.loading = false;
-      if(error.error.PsychologistNotActive)
+      if (error.error.PsychologistNotActive)
         this.showAccNotActive = true;
-        
+
+      if (error.error.PsychologistPaused)
+        this.showAccPaused = true;
+
       console.error(JSON.stringify(error));
     })
   }
@@ -55,7 +59,7 @@ export class PsychologistSessionComponent implements OnInit, OnDestroy {
       var currentSessionId = this.currentSession ? this.currentSession.id : 0;
       response.forEach(item => {
         var sessionIndex = this.sessions.findIndex(x => x.id == item.id && x.id != currentSessionId);
-        if(sessionIndex > -1)
+        if (sessionIndex > -1)
           this.sessions[sessionIndex].newMessageCount = item.newMessageCount;
       });
       this.orderByNewMessageCount();
@@ -87,7 +91,7 @@ export class PsychologistSessionComponent implements OnInit, OnDestroy {
 
   markCurrentSesssionAsHasNewMessages($event) {
     //Only if we're currently on the sessions tab
-    if(this.selectedTabIndex == 0)
+    if (this.selectedTabIndex == 0)
       this.sessionHasNewMessages = true;
   }
 
@@ -96,7 +100,7 @@ export class PsychologistSessionComponent implements OnInit, OnDestroy {
     this.selectedTabIndex = 1;
   }
 
-  orderByNewMessageCount(){
+  orderByNewMessageCount() {
     //Order by newMessageCount
     this.sessions.sort((a, b) => { return b.newMessageCount - a.newMessageCount });
   }

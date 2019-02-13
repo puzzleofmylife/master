@@ -14,6 +14,7 @@
           <div class="slds-text-heading_small truncate">
             <span>{{session.recipientName}}</span>
           </div>
+          <div *ngIf="session.psychologistReturnDate" class="slds-text-color_error">Unavailable until {{helpersService.convertToLocalDate(session.psychologistReturnDate) | date}}</div>
         </div>
       </div>
     </div>
@@ -22,10 +23,8 @@
 
 <div *ngIf="!loading" class="slds-form-element slds-m-top_medium">
   <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
-    <textarea #messageInput rows="2" (keyup)="autoGrowMessageInput()" placeholder="Type your message here..."
-      [(ngModel)]="messageText" style="line-height: 1.2" class="slds-input slds-p-around_xx-small"></textarea>
-    <button style="height: 30px" *ngIf="messageText.length > 0" (click)="createMessage()" class="slds-button slds-button_outline-brand"
-      title="Send">
+    <textarea #messageInput rows="2" (keyup)="autoGrowMessageInput()" placeholder="Type your message here..." [(ngModel)]="messageText" style="line-height: 1.2" class="slds-input slds-p-around_xx-small"></textarea>
+    <button style="height: 30px" *ngIf="messageText.length > 0" (click)="createMessage()" class="slds-button slds-button_outline-brand" title="Send">
       Send
     </button>
   </div>
