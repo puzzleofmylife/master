@@ -2,7 +2,7 @@
 <div class="slds-text-heading_medium slds-m-bottom_small">Payment method</div>
 <article *ngIf="!loading" class="slds-card">
   <div class="slds-card__body slds-card__body_inner">
-    <div *ngIf="paymentCard">
+    <div class="slds-m-vertical_small" *ngIf="paymentCard">
       <div class="card-brand" title="card brand" [ngSwitch]="paymentCard.paymentBrand">
         <img *ngSwitchCase="'VISA'" src="../../../assets/visa.png" />
         <img *ngSwitchCase="'MASTER'" src="../../../assets/mastercard.png" />
@@ -21,7 +21,7 @@
     <div class="slds-m-vertical_small" *ngIf="!paymentCard">
       No card found
     </div>
-    <div class="slds-grid slds-grid_align-spread slds-m-top_xx-small">
+    <div class="slds-grid slds-grid_align-spread">
       <button class="slds-button slds-button_outline-brand" (click)="navigateToUpdateCard()">{{paymentCard
         ? 'Update card':'Add card'}}</button>
       <button class="slds-button slds-button_outline-brand" [routerLink]="['/voucher/use']">Use voucher</button>
