@@ -12,5 +12,6 @@ export class PatientPackage {
     statusName: string;
     patientId: number;
     pendingCancellation: boolean;
+    pendingCancellationJobDate: Date;
     packageVoucher: PatientPackageVoucher;
 }

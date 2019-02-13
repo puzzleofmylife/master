@@ -27,9 +27,12 @@
             <!-- Active -->
             <div *ngIf="currentPackage.statusId == 1" class="slds-m-bottom_small">
                 <div class="slds-text-heading_small">
-                    <span *ngIf="!currentPackage.pendingCancellation">Next bill date </span>
-                    <span *ngIf="currentPackage.pendingCancellation" class="cancelled">Pending cancellation on </span>
-                    <b>{{helpersService.convertToLocalDate(currentPackage.nextBillDate) | date}}</b>
+                    <div *ngIf="!currentPackage.pendingCancellation">Next bill date
+                        <b>{{helpersService.convertToLocalDate(currentPackage.nextBillDate) | date}}</b>
+                    </div>
+                    <div *ngIf="currentPackage.pendingCancellation" class="cancelled">Pending cancellation on
+                        <b>{{helpersService.convertToLocalDate(currentPackage.pendingCancellationJobDate) | date}}</b>
+                    </div>
                 </div>
 
                 <div *ngIf="currentPackage.pendingCancellation" class="slds-m-top_small">
@@ -84,7 +87,8 @@
                     </svg>
                     <span class="slds-assistive-text">Success</span>
                 </span>
-                <span class="slds-text-heading_small"><b>{{currentPackage.packageVoucher.discountPercent}}%</b></span> off the next <span
+                <span class="slds-text-heading_small"><b>{{currentPackage.packageVoucher.discountPercent}}%</b></span>
+                off the next <span
                     class="slds-text-heading_small"><b>{{currentPackage.packageVoucher.discountPeriodsRemaining}}</b></span>
                 billing cycles.
             </div>
