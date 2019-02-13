@@ -20,15 +20,18 @@ export class ToastService {
     this.toastSubject.next(toast);
   }
 
-  setError(message: string){
-    this.toastSubject.next(new Toast("error", message));
+  setError(message: string = null) {
+    var genericMsg = "An error occurred";
+    this.toastSubject.next(new Toast("error", message ? message : genericMsg));
   }
 
-  setSuccess(message: string){
-    this.toastSubject.next(new Toast("success", message));
+  setSuccess(message: string = null) {
+    var genericMsg = "Success";
+    this.toastSubject.next(new Toast("success", message ? message : genericMsg));
   }
 
-  setWarning(message: string){
-    this.toastSubject.next(new Toast("warning", message));
+  setWarning(message: string = null) {
+    var genericMsg = "Warning";
+    this.toastSubject.next(new Toast("warning", message ? message : genericMsg));
   }
 }
