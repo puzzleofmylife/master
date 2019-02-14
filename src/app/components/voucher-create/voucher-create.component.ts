@@ -36,7 +36,7 @@ export class VoucherCreateComponent implements OnInit {
 	ngOnInit() {
 		this.createVoucherGroupForm();
 
-		this._packageService.getActivePackages().subscribe(response => {
+		this._packageService.getAllPackages().subscribe(response => {
 			this.packageTypes = response;
 		}, error => {
 			console.error(JSON.stringify(error));
