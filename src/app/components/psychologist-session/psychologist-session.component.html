@@ -3,10 +3,10 @@
 </div>
 
 <div *ngIf="showAccPaused" class="slds-p-horizontal_medium">
-  <app-result [success]="false" text="Your account is paused. Unpause it to see your patients."></app-result>
+  <app-result [success]="false" text="Your account is paused. Unpause it to see your patients." buttonText="Go to profile" buttonLink="/profile/psychologist"></app-result>
 </div>
 
-<div *ngIf="!showAccNotActive" class="slds-tabs_default">
+<div *ngIf="!showAccNotActive && !showAccPaused" class="slds-tabs_default">
   <ul class="slds-tabs_default__nav" role="tablist">
     <li [ngClass]="{'slds-tabs_default__item':true, 'slds-is-active': selectedTabIndex == 0}" title="Item One" role="presentation">
       <a (click)="selectedTabIndex = 0" class="slds-tabs_default__link" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-default-1" id="tab-default-1__item">Patients</a>
