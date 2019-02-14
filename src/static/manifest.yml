@@ -1,5 +1,4 @@
 applications:
 - name: puzzleofmylifeapp
   random-route: true
-  memory: 128M
   buildpack: staticfile_buildpack
