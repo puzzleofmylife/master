@@ -6,6 +6,9 @@ import { TimerObservable } from "rxjs/observable/TimerObservable";
 import { Subscription } from 'rxjs';
 import { HelpersService } from 'src/app/services/helpers.service';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { SessionMessageAttachment } from 'src/app/models/SessionMessageAttachment';
+import { SessionAttachmentStatus } from 'src/app/models/SessionAttachmentStatus';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-session',
@@ -30,8 +33,10 @@ export class SessionComponent implements OnDestroy {
   sessionMessages: SessionMessage[];
   sessionMessageCache: any[] = [];
   initialGetMaxedOut: boolean;
+  SessionAttachmentStatus: typeof SessionAttachmentStatus = SessionAttachmentStatus;
 
   private _session: Session;
+  sessionMessageAttachment: SessionMessage;
   @Input() set session(value: Session) {
     ////Using a setter will let us run initiateSession() every time the value changes
 
@@ -50,7 +55,7 @@ export class SessionComponent implements OnDestroy {
     return this._session;
   }
 
-  constructor(private sessionService: SessionService, private helpersService: HelpersService, private sanitizer: DomSanitizer) {
+  constructor(private sessionService: SessionService, private helpersService: HelpersService, private sanitizer: DomSanitizer, private toastService: ToastService) {
     this.initProperties();
   }
 
@@ -171,16 +176,8 @@ export class SessionComponent implements OnDestroy {
     if (this.messageText.length == 0)
       return;
 
-    var newMessage = new SessionMessage();
-    newMessage.sessionId = this.session.id;
-    newMessage.text = this.messageText;
-    newMessage.createDate = new Date(Date.now());
-    newMessage.mine = true;
-
+    var newMessage = this.insertMessage(1, this.messageText);//Text type message
     this.resetMessageInput();
-
-    //Insert new message at the beginning of array
-    this.sessionMessages.unshift(newMessage);
 
     this.sessionService.createSessionMessage(newMessage).subscribe(response => {
       //success, replace the new message inserted above with the actual confirmed message returned
@@ -192,6 +189,21 @@ export class SessionComponent implements OnDestroy {
 
       console.error(JSON.stringify(error));
     })
+  }
+
+  private insertMessage(messageType: number, messageText: string = null, filename: string = null) {
+    var newMessage = new SessionMessage();
+    newMessage.sessionId = this.session.id;
+    newMessage.text = messageText;
+    newMessage.createDate = new Date(Date.now());
+    newMessage.mine = true;
+    newMessage.sessionMessageTypeId = messageType;
+    newMessage.sessionMessageAttachment = new SessionMessageAttachment();
+    newMessage.sessionMessageAttachment.fileName = filename;
+    //Insert new message at the beginning of array
+    this.sessionMessages.unshift(newMessage);
+
+    return newMessage;
   }
 
   getNewMessages() {
@@ -259,5 +271,29 @@ export class SessionComponent implements OnDestroy {
     //Get first 2 letters of recipient name
     var substringLength = recipName.length < 2 ? 1 : 2;
     return recipName.substring(0, substringLength).toUpperCase();
+  }
+
+  attachmentIsImage(sessionMessageAttachment: SessionMessageAttachment) {
+    var imgExts = ['jpeg', 'jpg', 'png'];
+    var incomingFileExt = sessionMessageAttachment.fileName.split(".").pop();
+    return imgExts.filter(x => x === incomingFileExt).length > 0;
+  }
+
+  handleFileUpload(event: any) {
+    switch (event.status) {
+      case SessionAttachmentStatus.pending:
+        this.sessionMessageAttachment = this.insertMessage(2, null, event.filename);
+        break;
+      case SessionAttachmentStatus.success:
+        //success, replace the new message inserted above with the actual confirmed message returned
+        this.sessionMessages[this.sessionMessages.indexOf(this.sessionMessageAttachment)] = event.message;
+        break;
+      case SessionAttachmentStatus.failed:
+        this.sessionMessages.splice(this.sessionMessages.indexOf(this.sessionMessageAttachment), 1);
+        this.toastService.setError(event.errorMsg);
+        break;
+      default:
+        break;
+    }
   }
 }

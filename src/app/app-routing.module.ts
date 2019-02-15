@@ -36,6 +36,7 @@ import { PsychologistPauseComponent } from './components/psychologist-pause/psyc
 import { VoucherApplyComponent } from './components/voucher-apply/voucher-apply.component';
 import { PackageCancelComponent } from './components/package-cancel/package-cancel.component';
 import { PackageReactivateComponent } from './components/package-reactivate/package-reactivate.component';
+import { SessionAttachmentUploadComponent } from './components/session-attachment-upload/session-attachment-upload.component';
 
 
 const routes: Routes = [
@@ -82,7 +83,8 @@ const routes: Routes = [
   { path: 'admin/psychologists/payments', component: PsychologistPaymentsComponent },
   { path: 'voucher/use', component: VoucherApplyComponent },
   { path: 'profile/package/cancel', component: PackageCancelComponent },
-  { path: 'profile/package/reactivate', component: PackageReactivateComponent }
+  { path: 'profile/package/reactivate', component: PackageReactivateComponent },
+  { path: 'upload', component: SessionAttachmentUploadComponent }
 ];
 
 @NgModule({

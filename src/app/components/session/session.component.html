@@ -24,9 +24,12 @@
 <div *ngIf="!loading" class="slds-form-element slds-m-top_medium">
   <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
     <textarea #messageInput rows="2" (keyup)="autoGrowMessageInput()" placeholder="Type your message here..." [(ngModel)]="messageText" style="line-height: 1.2" class="slds-input slds-p-around_xx-small"></textarea>
-    <button style="height: 30px" *ngIf="messageText.length > 0" (click)="createMessage()" class="slds-button slds-button_outline-brand" title="Send">
-      Send
-    </button>
+    <div style="height: 30px">
+      <button *ngIf="messageText.length > 0" (click)="createMessage()" class="slds-button slds-button_outline-brand" title="Send">
+        Send
+      </button>
+      <app-session-attachment-upload [sessionId]="session.id" (onFileUpload)="handleFileUpload($event)" class="slds-float_right"></app-session-attachment-upload>
+    </div>
   </div>
 </div>
 
@@ -49,8 +52,48 @@
     <li *ngFor="let message of sessionMessages" [ngClass]="{'slds-chat-listitem':true, 'slds-chat-listitem_inbound':!message.mine, 'slds-chat-listitem_outbound':message.mine}">
       <div class="slds-chat-message">
         <div class="slds-chat-message__body">
-          <div [ngClass]="{'slds-chat-message__text':true, 'slds-chat-message__text_inbound':!message.mine, 'slds-chat-message__text_outbound':message.mine}">
-            <span>{{message.text}}</span>
+          <div [ngSwitch]="message.sessionMessageTypeId" [ngClass]="{'slds-chat-message__text':true, 'slds-chat-message__text_inbound':!message.mine, 'slds-chat-message__text_outbound':message.mine}">
+            <span *ngSwitchCase="1">{{message.text}}</span>
+            <div *ngSwitchCase="2" style="width: 13rem;">
+              <div class="slds-file slds-file_card slds-file_loading slds-has-title">
+                <figure>
+                  <a [href]="message.sessionMessageAttachment.url" target="_blank" class="slds-file__crop">
+                    <div *ngIf="!message.sessionMessageAttachment.url" role="status" class="slds-spinner slds-spinner_medium">
+                      <span class="slds-assistive-text">Loading</span>
+                      <div class="slds-spinner__dot-a"></div>
+                      <div class="slds-spinner__dot-b"></div>
+                    </div>
+
+                    <div *ngIf="attachmentIsImage(message.sessionMessageAttachment) && message.sessionMessageAttachment.url">
+                      <img [src]="message.sessionMessageAttachment.url" />
+                    </div>
+
+                    <span *ngIf="!attachmentIsImage(message.sessionMessageAttachment) && message.sessionMessageAttachment.url" class="slds-file__icon slds-icon_container" title="image">
+                      <svg class="slds-icon" aria-hidden="true">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/doctype-sprite/svg/symbols.svg#image" />
+                      </svg>
+                      <span class="slds-assistive-text">Image Title</span>
+                    </span>
+
+                    <figcaption class="slds-file__title slds-file__title_card">
+                      <div class="slds-media slds-media_small slds-media_center">
+                        <div class="slds-media__figure slds-line-height_reset">
+                          <span class="slds-icon_container" title="image">
+                            <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/doctype-sprite/svg/symbols.svg#image" />
+                            </svg>
+                            <span class="slds-assistive-text">image</span>
+                          </span>
+                        </div>
+                        <div class="slds-media__body filename-ellipsis">
+                          <span class="slds-file__text" style="color: black" title="Image Title">{{message.sessionMessageAttachment.fileName}}</span>
+                        </div>
+                      </div>
+                    </figcaption>
+                  </a>
+                </figure>
+              </div>
+            </div>
           </div>
           <div [ngSwitch]="message.mine">
             <div class="slds-chat-message__meta">

@@ -67,6 +67,8 @@ import { ToastComponent } from './components/toast/toast.component';
 import { VoucherApplyComponent } from './components/voucher-apply/voucher-apply.component';
 import { PackageCancelComponent } from './components/package-cancel/package-cancel.component';
 import { PackageReactivateComponent } from './components/package-reactivate/package-reactivate.component';
+import { SessionAttachmentUploadComponent } from './components/session-attachment-upload/session-attachment-upload.component';
+import { Ng2ImgMaxModule } from 'ng2-img-max';
 
 @NgModule({
 	declarations: [
@@ -131,7 +133,8 @@ import { PackageReactivateComponent } from './components/package-reactivate/pack
 		ToastComponent,
 		VoucherApplyComponent,
 		PackageCancelComponent,
-		PackageReactivateComponent
+		PackageReactivateComponent,
+		SessionAttachmentUploadComponent
 	],
 	imports: [
 		BrowserModule,
@@ -139,7 +142,8 @@ import { PackageReactivateComponent } from './components/package-reactivate/pack
 		BrowserAnimationsModule,
 		ReactiveFormsModule,
 		HttpClientModule,
-		FormsModule
+		FormsModule,
+		Ng2ImgMaxModule
 	],
 	providers: [AlertService, JwtHelper,
 		{
