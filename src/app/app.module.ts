@@ -69,6 +69,7 @@ import { PackageCancelComponent } from './components/package-cancel/package-canc
 import { PackageReactivateComponent } from './components/package-reactivate/package-reactivate.component';
 import { SessionAttachmentUploadComponent } from './components/session-attachment-upload/session-attachment-upload.component';
 import { Ng2ImgMaxModule } from 'ng2-img-max';
+import { SessionAttachmentsComponent } from './components/session-attachments/session-attachments.component';
 
 @NgModule({
 	declarations: [
@@ -134,7 +135,8 @@ import { Ng2ImgMaxModule } from 'ng2-img-max';
 		VoucherApplyComponent,
 		PackageCancelComponent,
 		PackageReactivateComponent,
-		SessionAttachmentUploadComponent
+		SessionAttachmentUploadComponent,
+		SessionAttachmentsComponent
 	],
 	imports: [
 		BrowserModule,

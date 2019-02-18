@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Session } from '../models/Session';
 import { SessionMessage } from '../models/SessionMessage';
 import { PsychologistSession } from '../models/PsychologistSession';
+import { SessionMessageAttachment } from '../models/SessionMessageAttachment';
 
 @Injectable({
   providedIn: 'root'
@@ -51,5 +52,13 @@ export class SessionService {
 
   getPsychologistSessionsNewMessageCount(): Observable<PsychologistSession[]> {
     return this.http.get<PsychologistSession[]>(environment.baseAPIURL + '/api/Session/psychologist/newmessages');
+  }
+
+  uploadFile(sessionAttachment: any): Observable<any> {
+    return this.http.post<any>(environment.baseAPIURL + '/api/Session/attachment/upload', sessionAttachment);
+  }
+
+  getAttachments(): Observable<SessionMessageAttachment[]> {
+    return this.http.get<SessionMessageAttachment[]>(environment.baseAPIURL + '/api/Session/attachments');
   }
 }
