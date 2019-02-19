@@ -25,7 +25,6 @@ export class SessionComponent implements OnDestroy {
   @ViewChild('messageInput') private messageInput: ElementRef;
   @ViewChild('attachmentsCmp') private attachmentsCmp: SessionAttachmentsComponent;
   newMsgSubscription: Subscription;
-  sessionEmpty: boolean;
   recipientAbbrev: string;
   dynamicColourAvatarStyle: SafeStyle;
   messageText: string;
@@ -69,7 +68,6 @@ export class SessionComponent implements OnDestroy {
     this.messagesPage = 1;
     this.noMoreToLoad = false;
     this.initialGetMaxedOut = true;
-    this.sessionEmpty = false;
   }
 
   unloadSession(): any {
@@ -83,7 +81,6 @@ export class SessionComponent implements OnDestroy {
     var sessionCacheEntry = {
       id: this.session.id,
       sessionMessages: this.sessionMessages,
-      sessionEmpty: this.sessionEmpty,
       initialGetMaxedOut: this.initialGetMaxedOut,
       messagesPage: this.messagesPage,
       noMoreToLoad: this.noMoreToLoad,
@@ -117,7 +114,6 @@ export class SessionComponent implements OnDestroy {
         this.sessionMessages = response;
 
         if (this.sessionMessages.length == 0) {
-          this.sessionEmpty = true;
           this.initialGetMaxedOut = false;
         } else if (this.sessionMessages.length < this.initialGetCount) {
           this.initialGetMaxedOut = false;
@@ -151,7 +147,6 @@ export class SessionComponent implements OnDestroy {
     var existingEntry = this.sessionMessageCache.filter(x => x.id == this.session.id)[0];
     if (existingEntry) {
       this.sessionMessages = existingEntry.sessionMessages;
-      this.sessionEmpty = existingEntry.sessionEmpty;
       this.initialGetMaxedOut = existingEntry.initialGetMaxedOut;
       this.messagesPage = existingEntry.messagesPage;
       this.noMoreToLoad = existingEntry.noMoreToLoad;

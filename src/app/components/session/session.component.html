@@ -44,7 +44,7 @@
 
     <ul class="slds-chat-list">
 
-      <li *ngIf="sessionEmpty" class="slds-chat-listitem">
+      <li *ngIf="!loading && sessionMessages.length == 0" class="slds-chat-listitem">
         <div class="slds-chat-bookend" style="border:0px">
           <span class="slds-icon_container slds-icon-utility-chat slds-chat-icon">
             <svg class="slds-icon slds-icon_x-small slds-icon-text-default" aria-hidden="true">
