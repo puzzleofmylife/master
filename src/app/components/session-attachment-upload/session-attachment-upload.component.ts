@@ -11,7 +11,6 @@ import { ToastService } from 'src/app/services/toast.service';
 })
 export class SessionAttachmentUploadComponent implements OnInit {
 
-  /* @ViewChild('fileInput') fileInput: ElementRef; */
   @Output() onFileUpload = new EventEmitter<any>();
   @Input('sessionId') sessionId: number;
   SessionAttachmentStatus: typeof SessionAttachmentStatus = SessionAttachmentStatus;

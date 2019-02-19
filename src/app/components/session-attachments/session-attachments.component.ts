@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { SessionService } from 'src/app/services/session.service';
+import { SessionMessageAttachment } from 'src/app/models/SessionMessageAttachment';
+import { SessionAttachmentStatus } from 'src/app/models/SessionAttachmentStatus';
 
 @Component({
   selector: 'app-session-attachments',
@@ -6,10 +9,65 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./session-attachments.component.css']
 })
 export class SessionAttachmentsComponent implements OnInit {
+  @Output() onFileUpload = new EventEmitter<any>();
+  @Output() onClose = new EventEmitter();
+  @Input() sessionId: number;
+  page: number = 0;
+  limit: number = 10;
+  attachments: SessionMessageAttachment[] = [];
+  loading: boolean;
+  canLoadMore: boolean;
 
-  constructor() { }
+  constructor(private sessionService: SessionService) { }
 
   ngOnInit() {
+    this.load();
   }
 
+  load() {
+    this.page++;
+    this.loading = true;
+
+    this.sessionService.getAttachments(this.sessionId, this.page, this.limit).subscribe(resp => {
+      this.loading = false;
+      this.attachments.push(...resp);
+
+      if (resp.length == this.limit) {
+        this.canLoadMore = true;
+      } else {
+        this.canLoadMore = false;
+      }
+    }, error => {
+      this.loading = false;
+      console.error(JSON.stringify(error));
+    });
+  }
+
+  handleFileUpload(event: any) {
+    switch (event.status) {
+      case SessionAttachmentStatus.success:
+        var newAttachment = new SessionMessageAttachment();
+        newAttachment.fileName = event.message.sessionMessageAttachment.fileName;
+        newAttachment.url = event.message.sessionMessageAttachment.url;
+        this.attachments.unshift(newAttachment);
+        break;
+      default:
+        break;
+    }
+    this.onFileUpload.emit(event);
+  }
+
+  attachmentIsImage(sessionMessageAttachment: SessionMessageAttachment) {
+    var imgExts = ['jpeg', 'jpg', 'png'];
+    var incomingFileExt = sessionMessageAttachment.fileName.split(".").pop();
+    return imgExts.filter(x => x === incomingFileExt).length > 0;
+  }
+
+  handleClose() {
+    this.onClose.emit();
+  }
+
+  addAttachment(attachment: SessionMessageAttachment) {
+    this.attachments.unshift(attachment);
+  }
 }

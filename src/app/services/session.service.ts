@@ -58,7 +58,12 @@ export class SessionService {
     return this.http.post<any>(environment.baseAPIURL + '/api/Session/attachment/upload', sessionAttachment);
   }
 
-  getAttachments(): Observable<SessionMessageAttachment[]> {
-    return this.http.get<SessionMessageAttachment[]>(environment.baseAPIURL + '/api/Session/attachments');
+  getAttachments(sessionId: number, page: number, limit: number): Observable<SessionMessageAttachment[]> {
+    return this.http.get<SessionMessageAttachment[]>(environment.baseAPIURL + '/api/Session/attachments', {
+      params: new HttpParams()
+        .set('sessionId', sessionId.toString())
+        .set('page', page.toString())
+        .set('limit', limit.toString())
+    });
   }
 }

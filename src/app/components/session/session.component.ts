@@ -9,6 +9,7 @@ import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { SessionMessageAttachment } from 'src/app/models/SessionMessageAttachment';
 import { SessionAttachmentStatus } from 'src/app/models/SessionAttachmentStatus';
 import { ToastService } from 'src/app/services/toast.service';
+import { SessionAttachmentsComponent } from '../session-attachments/session-attachments.component';
 
 @Component({
   selector: 'app-session',
@@ -22,6 +23,7 @@ export class SessionComponent implements OnDestroy {
 
   @Output() newMessagesEvent = new EventEmitter<number>();
   @ViewChild('messageInput') private messageInput: ElementRef;
+  @ViewChild('attachmentsCmp') private attachmentsCmp: SessionAttachmentsComponent;
   newMsgSubscription: Subscription;
   sessionEmpty: boolean;
   recipientAbbrev: string;
@@ -33,6 +35,7 @@ export class SessionComponent implements OnDestroy {
   sessionMessages: SessionMessage[];
   sessionMessageCache: any[] = [];
   initialGetMaxedOut: boolean;
+  showAttachments: boolean = false;
 
   private _session: Session;
   sessionMessageAttachment: SessionMessage;
@@ -215,6 +218,16 @@ export class SessionComponent implements OnDestroy {
           this.sessionMessages.unshift(...onlyRecipMessages);
           //Notify parent of the number of new messages
           this.newMessagesEvent.emit(onlyRecipMessages.length);
+          //If attachment, add it to the attachmentsCmp
+          onlyRecipMessages.forEach(message => {
+            if (message.sessionMessageTypeId === 2) {
+              var newAttachment = new SessionMessageAttachment();
+              newAttachment.fileName = message.sessionMessageAttachment.fileName;
+              newAttachment.url = message.sessionMessageAttachment.url;
+
+              this.attachmentsCmp.addAttachment(newAttachment);
+            }
+          });
         }
       }, error => {
         console.error(JSON.stringify(error));
@@ -281,6 +294,7 @@ export class SessionComponent implements OnDestroy {
   handleFileUpload(event: any) {
     switch (event.status) {
       case SessionAttachmentStatus.pending:
+        this.showAttachments = false;
         this.sessionMessageAttachment = this.insertMessage(2, null, event.filename);
         break;
       case SessionAttachmentStatus.success:
@@ -294,5 +308,9 @@ export class SessionComponent implements OnDestroy {
       default:
         break;
     }
+  }
+
+  handleAttachmentsClose() {
+    this.showAttachments = false;
   }
 }
