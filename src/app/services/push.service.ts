@@ -4,7 +4,9 @@ import * as signalR from '@aspnet/signalr';
 import { SessionMessage } from '../models/SessionMessage';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
-import { BehaviorSubject, ReplaySubject, Subject } from 'rxjs';
+import { Notification } from '../models/Notification';
+import { Subject } from 'rxjs/internal/Subject';
+import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,9 @@ export class PushService {
   accessToken: string;
   reconnectTimeout: number = 5000;
 
-  sessionMessageSubject: Subject<SessionMessage> = new ReplaySubject<SessionMessage>();
+  notificationSubject: Subject<Notification> = new ReplaySubject<Notification>();
+  statusSubject: Subject<boolean> = new ReplaySubject<boolean>();
+  connectRetryCount: number = 0;
 
   constructor(private authService: AuthService) {
     this.connect();
@@ -40,22 +44,32 @@ export class PushService {
 
   private handleOnStart() {
     //Handler for recieving a new session message
-    this.hubConnection.on('SESSION_MESSAGE', (data: SessionMessage) => {
-      this.sessionMessageSubject.next(data);
+    this.hubConnection.on('NOTIFICATION', (data: Notification) => {
+      this.notificationSubject.next(data);
     });
 
     //Try reconnecting when connection is closed
     this.hubConnection.onclose(error => {
+      this.statusSubject.next(false);
       this.tryReconnect(error);
     });
+
+    //Only set true connected status if we're doing a tryReconnect
+    if (this.connectRetryCount > 0)
+      this.statusSubject.next(true);
   }
 
   private tryReconnect(error: any) {
+    this.connectRetryCount++;
     console.error(error);
     setTimeout(() => this.connect(), this.reconnectTimeout);
   }
 
-  getSessionMessages() {
-    return this.sessionMessageSubject.asObservable();
+  getNotifications() {
+    return this.notificationSubject.asObservable();
+  }
+
+  getStatus() {
+    return this.statusSubject.asObservable();
   }
 }

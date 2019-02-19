@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { Notification } from 'src/app/models/Notification';
+import { PushService } from 'src/app/services/push.service';
 
 
 @Component({
@@ -15,25 +16,32 @@ import { Notification } from 'src/app/models/Notification';
 })
 
 
-export class NotificationNavComponent implements OnInit, OnDestroy {
+export class NotificationNavComponent implements OnInit {
 
 	currentNotifications: Notification[];
 	newNotificationCount: number;
 	notificationLimit: number = 10;
 	showNotificationDropdown: boolean = false;
 	newNotificationsSubscription: Subscription;
-	newNotificationGetInterval: number = 5 * 60 * 1000;//5min
+
 	get isMobile(): boolean {
 		return window.innerWidth <= 480;
 	}
 
-	constructor(private helpersService: HelpersService, private notificationService: NotificationService, private router: Router) { }
+	constructor(
+		private helpersService: HelpersService,
+		private notificationService: NotificationService,
+		private router: Router,
+		private pushService: PushService) { }
 
 	ngOnInit() {
 		this.getNewNotifications();
-		this.newNotificationsSubscription = TimerObservable.create(this.newNotificationGetInterval, this.newNotificationGetInterval)
-			.subscribe(() => {
-			this.getNewNotifications();
+
+		this.pushService.getNotifications().subscribe(response => {
+			this.currentNotifications.unshift(response);
+			this.newNotificationCount++;
+		}, error => {
+			console.error(JSON.stringify(error));
 		});
 	}
 	getNewNotifications(): any {
@@ -70,7 +78,7 @@ export class NotificationNavComponent implements OnInit, OnDestroy {
 	}
 
 	resetNewNotificationCount(): void {
-	   	this.newNotificationCount = 0;
+		this.newNotificationCount = 0;
 	}
 
 	convertToLocalDate(utcDate: Date): Date {
@@ -80,13 +88,5 @@ export class NotificationNavComponent implements OnInit, OnDestroy {
 	navToNotifications() {
 		this.onOpenCloseNotificationDropDown();
 		this.router.navigate(['/notifications']);
-	}
-
-	ngOnDestroy() {
-		/* We need to unsubscribe, otherwise the getting of new notifications will continue
-		*  even if we navigate away from this component
-		*/
-		if (this.newNotificationsSubscription)
-			this.newNotificationsSubscription.unsubscribe();
 	}
 }
