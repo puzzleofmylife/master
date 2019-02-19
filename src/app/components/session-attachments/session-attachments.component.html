@@ -54,6 +54,10 @@
   </div>
 </div>
 
+<div *ngIf="!loading && attachments.length == 0" class="slds-align_absolute-center slds-m-vertical_small slds-text-heading_small">
+  No attachments found
+</div>
+
 <div *ngIf="loading" class="slds-align_absolute-center slds-m-top_x-large">
   <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_inline">
     <span class="slds-assistive-text">Loading</span>
