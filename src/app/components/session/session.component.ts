@@ -6,6 +6,7 @@ import { TimerObservable } from "rxjs/observable/TimerObservable";
 import { Subscription } from 'rxjs';
 import { HelpersService } from 'src/app/services/helpers.service';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { PushService } from 'src/app/services/push.service';
 
 @Component({
   selector: 'app-session',
@@ -50,7 +51,11 @@ export class SessionComponent implements OnDestroy {
     return this._session;
   }
 
-  constructor(private sessionService: SessionService, private helpersService: HelpersService, private sanitizer: DomSanitizer) {
+  constructor(
+    private sessionService: SessionService,
+    private helpersService: HelpersService,
+    private sanitizer: DomSanitizer,
+    private pushService: PushService) {
     this.initProperties();
   }
 
@@ -98,9 +103,12 @@ export class SessionComponent implements OnDestroy {
     //Reset properties
     this.initProperties();
 
+    //If we dont have a cache of this session then load everything up
     if (!this.loadFromCache()) {
       this.loading = true;//Show spinner
+      //Get styling for avatar coloured circle
       this.dynamicColourAvatarStyle = this.getDynamicColourAvatarStyle(this.session.recipientName);
+      //Recipient name first 2 letters for the avatar circle
       this.recipientAbbrev = this.getRecipientAbbrev(this.session.recipientName);
 
       //Initial get of last X messages
@@ -116,22 +124,26 @@ export class SessionComponent implements OnDestroy {
           this.initialGetMaxedOut = false;
         }
 
-        //Set timer to get new messages
-        this.subscribeToNewMessages(this.newMessageGetInterval, this.newMessageGetInterval);
+        //Subscribe to new msg push service
+        this.subscribeToNewMessages();
       }, error => {
         this.loading = false;
         console.error(JSON.stringify(error));
       });
-    } else {
-      //Set timer to get new messages right away
-      this.subscribeToNewMessages(0, this.newMessageGetInterval);
+    } else {//We've got cache!
+      //Subscribe to new msg push service
+      this.subscribeToNewMessages();
     }
   }
 
-  public subscribeToNewMessages(initalDelay: number = this.newMessageGetInterval, period: number = this.newMessageGetInterval) {
-    this.newMsgSubscription = TimerObservable.create(initalDelay, period)
-      .subscribe(() => {
-        this.getNewMessages();
+  public subscribeToNewMessages() {
+    this.pushService.getSessionMessages()
+      .subscribe(message => {
+        this.sessionMessages.unshift(message);
+        //Notify parent of new message
+        this.newMessagesEvent.emit(1);
+      }, error => {
+        console.error(JSON.stringify(error));
       });
   }
 
