@@ -22,8 +22,6 @@ export class ToastComponent implements OnInit {
 
   dispToast(toast: Toast): any {
     this.toast = toast;
-    console.log(toast);
-    
     this.showToast = true;
 
     setTimeout(() => {
