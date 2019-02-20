@@ -70,6 +70,7 @@ import { PackageReactivateComponent } from './components/package-reactivate/pack
 import { SessionAttachmentUploadComponent } from './components/session-attachment-upload/session-attachment-upload.component';
 import { Ng2ImgMaxModule } from 'ng2-img-max';
 import { SessionAttachmentsComponent } from './components/session-attachments/session-attachments.component';
+import { RatingComponent } from './components/rating/rating.component';
 
 @NgModule({
 	declarations: [
@@ -136,7 +137,8 @@ import { SessionAttachmentsComponent } from './components/session-attachments/se
 		PackageCancelComponent,
 		PackageReactivateComponent,
 		SessionAttachmentUploadComponent,
-		SessionAttachmentsComponent
+		SessionAttachmentsComponent,
+		RatingComponent
 	],
 	imports: [
 		BrowserModule,

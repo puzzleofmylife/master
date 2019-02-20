@@ -41,6 +41,9 @@
                 <div class="slds-text-heading_small">
                     {{psychologist.paymentPercent}}% commission
                 </div>
+                <div *ngIf="psychologist.averageRatingCount > 0" class="slds-text-heading_small">
+                    {{psychologist.averageRating | number}} avg rating ({{psychologist.averageRatingCount}})
+                </div>
                 <div class="slds-text-heading_small">
                     {{psychologist.isFullTime ? 'Full-time' : 'Part-time'}}
                 </div>
@@ -90,8 +93,7 @@
                 <div class="slds-p-top_x-small slds-p-right_x-small slds-col slds-size_12-of-12">
                     <div class="slds-m-bottom_x-small slds-text-heading_medium"><b>Attachments</b></div>
                     <div class="slds-grid slds-wrap">
-                        <div class="slds-p-right_small slds-p-bottom_small slds-col slds-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_4-of-12"
-                            *ngFor="let attachment of psychologist.attachments">
+                        <div class="slds-p-right_small slds-p-bottom_small slds-col slds-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_4-of-12" *ngFor="let attachment of psychologist.attachments">
                             <div (click)="downloadAttachment(attachment.id)" class="slds-file slds-file_card slds-has-title pointer">
                                 <figure>
                                     <a class="slds-file__crop">
@@ -102,20 +104,16 @@
                                             <div class="slds-media__figure slds-line-height_reset">
                                                 <span class="slds-icon_container" title="pdf" [ngSwitch]="attachment.typeId">
 
-                                                    <svg *ngSwitchCase="1" class="slds-icon slds-icon_x-small"
-                                                        aria-hidden="true">
+                                                    <svg *ngSwitchCase="1" class="slds-icon slds-icon_x-small" aria-hidden="true">
                                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/doctype-sprite/svg/symbols.svg#gpres" />
                                                     </svg>
-                                                    <svg *ngSwitchCase="3" class="slds-icon slds-icon_x-small"
-                                                        aria-hidden="true">
+                                                    <svg *ngSwitchCase="3" class="slds-icon slds-icon_x-small" aria-hidden="true">
                                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/doctype-sprite/svg/symbols.svg#gsheet" />
                                                     </svg>
-                                                    <svg *ngSwitchCase="4" class="slds-icon slds-icon_x-small"
-                                                        aria-hidden="true">
+                                                    <svg *ngSwitchCase="4" class="slds-icon slds-icon_x-small" aria-hidden="true">
                                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/doctype-sprite/svg/symbols.svg#gdoc" />
                                                     </svg>
-                                                    <svg *ngSwitchDefault class="slds-icon slds-icon_x-small"
-                                                        aria-hidden="true">
+                                                    <svg *ngSwitchDefault class="slds-icon slds-icon_x-small" aria-hidden="true">
                                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/doctype-sprite/svg/symbols.svg#unknown" />
                                                     </svg>
                                                     <span class="slds-assistive-text">{{attachment.type}}</span>
@@ -151,8 +149,7 @@
 </div>
 
 <div *ngIf="(showDisablePrompt)">
-    <section role="alertdialog" tabindex="-1" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper"
-        class="slds-modal slds-fade-in-open slds-modal_prompt" aria-modal="true">
+    <section role="alertdialog" tabindex="-1" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" class="slds-modal slds-fade-in-open slds-modal_prompt" aria-modal="true">
         <div class="slds-modal__container">
             <header class="slds-modal__header slds-theme_warning">
                 <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
@@ -190,8 +187,7 @@
 </div>
 
 <div *ngIf="showEnablePrompt">
-    <section role="alertdialog" tabindex="-1" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper"
-        class="slds-modal slds-fade-in-open slds-modal_prompt" aria-modal="true">
+    <section role="alertdialog" tabindex="-1" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" class="slds-modal slds-fade-in-open slds-modal_prompt" aria-modal="true">
         <div class="slds-modal__container">
             <header class="slds-modal__header slds-theme_warning">
                 <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
@@ -218,8 +214,7 @@
 </div>
 
 <div *ngIf="showApproveDenyPrompt">
-    <section role="alertdialog" tabindex="-1" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper"
-        class="slds-modal slds-fade-in-open slds-modal_prompt" aria-modal="true">
+    <section role="alertdialog" tabindex="-1" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" class="slds-modal slds-fade-in-open slds-modal_prompt" aria-modal="true">
         <div class="slds-modal__container">
             <header class="slds-modal__header slds-theme_warning">
                 <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">

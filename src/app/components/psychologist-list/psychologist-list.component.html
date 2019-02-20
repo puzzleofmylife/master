@@ -25,8 +25,12 @@
 
           <div class="truncate_200">{{psych.email}}</div>
 
-          {{psych.phoneNumber}}
-          <br>
+          <div>{{psych.phoneNumber}}</div>
+
+          <div *ngIf="psych.averageRatingCount > 0">
+            {{psych.averageRating | number}} avg rating ({{psych.averageRatingCount}})
+          </div>
+
           <span class="slds-hide_medium slds-text-heading_small">
             <span [className]="helpersService.getPsychStatusClass(psych.statusId)"><b>{{psych.status}}</b></span>
           </span>

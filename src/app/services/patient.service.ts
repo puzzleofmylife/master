@@ -69,13 +69,16 @@ export class PatientService {
 	getCancelReasons(limit: number, page: number): Observable<CancelReason[]> {
 		return this.http.get<CancelReason[]>(environment.baseAPIURL + '/api/Patient/cancellations', {
 			params: new HttpParams()
-			.set('limit', limit.toString())
-			.set('page', page.toString())
-
+				.set('limit', limit.toString())
+				.set('page', page.toString())
 		});
 	}
 
 	applyVoucher(voucherCode: string) {
 		return this.http.post(environment.baseAPIURL + '/api/Patient/voucher/apply/' + voucherCode, null);
+	}
+
+	ratePsychologist(rating: number): any {
+		return this.http.post(environment.baseAPIURL + '/api/Patient/psychologist/rate/' + rating, null);
 	}
 }
