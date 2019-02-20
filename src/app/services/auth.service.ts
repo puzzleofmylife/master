@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { AuthState } from '../models/AuthState';
+import { PushService } from './push.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -12,7 +13,7 @@ import { AuthState } from '../models/AuthState';
 export class AuthService {
 	authStateSubject: BehaviorSubject<AuthState> = new BehaviorSubject<AuthState>(this.getAuthState());
 
-	constructor(private http: HttpClient, private jwtHelper: JwtHelper) { }
+	constructor(private http: HttpClient, private jwtHelper: JwtHelper, private pushService: PushService) { }
 
 	getAuthState(): AuthState {
 		var authState = new AuthState();
@@ -45,11 +46,13 @@ export class AuthService {
 		return this.http.get<any>(environment.baseAPIURL + '/api/Auth/login?username=' + encodeURIComponent(email) + '&password=' + encodeURIComponent(password))
 			.pipe(map(result => {
 				this.setAccessToken(result.token);
+				this.pushService.start();
 			}));
 	}
 
 	logout(): void {
 		localStorage.removeItem('token');
+		this.pushService.stop();
 		this.updateLoggedInSubject();
 	}
 

@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HubConnection, IHttpConnectionOptions } from '@aspnet/signalr';
+import { HubConnection } from '@aspnet/signalr';
 import * as signalR from '@aspnet/signalr';
-import { SessionMessage } from '../models/SessionMessage';
 import { environment } from 'src/environments/environment';
-import { AuthService } from './auth.service';
 import { Notification } from '../models/Notification';
 import { Subject } from 'rxjs/internal/Subject';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
@@ -20,26 +18,28 @@ export class PushService {
   statusSubject: Subject<boolean> = new ReplaySubject<boolean>();
   connectRetryCount: number = 0;
 
-  constructor(private authService: AuthService) {
+  constructor() {
     this.connect();
   }
 
   private connect() {
-    this.accessToken = this.authService.getAccessToken();
+    this.accessToken = localStorage.getItem('token');
 
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl(environment.baseAPIURL + '/push-service?access_token=' + this.accessToken)
       .configureLogging(signalR.LogLevel.Information)
       .build();
 
-    this.hubConnection
-      .start()
-      .then(() => {
-        this.handleOnStart();
-      })
-      .catch(error => {
-        this.tryReconnect(error);
-      });
+    if (this.accessToken) {
+      this.hubConnection
+        .start()
+        .then(() => {
+          this.handleOnStart();
+        })
+        .catch(error => {
+          this.tryReconnect(error);
+        });
+    }
   }
 
   private handleOnStart() {
@@ -51,7 +51,9 @@ export class PushService {
     //Try reconnecting when connection is closed
     this.hubConnection.onclose(error => {
       this.statusSubject.next(false);
-      this.tryReconnect(error);
+      //If we have an error we want to try reconnect
+      if (error)
+        this.tryReconnect(error);
     });
 
     //Only set true connected status if we're doing a tryReconnect
@@ -71,5 +73,14 @@ export class PushService {
 
   getStatus() {
     return this.statusSubject.asObservable();
+  }
+
+  stop() {
+    this.hubConnection.stop();
+  }
+
+  start() {
+    if (this.hubConnection.state == signalR.HubConnectionState.Disconnected)
+      this.connect();
   }
 }
