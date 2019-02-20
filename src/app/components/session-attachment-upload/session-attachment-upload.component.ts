@@ -70,7 +70,7 @@ export class SessionAttachmentUploadComponent implements OnInit {
   }
 
   private fileIsImageType(fileToUpload: any): any {
-    return fileToUpload.type.indexOf('image/') === 0;
+    return fileToUpload.type.indexOf('image/png') === 0 || fileToUpload.type.indexOf('image/jpeg') === 0 || fileToUpload.type.indexOf('image/jpg') === 0;
   }
 
   private attachmentCreator(file) {
