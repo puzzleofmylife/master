@@ -35,6 +35,7 @@ export class SessionComponent implements OnDestroy {
   sessionMessageCache: any[] = [];
   initialGetMaxedOut: boolean;
   showAttachments: boolean = false;
+  attachmentsSessionId: number;
 
   private _session: Session;
   sessionMessageAttachment: SessionMessage;
@@ -75,6 +76,7 @@ export class SessionComponent implements OnDestroy {
     //otherwise the getting of new messages will continue even after changing sessions
     this.unsubscribeToNewMessages();
     this.cacheSession();
+    this.handleAttachmentsClose();
   }
 
   cacheSession(): void {
@@ -307,5 +309,12 @@ export class SessionComponent implements OnDestroy {
 
   handleAttachmentsClose() {
     this.showAttachments = false;
+  }
+
+  openAttachments() {
+    if (this.attachmentsSessionId != this.session.id)
+      this.attachmentsSessionId = this.session.id;
+
+    this.showAttachments = true;
   }
 }

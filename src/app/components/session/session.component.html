@@ -1,6 +1,6 @@
 <div [hidden]="showAttachments">
   <div class="slds-page-header" style="padding: 0.3rem;">
-    <button (click)="showAttachments = !showAttachments" class="slds-button slds-button_icon slds-float_right" title="Attach">
+    <button (click)="openAttachments()" class="slds-button slds-button_icon slds-float_right" title="Attach">
       <svg class="slds-button__icon_large" aria-hidden="true">
         <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#attach"></use>
       </svg>
@@ -132,5 +132,5 @@
 </div>
 
 <div [hidden]="!showAttachments">
-  <app-session-attachments #attachmentsCmp [sessionId]="session.id" (onFileUpload)="handleFileUpload($event)" (onClose)="handleAttachmentsClose()"></app-session-attachments>
+  <app-session-attachments #attachmentsCmp [sessionId]="attachmentsSessionId" (onFileUpload)="handleFileUpload($event)" (onClose)="handleAttachmentsClose()"></app-session-attachments>
 </div>
