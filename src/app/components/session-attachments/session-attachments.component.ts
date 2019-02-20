@@ -11,7 +11,19 @@ import { SessionAttachmentStatus } from 'src/app/models/SessionAttachmentStatus'
 export class SessionAttachmentsComponent implements OnInit {
   @Output() onFileUpload = new EventEmitter<any>();
   @Output() onClose = new EventEmitter();
-  @Input() sessionId: number;
+
+  private _sessionId: number;
+  @Input() set sessionId(value: number) {
+    if (value) {
+      this._sessionId = value;
+      this.reset();
+      this.load();
+    }
+  }
+  get sessionId() {
+    return this._sessionId;
+  }
+
   page: number = 0;
   limit: number = 10;
   attachments: SessionMessageAttachment[] = [];
@@ -21,7 +33,7 @@ export class SessionAttachmentsComponent implements OnInit {
   constructor(private sessionService: SessionService) { }
 
   ngOnInit() {
-    this.load();
+
   }
 
   load() {
@@ -69,5 +81,10 @@ export class SessionAttachmentsComponent implements OnInit {
 
   addAttachment(attachment: SessionMessageAttachment) {
     this.attachments.unshift(attachment);
+  }
+
+  reset() {
+    this.page = 0;
+    this.attachments = [];
   }
 }
