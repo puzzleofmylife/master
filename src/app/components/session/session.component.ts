@@ -20,6 +20,7 @@ export class SessionComponent implements OnDestroy {
 
   readonly initialGetCount: number = 50;
   readonly newMessageGetInterval: number = 60 * 1000;//60 secs
+  readonly maxMessageChars: number = 5000;
 
   @Output() newMessagesEvent = new EventEmitter<number>();
   @ViewChild('messageInput') private messageInput: ElementRef;
@@ -36,6 +37,7 @@ export class SessionComponent implements OnDestroy {
   initialGetMaxedOut: boolean;
   showAttachments: boolean = false;
   attachmentsSessionId: number;
+  messageCharsLeft: number = this.maxMessageChars;
 
   private _session: Session;
   sessionMessageAttachment: SessionMessage;
@@ -112,7 +114,6 @@ export class SessionComponent implements OnDestroy {
       //Initial get of last X messages
       this.sessionService.getSessionMessages(this.session.id, this.initialGetCount, this.messagesPage).subscribe(response => {
         this.loading = false;
-
         this.sessionMessages = response;
 
         if (this.sessionMessages.length == 0) {
@@ -125,6 +126,7 @@ export class SessionComponent implements OnDestroy {
         this.subscribeToNewMessages(this.newMessageGetInterval, this.newMessageGetInterval);
       }, error => {
         this.loading = false;
+        this.toastService.setError();
         console.error(JSON.stringify(error));
       });
     } else {
@@ -181,10 +183,25 @@ export class SessionComponent implements OnDestroy {
     this.sessionService.createSessionMessage(newMessage).subscribe(response => {
       //success, replace the new message inserted above with the actual confirmed message returned
       this.sessionMessages[this.sessionMessages.indexOf(newMessage)] = response;
+      this.messageCharsLeft = this.maxMessageChars;
     }, error => {
       //fail, remove new message inserted above, and restore message input textbox
-      this.sessionMessages.splice(0, 1);
-      this.messageText = newMessage.text;
+      this.sessionMessages.splice(this.sessionMessages.indexOf(newMessage), 1);
+
+      //If we dont have text in the input box, 
+      //Set it to the failed message text
+      //And autogrow the input box
+      if (!this.messageText) {
+        this.messageText = newMessage.text;
+        this.autoGrowMessageInput();
+      }
+
+      if (error.error && error.error.Text)
+        this.toastService.setError(error.error.Text[0]);
+      else if (error.name == 'TimeoutError')
+        this.toastService.setError(error.message);
+      else
+        this.toastService.setError();
 
       console.error(JSON.stringify(error));
     })
@@ -199,6 +216,7 @@ export class SessionComponent implements OnDestroy {
     newMessage.sessionMessageTypeId = messageType;
     newMessage.sessionMessageAttachment = new SessionMessageAttachment();
     newMessage.sessionMessageAttachment.fileName = filename;
+    newMessage.loading = true;
     //Insert new message at the beginning of array
     this.sessionMessages.unshift(newMessage);
 
@@ -258,22 +276,35 @@ export class SessionComponent implements OnDestroy {
 
   autoGrowMessageInput() {
     var maxMessageInputHeight = 150;
-    var defaultMessageInputHeight = 60;
-    if (this.messageInput.nativeElement.scrollHeight <= maxMessageInputHeight && this.messageInput.nativeElement.scrollHeight > defaultMessageInputHeight) {
-      this.messageInput.nativeElement.style.overflow = 'hidden';
+    var minMessageInputHeight = 60;
+    var heightOfText = this.messageInput.nativeElement.scrollHeight;
+
+    if (heightOfText > maxMessageInputHeight) {
       this.messageInput.nativeElement.style.height = '0px';
-      this.messageInput.nativeElement.style.height = this.messageInput.nativeElement.scrollHeight + 'px';
-    }
-    else {
+      this.messageInput.nativeElement.style.height = maxMessageInputHeight + 'px';
       //We've reach our max height, starting using scrollbar
       this.messageInput.nativeElement.style.overflow = 'auto';
     }
+    else if (heightOfText < minMessageInputHeight) {
+      this.messageInput.nativeElement.style.overflow = 'hidden';
+      //Reset the height to 0px before setting it
+      this.messageInput.nativeElement.style.height = '0px';
+      this.messageInput.nativeElement.style.height = minMessageInputHeight + 'px';
+    } else {
+      this.messageInput.nativeElement.style.overflow = 'hidden';
+      //Reset the height to 0px before setting it
+      this.messageInput.nativeElement.style.height = '0px';
+      this.messageInput.nativeElement.style.height = this.messageInput.nativeElement.scrollHeight + 'px';
+    }
+
+    //Set chars left
+    this.messageCharsLeft = this.maxMessageChars - this.messageText.length;
   }
 
   private resetMessageInput() {
     this.messageText = '';
     this.messageInput.nativeElement.setAttribute('value', '');
-    this.messageInput.nativeElement.setAttribute('style', 'line-height:1.2');
+    this.messageInput.nativeElement.setAttribute('style', 'line-height:1.2; height:60px');
   }
 
   getRecipientAbbrev(recipName: string) {

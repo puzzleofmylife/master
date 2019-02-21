@@ -9,4 +9,5 @@ export class SessionMessage {
     senderName: string;
     sessionMessageTypeId: number;
     sessionMessageAttachment: SessionMessageAttachment;
+    loading: boolean;
 }
