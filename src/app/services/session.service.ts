@@ -6,6 +6,7 @@ import { Session } from '../models/Session';
 import { SessionMessage } from '../models/SessionMessage';
 import { PsychologistSession } from '../models/PsychologistSession';
 import { SessionMessageAttachment } from '../models/SessionMessageAttachment';
+import { timeout } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,9 @@ export class SessionService {
   }
 
   createSessionMessage(sessionMessage: SessionMessage): Observable<SessionMessage> {
-    return this.http.post<SessionMessage>(environment.baseAPIURL + '/api/Session/message/create', sessionMessage);
+    return this.http.post<SessionMessage>(environment.baseAPIURL + '/api/Session/message/create', sessionMessage).pipe(
+      timeout(30000) //30 seconds
+    );;
   }
 
   getNewSessionMessages(sessionId: number): Observable<SessionMessage[]> {
