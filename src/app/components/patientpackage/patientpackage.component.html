@@ -29,7 +29,7 @@
                     <div *ngIf="!currentPackage.pendingCancellation">Next bill date
                         <b>{{helpersService.convertToLocalDate(currentPackage.nextBillDate) | date}}</b>
                     </div>
-                    <div *ngIf="currentPackage.pendingCancellation" class="cancelled">Pending cancellation on
+                    <div *ngIf="currentPackage.pendingCancellation" class="cancelled">Scheduled for cancellation on
                         <b>{{helpersService.convertToLocalDate(currentPackage.pendingCancellationJobDate) | date}}</b>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
 
             <!-- Pending Payment -->
             <div *ngIf="currentPackage.statusId == 2" class="slds-m-bottom_small">
-                <div *ngIf="currentPackage.pendingCancellation" class="cancelled">Pending cancellation on
+                <div *ngIf="currentPackage.pendingCancellation" class="cancelled">Scheduled for cancellation on
                     <b>{{helpersService.convertToLocalDate(currentPackage.pendingCancellationJobDate) | date}}</b>
                 </div>
                 <div *ngIf="!currentPackage.pendingCancellation" class="slds-m-top_small">
