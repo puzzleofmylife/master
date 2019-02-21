@@ -33,7 +33,9 @@ export class PatientPackageComponent implements OnInit {
   }
 
   private getPatientPackage() {
+    this.loading = true;
     this.patientService.getCurrentPatientPackage().subscribe(result => {
+      this.loading = false;
       this.currentPackage = result;
       if (this.currentPackage.statusId == 2) {
         this.paymentService.getOutstandingBalance().subscribe(balanceResp => {
@@ -43,6 +45,7 @@ export class PatientPackageComponent implements OnInit {
         });
       }
     }, error => {
+      this.loading = false;
       console.error(JSON.stringify(error.error));
     });
   }

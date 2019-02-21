@@ -10,12 +10,19 @@ import { PatientService } from '../../services/patient.service';
 })
 export class PatientPersonalDetailsComponent implements OnInit {
 	patient: Patient = new Patient();
+	loading: boolean;
 
 	constructor(private _patientService: PatientService, private router: Router) { }
 
 	ngOnInit() {
-		this._patientService.getPatient().subscribe(response =>
-			this.patient = response);
+		this.loading = true;
+		this._patientService.getPatient().subscribe(response => {
+			this.patient = response;
+			this.loading = false;
+		}, error => {
+			this.loading = false;
+			console.error(JSON.stringify(error));
+		});
 	}
 	navigateToPatientUpdateDetails() {
 		this.router.navigate(['/profile/update-details']);
