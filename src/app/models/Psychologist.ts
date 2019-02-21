@@ -1,8 +1,8 @@
 import { User } from './User';
 
 export class Psychologist extends User {
-    status:string;
-    statusId:number;
+    status: string;
+    statusId: number;
     idNumber: number;
     age: number;
     experienceYears: number;
@@ -12,9 +12,11 @@ export class Psychologist extends User {
     bankName: string;
     branchCode: number;
     accountType: string;
-    photo:string;
+    photo: string;
     attachments: any[];
     paymentPercent: number;
     isFullTime: boolean;
     pauseReturnDate: boolean;
+    averageRatingCount: number;
+    averageRating: number;
 }
