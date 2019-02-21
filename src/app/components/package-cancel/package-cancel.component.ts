@@ -14,6 +14,9 @@ export class PackageCancelComponent implements OnInit {
   patientPackage: PatientPackage;
   cancelReason: string;
   cancelReasonTooLong: boolean;
+  patientPsych: import("/Users/danewilliams/Documents/Work/puzzleofmylifeapp/src/app/models/Psychologist").Psychologist;
+  cmpState: string;
+  rating: any;
 
   constructor(
     private patientService: PatientService,
@@ -22,6 +25,24 @@ export class PackageCancelComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
+
+    this.patientService.getPsychologist().subscribe(resp => {
+      this.patientPsych = resp;
+      if (this.patientPsych) {
+        this.cmpState = 'show_rating';
+        this.getCurPackage();
+      }
+      else {
+        this.cmpState = 'show_confirm';
+        this.getCurPackage();
+      }
+    }, error => {
+      this.loading = false;
+      console.error(JSON.stringify(error));
+    });
+  }
+
+  private getCurPackage() {
     this.patientService.getCurrentPatientPackage().subscribe(resp => {
       this.patientPackage = resp;
       this.loading = false;
@@ -32,12 +53,26 @@ export class PackageCancelComponent implements OnInit {
     });
   }
 
-  cancelPackage() {
+  handleCancelClick() {
     this.loading = true;
     if (this.cancelReason && this.cancelReason.length > 1000) {
       this.cancelReasonTooLong = true;
       return;
     }
+
+    if (this.rating) {
+      this.patientService.ratePsychologist(this.rating).subscribe(result => {
+        this.cancelPackage();
+      }, error => {
+        console.error(JSON.stringify(error));
+        this.cancelPackage();
+      });
+    }
+    else
+      this.cancelPackage();
+  }
+
+  private cancelPackage() {
     this.patientService.cancelPatientPackage(this.cancelReason).subscribe(resp => {
       this.loading = false;
       this.toastService.setSuccess('Success');
@@ -49,4 +84,7 @@ export class PackageCancelComponent implements OnInit {
     });
   }
 
+  handleRatingClick(event: number) {
+    this.rating = event;
+  }
 }

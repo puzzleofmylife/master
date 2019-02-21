@@ -10,7 +10,24 @@
   </div>
 </div>
 
-<div *ngIf="!loading">
+<div *ngIf="!loading && cmpState == 'show_rating'">
+  <div class="slds-text-heading_medium">
+    Before cancelling, would you like to rate your psychologist <b>{{patientPsych.firstName}} {{patientPsych.lastName}}</b>?
+  </div>
+
+  <div class="slds-grid slds-grid_align-center slds-m-top_medium">
+    <app-rating (onRatingClick)="handleRatingClick($event)"></app-rating>
+  </div>
+
+
+
+  <div class="slds-m-top_medium">
+    <a [routerLink]="['/profile']" class="slds-button">Cancel</a>
+    <button class="slds-button slds-button_brand btn-right" (click)="cmpState = 'show_confirm'">{{ rating ? 'Continue' : 'Skip'}}</button>
+  </div>
+</div>
+
+<div *ngIf="!loading && cmpState == 'show_confirm'">
   <div class="slds-text-heading_medium slds-m-bottom_medium">
     Are you sure you want to cancel your package?
 
@@ -31,6 +48,6 @@
 
   <div class="slds-m-top_medium">
     <a [routerLink]="['/profile']" class="slds-button">Cancel</a>
-    <button class="slds-button slds-button_brand btn-right" (click)="cancelPackage()">Confirm</button>
+    <button class="slds-button slds-button_brand btn-right" (click)="handleCancelClick()">Confirm</button>
   </div>
 </div>
