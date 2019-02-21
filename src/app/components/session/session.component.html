@@ -32,13 +32,13 @@
   <div *ngIf="!loading" class="slds-form-element slds-m-top_medium">
     <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
       <textarea #messageInput [maxlength]="maxMessageChars" rows="2" (onpaste)="autoGrowMessageInput()" (keyup)="autoGrowMessageInput()" placeholder="Type your message here..." [(ngModel)]="messageText" style="line-height:1.2; height:60px" class="slds-input slds-p-around_xx-small"></textarea>
-      <div style="height: 30px;">
-
-        <span class="meta-text">{{messageCharsLeft}} characters left</span>
-
-        <button *ngIf="messageText.length > 0" (click)="createMessage()" class="slds-button slds-button_outline-brand slds-float_right" title="Send">
-          Send
-        </button>
+      <div>
+        <div class="slds-grid slds-grid_align-spread slds-m-bottom_small">
+          <div class="meta-text">{{messageCharsLeft}} characters left</div>
+          <button *ngIf="messageText.length > 0" (click)="createMessage()" class="slds-button slds-button_outline-brand" title="Send">
+            Send
+          </button>
+        </div>
       </div>
     </div>
   </div>
