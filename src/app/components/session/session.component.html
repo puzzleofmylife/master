@@ -1,12 +1,5 @@
 <div [hidden]="showAttachments">
   <div class="slds-page-header" style="padding: 0.3rem;">
-    <button (click)="openAttachments()" class="slds-button slds-button_icon slds-button_icon-border slds-float_right slds-m-around_x-small" title="Attach">
-      <svg class="slds-button__icon_large" aria-hidden="true">
-        <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#attach"></use>
-      </svg>
-      <span class="slds-assistive-text">Attach</span>
-    </button>
-
     <div class="slds-page-header__row">
       <div class="slds-page-header__col-title">
         <div class="slds-media" style="align-items: center">
@@ -29,19 +22,36 @@
     </div>
   </div>
 
-  <div *ngIf="!loading" class="slds-form-element slds-m-top_medium">
-    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
-      <textarea #messageInput [maxlength]="maxMessageChars" rows="2" (onpaste)="autoGrowMessageInput()" (keyup)="autoGrowMessageInput()" placeholder="Type your message here..." [(ngModel)]="messageText" style="line-height:1.2; height:60px" class="slds-input slds-p-around_xx-small"></textarea>
-      <div>
-        <div class="slds-grid slds-grid_align-spread slds-m-bottom_small">
-          <div class="meta-text">{{messageCharsLeft}} characters left</div>
-          <button *ngIf="messageText.length > 0" (click)="createMessage()" class="slds-button slds-button_outline-brand" title="Send">
-            Send
-          </button>
+  <div class="slds-media slds-comment slds-hint-parent slds-m-top_medium">
+    <div class="slds-media__body">
+      <div class="slds-publisher slds-publisher_comment slds-is-active">
+
+        <label for="messageInput" class="slds-assistive-text">Type your message here...</label>
+        <textarea #messageInput [(ngModel)]="messageText" (keyup)="handleMessageInputChange()" (onpaste)="handleMessageInputChange()" [maxlength]="maxMessageChars" class="slds-publisher__input slds-input_bare slds-text-longform" placeholder="Type your message here..." id="messageInput"></textarea>
+
+        <div class="slds-publisher__actions slds-grid slds-grid_align-spread">
+          <ul class="slds-grid">
+            <li>
+              <button (click)="openAttachments()" class="slds-button slds-button_icon slds-button_icon-container" title="Attach a file">
+                <svg class="slds-button__icon" aria-hidden="true">
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#attach" />
+                </svg>
+                <span class="slds-assistive-text">Attach a file</span>
+              </button>
+              <button (click)="toggleExpand()" class="slds-button slds-button_icon slds-button_icon-container" title="Expand text area">
+                <svg class="slds-button__icon" aria-hidden="true">
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#expand_alt" />
+                </svg>
+                <span class="slds-assistive-text">Expand text area</span>
+              </button>
+            </li>
+          </ul>
+          <button [disabled]="messageText.length === 0" (click)="createMessage()" class="slds-button slds-button_outline-brand">Send</button>
         </div>
       </div>
     </div>
   </div>
+  <div class="meta-text">{{messageCharsLeft}} characters left</div>
 
   <section role="log" class="slds-chat">
 

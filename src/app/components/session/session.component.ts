@@ -183,17 +183,15 @@ export class SessionComponent implements OnDestroy {
     this.sessionService.createSessionMessage(newMessage).subscribe(response => {
       //success, replace the new message inserted above with the actual confirmed message returned
       this.sessionMessages[this.sessionMessages.indexOf(newMessage)] = response;
-      this.messageCharsLeft = this.maxMessageChars;
     }, error => {
       //fail, remove new message inserted above, and restore message input textbox
       this.sessionMessages.splice(this.sessionMessages.indexOf(newMessage), 1);
 
       //If we dont have text in the input box, 
       //Set it to the failed message text
-      //And autogrow the input box
       if (!this.messageText) {
         this.messageText = newMessage.text;
-        this.autoGrowMessageInput();
+        this.handleMessageInputChange();
       }
 
       if (error.error && error.error.Text)
@@ -274,37 +272,14 @@ export class SessionComponent implements OnDestroy {
     return this.sanitizer.bypassSecurityTrustStyle(this.helpersService.getDynamicColourAvatarStyle(patientName));
   }
 
-  autoGrowMessageInput() {
-    var maxMessageInputHeight = 150;
-    var minMessageInputHeight = 60;
-    var heightOfText = this.messageInput.nativeElement.scrollHeight;
-
-    if (heightOfText > maxMessageInputHeight) {
-      this.messageInput.nativeElement.style.height = '0px';
-      this.messageInput.nativeElement.style.height = maxMessageInputHeight + 'px';
-      //We've reach our max height, starting using scrollbar
-      this.messageInput.nativeElement.style.overflow = 'auto';
-    }
-    else if (heightOfText < minMessageInputHeight) {
-      this.messageInput.nativeElement.style.overflow = 'hidden';
-      //Reset the height to 0px before setting it
-      this.messageInput.nativeElement.style.height = '0px';
-      this.messageInput.nativeElement.style.height = minMessageInputHeight + 'px';
-    } else {
-      this.messageInput.nativeElement.style.overflow = 'hidden';
-      //Reset the height to 0px before setting it
-      this.messageInput.nativeElement.style.height = '0px';
-      this.messageInput.nativeElement.style.height = this.messageInput.nativeElement.scrollHeight + 'px';
-    }
-
+  handleMessageInputChange() {
     //Set chars left
     this.messageCharsLeft = this.maxMessageChars - this.messageText.length;
   }
 
   private resetMessageInput() {
     this.messageText = '';
-    this.messageInput.nativeElement.setAttribute('value', '');
-    this.messageInput.nativeElement.setAttribute('style', 'line-height:1.2; height:60px');
+    this.messageCharsLeft = this.maxMessageChars;
   }
 
   getRecipientAbbrev(recipName: string) {
@@ -347,5 +322,10 @@ export class SessionComponent implements OnDestroy {
       this.attachmentsSessionId = this.session.id;
 
     this.showAttachments = true;
+  }
+
+  toggleExpand() {
+    var toggleHeight = '200px';
+    this.messageInput.nativeElement.style.height = this.messageInput.nativeElement.style.height == toggleHeight ? '' : toggleHeight;
   }
 }
