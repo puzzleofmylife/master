@@ -26,6 +26,7 @@ export class PsychologistSessionComponent implements OnInit, OnDestroy {
   showAccNotActive: boolean;
   noPatientsFound: boolean;
   showAccPaused: boolean;
+  notificationsSubscription: Subscription;
 
   constructor(
     private sessionService: SessionService,
@@ -34,6 +35,12 @@ export class PsychologistSessionComponent implements OnInit, OnDestroy {
     private pushService: PushService) { }
 
   ngOnInit() {
+    this.getSessions();
+    this.subscribeToNewMessages();
+    this.subscribeToNotifcations();
+  }
+
+  private getSessions() {
     this.sessionService.getPsychologistSessions().subscribe(response => {
       this.loading = false;
       this.sessions = response;
@@ -42,18 +49,14 @@ export class PsychologistSessionComponent implements OnInit, OnDestroy {
         this.noPatientsFound = true;
 
       this.orderByMostRecentMessageDate();
-
-      this.subscribeToNewMessages();
     }, error => {
       this.loading = false;
       if (error.error.PsychologistNotActive)
         this.showAccNotActive = true;
-
       if (error.error.PsychologistPaused)
         this.showAccPaused = true;
-
       console.error(JSON.stringify(error));
-    })
+    });
   }
 
   subscribeToNewMessages(): any {
@@ -62,6 +65,16 @@ export class PsychologistSessionComponent implements OnInit, OnDestroy {
       this.sessions[pushMessageSessionIndex].newMessageCount++;
       this.sessions[pushMessageSessionIndex].mostRecentMessageDate = new Date(Date.now());
       this.orderByMostRecentMessageDate();
+    }, error => {
+      console.error(JSON.stringify(error));
+    });
+  }
+
+  subscribeToNotifcations(): any {
+    this.notificationsSubscription = this.pushService.getNotifications().subscribe(resp => {
+      var notifTypes = [5, 8];//New patient, Acc disabled
+      if (notifTypes.includes(resp.notificationTypeId))
+        this.getSessions();
     }, error => {
       console.error(JSON.stringify(error));
     });
@@ -112,6 +125,9 @@ export class PsychologistSessionComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.sessionsSubscription)
       this.sessionsSubscription.unsubscribe();
+
+    if (this.notificationsSubscription)
+      this.notificationsSubscription.unsubscribe();
   }
 
 }
