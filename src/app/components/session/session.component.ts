@@ -42,6 +42,9 @@ export class SessionComponent implements OnDestroy {
 
   private _session: Session;
   sessionMessageAttachment: SessionMessage;
+  pushServiceStatusSubscription: Subscription;
+  backOnlineCount: number = 0;
+
   @Input() set session(value: Session) {
     ////Using a setter will let us run initiateSession() every time the value changes
 
@@ -67,6 +70,7 @@ export class SessionComponent implements OnDestroy {
     private toastService: ToastService,
     private pushService: PushService) {
     this.initProperties();
+    this.subscribeToPushServiceStatus();
   }
 
   initProperties(): any {
@@ -129,7 +133,7 @@ export class SessionComponent implements OnDestroy {
         }
 
         //Set timer to get new messages
-        this.subscribeToNewMessages(this.newMessageGetInterval, this.newMessageGetInterval);
+        this.subscribeToNewMessages();
       }, error => {
         this.loading = false;
         this.toastService.setError();
@@ -137,16 +141,32 @@ export class SessionComponent implements OnDestroy {
       });
     } else {
       //Set timer to get new messages right away
-      this.subscribeToNewMessages(0, this.newMessageGetInterval);
+      this.subscribeToNewMessages();
     }
   }
 
-  public subscribeToNewMessages(initalDelay: number = this.newMessageGetInterval, period: number = this.newMessageGetInterval) {
+  public subscribeToNewMessages() {
     this.newMsgSubscription = this.pushService.getSessionMessages()
       .subscribe(resp => {
         //Only get new messages if the incoming message session ID equals the current session ID
         if (this.session.id == resp.sessionId)
           this.getNewMessages();
+      });
+  }
+
+  public subscribeToPushServiceStatus() {
+    this.pushServiceStatusSubscription = this.pushService.getStatus()
+      .subscribe(isConnected => {
+        if (isConnected) {
+          this.backOnlineCount++;
+          if (this.backOnlineCount > 1) {
+            //The second connected status means we've reconnected to the push service, so get any messasges we may have missed
+            this.toastService.setSuccess('Back online');
+            this.getNewMessages();
+          }
+        }
+        else
+          this.toastService.setError('Session disconnected');
       });
   }
 
@@ -256,8 +276,11 @@ export class SessionComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    //We need to unsubscribe, otherwise the getting of new messages will continue even if we navigate away from this component
+    //We need to unsubscribe, otherwise the getting of subscriptions will continue even if we navigate away from this component
     this.unsubscribeToNewMessages();
+
+    if (this.pushServiceStatusSubscription)
+      this.pushServiceStatusSubscription.unsubscribe();
   }
 
   loadPreviousMessages() {
