@@ -18,7 +18,7 @@
       <div class="slds-publisher slds-publisher_comment slds-is-active">
 
         <label for="noteInput" class="slds-assistive-text">Type your note here...</label>
-        <textarea #noteInput [(ngModel)]="noteText" [maxlength]="maxMessageChars" (keyup)="handleMessageInputChange()" class="slds-publisher__input slds-input_bare slds-text-longform" placeholder="Type your note here..." id="noteInput"></textarea>
+        <textarea #noteInput [(ngModel)]="noteText" [maxlength]="maxNoteChars" (keyup)="handleMessageInputChange()" class="slds-publisher__input slds-input_bare slds-text-longform" placeholder="Type your note here..." id="noteInput"></textarea>
 
         <div class="slds-publisher__actions slds-grid slds-grid_align-spread">
           <ul class="slds-grid">
