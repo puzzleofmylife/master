@@ -7,6 +7,7 @@ import { SessionMessage } from '../models/SessionMessage';
 import { PsychologistSession } from '../models/PsychologistSession';
 import { SessionMessageAttachment } from '../models/SessionMessageAttachment';
 import { timeout } from 'rxjs/operators';
+import { SessionNote } from '../models/SessionNote';
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +64,19 @@ export class SessionService {
 
   getAttachments(sessionId: number, page: number, limit: number): Observable<SessionMessageAttachment[]> {
     return this.http.get<SessionMessageAttachment[]>(environment.baseAPIURL + '/api/Session/attachments', {
+      params: new HttpParams()
+        .set('sessionId', sessionId.toString())
+        .set('page', page.toString())
+        .set('limit', limit.toString())
+    });
+  }
+
+  createNote(sessionNote: SessionNote): Observable<SessionNote> {
+    return this.http.post<SessionNote>(environment.baseAPIURL + '/api/Session/note', sessionNote);
+  }
+
+  getNotes(sessionId: number, page: number, limit: number): Observable<SessionNote[]> {
+    return this.http.get<SessionNote[]>(environment.baseAPIURL + '/api/Session/notes', {
       params: new HttpParams()
         .set('sessionId', sessionId.toString())
         .set('page', page.toString())

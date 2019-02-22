@@ -71,6 +71,7 @@ import { SessionAttachmentUploadComponent } from './components/session-attachmen
 import { Ng2ImgMaxModule } from 'ng2-img-max';
 import { SessionAttachmentsComponent } from './components/session-attachments/session-attachments.component';
 import { RatingComponent } from './components/rating/rating.component';
+import { SessionNotesComponent } from './components/session-notes/session-notes.component';
 
 @NgModule({
 	declarations: [
@@ -138,7 +139,8 @@ import { RatingComponent } from './components/rating/rating.component';
 		PackageReactivateComponent,
 		SessionAttachmentUploadComponent,
 		SessionAttachmentsComponent,
-		RatingComponent
+		RatingComponent,
+		SessionNotesComponent
 	],
 	imports: [
 		BrowserModule,

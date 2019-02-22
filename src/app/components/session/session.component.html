@@ -1,4 +1,4 @@
-<div [hidden]="showAttachments">
+<div [hidden]="showAttachments || showNotes">
   <div class="slds-page-header" style="padding: 0.3rem;">
     <div class="slds-page-header__row">
       <div class="slds-page-header__col-title">
@@ -43,6 +43,12 @@
                   <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#expand_alt" />
                 </svg>
                 <span class="slds-assistive-text">Expand text area</span>
+              </button>
+              <button (click)="openNotes()" class="slds-button slds-button_icon slds-button_icon-container" title="View patient notes">
+                <svg class="slds-button__icon" aria-hidden="true">
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#note" />
+                </svg>
+                <span class="slds-assistive-text">View patient notes</span>
               </button>
             </li>
           </ul>
@@ -155,4 +161,8 @@
 
 <div [hidden]="!showAttachments">
   <app-session-attachments #attachmentsCmp [sessionId]="attachmentsSessionId" (onFileUpload)="handleFileUpload($event)" (onClose)="handleAttachmentsClose()"></app-session-attachments>
+</div>
+
+<div [hidden]="!showNotes">
+  <app-session-notes [sessionId]="notesSessionId" [patientName]="session.recipientName" (onClose)="handleNotesClose()"></app-session-notes>
 </div>

@@ -26,6 +26,8 @@ export class SessionComponent implements OnDestroy {
   @Output() newMessagesEvent = new EventEmitter<number>();
   @ViewChild('messageInput') private messageInput: ElementRef;
   @ViewChild('attachmentsCmp') private attachmentsCmp: SessionAttachmentsComponent;
+
+  private _session: Session;
   newMsgSubscription: Subscription;
   recipientAbbrev: string;
   dynamicColourAvatarStyle: SafeStyle;
@@ -39,11 +41,11 @@ export class SessionComponent implements OnDestroy {
   showAttachments: boolean = false;
   attachmentsSessionId: number;
   messageCharsLeft: number = this.maxMessageChars;
-
-  private _session: Session;
   sessionMessageAttachment: SessionMessage;
   pushServiceStatusSubscription: Subscription;
   backOnlineCount: number = 0;
+  notesSessionId: number;
+  showNotes: boolean;
 
   @Input() set session(value: Session) {
     ////Using a setter will let us run initiateSession() every time the value changes
@@ -89,6 +91,7 @@ export class SessionComponent implements OnDestroy {
     this.unsubscribeToNewMessages();
     this.cacheSession();
     this.handleAttachmentsClose();
+    this.handleNotesClose();
   }
 
   cacheSession(): void {
@@ -358,5 +361,16 @@ export class SessionComponent implements OnDestroy {
   toggleExpand() {
     var toggleHeight = '200px';
     this.messageInput.nativeElement.style.height = this.messageInput.nativeElement.style.height == toggleHeight ? '' : toggleHeight;
+  }
+
+  openNotes() {
+    if (this.notesSessionId != this.session.id)
+      this.notesSessionId = this.session.id;
+
+    this.showNotes = true;
+  }
+
+  handleNotesClose() {
+    this.showNotes = false;
   }
 }
