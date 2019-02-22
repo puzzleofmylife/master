@@ -5,5 +5,6 @@ export class PsychologistSession {
     patientName: string;
     patientId: number;
     newMessageCount: number;
+    mostRecentMessageDate: Date;
     patientQuestionAnswers: PatientQuestionAnswer[];
 }

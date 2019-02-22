@@ -10,6 +10,7 @@ import { SessionMessageAttachment } from 'src/app/models/SessionMessageAttachmen
 import { SessionAttachmentStatus } from 'src/app/models/SessionAttachmentStatus';
 import { ToastService } from 'src/app/services/toast.service';
 import { SessionAttachmentsComponent } from '../session-attachments/session-attachments.component';
+import { PushService } from 'src/app/services/push.service';
 
 @Component({
   selector: 'app-session',
@@ -59,7 +60,12 @@ export class SessionComponent implements OnDestroy {
     return this._session;
   }
 
-  constructor(private sessionService: SessionService, private helpersService: HelpersService, private sanitizer: DomSanitizer, private toastService: ToastService) {
+  constructor(
+    private sessionService: SessionService,
+    private helpersService: HelpersService,
+    private sanitizer: DomSanitizer,
+    private toastService: ToastService,
+    private pushService: PushService) {
     this.initProperties();
   }
 
@@ -136,9 +142,11 @@ export class SessionComponent implements OnDestroy {
   }
 
   public subscribeToNewMessages(initalDelay: number = this.newMessageGetInterval, period: number = this.newMessageGetInterval) {
-    this.newMsgSubscription = TimerObservable.create(initalDelay, period)
-      .subscribe(() => {
-        this.getNewMessages();
+    this.newMsgSubscription = this.pushService.getSessionMessages()
+      .subscribe(resp => {
+        //Only get new messages if the incoming message session ID equals the current session ID
+        if (this.session.id == resp.sessionId)
+          this.getNewMessages();
       });
   }
 

@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Notification } from '../models/Notification';
 import { Subject } from 'rxjs/internal/Subject';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
+import { SessionMessage } from '../models/SessionMessage';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class PushService {
   reconnectTimeout: number = 5000;
 
   notificationSubject: Subject<Notification> = new ReplaySubject<Notification>();
+  sessionMessageSubject: Subject<SessionMessage> = new ReplaySubject<SessionMessage>();
   statusSubject: Subject<boolean> = new ReplaySubject<boolean>();
   connectRetryCount: number = 0;
 
@@ -43,9 +45,14 @@ export class PushService {
   }
 
   private handleOnStart() {
-    //Handler for recieving a new session message
+    //Handler for recieving a new notification
     this.hubConnection.on('NOTIFICATION', (data: Notification) => {
       this.notificationSubject.next(data);
+    });
+
+    //Handler for recieving a new session message
+    this.hubConnection.on('SESSION_MESSAGE', (data: SessionMessage) => {
+      this.sessionMessageSubject.next(data);
     });
 
     //Try reconnecting when connection is closed
@@ -69,6 +76,10 @@ export class PushService {
 
   getNotifications() {
     return this.notificationSubject.asObservable();
+  }
+
+  getSessionMessages() {
+    return this.sessionMessageSubject.asObservable();
   }
 
   getStatus() {

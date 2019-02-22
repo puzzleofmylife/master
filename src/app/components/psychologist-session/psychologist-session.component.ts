@@ -7,6 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { TimerObservable } from 'rxjs/observable/TimerObservable';
 import { Subscription } from 'rxjs';
 import { PsychologistSession } from 'src/app/models/PsychologistSession';
+import { PushService } from 'src/app/services/push.service';
 
 @Component({
   selector: 'app-psychologist-session',
@@ -26,7 +27,11 @@ export class PsychologistSessionComponent implements OnInit, OnDestroy {
   noPatientsFound: boolean;
   showAccPaused: boolean;
 
-  constructor(private sessionService: SessionService, private patientService: PatientService, private helpersService: HelpersService, private sanitizer: DomSanitizer) { }
+  constructor(
+    private sessionService: SessionService,
+    private helpersService: HelpersService,
+    private sanitizer: DomSanitizer,
+    private pushService: PushService) { }
 
   ngOnInit() {
     this.sessionService.getPsychologistSessions().subscribe(response => {
@@ -36,11 +41,9 @@ export class PsychologistSessionComponent implements OnInit, OnDestroy {
       if (this.sessions.length == 0)
         this.noPatientsFound = true;
 
-      //Set timer to get sessions
-      this.sessionsSubscription = TimerObservable.create(this.sessionsGetInterval, this.sessionsGetInterval)
-        .subscribe(() => {
-          this.getSessionsNewMessageCount();
-        });
+      this.orderByMostRecentMessageDate();
+
+      this.subscribeToNewMessages();
     }, error => {
       this.loading = false;
       if (error.error.PsychologistNotActive)
@@ -53,19 +56,15 @@ export class PsychologistSessionComponent implements OnInit, OnDestroy {
     })
   }
 
-  getSessionsNewMessageCount(): void {
-    this.sessionService.getPsychologistSessionsNewMessageCount().subscribe(response => {
-      //Update newMessageCount (but not for our current session)
-      var currentSessionId = this.currentSession ? this.currentSession.id : 0;
-      response.forEach(item => {
-        var sessionIndex = this.sessions.findIndex(x => x.id == item.id && x.id != currentSessionId);
-        if (sessionIndex > -1)
-          this.sessions[sessionIndex].newMessageCount = item.newMessageCount;
-      });
-      this.orderByNewMessageCount();
+  subscribeToNewMessages(): any {
+    this.sessionsSubscription = this.pushService.getSessionMessages().subscribe(resp => {
+      var pushMessageSessionIndex = this.sessions.findIndex(x => x.id == resp.sessionId);
+      this.sessions[pushMessageSessionIndex].newMessageCount++;
+      this.sessions[pushMessageSessionIndex].mostRecentMessageDate = new Date(Date.now());
+      this.orderByMostRecentMessageDate();
     }, error => {
       console.error(JSON.stringify(error));
-    })
+    });
   }
 
   getPatientNameAbbrev(patientName: string) {
@@ -83,10 +82,7 @@ export class PsychologistSessionComponent implements OnInit, OnDestroy {
     this.currentSession.id = session.id;
     this.currentSession.recipientName = session.patientName;
 
-    session.newMessageCount = 0;
-    this.orderByNewMessageCount();
-
-    this.selectedTabIndex = 1;
+    this.changeToSessionTab();
   }
 
   markCurrentSesssionAsHasNewMessages($event) {
@@ -96,13 +92,21 @@ export class PsychologistSessionComponent implements OnInit, OnDestroy {
   }
 
   changeToSessionTab() {
+    //Remove new message marker from current session tab
     this.sessionHasNewMessages = false;
+    //Remove new message count from current session
+    var currentSessionIndex = this.sessions.findIndex(x => x.id == this.currentSession.id);
+    this.sessions[currentSessionIndex].newMessageCount = 0;
+
     this.selectedTabIndex = 1;
   }
 
-  orderByNewMessageCount() {
-    //Order by newMessageCount
-    this.sessions.sort((a, b) => { return b.newMessageCount - a.newMessageCount });
+  orderByMostRecentMessageDate() {
+    this.sessions.sort((a, b) => {
+      var aTimeMilliseconds = a.mostRecentMessageDate ? new Date(a.mostRecentMessageDate).getTime() : 0;
+      var bTimeMilliseconds = b.mostRecentMessageDate ? new Date(b.mostRecentMessageDate).getTime() : 0;
+      return bTimeMilliseconds - aTimeMilliseconds;
+    });
   }
 
   ngOnDestroy(): void {
