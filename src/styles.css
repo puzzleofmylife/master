@@ -43,7 +43,7 @@ html {
 }
 
 /* Set the font size of input elements to 16px for mobile so the browser doesn't zoom in when focusing on the input */
-/* @media screen and (max-width: 480px) {
+@media screen and (max-width: 480px) {
   input[type="color"],
   input[type="date"],
   input[type="datetime"],
@@ -62,7 +62,7 @@ html {
   textarea {
     font-size: 16px;
   }
-} */
+}
 
 .active {
   color: #027e46;
@@ -171,3 +171,12 @@ html {
   font-size: .625rem;
 }
 
+/*On mobile set the Peach Payment card form inputs to 40px because the default height cuts the input text in half*/
+@media screen and (max-width: 480px) {
+  .wpwl-control-cardNumber,
+  .wpwl-control-cvv,
+  .wpwl-control-cardHolder,
+  .wpwl-control-expiry {
+      height: 40px;
+  }
+}
