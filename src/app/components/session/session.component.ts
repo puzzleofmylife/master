@@ -11,13 +11,15 @@ import { SessionAttachmentStatus } from 'src/app/models/SessionAttachmentStatus'
 import { ToastService } from 'src/app/services/toast.service';
 import { SessionAttachmentsComponent } from '../session-attachments/session-attachments.component';
 import { PushService } from 'src/app/services/push.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { AuthState } from 'src/app/models/AuthState';
 
 @Component({
   selector: 'app-session',
   templateUrl: './session.component.html',
   styleUrls: ['./session.component.css']
 })
-export class SessionComponent implements OnDestroy {
+export class SessionComponent implements OnInit, OnDestroy {
 
   readonly initialGetCount: number = 50;
   readonly newMessageGetInterval: number = 60 * 1000;//60 secs
@@ -46,6 +48,7 @@ export class SessionComponent implements OnDestroy {
   backOnlineCount: number = 0;
   notesSessionId: number;
   showNotes: boolean;
+  authState: AuthState = new AuthState();
 
   @Input() set session(value: Session) {
     ////Using a setter will let us run initiateSession() every time the value changes
@@ -70,9 +73,14 @@ export class SessionComponent implements OnDestroy {
     private helpersService: HelpersService,
     private sanitizer: DomSanitizer,
     private toastService: ToastService,
-    private pushService: PushService) {
+    private pushService: PushService,
+    private authService: AuthService) {
     this.initProperties();
     this.subscribeToPushServiceStatus();
+  }
+
+  ngOnInit(): void {
+    this.authService.authState().subscribe(x => this.authState = x);
   }
 
   initProperties(): any {
