@@ -172,13 +172,10 @@ export class SessionComponent implements OnInit, OnDestroy {
         if (isConnected) {
           this.backOnlineCount++;
           if (this.backOnlineCount > 1) {
-            //The second connected status means we've reconnected to the push service, so get any messasges we may have missed
-            this.toastService.setSuccess('Back online');
+            //The second connected status means we've disconnected and then reconnected to the push service, so get any messasges we may have missed
             this.getNewMessages();
           }
         }
-        else
-          this.toastService.setError('Session disconnected');
       });
   }
 
@@ -320,7 +317,7 @@ export class SessionComponent implements OnInit, OnDestroy {
     this.messageCharsLeft = this.maxMessageChars - this.messageText.length;
   }
 
-  private resetMessageInput() {
+  resetMessageInput() {
     this.messageText = '';
     this.messageCharsLeft = this.maxMessageChars;
   }
