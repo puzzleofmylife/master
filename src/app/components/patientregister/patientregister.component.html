@@ -10,14 +10,12 @@
                     <div class="slds-m-top_small">
                         <div class="slds-grid">
                             <label class="slds-form-element__label" for="patientAlias">Name or alias*</label>
-                            <app-tooltip text="You don't need to use your real name" top="-50px" left="0px"
-                                width="150px">
+                            <app-tooltip text="You don't need to use your real name" top="-50px" left="0px" width="150px">
                             </app-tooltip>
                         </div>
                         <div class="slds-form-element__control">
                             <input type="text" formControlName="patientAlias" class="form-control slds-input" />
-                            <div *ngIf="submitted && _patientPersonalForm.patientAlias.errors"
-                                class="slds-text-color_error">
+                            <div *ngIf="submitted && _patientPersonalForm.patientAlias.errors" class="slds-text-color_error">
                                 <div *ngIf="_patientPersonalForm.patientAlias.errors.required">Name or alias is required
                                 </div>
                             </div>
@@ -28,8 +26,7 @@
                         <label class="slds-form-element__label" for="patientEmail">Email*</label>
                         <div class="slds-form-element__control">
                             <input type="text" formControlName="patientEmail" class="form-control slds-input" />
-                            <div *ngIf="submitted && _patientPersonalForm.patientEmail.errors"
-                                class="slds-text-color_error">
+                            <div *ngIf="submitted && _patientPersonalForm.patientEmail.errors" class="slds-text-color_error">
                                 <div *ngIf="_patientPersonalForm.patientEmail.errors.required">Email is required</div>
                                 <div *ngIf="_patientPersonalForm.patientEmail.errors.email">Invalid email</div>
                             </div>
@@ -39,10 +36,8 @@
                     <div class="slds-m-top_small">
                         <label class="slds-form-element__label" for="patientPassword">Choose your password*</label>
                         <div class="slds-form-element__control">
-                            <input type="password" minlength="8" formControlName="patientPassword"
-                                class="form-control slds-input" />
-                            <div *ngIf="submitted && _patientPersonalForm.patientPassword.errors"
-                                class="slds-text-color_error">
+                            <input type="password" minlength="8" formControlName="patientPassword" class="form-control slds-input" />
+                            <div *ngIf="submitted && _patientPersonalForm.patientPassword.errors" class="slds-text-color_error">
                                 <div *ngIf="_patientPersonalForm.patientPassword.errors.required">Password is required
                                 </div>
                                 <div *ngIf="_patientPersonalForm.patientPassword.errors.minlength">Password must be at
@@ -55,10 +50,8 @@
                         <label class="slds-form-element__label" for="patientConfirmPassword">Confirm your
                             password*</label>
                         <div class="slds-form-element__control">
-                            <input type="password" formControlName="patientConfirmPassword"
-                                class="form-control slds-input" />
-                            <div *ngIf="submitted && _patientPersonalForm.patientConfirmPassword.errors"
-                                class="slds-text-color_error">
+                            <input type="password" formControlName="patientConfirmPassword" class="form-control slds-input" />
+                            <div *ngIf="submitted && _patientPersonalForm.patientConfirmPassword.errors" class="slds-text-color_error">
                                 <div *ngIf="_patientPersonalForm.patientConfirmPassword.errors?.dontMatch">Confirmed
                                     password does not
                                     match</div>
@@ -71,8 +64,7 @@
 
                     <div class="slds-m-top_medium">
                         <a [routerLink]="['/']" class="slds-button">Cancel</a>
-                        <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
-                            routerLinkActive="router-link-active">Next</button>
+                        <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right" routerLinkActive="router-link-active">Next</button>
                     </div>
                 </div>
             </form>
@@ -97,15 +89,13 @@
                             <div class="slds-form-element__control">
                                 <div class="slds-radio_button-group">
                                     <span class="slds-button slds-radio_button">
-                                        <input type="radio" [id]="question.key + '-yes'"
-                                            [formControlName]="question.key" [name]="question.key" value="Yes" />
+                                        <input type="radio" [id]="question.key + '-yes'" [formControlName]="question.key" [name]="question.key" value="Yes" />
                                         <label class="slds-radio_button__label" [for]="question.key + '-yes'">
                                             <span class="slds-radio_faux">Yes</span>
                                         </label>
                                     </span>
                                     <span class="slds-button slds-radio_button">
-                                        <input type="radio" [id]="question.key + '-no'" [formControlName]="question.key"
-                                            [name]="question.key" value="No" />
+                                        <input type="radio" [id]="question.key + '-no'" [formControlName]="question.key" [name]="question.key" value="No" />
                                         <label class="slds-radio_button__label" [for]="question.key + '-no'">
                                             <span class="slds-radio_faux">No</span>
                                         </label>
@@ -119,17 +109,13 @@
                             <span class="slds-text-heading_small">{{question.question}}</span>
                         </div>
                         <div [formArrayName]="question.key">
-                            <div class="slds-grid slds-grid_vertical-align-center"
-                                *ngFor="let possibleAnswer of patientQuestionForm.get(question.key).controls; let i = index">
+                            <div class="slds-grid slds-grid_vertical-align-center" *ngFor="let possibleAnswer of patientQuestionForm.get(question.key).controls; let i = index">
                                 <div class="slds-col_bump-right" [formGroupName]="i">
                                     <div class="slds-p-bottom_xxx-small">
                                         <div class="slds-checkbox_add-button">
-                                            <input (click)="possibleAnswer.value = !possibleAnswer.value"
-                                                type="checkbox" class="slds-assistive-text"
-                                                [id]="question.key + '-' + i" [value]="possibleAnswer.value" />
+                                            <input (click)="possibleAnswer.value = !possibleAnswer.value" type="checkbox" class="slds-assistive-text" [id]="question.key + '-' + i" [value]="possibleAnswer.value" />
                                             <label [for]="question.key + '-' + i" class="slds-checkbox_faux">
-                                                <span
-                                                    class="slds-assistive-text">{{question.multipleChoiceOptionsArr[i]}}</span>
+                                                <span class="slds-assistive-text">{{question.multipleChoiceOptionsArr[i]}}</span>
                                             </label>
                                         </div>
                                     </div>
@@ -145,8 +131,7 @@
 
             <div class="slds-m-top_medium">
                 <a (click)="goBack()" class="slds-button">Back</a>
-                <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
-                    routerLinkActive="router-link-active">Next</button>
+                <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right" routerLinkActive="router-link-active">Next</button>
             </div>
         </div>
     </form>
@@ -158,8 +143,7 @@
             <br />
 
             <div class="slds-grid slds-wrap slds-gutters_x-small slds-grid_pull-padded-x-small">
-                <div *ngFor="let psychologist of availablePsychologists"
-                    class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-vertical_x-small">
+                <div *ngFor="let psychologist of availablePsychologists" class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-vertical_x-small">
                     <article class="slds-card">
                         <div class="slds-card__header slds-grid">
                             <header class="slds-media slds-media_center slds-has-flexi-truncate">
@@ -185,11 +169,8 @@
                             </div>
                             <div class="slds-radio_button-group slds-m-top_small">
                                 <span class="slds-button slds-radio_button">
-                                    <input type="radio" [id]="psychologist.firstName + psychologist.id"
-                                        formControlName="psychologistChoice" name="psychologistChoice"
-                                        [value]="psychologist.id" />
-                                    <label class="slds-radio_button__label"
-                                        [for]="psychologist.firstName + psychologist.id">
+                                    <input type="radio" [id]="psychologist.firstName + psychologist.id" formControlName="psychologistChoice" name="psychologistChoice" [value]="psychologist.id" />
+                                    <label class="slds-radio_button__label" [for]="psychologist.firstName + psychologist.id">
                                         <span class="slds-radio_faux">Select</span>
                                     </label>
                                 </span>
@@ -200,6 +181,10 @@
                 </div>
             </div>
 
+            <div *ngIf="availablePsychologists && availablePsychologists.length == 0" class="slds-text-heading_medium">
+                Sorry, there are no psychologists available right now.
+            </div>
+
             <div *ngIf="submitted && _availPsychForm.psychologistChoice.errors" class="slds-text-color_error">
                 <div *ngIf="_availPsychForm.psychologistChoice.errors.required" style="text-align:center"><b>Please
                         choose a psychologist</b></div>
@@ -207,8 +192,7 @@
 
             <div class="slds-m-top_medium">
                 <a (click)="goBack()" class="slds-button">Back</a>
-                <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
-                    routerLinkActive="router-link-active">Next</button>
+                <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right" routerLinkActive="router-link-active">Next</button>
             </div>
         </div>
     </form>
@@ -226,8 +210,7 @@
                 <label class="slds-form-element__label slds-text-heading_medium" for="voucherCode"><b>Voucher
                         code</b></label>
                 <div class="slds-form-element__control slds-m-bottom_medium">
-                    <input type="text" formControlName="voucherCode" class="form-control slds-input"
-                        style="width:200px" />
+                    <input type="text" formControlName="voucherCode" class="form-control slds-input" style="width:200px" />
                 </div>
 
                 <div class="slds-grid">
@@ -239,14 +222,12 @@
             <br />
 
             <div class="slds-grid slds-wrap slds-gutters_x-small slds-grid_pull-padded-x-small">
-                <div *ngFor="let package of activePackages"
-                    class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 slds-p-vertical_x-small">
+                <div *ngFor="let package of activePackages" class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 slds-p-vertical_x-small">
                     <article class="background-color-brand-blue slds-card">
                         <div class="slds-card__header slds-grid">
                             <header class="slds-media slds-media_center slds-has-flexi-truncate">
                                 <div class="slds-media__body">
-                                    <div class="slds-m-bottom_small slds-text-heading_medium"
-                                        style="text-align:center; color:white">
+                                    <div class="slds-m-bottom_small slds-text-heading_medium" style="text-align:center; color:white">
                                         <span class="slds-truncate">
                                             {{package.name}}
                                         </span>
@@ -269,8 +250,7 @@
                             </div>
                             <div class="slds-radio_button-group slds-m-top_small">
                                 <span class="slds-button slds-radio_button">
-                                    <input (click)="clearVoucherCode()" type="radio" [id]="'package' + package.id"
-                                        formControlName="packageChoice" name="packageChoice" [value]="package.id" />
+                                    <input (click)="clearVoucherCode()" type="radio" [id]="'package' + package.id" formControlName="packageChoice" name="packageChoice" [value]="package.id" />
                                     <label class="slds-radio_button__label" [for]="'package' + package.id">
                                         <span class="slds-radio_faux">Select</span>
                                     </label>
@@ -296,8 +276,7 @@
                     <a (click)="goBack()" class="slds-button">Back</a>
                 </div>
                 <div class="slds-col">
-                    <div [hidden]="!loading"
-                        class="slds-spinner slds-spinner_medium slds-spinner_inline slds-m-top_medium">
+                    <div [hidden]="!loading" class="slds-spinner slds-spinner_medium slds-spinner_inline slds-m-top_medium">
                         <div role="status">
                             <span class="slds-assistive-text">Loading</span>
                             <div class="slds-spinner__dot-a"></div>
@@ -306,14 +285,12 @@
                     </div>
                 </div>
                 <div class="sdls-col">
-                    <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
-                        routerLinkActive="router-link-active">Continue
+                    <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right" routerLinkActive="router-link-active">Continue
                     </button>
                 </div>
             </div>
 
-            <div class="slds-m-top_medium slds-text-color_weak">By continuing you agree to the <a target="_blank"
-                    routerLink="/patient-terms">terms and conditions</a>
+            <div class="slds-m-top_medium slds-text-color_weak">By continuing you agree to the <a target="_blank" routerLink="/patient-terms">terms and conditions</a>
             </div>
 
             <div [ngClass]="{'slds-hide': !finalSubmitError}" class="slds-m-top_medium slds-text-color_error">
@@ -349,9 +326,7 @@
             {{selectedPackage.durationDays}} days. The service can be cancelled at any time.
         </div>
 
-        <form [formGroup]="paymentForm"
-            [action]="environment.baseAppUrl + '/card/result?signup=1&psych=' + chosenPsychNameEncoded"
-            class="paymentWidgets" data-brands="VISA MASTER">
+        <form [formGroup]="paymentForm" [action]="environment.baseAppUrl + '/card/result?signup=1&psych=' + chosenPsychNameEncoded" class="paymentWidgets" data-brands="VISA MASTER">
         </form>
         <div>
             <b>Please note</b>, on next screen you will see a "dummy" transaction for R1.00. Your account will
@@ -366,7 +341,7 @@
                 <div class="slds-m-right_xx-small">
                     <img src="../../../assets/pci_comply2.png" style="height:40px" />
                 </div>
-                <div class="slds-text-heading_small" >
+                <div class="slds-text-heading_small">
                     <div>PCI DSS</div>
                     <div><b>Compliant</b></div>
                 </div>
@@ -380,6 +355,5 @@
 </div>
 
 <div [hidden]="page != 6">
-    <app-result [success]="voucherSuccess" [text]="voucherSuccessResultText" heading="Thank you"
-        buttonText="Enter session" buttonLink="/session"></app-result>
+    <app-result [success]="voucherSuccess" [text]="voucherSuccessResultText" heading="Thank you" buttonText="Enter session" buttonLink="/session"></app-result>
 </div>

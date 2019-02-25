@@ -65,6 +65,10 @@
       </div>
     </div>
 
+    <div *ngIf="psychologists && psychologists.length == 0" class="slds-text-heading_small">
+      Sorry, there are no psychologists available right now.
+    </div>
+
     <div *ngIf="submitted && availablePsychologistsForm.controls.psychologistChoice.errors" class="slds-text-color_error">
       <div *ngIf="availablePsychologistsForm.controls.psychologistChoice.errors.required" style="text-align:center"><b>Please
           choose a psychologist</b></div>
