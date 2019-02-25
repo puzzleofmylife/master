@@ -143,7 +143,8 @@ export class SessionComponent implements OnDestroy {
         console.error(JSON.stringify(error));
       });
     } else {
-      //Set timer to get new messages right away
+      //Do an intial get of new messages, then subscribe to new ones while this session is loaded
+      this.getNewMessages();
       this.subscribeToNewMessages();
     }
   }
