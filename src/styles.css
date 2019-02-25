@@ -180,3 +180,9 @@ html {
       height: 40px;
   }
 }
+
+.button-icon-medium {
+  width: 1.4rem;
+  height: 1.4rem;
+  fill: #706e6b;
+}
