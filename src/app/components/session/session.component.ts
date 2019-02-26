@@ -21,7 +21,7 @@ import { AuthState } from 'src/app/models/AuthState';
 })
 export class SessionComponent implements OnInit, OnDestroy {
 
-  readonly initialGetCount: number = 50;
+  readonly initialGetCount: number = 10;
   readonly newMessageGetInterval: number = 60 * 1000;//60 secs
   readonly maxMessageChars: number = 5000;
 
@@ -39,7 +39,6 @@ export class SessionComponent implements OnInit, OnDestroy {
   noMoreToLoad: boolean;
   sessionMessages: SessionMessage[];
   sessionMessageCache: any[] = [];
-  initialGetMaxedOut: boolean;
   showAttachments: boolean = false;
   attachmentsSessionId: number;
   messageCharsLeft: number = this.maxMessageChars;
@@ -90,7 +89,6 @@ export class SessionComponent implements OnInit, OnDestroy {
     this.loading = false;
     this.messagesPage = 1;
     this.noMoreToLoad = false;
-    this.initialGetMaxedOut = true;
   }
 
   unloadSession(): any {
@@ -106,7 +104,6 @@ export class SessionComponent implements OnInit, OnDestroy {
     var sessionCacheEntry = {
       id: this.session.id,
       sessionMessages: this.sessionMessages,
-      initialGetMaxedOut: this.initialGetMaxedOut,
       messagesPage: this.messagesPage,
       noMoreToLoad: this.noMoreToLoad,
       recipientAbbrev: this.recipientAbbrev,
@@ -137,13 +134,10 @@ export class SessionComponent implements OnInit, OnDestroy {
         this.loading = false;
         this.sessionMessages = response;
 
-        if (this.sessionMessages.length == 0) {
-          this.initialGetMaxedOut = false;
-        } else if (this.sessionMessages.length < this.initialGetCount) {
-          this.initialGetMaxedOut = false;
+        if (response.length < this.initialGetCount) {
+          this.noMoreToLoad = true;
         }
 
-        //Set timer to get new messages
         this.subscribeToNewMessages();
       }, error => {
         this.loading = false;
@@ -188,7 +182,6 @@ export class SessionComponent implements OnInit, OnDestroy {
     var existingEntry = this.sessionMessageCache.filter(x => x.id == this.session.id)[0];
     if (existingEntry) {
       this.sessionMessages = existingEntry.sessionMessages;
-      this.initialGetMaxedOut = existingEntry.initialGetMaxedOut;
       this.messagesPage = existingEntry.messagesPage;
       this.noMoreToLoad = existingEntry.noMoreToLoad;
       this.recipientAbbrev = existingEntry.recipientAbbrev;

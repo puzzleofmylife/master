@@ -154,8 +154,7 @@
   </div>
 
   <div *ngIf="!loading" class="slds-align_absolute-center slds-m-vertical_small">
-    <a *ngIf="!noMoreToLoad && initialGetMaxedOut" class="slds-button" (click)="loadPreviousMessages()">Load more</a>
-    <span *ngIf="noMoreToLoad && initialGetMaxedOut">No more messages found</span>
+    <a *ngIf="!noMoreToLoad" class="slds-button" (click)="loadPreviousMessages()">Load more</a>
   </div>
 </div>
 
