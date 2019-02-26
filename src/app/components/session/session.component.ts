@@ -21,7 +21,7 @@ import { AuthState } from 'src/app/models/AuthState';
 })
 export class SessionComponent implements OnInit, OnDestroy {
 
-  readonly initialGetCount: number = 10;
+  readonly initialGetCount: number = 50;
   readonly newMessageGetInterval: number = 60 * 1000;//60 secs
   readonly maxMessageChars: number = 5000;
 
