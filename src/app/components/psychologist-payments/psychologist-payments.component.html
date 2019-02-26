@@ -20,7 +20,7 @@
           {{payment.psychologistName}}
         </div>
         <div class="slds-col slds-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
-          <b>R{{payment.balance}}</b>
+          <b>R{{payment.balance | number:'1.2-2'}}</b>
         </div>
       </div>
       <div>
@@ -37,7 +37,7 @@
   </div>
 </div>
 
-<div *ngIf="!hideLoadMore" class="slds-align_absolute-center slds-m-bottom_medium">
+<div *ngIf="!hideLoadMore && !loading" class="slds-align_absolute-center slds-m-bottom_medium">
   <button (click)="load()" class="slds-button">Load more</button>
 </div>
 

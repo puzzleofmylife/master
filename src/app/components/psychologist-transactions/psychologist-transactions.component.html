@@ -11,10 +11,10 @@
         {{transaction.createDate | date}}
       </div>
       <div *ngIf="transaction.debitAmount > 0">
-        <b>R-{{transaction.debitAmount | number}}</b>
+        <b>R-{{transaction.debitAmount | number:'1.2-2'}}</b>
       </div>
       <div *ngIf="transaction.creditAmount > 0">
-        <b>R{{transaction.creditAmount | number}}</b>
+        <b>R{{transaction.creditAmount | number:'1.2-2'}}</b>
       </div>
     </div>
     <div>
