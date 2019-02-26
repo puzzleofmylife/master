@@ -1,27 +1,47 @@
-# Puzzleofmylifeapp
+# Puzzle Of My Life Web App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.5.
+This is the Puzzle Of My Life web application. The web UI for users.
 
-## Development server
+## Getting started
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project.
 
-## Code scaffolding
+### Tech stack
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+* Angular 6.1.10
+* Salesforce Lightning Design
 
-## Build
+### Prerequisites
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+* Angular CLI
+* NPM
+* A text editor or code editor of your choice. (Built in VS Code)
 
-## Running unit tests
+### Installing
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Aftering installing NPM and the Angular CLI, simply run the following to restore the packages
 
-## Running end-to-end tests
+```
+npm install
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+And then to run the project
 
-## Further help
+```
+ng serve
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+The terminal should display a localhost URL where the app is running. The environment.ts file has a "baseAPIURL" setting which points to the API - you can change this to point to your local machine if need be.
+
+## Deployment
+
+Currently hosted on IBM Cloud. Use the following command to do a production build and deploy to IBM Cloud
+
+```
+npm run deploy-staging OR npm run deploy-prod
+```
+
+## Authors
+
+* **Dane Williams** - *Initial work* - [IBM](https://www.ibm.com)
+
