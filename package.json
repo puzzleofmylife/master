@@ -8,8 +8,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dist": "ng build --prod && cp src/static/manifest.yml src/static/Staticfile dist/puzzleofmylifeapp",
-    "deploy": "npm run dist && git push && cd dist/puzzleofmylifeapp && ibmcloud logout && ibmcloud login --apikey 3Qq1CavYM8qtBFGqGrVjt5IWnGD6h7_ZCo0pTLaxI4tx && ibmcloud target --cf && ibmcloud app push"
+    "dist-staging": "ng build --configuration=staging && cp src/static/manifest.yml src/static/Staticfile dist/puzzleofmylifeapp",
+    "deploy-staging": "npm run dist-staging && git push && cd dist/puzzleofmylifeapp && ibmcloud logout && ibmcloud login --apikey dpapE6Mzn---BY1AvElfe113lapgo0XeRKSh_-37uLfi && ibmcloud target --cf && ibmcloud app push 'Puzzle Frontend Web Staging' -n puzzle-frontend-staging && ibmcloud logout",
+    "dist-prod": "ng build --prod && cp src/static/manifest.yml src/static/Staticfile dist/puzzleofmylifeapp",
+    "deploy-prod": "npm run dist-prod && git push && cd dist/puzzleofmylifeapp && ibmcloud logout && ibmcloud login --apikey dpapE6Mzn---BY1AvElfe113lapgo0XeRKSh_-37uLfi && ibmcloud target --cf && ibmcloud app push 'Puzzle Frontend Web Production' -n puzzle-frontend-production && ibmcloud logout"
   },
   "private": true,
   "dependencies": {

@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
-  baseAPIURL: "https://puzzleapi.eu-gb.mybluemix.net",
+  baseAPIURL: "https://puzzle-api-production.eu-gb.mybluemix.net",
   applicationOutcomeDays: 7,
-  emailAdmin: "admin@puzzleofmylife.com",
-  checkoutFormSrc: "https://test.oppwa.com/v1/paymentWidgets.js",
-  baseAppUrl: "https://puzzleofmylifeapp-lean-toucan.eu-gb.mybluemix.net",
+  emailAdmin: "admin@puzzleofmylife.co.za",
+  checkoutFormSrc: "https://oppwa.com/v1/paymentWidgets.js",
+  baseAppUrl: "https://www.puzzleofmylife.co.za",
 };
