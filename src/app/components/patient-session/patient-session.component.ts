@@ -34,10 +34,10 @@ export class PatientSessionComponent implements OnInit, OnDestroy {
       this.loading = false;
     }, error => {
       this.loading = false;
-      if (error.error.PackageNotActive) {
+      if (error.error && error.error.PackageNotActive) {
         this.showPackageNotActiveError = true;
       }
-      else if (error.error.PsychologistNotFound) {
+      else if (error.error && error.error.PsychologistNotFound) {
         this.showNoPsychError = true;
       }
       else {
