@@ -47,7 +47,6 @@ export class AuthService {
 		return this.http.get<any>(environment.baseAPIURL + '/api/Auth/login?username=' + encodeURIComponent(email) + '&password=' + encodeURIComponent(password))
 			.pipe(map(result => {
 				this.setAccessToken(result.token);
-				this.pushService.start();
 			}));
 	}
 
