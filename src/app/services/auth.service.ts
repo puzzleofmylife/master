@@ -35,6 +35,7 @@ export class AuthService {
 
 	setAccessToken(token: string): void {
 		localStorage.setItem('token', token);
+		this.pushService.start();
 		this.updateLoggedInSubject();
 	}
 
