@@ -13,6 +13,10 @@ export class PatientPackage {
     patientId: number;
     pendingCancellation: boolean;
     pendingCancellationJobDate: Date;
+    pendingChange: boolean;
+    pendingChangeJobDate: Date;
+    pendingChangePackageName: string;
+    pendingChangePackageId: number;
     packageVoucher: PatientPackageVoucher;
     isInTrial: boolean;
 }

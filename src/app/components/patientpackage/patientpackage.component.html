@@ -35,21 +35,23 @@
             <!-- Active -->
             <div *ngIf="currentPackage.statusId == 1" class="slds-m-bottom_small">
                 <div class="slds-text-heading_small">
-                    <div *ngIf="!currentPackage.pendingCancellation">Next bill date
-                        <b>{{helpersService.convertToLocalDate(currentPackage.nextBillDate) | date}}</b>
+                    <div *ngIf="!currentPackage.pendingCancellation">Next bill <b>{{helpersService.convertToLocalDate(currentPackage.nextBillDate) | date}}</b>
                     </div>
                     <div *ngIf="currentPackage.pendingCancellation" class="cancelled">Scheduled for cancellation on
                         <b>{{helpersService.convertToLocalDate(currentPackage.pendingCancellationJobDate) | date}}</b>
                     </div>
+                    <div *ngIf="currentPackage.pendingChange" class="slds-m-top_small">Change to <b>{{currentPackage.pendingChangePackageName}}</b> scheduled for <b>{{helpersService.convertToLocalDate(currentPackage.pendingChangeJobDate) | date}}</b>
+                    </div>
                 </div>
 
                 <div *ngIf="currentPackage.pendingCancellation" class="slds-m-top_small">
-                    <button class="slds-button slds-button_outline-brand" (click)="undoCancelPackage()">Stop
-                        cancellation</button>
+                    <button class="slds-button slds-button_outline-brand" (click)="undoCancelPackage()">Stop cancellation</button>
+                </div>
+                <div *ngIf="currentPackage.pendingChange" class="slds-m-top_small">
+                    <button class="slds-button slds-button_outline-brand" (click)="undoChangePackage()">Stop package change</button>
                 </div>
                 <div *ngIf="!currentPackage.pendingCancellation" class="slds-m-top_small">
-                    <button class="slds-button slds-button_destructive" [routerLink]="['/profile/package/cancel']">Cancel
-                        package</button>
+                    <button class="slds-button slds-button_destructive" [routerLink]="['/profile/package/cancel']">Cancel package</button>
                 </div>
             </div>
 
@@ -71,7 +73,7 @@
                 <button class="slds-button slds-button_outline-brand" [routerLink]="['/profile/package/reactivate']">Reactivate</button>
             </div>
 
-            <button class="slds-button slds-button_outline-brand" [routerLink]="['/profile/package/change']">Change package</button>
+            <button *ngIf="!currentPackage.pendingChange" class="slds-button slds-button_outline-brand" [routerLink]="['/profile/package/change']">Change package</button>
         </div>
 
         <div *ngIf="currentPackage.packageVoucher" class="slds-border_top slds-p-top_large slds-m-top_large">

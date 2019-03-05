@@ -81,4 +81,8 @@ export class PatientService {
 	ratePsychologist(rating: number): any {
 		return this.http.post(environment.baseAPIURL + '/api/Patient/psychologist/rate/' + rating, null);
 	}
+
+	undoChangePatientPackage() {
+		return this.http.post(environment.baseAPIURL + '/api/Patient/package/change/undo', null);
+	}
 }

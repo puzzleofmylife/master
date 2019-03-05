@@ -87,4 +87,18 @@ export class PatientPackageComponent implements OnInit {
   showCancelPrompt() {
     this.showCancelPromptFlag = true;
   }
+
+  undoChangePackage() {
+    this.loading = true;
+    this.patientService.undoChangePatientPackage().subscribe(result => {
+      this.toastService.setSuccess('Success');
+      //Success...reload
+      this.getPatientPackage();
+      this.loading = false;
+    }, error => {
+      this.loading = false;
+      this.toastService.setError();
+      console.error(JSON.stringify(error.error));
+    });
+  }
 }
