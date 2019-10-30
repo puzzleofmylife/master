@@ -10,8 +10,8 @@ import { PatientService } from 'src/app/services/patient.service';
 })
 export class PackageReactivateComponent implements OnInit {
   loading: boolean;
-  patientPackage: import("/Users/danewilliams/Documents/Work/puzzleofmylifeapp/src/app/models/PatientPackage").PatientPackage;
-
+  // patientPackage: import("/Users/danewilliams/Documents/Work/puzzleofmylifeapp/src/app/models/PatientPackage").PatientPackage;
+  patientPackage: import("src/app/models/PatientPackage").PatientPackage;
   constructor(private patientService: PatientService,
     private toastService: ToastService,
     private router: Router) { }

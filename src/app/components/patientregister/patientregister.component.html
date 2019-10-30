@@ -285,13 +285,13 @@
                     </div>
                 </div>
                 <div class="sdls-col">
-                    <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right" routerLinkActive="router-link-active">Continue
+                    <button [disabled]="loading || !isTermsAndConditionsAccepted" class="slds-button slds-button_outline-brand btn-right" routerLinkActive="router-link-active">Continue
                     </button>
                 </div>
             </div>
 
-            <div class="slds-text-heading_medium">By continuing you agree to the terms and conditions.<div></div>
-                 <textarea name="txtTerms" id="text" cols="50" rows="15">
+            <div class="slds-text-heading_medium">To continue you need to agree the Terms And Conditions.<div></div>
+                 <!-- <textarea name="txtTerms" id="text" cols="50" rows="15">
 
                     TERMS AND CONDITIONS
 
@@ -310,7 +310,12 @@
                     Counsellors are independent providers. They are not employees nor agents nor representatives. The Platform is a system that enables the Counsellor to provide services. The services provided is the sole responsibility of the Counsellor.
                      
                     It is important that you understand, agree and acknowledge that text-based counselling may not be the appropriate solution for everyone’s situation and/or may not be a complete substitute for a face-to-face counselling.       
-                        </textarea></div>
+                        </textarea> -->
+                <br />
+                <input type="checkbox" (change)="checkValue(isTermsAndConditionsAccepted)"  name="remember" style="margin-bottom:15px"> <span>&nbsp;</span> <a [routerLink]="['/assets/User-Terms-and-Conditions.pdf']"  routerLinkActive="router-link-active"  target="_blank" style="color:dodgerblue">Terms And Conditions.</a>
+              
+                    
+            </div>
 
             <div [ngClass]="{'slds-hide': !finalSubmitError}" class="slds-m-top_medium slds-text-color_error">
                 An unexpected error occurred.

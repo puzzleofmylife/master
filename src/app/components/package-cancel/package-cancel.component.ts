@@ -14,7 +14,8 @@ export class PackageCancelComponent implements OnInit {
   patientPackage: PatientPackage;
   cancelReason: string;
   cancelReasonTooLong: boolean;
-  patientPsych: import("/Users/danewilliams/Documents/Work/puzzleofmylifeapp/src/app/models/Psychologist").Psychologist;
+ // patientPsych: import("/Users/danewilliams/Documents/Work/puzzleofmylifeapp/src/app/models/Psychologist").Psychologist;
+ patientPsych: import("src/app/models/Psychologist").Psychologist;
   cmpState: string;
   rating: any;
 

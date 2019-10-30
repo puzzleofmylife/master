@@ -87,7 +87,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "puzzleofmylifeapp:build"
+            "browserTarget": "puzzleofmylifeapp:build",
+            "sslKey": "src/app/assets/privatekey.key",
+            "sslCert": "src/app/assets/ibmdev_puzzleofmylife_co_za.crt"
           },
           "configurations": {
             "production": {

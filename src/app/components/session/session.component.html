@@ -1,5 +1,7 @@
 <div [hidden]="showAttachments || showNotes">
-  <div class="slds-page-header" style="padding: 0.3rem;">
+
+  <div class="slds-page-header slds-page-header_record-home" style="padding: 0.3rem;">
+
     <div class="slds-page-header__row">
       <div class="slds-page-header__col-title">
         <div class="slds-media" style="align-items: center">
@@ -8,51 +10,83 @@
               <img src="{{session.recipientPhotoUrl}}" alt="Profile picture" class="image-round">
             </span>
           </div>
-          <div [hidden]="session.recipientPhotoUrl" [style]="dynamicColourAvatarStyle" class="slds-media__figure slds-p-around_medium">
+          <div [hidden]="session.recipientPhotoUrl" [style]="dynamicColourAvatarStyle"
+            class="slds-media__figure slds-p-around_medium">
             {{recipientAbbrev}}
           </div>
           <div class="slds-media__body slds-m-top_xx-small">
             <div class="slds-text-heading_small truncate">
               <span>{{session.recipientName}}</span>
             </div>
-            <div *ngIf="session.psychologistReturnDate" class="slds-text-color_error">Unavailable until {{helpersService.convertToLocalDate(session.psychologistReturnDate) | date}}</div>
+            <div *ngIf="session.psychologistReturnDate" class="slds-text-color_error">Unavailable until
+              {{helpersService.convertToLocalDate(session.psychologistReturnDate) | date}}</div>
           </div>
         </div>
       </div>
     </div>
+
+    <div class="slds-page-header__row slds-page-header__row_gutters">
+      <div class="slds-page-header__col-details">
+        <ul class="slds-page-header__detail-row">
+          <li class="slds-page-header__detail-block">
+            <div class="slds-text-title slds-truncate" title="Field 1">Package</div>
+            <div class="slds-truncate" title="Description that demonstrates truncation with a long text field.">
+              Description that demonstrates truncation with a long text field.</div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
+
+
+
+
+
+
+
+
 
   <div class="slds-media slds-comment slds-hint-parent slds-m-top_medium">
     <div class="slds-media__body">
       <div class="slds-publisher slds-publisher_comment slds-is-active">
 
         <label for="messageInput" class="slds-assistive-text">Type your message here...</label>
-        <textarea #messageInput [(ngModel)]="messageText" (keyup)="handleMessageInputChange()" (onpaste)="handleMessageInputChange()" [maxlength]="maxMessageChars" class="slds-publisher__input slds-input_bare slds-text-longform" placeholder="Type your message here..." id="messageInput"></textarea>
+        <textarea #messageInput [(ngModel)]="messageText" (keyup)="handleMessageInputChange()"
+          (onpaste)="handleMessageInputChange()" [maxlength]="maxMessageChars"
+          class="slds-publisher__input slds-input_bare slds-text-longform" placeholder="Type your message here..."
+          id="messageInput"></textarea>
 
         <div class="slds-publisher__actions slds-grid slds-grid_align-spread">
           <ul class="slds-grid">
             <li>
-              <button (click)="openAttachments()" class="slds-button slds-button_icon slds-button_icon-container" title="Attach a file">
+              <button (click)="openAttachments()" class="slds-button slds-button_icon slds-button_icon-container"
+                title="Attach a file">
                 <svg class="button-icon-medium" aria-hidden="true">
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#attach" />
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#attach" />
                 </svg>
                 <span class="slds-assistive-text">Attach a file</span>
               </button>
-              <button (click)="toggleExpand()" class="slds-button slds-button_icon slds-button_icon-container" title="Expand text area">
+              <button (click)="toggleExpand()" class="slds-button slds-button_icon slds-button_icon-container"
+                title="Expand text area">
                 <svg class="button-icon-medium" aria-hidden="true">
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#expand_alt" />
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#expand_alt" />
                 </svg>
                 <span class="slds-assistive-text">Expand text area</span>
               </button>
-              <button *ngIf="authState.IsPsychologist" (click)="openNotes()" class="slds-button slds-button_icon slds-button_icon-container" title="View patient notes">
+              <button *ngIf="authState.IsPsychologist" (click)="openNotes()"
+                class="slds-button slds-button_icon slds-button_icon-container" title="View patient notes">
                 <svg class="button-icon-medium" aria-hidden="true">
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#note" />
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#note" />
                 </svg>
                 <span class="slds-assistive-text">View patient notes</span>
               </button>
             </li>
           </ul>
-          <button [disabled]="messageText.length === 0" (click)="createMessage()" class="slds-button slds-button_outline-brand">Send</button>
+          <button [disabled]="messageText.length === 0" (click)="createMessage()"
+            class="slds-button slds-button_outline-brand">Send</button>
         </div>
       </div>
     </div>
@@ -75,10 +109,12 @@
         </div>
       </li>
 
-      <li *ngFor="let message of sessionMessages" [ngClass]="{'slds-chat-listitem':true, 'slds-chat-listitem_inbound':!message.mine, 'slds-chat-listitem_outbound':message.mine}">
+      <li *ngFor="let message of sessionMessages"
+        [ngClass]="{'slds-chat-listitem':true, 'slds-chat-listitem_inbound':!message.mine, 'slds-chat-listitem_outbound':message.mine}">
         <div class="slds-chat-message">
           <div class="slds-chat-message__body">
-            <div [ngSwitch]="message.sessionMessageTypeId" [ngClass]="{'slds-chat-message__text':true, 'slds-chat-message__text_inbound':!message.mine, 'slds-chat-message__text_outbound':message.mine}">
+            <div [ngSwitch]="message.sessionMessageTypeId"
+              [ngClass]="{'slds-chat-message__text':true, 'slds-chat-message__text_inbound':!message.mine, 'slds-chat-message__text_outbound':message.mine}">
               <div *ngSwitchCase="1">
                 {{message.text}}
                 <div *ngIf="message.loading" class="slds-align_absolute-center slds-m-top_medium">
@@ -94,19 +130,24 @@
                 <div class="slds-file slds-file_card slds-file_loading slds-has-title">
                   <figure>
                     <a [href]="message.sessionMessageAttachment.url" target="_blank" class="slds-file__crop">
-                      <div *ngIf="!message.sessionMessageAttachment.url" role="status" class="slds-spinner slds-spinner_medium" style="top:35%">
+                      <div *ngIf="!message.sessionMessageAttachment.url" role="status"
+                        class="slds-spinner slds-spinner_medium" style="top:35%">
                         <span class="slds-assistive-text">Loading</span>
                         <div class="slds-spinner__dot-a"></div>
                         <div class="slds-spinner__dot-b"></div>
                       </div>
 
-                      <div *ngIf="attachmentIsImage(message.sessionMessageAttachment) && message.sessionMessageAttachment.url">
+                      <div
+                        *ngIf="attachmentIsImage(message.sessionMessageAttachment) && message.sessionMessageAttachment.url">
                         <img [src]="message.sessionMessageAttachment.url" />
                       </div>
 
-                      <span *ngIf="!attachmentIsImage(message.sessionMessageAttachment) && message.sessionMessageAttachment.url" class="slds-file__icon slds-icon_container" title="image">
+                      <span
+                        *ngIf="!attachmentIsImage(message.sessionMessageAttachment) && message.sessionMessageAttachment.url"
+                        class="slds-file__icon slds-icon_container" title="image">
                         <svg class="slds-icon" aria-hidden="true">
-                          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/doctype-sprite/svg/symbols.svg#image" />
+                          <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                            xlink:href="/assets/icons/doctype-sprite/svg/symbols.svg#image" />
                         </svg>
                         <span class="slds-assistive-text">Image Title</span>
                       </span>
@@ -116,13 +157,15 @@
                           <div class="slds-media__figure slds-line-height_reset">
                             <span class="slds-icon_container" title="image">
                               <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
-                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/doctype-sprite/svg/symbols.svg#image" />
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                  xlink:href="/assets/icons/doctype-sprite/svg/symbols.svg#image" />
                               </svg>
                               <span class="slds-assistive-text">image</span>
                             </span>
                           </div>
                           <div class="slds-media__body slds-truncate">
-                            <span class="slds-file__text" style="color: black" title="Image Title">{{message.sessionMessageAttachment.fileName}}</span>
+                            <span class="slds-file__text" style="color: black"
+                              title="Image Title">{{message.sessionMessageAttachment.fileName}}</span>
                           </div>
                         </div>
                       </figcaption>
@@ -133,7 +176,8 @@
             </div>
             <div [ngSwitch]="message.mine">
               <div class="slds-chat-message__meta">
-                <span *ngSwitchCase="true">You • {{helpersService.convertToLocalDate(message.createDate) | timeAgo}}</span>
+                <span *ngSwitchCase="true">You •
+                  {{helpersService.convertToLocalDate(message.createDate) | timeAgo}}</span>
                 <span *ngSwitchCase="false">{{message.senderName}} •
                   {{helpersService.convertToLocalDate(message.createDate) | timeAgo}}</span>
               </div>
@@ -159,9 +203,11 @@
 </div>
 
 <div [hidden]="!showAttachments">
-  <app-session-attachments #attachmentsCmp [sessionId]="attachmentsSessionId" (onFileUpload)="handleFileUpload($event)" (onClose)="handleAttachmentsClose()"></app-session-attachments>
+  <app-session-attachments #attachmentsCmp [sessionId]="attachmentsSessionId" (onFileUpload)="handleFileUpload($event)"
+    (onClose)="handleAttachmentsClose()"></app-session-attachments>
 </div>
 
 <div [hidden]="!showNotes">
-  <app-session-notes [sessionId]="notesSessionId" [patientName]="session.recipientName" (onClose)="handleNotesClose()"></app-session-notes>
+  <app-session-notes [sessionId]="notesSessionId" [patientName]="session.recipientName" (onClose)="handleNotesClose()">
+  </app-session-notes>
 </div>

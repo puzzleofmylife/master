@@ -82,7 +82,9 @@ const routes: Routes = [
   { path: 'admin/psychologists/payments', component: PsychologistPaymentsComponent },
   { path: 'voucher/use', component: VoucherApplyComponent },
   { path: 'profile/package/cancel', component: PackageCancelComponent },
-  { path: 'profile/package/reactivate', component: PackageReactivateComponent }
+  { path: 'profile/package/reactivate', component: PackageReactivateComponent },
+  { path: 'assets/User-Terms-and-Conditions.pdf', redirectTo: '../assets/User-Terms-and-Conditions.pdf'},
+  { path: 'assets/Counsellor-Terms-and-conditions.pdf', redirectTo: '../assets/User-Terms-and-Conditions.pdf'}
 ];
 
 @NgModule({

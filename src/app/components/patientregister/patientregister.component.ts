@@ -46,6 +46,7 @@ export class PatientRegisterComponent implements OnInit {
 	voucherSuccessResultText: string;
 	invalidVoucherCode: boolean;
 	chosenPsychNameEncoded: string;
+	isTermsAndConditionsAccepted: boolean=false;
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -131,8 +132,10 @@ export class PatientRegisterComponent implements OnInit {
 	}
 
 	initQuestionForm(): void {
+		debugger;
 		this.patientService.getQuestions().subscribe(result => {
 			//We need to specifically instatiate PatientQuestion so its getters work
+		
 			var questions = result.map(x => new PatientQuestion(x));
 
 			let group: any = {};
@@ -345,4 +348,15 @@ export class PatientRegisterComponent implements OnInit {
 		this._packageForm.voucherCode.setValue('');
 		this.showVouchercode = false;
 	}
+
+	checkValue(event: any){
+		if(event==false)
+		{
+			this.isTermsAndConditionsAccepted=true;
+		}
+		else
+		{
+			this.isTermsAndConditionsAccepted=false;
+		}
+	 }
 }

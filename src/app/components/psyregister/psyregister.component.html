@@ -94,13 +94,19 @@
                         </div>
                     </div>
                 </div>
-
+                <br />
+                <div class="slds-form-element__label">To continue you need to agree the Terms And Conditions.<div></div>
+                    <br />
+                    <input type="checkbox" (change)="checkValue(isTermsAndConditionsAccepted)"  name="remember" style="margin-bottom:15px"> <span>&nbsp;</span> <a class="slds-m-top_medium" [routerLink]="['/assets/Counsellor-Terms-and-conditions.pdf']"  routerLinkActive="router-link-active"  target="_blank" style="color:dodgerblue">Terms And Conditions.</a>
+              
+                </div>
                 <div class="slds-m-top_medium">
                     <a [routerLink]="['/']" class="slds-button">Cancel</a>
-                    <button [disabled]="loading" class="slds-button slds-button_outline-brand btn-right"
+                    <button [disabled]="loading || !isTermsAndConditionsAccepted" class="slds-button slds-button_outline-brand btn-right"
                         routerLinkActive="router-link-active">Next</button>
                 </div>
             </div>
+            
         </form>
 
         <form [formGroup]="bankingForm" (ngSubmit)="onBankingSubmit()">

@@ -21,6 +21,7 @@ export class PsyregisterComponent implements OnInit {
   finalSumbitError: boolean = false;
   duplicateUsername: boolean;
   successEmailAddress: string;
+  isTermsAndConditionsAccepted: boolean=false;
 
   @ViewChild("photoFile") photoFile;
   @ViewChild("idDocFile") idDocFile;
@@ -309,6 +310,16 @@ export class PsyregisterComponent implements OnInit {
     });
   }
   /* --------------------------------------------------------------------- */
+  checkValue(event: any){
+		if(event==false)
+		{
+			this.isTermsAndConditionsAccepted=true;
+		}
+		else
+		{
+			this.isTermsAndConditionsAccepted=false;
+		}
+	 }
 }
 
 

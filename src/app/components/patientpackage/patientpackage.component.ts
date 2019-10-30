@@ -33,8 +33,10 @@ export class PatientPackageComponent implements OnInit {
   }
 
   private getPatientPackage() {
+    
     this.loading = true;
     this.patientService.getCurrentPatientPackage().subscribe(result => {
+      console.log(JSON.stringify(result));
       this.loading = false;
       this.currentPackage = result;
       if (this.currentPackage.statusId == 2) {
