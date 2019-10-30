@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   // baseAPIURL: "https://localhost:5001",
-  baseAPIURL: "https://puzzle-api-staging.eu-gb.mybluemix.net",
- // baseAPIURL: "https://puzzle-api-production.eu-gb.mybluemix.net",
+  baseAPIURL: "https://puzzle-api-staging.eu-gb.mybluemix.net",//---Staging api---
+ // baseAPIURL: "https://puzzle-api-production.eu-gb.mybluemix.net",//---Production api---
   applicationOutcomeDays: 7,
   emailAdmin: "admin@puzzleofmylife.com",
   checkoutFormSrc: "https://test.oppwa.com/v1/paymentWidgets.js",

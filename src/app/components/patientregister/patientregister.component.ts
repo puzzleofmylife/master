@@ -132,7 +132,6 @@ export class PatientRegisterComponent implements OnInit {
 	}
 
 	initQuestionForm(): void {
-		debugger;
 		this.patientService.getQuestions().subscribe(result => {
 			//We need to specifically instatiate PatientQuestion so its getters work
 		
